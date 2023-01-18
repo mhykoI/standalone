@@ -49,6 +49,7 @@ export function patchIPC() {
 
   ipcMain.on("RegisterPreload", (event, arg) => {
     try {
+      dialog.showMessageBox(null, { message: arg });
       app.commandLine.appendSwitch("preload", arg);
     } catch { }
   });
@@ -85,18 +86,23 @@ export function patchIPC() {
       showOverwriteConfirmation,
       message,
       showHiddenFiles,
-      modal = false
+      modal = false,
+      buttons,
+      defaultId,
+      type,
+      cancelId
     } = {}
   ) => {
     const show = {
       open: dialog.showOpenDialog,
-      save: dialog.showSaveDialog
+      save: dialog.showSaveDialog,
+      message: dialog.showMessageBox,
     }[mode];
     if (!show) return { error: `Invalid mode.`, ok: false };
 
     return {
       ok: false,
-      data: show.apply(dialog, [
+      data: await show.apply(dialog, [
         modal && BrowserWindow.fromWebContents(event.sender),
         {
           defaultPath,
@@ -104,6 +110,10 @@ export function patchIPC() {
           title,
           message,
           createDirectory: true,
+          buttons,
+          type,
+          defaultId,
+          cancelId,
           properties: [
             showHiddenFiles && "showHiddenFiles",
             openDirectory && "openDirectory",
