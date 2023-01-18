@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "electron": "^14.0.0-beta.25",
+    "esbuild": "^0.17.2"
+  },
+  "scripts": {
+    "build": "esbuild ./src/index.js --minify --format=cjs --platform=node --external:electron --external:request --external:path --external:fs --bundle --outfile=./injector.js"
+  }
+}
