@@ -2,25 +2,25 @@ import commonData from '../../data/common.json';
 import webpack from './webpack.js';
 
 
-function mapObject(val) {
-  return Object.fromEntries(
-    Object.entries(val).map(([key, value]) => {
-      if (typeof value == 'object') {
-        if (value?.__ === true) {
-          return [key, webpack.findByFinder(value)];
+function mapObject(temp, inp) {
+  if (!temp?.__cache__) temp.__cache__ = {};
+  for (const key in inp) {
+    if (inp?.[key]?.__ === true) {
+      Object.defineProperty(temp, key, {
+        get() {
+          if (temp.__cache__[key]) return temp.__cache__[key];
+          return temp.__cache__[key] = webpack.findByFinder(inp[key]);
         }
-        return [key, mapObject(value)];
-      } else {
-        return [key, value];
-      }
-    })
-  );
+      })
+    } else {
+      temp[key] = mapObject(inp[key]);
+    }
+  }
 }
 
-let commonAPI = {
-  __cache__: {}
-};
-commonAPI = Object.assign(commonAPI, mapObject(commonData.common));
+
+let commonAPI = { __cache__: {} };
+mapObject(commonAPI, commonData.common);
 {
   let paths = [
     "exports.Z",
@@ -43,6 +43,5 @@ commonAPI = Object.assign(commonAPI, mapObject(commonData.common));
     })
   })
 }
-
 
 export default commonAPI;

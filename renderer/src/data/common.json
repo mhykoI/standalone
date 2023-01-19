@@ -21,6 +21,27 @@
         ]
       }
     },
+    "React": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "createElement",
+            "useState"
+          ]
+        ]
+      }
+    },
     "Rest": {
       "__": true,
       "path": {
