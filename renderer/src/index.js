@@ -1,1 +1,4 @@
-console.log("RENDERER: Hello, world!");
+import api from "./api";
+
+window.acord = api;
+window.global = window;

@@ -13,17 +13,21 @@ export function patchBrowserWindow() {
 
       this.__ORIGINAL_PRELOAD__ = originalPreload;
       process.env.ORIGINAL_DISCORD_PRELOAD = originalPreload;
+      process.env.ACORD_PRELOAD_KEY = Array(2).fill(0).map(() => Math.random().toString(36).slice(2)).join("").replace(/^\d+/, "");
 
       this.webContents.on("dom-ready", async () => {
         const location = path.join(__dirname, "renderer.js");
         if (!fs.existsSync(location)) return;
-        const content = fs.readFileSync(location, "utf-8");
-        this.webContents.executeJavaScript(`(() => { try { ${content}; return true; } catch (error) { console.error(error); return false; } })();`);
+        let content = fs.readFileSync(location, "utf-8");
+        content = content.replace(/<PRELOAD_KEY>/gm, process.env.ACORD_PRELOAD_KEY);
+        this.webContents.executeJavaScript(content);
       });
 
       this.webContents.on("did-navigate-in-page", () => {
         this.webContents.send("NavigateInPage");
       });
+
+      this.setMinimumSize(1, 1);
     }
   }
 

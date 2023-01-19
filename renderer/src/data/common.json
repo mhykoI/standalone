@@ -1,0 +1,564 @@
+{
+  "common": {
+    "FluxDispatcher": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "_currentDispatchActionType",
+            "dispatch"
+          ]
+        ]
+      }
+    },
+    "Rest": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "get",
+            "post",
+            "getAPIBaseURL"
+          ]
+        ]
+      }
+    },
+    "Flux": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "connectStores",
+            "destroy"
+          ]
+        ]
+      }
+    },
+    "ActivityActions": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "sendActivityInvite",
+            "updateActivity"
+          ]
+        ]
+      }
+    },
+    "AckActions": {
+      "__": true,
+      "filter": {
+        "in": "strings",
+        "by": [
+          [
+            "type:\"BULK_ACK\""
+          ],
+          []
+        ]
+      },
+      "path": {
+        "export": true,
+        "before": "exports"
+      },
+      "map": {
+        "ack": [
+          "type:\"CHANNEL_ACK\"",
+          "messageId",
+          "channelId"
+        ],
+        "bulkAck": [
+          "type:\"BULK_ACK\""
+        ]
+      }
+    },
+    "AnalyticsActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "isThrottled",
+            "track"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "AnimationActions": {
+      "__": true,
+      "export": false,
+      "filter": {
+        "in": "properties",
+        "by": [
+          [
+            "spring",
+            "decay"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "ConnectionActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "setShowActivity",
+            "setVisibility"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "RTCConnectionActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "getChannelId",
+            "getGuildId",
+            "getRTCConnectionId"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "EmojiActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "translateInlineEmojiToSurrogates",
+            "translateSurrogatesToInlineEmoji"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "EmojiStateActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "getURL",
+            "isEmojiDisabled"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "FolderSettingsActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "updateLocale",
+            "updateTheme"
+          ]
+        ]
+      },
+      "map": {
+        "saveGuildFolders": [
+          "guildFolders"
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ],
+        "before": "exports"
+      }
+    },
+    "GuildNotificationsActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "updateChannelOverrideSettings",
+            "updateGuildNotificationSettings"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "InternalReact": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "jsx",
+            "jsxs",
+            "Fragment"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "LoginActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "login",
+            "logout"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "QueryActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "queryEmojiResults",
+            "queryFriends"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "MessageActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "receiveMessage",
+            "sendMessage"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "PremiumActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "isPremium",
+            "canUseEmojisEverywhere"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "VoiceActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "selectVoiceChannel",
+            "disconnect"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "TypingActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "startTyping",
+            "stopTyping"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "GuildActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "setChannel",
+            "setServerMute"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "InviteActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "acceptInvite",
+            "acceptInviteAndTransitionToInviteChannel"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "MediaEngineActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "toggleSelfDeaf",
+            "toggleSelfMute"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "i18n": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "_requestedLocale",
+            "getDefaultLocale"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "uuid": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "v1",
+            "v4"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
+    "hljs": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "highlightAll",
+            "highlight"
+          ]
+        ]
+      },
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    }
+  }
+}

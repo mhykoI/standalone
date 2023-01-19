@@ -1,34 +1,28 @@
 import { contextBridge } from "electron";
 import { patchDevTools } from "./patches/devtools.js";
+import { patchWindowActions } from "./patches/patchWindowActions.js";
 import { patchPreload } from "./patches/preload.js";
 import { patchWebpackChunk } from "./patches/webpack-chunk.js";
 
-function deepClone(obj, hash = new WeakMap()) {
-  if (Object(obj) !== obj) return obj; // primitives
-  if (hash.has(obj)) return hash.get(obj); // cyclic reference
-  const result = obj instanceof Set ? new Set(obj) // See note about this!
-    : obj instanceof Map ? new Map(Array.from(obj, ([key, val]) =>
-      [key, deepClone(val, hash)]))
-      : obj instanceof Date ? new Date(obj)
-        : obj instanceof RegExp ? new RegExp(obj.source, obj.flags)
-          // ... add here any specific treatment for other classes ...
-          // and finally a catch-all:
-          : obj.constructor ? new obj.constructor()
-            : Object.create(null);
-  hash.set(obj, result);
-  return Object.assign(result, ...Object.keys(obj).map(
-    key => ({ [key]: deepClone(obj[key], hash) })));
-}
-
-contextBridge.exposeInMainWorld("acord", {
-  modules: {
-    require
-  },
-  internal: {
-    process
+contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
+  require,
+  process: {
+    cwd: process.cwd(),
+    kill: process.kill,
+    platform: process.platform,
+    version: process.version,
+    versions: process.versions,
+    env: JSON.parse(JSON.stringify(process.env))
   }
 });
 
+patchWindowActions();
 patchWebpackChunk();
 patchDevTools();
 patchPreload();
+
+setInterval(() => {
+  try {
+    DiscordNative.processUtils.purgeMemory();
+  } catch { };
+}, 60000);

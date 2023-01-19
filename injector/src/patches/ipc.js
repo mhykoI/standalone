@@ -47,6 +47,46 @@ export function patchIPC() {
     } catch { }
   });
 
+  ipcMain.on("QuitApp", () => {
+    app.quit();
+    setTimeout(() => {
+      process.exit(0);
+    }, 100);
+  });
+
+  ipcMain.on("HideWindow", (event, arg) => {
+    const bw = BrowserWindow.fromWebContents(event.sender);
+    bw.hide();
+  });
+
+  ipcMain.on("MinimizeWindow", (event, arg) => {
+    const bw = BrowserWindow.fromWebContents(event.sender);
+    bw.minimize();
+  });
+
+  ipcMain.on("MaximizeWindow", (event, arg) => {
+    const bw = BrowserWindow.fromWebContents(event.sender);
+    bw.maximize();
+  });
+
+  ipcMain.on("ToggleMaximizeWindow", (event, arg) => {
+    const bw = BrowserWindow.fromWebContents(event.sender);
+    if (bw.isMaximized()) {
+      bw.unmaximize();
+    } else {
+      bw.maximize();
+    }
+  });
+
+  ipcMain.on("ToggleMinimizeWindow", (event, arg) => {
+    const bw = BrowserWindow.fromWebContents(event.sender);
+    if (bw.isMinimized()) {
+      bw.restore();
+    } else {
+      bw.minimize();
+    }
+  });
+
   ipcMain.on("RegisterPreload", (event, arg) => {
     try {
       app.commandLine.appendSwitch("preload", arg);
