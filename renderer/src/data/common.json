@@ -259,33 +259,6 @@
         ]
       }
     },
-    "FolderSettingsActions": {
-      "__": true,
-      "filter": {
-        "export": false,
-        "in": "properties",
-        "by": [
-          [
-            "updateLocale",
-            "updateTheme"
-          ]
-        ]
-      },
-      "map": {
-        "saveGuildFolders": [
-          "guildFolders"
-        ]
-      },
-      "path": {
-        "after": [
-          "exports.Z",
-          "exports.ZP",
-          "exports.default",
-          "exports"
-        ],
-        "before": "exports"
-      }
-    },
     "GuildNotificationsActions": {
       "__": true,
       "filter": {
