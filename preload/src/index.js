@@ -12,7 +12,11 @@ contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
     platform: process.platform,
     version: process.version,
     versions: process.versions,
-    env: JSON.parse(JSON.stringify(process.env))
+    env: (() => {
+      let env = JSON.parse(JSON.stringify(process.env));
+      delete env.ACORD_PRELOAD_KEY;
+      return env;
+    })()
   }
 });
 
