@@ -19,7 +19,7 @@ export function patchIPC() {
     app.relaunch();
   });
 
-  ipcMain.on("DevTools:Open", (event, arg) => {
+  ipcMain.on("OpenDevTools", (event, arg) => {
     try {
       event.sender.openDevTools({
         mode: arg,
@@ -28,13 +28,13 @@ export function patchIPC() {
     } catch { }
   });
 
-  ipcMain.on("DevTools:Close", (event) => {
+  ipcMain.on("CloseDevTools", (event) => {
     try {
       event.sender.closeDevTools();
     } catch { }
   });
 
-  ipcMain.on("DevTools:Toggle", (event, arg) => {
+  ipcMain.on("ToggleDevTools", (event, arg) => {
     try {
       if (event.sender.isDevToolsOpened()) {
         event.sender.closeDevTools();
@@ -49,7 +49,6 @@ export function patchIPC() {
 
   ipcMain.on("RegisterPreload", (event, arg) => {
     try {
-      dialog.showMessageBox(null, { message: arg });
       app.commandLine.appendSwitch("preload", arg);
     } catch { }
   });

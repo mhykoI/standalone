@@ -1,10 +1,11 @@
 import { contextBridge } from "electron";
+import { patchDevTools } from "./patches/devtools.js";
 import { patchPreload } from "./patches/preload.js";
 import { patchWebpackChunk } from "./patches/webpack-chunk.js";
 
-patchWebpackChunk();
-patchPreload();
+contextBridge.exposeInMainWorld("require", require);
+contextBridge.exposeInMainWorld("process", process);
 
-setInterval(() => {
-  console.log("PRELOAD: Hello, world!");
-}, 1000);
+patchWebpackChunk();
+patchDevTools();
+patchPreload();

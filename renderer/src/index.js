@@ -1,3 +1,1 @@
-setInterval(() => {
-  console.log("RENDERER: Hello, world!");
-}, 1000);
+console.log("RENDERER: Hello, world!");

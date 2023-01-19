@@ -15,3 +15,4 @@ if (!process.argv.includes("--original")) {
   patchHeaders();
   patchIPC();
 }
+
