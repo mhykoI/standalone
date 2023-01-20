@@ -1,4 +1,4 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { patchDevTools } from "./patches/devtools.js";
 import { patchWindowActions } from "./patches/patchWindowActions.js";
 import { patchPreload } from "./patches/preload.js";
@@ -17,6 +17,9 @@ contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
       delete env.ACORD_PRELOAD_KEY;
       return env;
     })()
+  },
+  isDevToolsOpen() {
+    return ipcRenderer.sendSync("IsDevToolsOpen");
   }
 });
 

@@ -1,4 +1,8 @@
 import api from "./api";
 
-window.acord = api;
+Object.defineProperty(window, "acord", {
+  get() {
+    return api.exposedAPI;
+  }
+});
 window.global = window;

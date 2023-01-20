@@ -9,6 +9,7 @@ function build(prefix = "Acord", type, color) {
 
 export default {
   log: build("Acord", "log", "#00fbb0"),
+  debug: build("Acord Debug", "debug", "#00fbb0"),
   info: build("Acord Info", "log", "#82aaff"),
   warn: build("Acord Warn", "warn", "#debf18"),
   error: build("Acord Error", "error", "#ef5858"),
