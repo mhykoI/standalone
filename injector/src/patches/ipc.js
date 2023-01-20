@@ -34,6 +34,10 @@ export function patchIPC() {
     } catch { }
   });
 
+  ipcMain.handle("IsDevToolsOpen", (event) => {
+    return event.sender.isDevToolsOpened();
+  });
+
   ipcMain.on("ToggleDevTools", (event, arg) => {
     try {
       if (event.sender.isDevToolsOpened()) {
