@@ -100,43 +100,48 @@ function finderFindFunction(entries, strings) {
 
 
 export function findByFinder(req, finder = {}) {
-  const defaultExport = !!finder?.filter?.export;
-
   let found = null;
 
-  switch (finder.filter.in) {
-    case "properties": {
-      if (finder.filter.by?.[1]?.length) {
-        found = find(req, (m) => checkModuleProps(m, finder.filter.by?.[0] || []) && checkModuleProps(m, finder.filter.by?.[1] || [], true), { defaultExport });
-      } else {
-        found = find(req, (m) => checkModuleProps(m, finder.filter.by?.[0] || []), { defaultExport });
+  if (typeof finder?.filter === "string") {
+    found = find(req, wrapFilter(eval(`(($)=>{ try { return (${finder.filter}); } catch { return false; } })`)), { defaultExport: false });
+  } else if (typeof finder?.filter === "function") {
+    found = find(req, wrapFilter(finder.filter), { defaultExport: false });
+  } else {
+    const defaultExport = !!finder?.filter?.export;
+
+    switch (finder.filter.in) {
+      case "properties": {
+        if (finder.filter.by?.[1]?.length) {
+          found = find(req, wrapFilter((m) => checkModuleProps(m, finder.filter.by?.[0] || []) && checkModuleProps(m, finder.filter.by?.[1] || [], true)), { defaultExport });
+        } else {
+          found = find(req, wrapFilter((m) => checkModuleProps(m, finder.filter.by?.[0] || [])), { defaultExport });
+        }
+        break;
       }
-      break;
-    }
-    case "prototypes": {
-      if (finder.filter.by?.[1]?.length) {
-        found = find(req, (m) => checkModulePrototypes(m, finder.filter.by?.[0] || []) && checkModulePrototypes(m, finder.filter.by?.[1] || [], true), { defaultExport });
-      } else {
-        found = find(req, (m) => checkModulePrototypes(m, finder.filter.by?.[0] || []), { defaultExport });
+      case "prototypes": {
+        if (finder.filter.by?.[1]?.length) {
+          found = find(req, wrapFilter((m) => checkModulePrototypes(m, finder.filter.by?.[0] || []) && checkModulePrototypes(m, finder.filter.by?.[1] || [], true)), { defaultExport });
+        } else {
+          found = find(req, wrapFilter((m) => checkModulePrototypes(m, finder.filter.by?.[0] || [])), { defaultExport });
+        }
+        break;
       }
-      break;
-    }
-    case "strings": {
-      if (finder.filter.by?.[1]?.length) {
-        found = find(req, (m) => checkModuleStrings(m, finder.filter.by?.[0] || []) && checkModuleStrings(m, finder.filter.by?.[1] || [], true), { defaultExport });
-      } else {
-        found = find(req, (m) => checkModuleStrings(m, finder.filter.by?.[0] || []), { defaultExport });
+      case "strings": {
+        if (finder.filter.by?.[1]?.length) {
+          found = find(req, wrapFilter((m) => checkModuleStrings(m, finder.filter.by?.[0] || []) && checkModuleStrings(m, finder.filter.by?.[1] || [], true)), { defaultExport });
+        } else {
+          found = find(req, wrapFilter((m) => checkModuleStrings(m, finder.filter.by?.[0] || [])), { defaultExport });
+        }
+        break;
       }
-      break;
     }
   }
 
   if (!found) return null;
 
-  if (finder.path?.before) found = Array.isArray(finder.path.before) ? finder.path.before.map(i => _.get(found, i)).find(i => i) : _.get(found, finder.path.before);
+  if (finder.path?.before) found = (Array.isArray(finder.path.before) ? finder.path.before.map(i => _.get(found, i)).find(i => i) : _.get(found, finder.path.before)) || found;
   if (finder.assign) found = Object.assign({}, found);
 
-  // if (funcs.length) found = finderFindFunction(Object.entries(found || {}), funcs)[1];
   if (!found) return null;
 
   if (finder.map) {
@@ -166,7 +171,7 @@ export function findByFinder(req, finder = {}) {
     found = temp;
   }
 
-  if (finder.path?.after) found = Array.isArray(finder.path.after) ? finder.path.after.map(i => _.get(found, i)).find(i => i) : _.get(found, finder.path.after);
+  if (finder.path?.after) found = (Array.isArray(finder.path.after) ? finder.path.after.map(i => _.get(found, i)).find(i => i) : _.get(found, finder.path.after)) || found;
 
   return found;
 }

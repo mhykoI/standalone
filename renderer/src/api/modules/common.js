@@ -13,7 +13,8 @@ function mapObject(temp, inp) {
         }
       })
     } else {
-      temp[key] = mapObject(inp[key]);
+      temp[key] = {};
+      mapObject(temp[key], inp[key]);
     }
   }
 }

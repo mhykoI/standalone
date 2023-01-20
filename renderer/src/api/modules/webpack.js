@@ -20,5 +20,56 @@ export default {
   },
   findByFinder(finder) {
     return complexFinder.findByFinder(this.req, finder);
-  }
+  },
+  findByProperties(...props) {
+    return this.findByFinder({
+      filter: {
+        export: false,
+        in: "properties",
+        by: [props]
+      },
+      path: {
+        before: [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    });
+  },
+  findByPrototypes(...props) {
+    return this.findByFinder({
+      filter: {
+        export: false,
+        in: "properties",
+        by: [props]
+      },
+      path: {
+        before: [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    });
+  },
+  findByStrings(...props) {
+    return this.findByFinder({
+      filter: {
+        export: false,
+        in: "properties",
+        by: [props]
+      },
+      path: {
+        before: [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    });
+  },
 };

@@ -1,5 +1,145 @@
 {
   "common": {
+    "modals": {
+      "components": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "properties",
+          "by": [
+            [
+              "Header",
+              "Footer"
+            ]
+          ]
+        },
+        "path": {
+          "after": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      "ModalRoot": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "strings",
+          "by": [
+            [
+              "ENTERING"
+            ]
+          ]
+        },
+        "path": {
+          "after": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      "actions": {
+        "open": {
+          "__": true,
+          "filter": {
+            "export": false,
+            "in": "strings",
+            "by": [
+              [
+                "onCloseCallback",
+                "Layer"
+              ]
+            ]
+          },
+          "path": {
+            "before": [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ],
+            "after": [
+              "open"
+            ]
+          },
+          "map": {
+            "open": [
+              "onCloseCallback",
+              "Layer"
+            ]
+          }
+        }
+      }
+    },
+    "components": {
+      "Button": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "properties",
+          "by": [
+            [
+              "BorderColors"
+            ]
+          ]
+        },
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ],
+          "after": "Button"
+        },
+        "map": {
+          "Button": [
+            ".FILLED",
+            ".onMouseLeave"
+          ]
+        }
+      },
+      "ConfirmationModal": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "strings",
+          "by": [
+            [
+              ".confirmButtonColor"
+            ]
+          ]
+        },
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      "Text": {
+        "__": true,
+        "filter": "$?.Sizes?.SIZE_32 && $.Colors",
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      }
+    },
+    "Markdown": {
+      "__": true,
+      "filter": "$?.prototype?.render && $.rules"
+    },
     "FluxDispatcher": {
       "__": true,
       "path": {
