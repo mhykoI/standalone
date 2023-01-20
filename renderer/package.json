@@ -5,5 +5,9 @@
   },
   "scripts": {
     "build": "esbuild ./src/index.js --sourcemap=inline --format=cjs --platform=node --external:electron --external:path --external:fs --bundle --outfile=./build.js"
+  },
+  "dependencies": {
+    "idb-keyval": "^6.2.0",
+    "nests": "^2.3.1"
   }
 }
