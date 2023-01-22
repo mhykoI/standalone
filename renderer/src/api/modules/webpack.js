@@ -15,6 +15,12 @@ export default {
   find(filter, config = {}) {
     return complexFinder.find(this.req, complexFinder.wrapFilter(filter), config);
   },
+  lazyFind(filter, config = {}) {
+    return complexFinder.lazyFind(complexFinder.wrapFilter(filter), config);
+  },
+  lazyFindByFinder(finder) {
+    return complexFinder.lazyFindByFinder(finder);
+  },
   filter(filter, config = {}) {
     return complexFinder.find(this.req, complexFinder.wrapFilter(filter), { ...config, all: true });
   },

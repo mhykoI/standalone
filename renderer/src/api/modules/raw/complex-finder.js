@@ -269,8 +269,6 @@ function finderMap(__original__, map) {
   return temp;
 }
 
-// TODO: optimize repeated calls
-
 export function findByFinder(req, finder = {}) {
   const defaultExport = !!finder?.filter?.export;
   let found = find(req, finderToFilter(finder?.filter), { defaultExport });
@@ -291,7 +289,7 @@ export function findByFinder(req, finder = {}) {
 
 
 
-export async function lazyFindByFinder(req, finder = {}) {
+export async function lazyFindByFinder(finder = {}) {
   let found = await lazyFind(findByFinder(finder), { searchExports: false });
 
   if (!found) return null;
