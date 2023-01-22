@@ -7,25 +7,29 @@ import storage from './storage';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
 
+function devError(api) {
+  return new Error(`The ${api} API can only be accessed when Dev mode is enabled!`);
+}
+
 export default {
   exposedAPI: {
     dev,
     utils,
     i18n,
     get storage() {
-      if (!dev.enabled) throw new Error("Storage API can only be accessed when Dev mode is enabled!");
+      if (!dev.enabled) throw devError("Storage");
       return storage;
     },
     get modules() {
-      if (!dev.enabled) throw new Error("Modules API can only be accessed when Dev mode is enabled!");
+      if (!dev.enabled) throw devError("Modules");
       return modules;
     },
     get extensions() {
-      if (!dev.enabled) throw new Error("Extensions API can only be accessed when Dev mode is enabled!");
+      if (!dev.enabled) throw devError("Extensions");
       return extensions;
     },
     get internal() {
-      if (!dev.enabled) throw new Error("Internal API can only be accessed when Dev mode is enabled!");
+      if (!dev.enabled) throw devError("Internal");
       return {
         process: globalThis["<PRELOAD_KEY>"].process,
         isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen,
