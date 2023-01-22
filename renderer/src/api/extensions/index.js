@@ -4,7 +4,7 @@ import modules from "../modules/index.js";
 import storage from "../storage/index.js";
 
 /**
- * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string }, reason: string }} cfg 
+ * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string }, reason: string }} cfg 
  */
 async function buildAPI(cfg) {
   const persist = await storage.createPersistNest(`Extension;${cfg.about.slug}`);
@@ -13,7 +13,8 @@ async function buildAPI(cfg) {
       __cache__: {
         common: {},
         node: {},
-        custom: {}
+        custom: {},
+        customLazy: {}
       },
       require(name) {
         if (!dev.enabled) {
@@ -40,7 +41,24 @@ async function buildAPI(cfg) {
           if (out.modules.__cache__.custom[prop]) return out.modules.__cache__.custom[prop];
           let data = cfg.modules.custom.find(i => i.name === prop);
           if (!data) return null;
-          return out.modules.__cache__.custom[prop] = modules.webpack.findByFinder(data.finder);
+          if (data.lazy) {
+            let prom = new Promise(async (resolve, reject) => {
+              let r = await modules.webpack.lazyFindByFinder(data.finder);
+              out.modules.__cache__.customLazy[prop] = r;
+              resolve(r);
+            });
+            out.modules.__cache__.custom[prop] = {
+              get() {
+                return prom;
+              },
+              get value() {
+                return out.modules.__cache__.customLazy[prop];
+              }
+            };
+          } else {
+            out.modules.__cache__.custom[prop] = modules.webpack.findByFinder(data.finder);
+          }
+          return out.modules.__cache__.custom[prop];
         }
       }),
     },
