@@ -18,7 +18,7 @@ async function buildAPI(cfg) {
       },
       require(name) {
         if (!dev.enabled) {
-          if (out.modules.__cache__.node[prop]) return out.modules.__cache__.node[prop];
+          if (typeof out.modules.__cache__.node[prop] !== "undefined") return out.modules.__cache__.node[prop];
           if (cfg.modules.node.some(i => i.name === name)) return out.modules.__cache__.node[prop] = modules.require(name);
         } else {
           return modules.require(name);
@@ -28,7 +28,7 @@ async function buildAPI(cfg) {
       common: new Proxy({}, {
         get(_, prop) {
           if (!dev.enabled) {
-            if (out.modules.__cache__.common[prop]) return out.modules.__cache__.common[prop];
+            if (typeof out.modules.__cache__.common[prop] !== "undefined") return out.modules.__cache__.common[prop];
             if (cfg.modules.common.some(i => i.name === prop)) return out.modules.__cache__.common[prop] = modules.common[prop];
           } else {
             return modules.common[prop];
@@ -38,7 +38,7 @@ async function buildAPI(cfg) {
       }),
       custom: new Proxy({}, {
         get(_, prop) {
-          if (out.modules.__cache__.custom[prop]) return out.modules.__cache__.custom[prop];
+          if (typeof out.modules.__cache__.custom[prop] !== "undefined") return out.modules.__cache__.custom[prop];
           let data = cfg.modules.custom.find(i => i.name === prop);
           if (!data) return null;
           if (data.lazy) {
@@ -56,7 +56,12 @@ async function buildAPI(cfg) {
               }
             };
           } else {
-            out.modules.__cache__.custom[prop] = modules.webpack.findByFinder(data.finder);
+            let value = modules.webpack.findByFinder(data.finder);
+            try {
+              out.modules.__cache__.custom[prop] = value ? Object.assign(value, { value, get() { return value } }) : null;
+            } catch {
+              out.modules.__cache__.custom[prop] = value ? { value, get() { return value } } : null;
+            }
           }
           return out.modules.__cache__.custom[prop];
         }
