@@ -1,4 +1,4 @@
-import nests from "nests";
+import * as nests from "nests";
 import * as idbKeyval from "idb-keyval";
 import { deCycled, revive } from "../../lib/json-decycled";
 export default {

@@ -52,12 +52,12 @@ const pushListeners = new Set();
   function handlePush(chunk) {
     const [, modules] = chunk;
 
-    for (const moduleId of modules) {
+    for (const moduleId in Object.keys(modules || {})) {
       const ogModule = modules[moduleId];
 
       modules[moduleId] = (module, exports, require) => {
         try {
-          ogModule(module, exports, require);
+          ogModule.call(null, module, exports, require);
 
           pushListeners.forEach(listener => {
             try {
@@ -205,8 +205,7 @@ function finderFindFunction(entries, strings) {
 }
 
 export function finderToFilter(finder) {
-  let filter = null;
-
+  let found = () => false;
   if (typeof finder?.filter === "string") {
     found = wrapFilter(eval(`(($)=>{ try { return (${finder.filter}); } catch { return false; } })`));
   } else if (typeof finder?.filter === "function") {
@@ -239,8 +238,7 @@ export function finderToFilter(finder) {
       }
     }
   }
-
-  return filter;
+  return found;
 }
 
 function finderMap(__original__, map) {
@@ -271,7 +269,7 @@ function finderMap(__original__, map) {
 
 export function findByFinder(req, finder = {}) {
   const defaultExport = !!finder?.filter?.export;
-  let found = find(req, finderToFilter(finder?.filter), { defaultExport });
+  let found = find(req, finderToFilter(finder), { defaultExport });
 
   if (!found) return null;
 
@@ -290,7 +288,7 @@ export function findByFinder(req, finder = {}) {
 
 
 export async function lazyFindByFinder(finder = {}) {
-  let found = await lazyFind(findByFinder(finder), { searchExports: false });
+  let found = await lazyFind(finderToFilter(finder), { searchExports: false });
 
   if (!found) return null;
 

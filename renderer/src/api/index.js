@@ -2,7 +2,7 @@ import modules from './modules';
 import dev from './dev';
 import utils from './utils';
 import extensions from './extensions';
-import i18n from './i18n';
+import out from './i18n';
 import storage from './storage';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
@@ -15,7 +15,7 @@ export default {
   exposedAPI: {
     dev,
     utils,
-    i18n,
+    i18n: out,
     get storage() {
       if (!dev.enabled) throw devError("Storage");
       return storage;
@@ -41,7 +41,7 @@ export default {
     modules,
     utils,
     extensions,
-    i18n,
+    i18n: out,
     storage,
     internal: {
       process: globalThis["<PRELOAD_KEY>"].process,
