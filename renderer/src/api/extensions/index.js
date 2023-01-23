@@ -1,3 +1,4 @@
+import { BasicEventEmitter } from "../../lib/BasicEventEmitter.js";
 import dev from "../dev/index.js";
 import i18n from "../i18n/index.js";
 import modules from "../modules/index.js";
@@ -76,7 +77,8 @@ async function buildAPI(cfg) {
     extension: {
       config: JSON.parse(JSON.stringify(cfg)),
       persist,
-      i18n: await buildExtensionI18N(cfg)
+      i18n: await buildExtensionI18N(cfg),
+      events: new BasicEventEmitter()
     }
   };
 

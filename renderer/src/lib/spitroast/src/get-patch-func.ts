@@ -4,7 +4,7 @@
 
 import hook from "./hook";
 import { patchedObjects, PatchType } from "./shared";
-import { unPatch } from "./unPatch";
+import { unPatch } from "./un-patch";
 
 // creates a hook if needed, else just adds one to the patches array
 export default <CallbackType extends Function>(patchType: PatchType) =>

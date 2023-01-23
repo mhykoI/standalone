@@ -4,6 +4,8 @@ import utils from './utils';
 import extensions from './extensions';
 import out from './i18n';
 import storage from './storage';
+import events from './events';
+import patcher from './patcher/index.js';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
 
@@ -16,6 +18,11 @@ export default {
     dev,
     utils,
     i18n: out,
+    events,
+    get patcher() {
+      if (!dev.enabled) throw devError("Patcher");
+      return patcher;
+    },
     get storage() {
       if (!dev.enabled) throw devError("Storage");
       return storage;
@@ -43,6 +50,8 @@ export default {
     extensions,
     i18n: out,
     storage,
+    events,
+    patcher,
     internal: {
       process: globalThis["<PRELOAD_KEY>"].process,
       isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen,

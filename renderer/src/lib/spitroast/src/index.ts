@@ -1,5 +1,5 @@
-import getPatchFunc from "./getPatchFunc";
-import { unPatchAll } from "./unPatch";
+import getPatchFunc from "./get-patch-func";
+import { unPatchAll } from "./un-patch";
 import { patchedObjects as patched } from "./shared";
 
 type BeforeCallback = (args: any[]) => void | undefined | any[];
