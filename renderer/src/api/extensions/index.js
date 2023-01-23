@@ -4,12 +4,13 @@ import i18n from "../i18n/index.js";
 import modules from "../modules/index.js";
 import storage from "../storage/index.js";
 import { buildExtensionI18N } from "./i18n.js";
+import * as nests from "nests";
 
 /**
  * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string }, reason: string }} cfg 
  */
 async function buildAPI(cfg) {
-  const persist = await storage.createPersistNest(`Extension;${cfg.about.slug}`);
+  const persist = await storage.createPersistNest(`Extension;Persist;${cfg.about.slug}`);
   const out = {
     modules: {
       __cache__: {
@@ -85,6 +86,52 @@ async function buildAPI(cfg) {
   return out;
 }
 
-export default {
-  buildAPI
+const out = {
+  __cache__: {
+    initialized: false,
+    loaded: nests.make({})
+  },
+  storage: {
+    /** @type {nests.Nest} */
+    installed: {}
+  },
+  buildAPI,
+  async init() {
+    if (out.__cache__.initialized) return;
+    out.__cache__.initialized = true;
+    out.storage.installed = await storage.createPersistNest("Extensions;Installed");
+  },
+  /**
+   * @param {string} url 
+   */
+  async install(url, defaultConfig = {}) {
+    if (!out.__cache__.initialized) await out.init();
+    if (url.endsWith("/")) url = url.slice(0, -1);
+    if (out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is already installed.`);
+
+    let metaResp = await fetch(`${url}/extension.json`);
+    if (metaResp.status !== 200) throw new Error(`"${url}" extension is not responded with 200 status code.`);
+    let metadata = await metaResp.json();
+
+    // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
+
+    out.storage.installed.store[url] = {
+      metadata,
+      lastMetadata: metadata,
+      autoUpdate: true,
+      enabled: true,
+      ...defaultConfig
+    };
+
+    // TODO: Load extension
+  },
+  async unInstall(url) {
+    if (!out.__cache__.initialized) await out.init();
+    if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
+    delete out.storage.installed.store[url];
+
+    // TODO: unload extension
+  }
 };
+
+export default out;

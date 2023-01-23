@@ -2,7 +2,7 @@ import modules from './modules';
 import dev from './dev';
 import utils from './utils';
 import extensions from './extensions';
-import out from './i18n';
+import i18n from './i18n';
 import storage from './storage';
 import events from './events';
 import patcher from './patcher/index.js';
@@ -17,7 +17,7 @@ export default {
   exposedAPI: {
     dev,
     utils,
-    i18n: out,
+    i18n,
     events,
     get patcher() {
       if (!dev.enabled) throw devError("Patcher");
@@ -48,7 +48,7 @@ export default {
     modules,
     utils,
     extensions,
-    i18n: out,
+    i18n,
     storage,
     events,
     patcher,
