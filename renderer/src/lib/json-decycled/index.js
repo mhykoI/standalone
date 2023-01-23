@@ -103,7 +103,7 @@ function decycleWalker(parents, path, val, config) {
   }
 }
 
-module.exports = {
+export {
   deCycler,
   deCycled,
   revive

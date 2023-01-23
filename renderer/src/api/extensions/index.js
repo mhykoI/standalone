@@ -109,28 +109,79 @@ const out = {
     if (url.endsWith("/")) url = url.slice(0, -1);
     if (out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is already installed.`);
 
-    let metaResp = await fetch(`${url}/extension.json`);
-    if (metaResp.status !== 200) throw new Error(`"${url}" extension is not responded with 200 status code.`);
+    let metaResp = await fetch(`${url}/metadata.json`);
+    if (metaResp.status !== 200) throw new Error(`"${url}" extension metadata is not responded with 200 status code.`);
     let metadata = await metaResp.json();
+
+    let readmeResp = await fetch(`${url}/readme.md`);
+    let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
 
+    let sourceResp = await fetch(`${url}/source.js`);
+    if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);
+    let source = await sourceResp.text();
+
+
     out.storage.installed.store[url] = {
-      metadata,
-      lastMetadata: metadata,
-      autoUpdate: true,
-      enabled: true,
-      ...defaultConfig
+      metadata: {
+        current: metadata,
+        last: metadata
+      },
+      source,
+      readme,
+      config: {
+        autoUpdate: true,
+        enabled: true,
+        ...defaultConfig
+      }
     };
 
     // TODO: Load extension
   },
-  async unInstall(url) {
+  async uninstall(url) {
     if (!out.__cache__.initialized) await out.init();
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
+
     delete out.storage.installed.store[url];
 
-    // TODO: unload extension
+    try {
+      await out.unload(url);
+    } catch { }
+  },
+  async load(url) {
+    if (!out.__cache__.initialized) await out.init();
+    if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
+    let data = out.storage.installed.ghost[url];
+
+    if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is already loaded.`);
+
+    let api = await out.buildAPI(data.metadata);
+
+    let evaluated = out.evaluate(data.source, api);
+
+    await evaluated?.load?.();
+
+    out.__cache__.loaded.store[url] = {
+      evaluated,
+      api
+    };
+  },
+  async unload(url) {
+    if (!out.__cache__.initialized) await out.init();
+    if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
+
+    if (!out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is not loaded.`);
+
+    let { evaluated } = out.__cache__.loaded.ghost[url];
+
+    await evaluated?.unload?.();
+
+    delete out.__cache__.loaded.store[url];
+  },
+  evaluate(source, api) {
+    const $acord = api;
+    return eval(source);
   }
 };
 

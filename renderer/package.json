@@ -1,13 +1,15 @@
 {
   "devDependencies": {
     "electron": "^14.0.0-beta.25",
-    "esbuild": "^0.17.2"
+    "esbuild": "^0.17.2",
+    "esbuild-sass-plugin": "^2.4.5"
   },
   "scripts": {
-    "build": "esbuild ./src/index.js --sourcemap=inline --format=cjs --platform=node --external:electron --external:path --external:fs --bundle --outfile=./build.js"
+    "build": "node ./build.js"
   },
   "dependencies": {
     "idb-keyval": "^6.2.0",
     "nests": "^2.3.1"
-  }
+  },
+  "type": "module"
 }

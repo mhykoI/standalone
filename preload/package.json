@@ -4,6 +4,6 @@
     "esbuild": "^0.17.2"
   },
   "scripts": {
-    "build": "esbuild ./src/index.js --minify --format=cjs --platform=node --external:electron --external:path --external:fs --bundle --outfile=./build.js"
+    "build": "esbuild ./src/index.js --minify --format=cjs --platform=node --external:electron --external:path --external:fs --bundle --outfile=./dist.js"
   }
 }

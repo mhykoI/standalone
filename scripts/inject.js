@@ -8,6 +8,7 @@ cp.execSync("node ./asar.js", { stdio: "inherit", cwd: __dirname });
 const releaseInput = process.argv[2]?.toLowerCase?.();
 const release = ({ canary: "Discord Canary", ptb: "Discord PTB", stable: "Discord" })[releaseInput] || "Discord";
 
+// thx to better discord for this
 const discordPath = (function () {
   let resourcePath = "";
   if (process.platform === "win32") {
