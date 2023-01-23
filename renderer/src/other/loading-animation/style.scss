@@ -1,0 +1,29 @@
+.acord {
+  @keyframes acordLoadingFade {
+    0% {
+      opacity: 0.1;
+    }
+    100% {
+      opacity: 0.9;
+    }
+  }
+
+  &--startup-loading {
+    animation: acordLoadingFade 0.5s alternate infinite linear;
+    position: absolute;
+    transition: all 0.5s linear;
+    right: 8px;
+    bottom: 8px;
+    width: 16px;
+    height: 16px;
+    background-image: url("https://api.acord.app/logo.svg?fg=ffffff");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 999999;
+
+    &.hidden {
+      opacity: 0 !important;
+    }
+  }
+}

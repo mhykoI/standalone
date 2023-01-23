@@ -4,7 +4,7 @@ import { sassPlugin } from 'esbuild-sass-plugin'
 
 await esbuild.build({
   plugins: [sassPlugin({
-    type: "css"
+    type: "css-text"
   })],
   entryPoints: ['src/index.js'],
   bundle: true,

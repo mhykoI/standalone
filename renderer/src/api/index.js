@@ -5,7 +5,8 @@ import extensions from './extensions';
 import i18n from './i18n';
 import storage from './storage';
 import events from './events';
-import patcher from './patcher/index.js';
+import patcher from './patcher';
+import internal from './internal';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
 
@@ -37,10 +38,7 @@ export default {
     },
     get internal() {
       if (!dev.enabled) throw devError("Internal");
-      return {
-        process: globalThis["<PRELOAD_KEY>"].process,
-        isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen,
-      }
+      return internal;
     }
   },
   unexposedAPI: {
@@ -52,9 +50,6 @@ export default {
     storage,
     events,
     patcher,
-    internal: {
-      process: globalThis["<PRELOAD_KEY>"].process,
-      isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen,
-    }
+    internal
   }
 }
