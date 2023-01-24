@@ -7,6 +7,7 @@ import storage from './storage';
 import events from './events';
 import patcher from './patcher';
 import internal from './internal';
+import ui from './ui/index.js';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
 
@@ -20,6 +21,7 @@ export default {
     utils,
     i18n,
     events,
+    ui,
     get patcher() {
       if (!dev.enabled) throw devError("Patcher");
       return patcher;
@@ -50,6 +52,7 @@ export default {
     storage,
     events,
     patcher,
-    internal
+    internal,
+    ui
   }
 }

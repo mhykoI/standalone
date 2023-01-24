@@ -1,4 +1,19 @@
 import events from "../events";
+import webpack from "../modules/webpack.js";
+
+const scrollbarClasses = webpack.findByProperties("scrollbarGhostHairline", "spinner");
+
+const formatRegexes = {
+  bold: /\*\*([^*]+)\*\*/g,
+  italic: /\*([^*]+)\*/g,
+  underline: /\_([^*]+)\_/g,
+  strike: /\~\~([^*]+)\~\~/g,
+  url: /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig,
+  inline: /\`([^*]+)\`/g,
+  codeblockSingle: /\`\`\`([^*]+)\`\`\`/g,
+  codeblockMulti: /\`\`\`(\w+)\n((?:(?!\`\`\`)[\s\S])*)\`\`\`/g
+}
+
 
 export default {
   parse(html) {
@@ -52,7 +67,92 @@ export default {
     }
     return parents;
   },
-  // TODO: add patch api
+  patch: (selector, cb) =>
+    (() => {
+      function nodeAdded(node) {
+        if (node.nodeType === Node.TEXT_NODE) return;
+        node.querySelectorAll(selector).forEach(async (elm) => {
+          if (!elm.acord) {
+            elm.acord = { unmount: [], patched: new Set() };
+            elm.classList.add("acord--patched");
+          }
+
+          if (elm.acord.patched.has(cb)) return;
+          elm.acord.patched.add(cb);
+
+          let unPatchCb = await cb(elm);
+          if (typeof unPatchCb === "function")
+            elm.acord.unmount.push(unPatchCb);
+        });
+      }
+
+      function nodeRemoved(node) {
+        if (node.nodeType === Node.TEXT_NODE) return;
+        node.querySelectorAll(selector).forEach(async (elm) => {
+          if (!elm.acord) return;
+          elm.acord.unmount.forEach((f) => f());
+        });
+      }
+
+      document.querySelectorAll(selector).forEach(nodeAdded);
+
+      return events.on(
+        "dom-mutation",
+        /** @param {MutationRecord} mut */(mut) => {
+          if (mut.type === "childList") {
+            mut.addedNodes.forEach(nodeAdded);
+            mut.removedNodes.forEach(nodeRemoved);
+          }
+        }
+      );
+    })(),
+  formatContent(msg) {
+    if (!msg) return '';
+    const { bold, italic, underline, strike, codeblockMulti, codeblockSingle, inline, url } = formatRegexes;
+
+    const codeBlocksMap = Object.fromEntries([
+      ...(msg.matchAll(codeblockMulti) || []), ...(msg.matchAll(codeblockSingle) || [])
+    ].map(
+      ([_, codeBlockOrCode, codeBlockContent], i) => {
+        msg = msg.replace(_, `{{CODEBLOCK_${i}}}`);
+        return [
+          `{{CODEBLOCK_${i}}}`,
+          codeBlockContent ?
+            `<pre><code class="${scrollbarClasses.scrollbarGhostHairline} hljs ${codeBlockOrCode}" style="position: relative;">${modules.common.hljs.highlight(codeBlockOrCode, codeBlockContent).value}</code></pre>` :
+            `<pre><code class="${scrollbarClasses.scrollbarGhostHairline} hljs" style="position: relative;">${codeBlockOrCode}</code></pre>`
+        ];
+      }
+    ));
+
+    const inlineMap = Object.fromEntries(
+      [...(msg.matchAll(inline) || [])].map(
+        ([_, inlineContent], i) => {
+          msg = msg.replace(_, `{{INLINE_${i}}}`);
+          return [`{{INLINE_${i}}}`, `<code class="inline">${inlineContent}</code>`];
+        }
+      )
+    );
+
+    msg = msg.replace(bold, "<b>$1</b>")
+      .replace(italic, "<i>$1</i>")
+      .replace(underline, "<U>$1</U>")
+      .replace(strike, "<s>$1</s>")
+      .replace(url, '<a href="$1">$1</a>');
+
+    for (const [key, value] of Object.entries(codeBlocksMap)) {
+      msg = msg.replace(key, value);
+    }
+
+    for (const [key, value] of Object.entries(inlineMap)) {
+      msg = msg.replace(key, value);
+    }
+
+    return msg;
+  },
+  resolve(htmlOrElm) {
+    if (htmlOrElm instanceof Element) return htmlOrElm;
+    return this.parse(htmlOrElm);
+  }
 }
 
 {

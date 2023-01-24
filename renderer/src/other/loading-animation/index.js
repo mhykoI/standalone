@@ -2,14 +2,15 @@ import dom from "../../api/dom/index.js";
 import patcher from "../../api/patcher/index.js";
 
 import cssText from "./style.scss";
-patcher.injectCSS(cssText);
+let unInject;
 
 async function show() {
+  if (document.querySelector(".acord--startup-loading")) return;
   while (true) {
     if (document.querySelector("#app-mount")) break;
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
-  if (document.querySelector(".acord--startup-loading")) return;
+  unInject = patcher.injectCSS(cssText);
   const element = dom.parse(`
     <div class="acord--startup-loading"></div>
   `)
@@ -22,6 +23,8 @@ function hide() {
     elm.classList.add("hidden");
     setTimeout(() => {
       elm.remove();
+      unInject?.();
+      unInject = null;
     }, 500);
   }
 }

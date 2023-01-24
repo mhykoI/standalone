@@ -4,7 +4,9 @@ import { sassPlugin } from 'esbuild-sass-plugin'
 
 await esbuild.build({
   plugins: [sassPlugin({
-    type: "css-text"
+    type: "css-text",
+    sourceMap: false,
+    style: "compressed"
   })],
   entryPoints: ['src/index.js'],
   bundle: true,
@@ -14,6 +16,4 @@ await esbuild.build({
   external: ["electron", "path", "fs"],
   outfile: "./dist.js",
   logLevel: "info"
-}).then(() => {
-  console.log("Renderer built!")
 });

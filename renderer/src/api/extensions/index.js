@@ -182,6 +182,10 @@ const out = {
   evaluate(source, api) {
     const $acord = api;
     return eval(source);
+  },
+  async loadAll() {
+    if (!out.__cache__.initialized) await out.init();
+    return Promise.all(Object.keys(out.storage.installed.ghost).map(url => out.load(url)));
   }
 };
 
