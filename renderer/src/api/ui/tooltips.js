@@ -1,7 +1,6 @@
 import dom from "../dom/index.js";
 import events from "../events/index.js";
 import webpack from "../modules/webpack.js";
-import patcher from "../patcher/index.js";
 
 const tooltipClasses = webpack.findByProperties("tooltipContentAllowOverflow", "tooltip");
 

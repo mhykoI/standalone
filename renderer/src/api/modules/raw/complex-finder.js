@@ -4,6 +4,7 @@ import logger from "../../utils/logger.js";
 export function wrapFilter(filter) {
   return (...args) => {
     try {
+      if (args[0] === window || args[0] === document.documentElement || args[0]?.default === window || args[0]?.default === document.documentElement || args[0]?.exports === window || args[0]?.exports === document.documentElement) return false;
       if (args[0]?.default?.remove && args[0]?.default?.set && args[0]?.default?.clear && args[0]?.default?.get && !args[0]?.default?.sort) return false;
       if (args[0].remove && args[0].set && args[0].clear && args[0].get && !args[0].sort) return false;
       if (args[0]?.default?.getToken || args[0]?.default?.getEmail || args[0]?.default?.showToken) return false;
