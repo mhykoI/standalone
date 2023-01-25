@@ -3,6 +3,7 @@ import patcher from "../patcher/index.js";
 import logger from "../utils/logger.js";
 
 import common from "../modules/common.js";
+import { finderMap } from "../modules/raw/complex-finder.js";
 const { React } = common;
 
 let isReady = false;
@@ -39,18 +40,10 @@ const Components = (() => {
 })();
 
 const Actions = (() => {
-  const out = webpack.findByFinder({
-    filter: {
-      in: "strings",
-      by: [["CONTEXT_MENU_CLOSE", "renderLazy"]]
-    },
-    path: {
-      before: "exports"
-    },
-    map: {
-      close: ["CONTEXT_MENU_CLOSE"],
-      open: ["renderLazy"]
-    }
+  let ogModule = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window).exports
+  const out = finderMap(ogModule, {
+    close: ["CONTEXT_MENU_CLOSE"],
+    open: ["renderLazy"]
   });
   isReady = isReady && !!out.close && !!out.open;
   return out;
@@ -65,15 +58,7 @@ class MenuPatcher {
   static initialize() {
     if (!isReady) return logger.warn("Unable to load context menu.");
 
-    const moduleToPatch = webpack.findByFinder({
-      filter: {
-        in: "strings",
-        by: [["CONTEXT_MENU_CLOSE", "renderLazy"]]
-      },
-      path: {
-        before: "exports"
-      }
-    });
+    const moduleToPatch = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window).exports;
     const keyToPatch = Object.keys(moduleToPatch).find(k => moduleToPatch[k]?.length === 3);
 
     console.log(moduleToPatch, keyToPatch);
@@ -140,9 +125,9 @@ class MenuPatcher {
   }
 
   static executePatches(id, res, props) {
-    if (!this.patches[id]) return;
+    if (!this.patches.has(id)) return;
 
-    this.patches[id].forEach(patch => {
+    this.patches.get(id).forEach(patch => {
       try {
         patch(res, props);
       } catch (err) {

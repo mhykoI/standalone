@@ -4,7 +4,7 @@ import logger from "../../utils/logger.js";
 export function wrapFilter(filter) {
   return (...args) => {
     try {
-      if (args[0] === window || args[0] === document.documentElement || args[0]?.default === window || args[0]?.default === document.documentElement || args[0]?.exports === window || args[0]?.exports === document.documentElement) return false;
+      if (args[0]?.document && args[0]?.window) return false;
       if (args[0]?.default?.remove && args[0]?.default?.set && args[0]?.default?.clear && args[0]?.default?.get && !args[0]?.default?.sort) return false;
       if (args[0].remove && args[0].set && args[0].clear && args[0].get && !args[0].sort) return false;
       if (args[0]?.default?.getToken || args[0]?.default?.getEmail || args[0]?.default?.showToken) return false;
@@ -242,7 +242,7 @@ export function finderToFilter(finder) {
   return found;
 }
 
-function finderMap(__original__, map) {
+export function finderMap(__original__, map) {
   let __mapped__ = {};
 
   let temp = {
@@ -270,7 +270,7 @@ function finderMap(__original__, map) {
 
 export function findByFinder(req, finder = {}) {
   const defaultExport = !!finder?.filter?.export;
-  let found = find(req, finderToFilter(finder), { defaultExport });
+  let found = find(req, finderToFilter(finder), { defaultExport, all: true }).find(i => i !== globalThis.window || i?.exports !== globalThis.window);
 
   if (!found) return null;
 
