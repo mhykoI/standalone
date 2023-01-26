@@ -13,15 +13,35 @@ function mapObject(temp, inp) {
         }
       })
     } else {
-      temp[key] = {};
+      if (typeof temp[key] === "undefined") temp[key] = {};
       mapObject(temp[key], inp[key]);
     }
   }
 }
 
 
-let commonAPI = { __cache__: {} };
-mapObject(commonAPI, commonData.common);
+let common = {
+  __cache__: {},
+  LayerActions: {
+    push(component) {
+      common.FluxDispatcher.dispatch({
+        type: "LAYER_PUSH",
+        component
+      });
+    },
+    pop() {
+      common.FluxDispatcher.dispatch({
+        type: "LAYER_POP"
+      });
+    },
+    popAll() {
+      common.FluxDispatcher.dispatch({
+        type: "LAYER_POP_ALL"
+      });
+    }
+  },
+};
+mapObject(common, commonData.common);
 {
   let paths = [
     "exports.Z",
@@ -34,15 +54,15 @@ mapObject(commonAPI, commonData.common);
     if (!obj) return;
     let name = obj?.getName?.();
     if (!name) return;
-    if (commonAPI[name]) return;
+    if (common[name]) return;
 
-    Object.defineProperty(commonAPI, name, {
+    Object.defineProperty(common, name, {
       get() {
-        if (commonAPI.__cache__[name]) return commonAPI.__cache__[name];
-        return commonAPI.__cache__[name] = obj;
+        if (common.__cache__[name]) return common.__cache__[name];
+        return common.__cache__[name] = obj;
       }
     })
   })
 }
 
-export default commonAPI;
+export default common;

@@ -2,7 +2,7 @@ import findInTree from "./raw/find-in-tree.js";
 
 export default {
   getInstance(node) {
-    return Object.entries(node).find(i => i[0].startsWith("__reactFiber$"))?.[1];
+    return Object.entries(node).find(i => i[0].startsWith("__reactInternalInstance") || i[0].startsWith("__reactFiber"))?.[1];
   },
   getOwnerInstance(node) {
     let instance = this.getInstance(node);

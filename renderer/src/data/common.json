@@ -2,44 +2,46 @@
   "common": {
     "modals": {
       "components": {
-        "__": true,
-        "filter": {
-          "export": false,
-          "in": "properties",
-          "by": [
-            [
-              "Header",
-              "Footer"
+        "other": {
+          "__": true,
+          "filter": {
+            "export": false,
+            "in": "properties",
+            "by": [
+              [
+                "Header",
+                "Footer"
+              ]
             ]
-          ]
-        },
-        "path": {
-          "after": [
-            "exports.Z",
-            "exports.ZP",
-            "exports.default",
-            "exports"
-          ]
-        }
-      },
-      "ModalRoot": {
-        "__": true,
-        "filter": {
-          "export": false,
-          "in": "strings",
-          "by": [
-            [
-              "ENTERING"
+          },
+          "path": {
+            "after": [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
             ]
-          ]
+          }
         },
-        "path": {
-          "after": [
-            "exports.Z",
-            "exports.ZP",
-            "exports.default",
-            "exports"
-          ]
+        "Root": {
+          "__": true,
+          "filter": {
+            "export": false,
+            "in": "strings",
+            "by": [
+              [
+                "ENTERING"
+              ]
+            ]
+          },
+          "path": {
+            "after": [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ]
+          }
         }
       },
       "actions": {
@@ -134,11 +136,19 @@
             "exports"
           ]
         }
+      },
+      "Markdown": {
+        "__": true,
+        "filter": "$?.prototype?.render && $.rules",
+        "path": {
+          "after": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
       }
-    },
-    "Markdown": {
-      "__": true,
-      "filter": "$?.prototype?.render && $.rules"
     },
     "FluxDispatcher": {
       "__": true,
@@ -242,6 +252,27 @@
           [
             "sendActivityInvite",
             "updateActivity"
+          ]
+        ]
+      }
+    },
+    "PrivateChannelActions": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "openPrivateChannel",
+            "ensurePrivateChannel"
           ]
         ]
       }
