@@ -198,9 +198,7 @@ export default {
     }
   },
   open(event, component, config) {
-    return Actions.open(event, function (e) {
-      return React.createElement(component, Object.assign({}, e, { onClose: Actions.close }));
-    }, config);
+    return Actions.open(event, (e) => React.createElement(component, Object.assign({}, e, { onClose: Actions.close })), config);
   },
   close() {
     return Actions.close();

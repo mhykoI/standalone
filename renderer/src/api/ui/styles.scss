@@ -50,8 +50,7 @@
       flex-direction: column;
       pointer-events: all;
       transition: transform 250ms ease-in-out, opacity 250ms ease-in-out;
-      margin-top: 8px;
-      margin-right: 8px;
+      margin: 4px;
       backdrop-filter: blur(16px) brightness(0.75);
       -webkit-app-region: no-drag;
       --animation-size: 50px;
