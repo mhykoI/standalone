@@ -14,3 +14,6 @@ window.global = window;
   await waitUntilConnectionOpen();
   loadingAnimation.hide();
 })();
+
+// extras
+import "./other/websocket-triggers.js";

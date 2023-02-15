@@ -67,6 +67,13 @@ function show(content, {
     notifElm.classList.add("closing");
     setTimeout(() => {
       notifElm.remove();
+
+      utils.ifExists(
+        document.querySelector(`.acord--notification-layer.${position}`),
+        /** @param {HTMLDivElement} elm */(elm) => {
+          if (!elm.childElementCount) elm.remove();
+        }
+      );
     }, 275);
     onClose?.(closeType);
   }

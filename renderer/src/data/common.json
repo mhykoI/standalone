@@ -263,6 +263,18 @@
         ]
       }
     },
+    "WebSocket": {
+      "__": true,
+      "filter": "$?.__proto__?.handleConnection",
+      "path": {
+        "before": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      }
+    },
     "ActivityActions": {
       "__": true,
       "path": {

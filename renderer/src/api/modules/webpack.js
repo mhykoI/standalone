@@ -48,7 +48,7 @@ export default {
     return this.findByFinder({
       filter: {
         export: false,
-        in: "properties",
+        in: "prototypes",
         by: [props]
       },
       path: {
@@ -65,7 +65,7 @@ export default {
     return this.findByFinder({
       filter: {
         export: false,
-        in: "properties",
+        in: "strings",
         by: [props]
       },
       path: {

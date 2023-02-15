@@ -9,3 +9,5 @@ export default {
     devModeEnabled = value;
   }
 }
+
+// TODO: add live development mode

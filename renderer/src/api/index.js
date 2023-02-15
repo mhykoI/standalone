@@ -7,6 +7,7 @@ import storage from './storage';
 import events from './events';
 import patcher from './patcher';
 import internal from './internal';
+import websocket from './websocket';
 import ui from './ui/index.js';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
@@ -41,6 +42,10 @@ export default {
     get internal() {
       if (!dev.enabled) throw devError("Internal");
       return internal;
+    },
+    get websocket() {
+      if (!dev.enabled) throw devError("Websocket");
+      return websocket;
     }
   },
   unexposedAPI: {
@@ -53,6 +58,7 @@ export default {
     events,
     patcher,
     internal,
+    websocket,
     ui
   }
 }

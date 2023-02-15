@@ -7,6 +7,7 @@ import notifications from "./notifications.js";
 import contextMenus from "./contextMenus.js";
 import components from "./components.js";
 import modals from "./modals.jsx";
+import toasts from "./toasts.js";
 
 
 export default {
@@ -14,5 +15,6 @@ export default {
   notifications,
   contextMenus,
   components,
-  modals
+  modals,
+  toasts
 }
