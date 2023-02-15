@@ -16,7 +16,8 @@
     bottom: 8px;
     width: 16px;
     height: 16px;
-    background-image: url("https://api.acord.app/logo.svg?fg=ffffff");
+    background-image: url("https://raw.githubusercontent.com/AcordPlugin/assets/main/Acord.svg");
+    filter: grayscale(1) brightness(1);
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

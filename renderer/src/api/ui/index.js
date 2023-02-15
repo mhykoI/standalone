@@ -6,11 +6,13 @@ import tooltips from "./tooltips.js";
 import notifications from "./notifications.js";
 import contextMenus from "./contextMenus.js";
 import components from "./components.js";
+import modals from "./modals.jsx";
 
 
 export default {
   tooltips,
   notifications,
   contextMenus,
-  components
+  components,
+  modals
 }

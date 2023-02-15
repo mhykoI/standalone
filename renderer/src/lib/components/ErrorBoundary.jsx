@@ -1,4 +1,5 @@
 import common from "../../api/modules/common";
+import logger from "../../api/utils/logger.js";
 const { React } = common;
 
 export default class ErrorBoundary extends React.Component {
@@ -9,6 +10,7 @@ export default class ErrorBoundary extends React.Component {
 
   componentDidCatch(error) {
     this.setState({ error });
+    logger.error(error);
     if (typeof this.props.onError === "function") this.props.onError(error);
   }
 
@@ -25,6 +27,6 @@ const originalRender = ErrorBoundary.prototype.render;
 Object.defineProperty(ErrorBoundary.prototype, "render", {
   enumerable: false,
   configurable: false,
-  set: function () { Logger.warn("ErrorBoundary", "Addon policy for plugins #5 https://github.com/BetterDiscord/BetterDiscord/wiki/Addon-Policies#plugins"); },
+  set: function () { throw new Error("Cannot set render method of ErrorBoundary"); },
   get: () => originalRender
 });

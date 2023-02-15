@@ -137,7 +137,7 @@ const out = {
       }
     };
 
-    // TODO: Load extension
+    out.load(url);
   },
   async uninstall(url) {
     if (!out.__cache__.initialized) await out.init();

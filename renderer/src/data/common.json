@@ -74,6 +74,34 @@
               "Layer"
             ]
           }
+        },
+        "close": {
+          "__": true,
+          "filter": {
+            "export": false,
+            "in": "strings",
+            "by": [
+              [
+                "onCloseCallback()"
+              ]
+            ]
+          },
+          "path": {
+            "before": [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ],
+            "after": [
+              "close"
+            ]
+          },
+          "map": {
+            "close": [
+              "onCloseCallback()"
+            ]
+          }
         }
       }
     },

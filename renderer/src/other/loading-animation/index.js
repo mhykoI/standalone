@@ -10,6 +10,7 @@ async function show() {
     if (document.querySelector("#app-mount")) break;
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
+  console.log("acord--startup-loading");
   unInject = patcher.injectCSS(cssText);
   const element = dom.parse(`
     <div class="acord--startup-loading"></div>

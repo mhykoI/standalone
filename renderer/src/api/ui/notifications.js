@@ -15,7 +15,7 @@ const validPositions = [
 
 function getContainer(position) {
   if (!validPositions.includes(position)) throw new Error(`Invalid position "${position}". Valid positions are: ${validPositions.join(", ")}`);
-  const appElm = document.querySelector('[class*="notDevTools-"]');
+  const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
 
   let topContainer = appElm.querySelector(".acord--notification-layer-container");
   if (!topContainer) {
