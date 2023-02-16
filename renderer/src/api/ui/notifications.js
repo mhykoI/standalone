@@ -69,9 +69,9 @@ function show(content, {
       notifElm.remove();
 
       utils.ifExists(
-        document.querySelector(`.acord--notification-layer.${position}`),
+        document.querySelector(`.acord--notification-layer-container`),
         /** @param {HTMLDivElement} elm */(elm) => {
-          if (!elm.childElementCount) elm.remove();
+          if (!([...elm.childNodes.values()].reduce((prev, curr) => prev + curr.childElementCount, 0))) elm.remove();
         }
       );
     }, 275);

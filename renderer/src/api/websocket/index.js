@@ -1,81 +1,84 @@
+import { waitUntilConnectionOpen } from "../../other/utils.js";
 import common from "../modules/common.js";
 import patcher from "../patcher/index.js";
 
 const sockets = new Set();
 const handlers = new Map();
 
-patcher.instead(
-  "handleConnection",
-  common.WebSocket,
-  (args, orig) => {
-    const ws = args[0];
-    if (ws.upgradeReq().url !== "/acord") return orig(...args);
+waitUntilConnectionOpen().then(() => {
+  patcher.instead(
+    "handleConnection",
+    common.WebSocket,
+    (args, orig) => {
+      const ws = args[0];
+      if (ws.upgradeReq().url !== "/acord") return orig(...args);
 
-    sockets.add(ws);
+      sockets.add(ws);
 
-    ws.on("message", async (msg) => {
-      let json;
+      ws.on("message", async (msg) => {
+        let json;
 
-      try {
-        json = JSON.parse(msg);
-        if (!Array.isArray(json) || json.length < 1 || json.length > 3)
-          throw "Array expected as message.";
-        if (typeof json[0] != "string") throw "Array[0] needs to be string.";
-        if (typeof json[1] != "string") throw "Array[1] needs to be string.";
-      } catch (err) {
-        ws.send(
-          JSON.stringify([
-            null,
-            {
-              ok: false,
-              error: `${err}`,
-            },
-          ])
-        );
-      }
+        try {
+          json = JSON.parse(msg);
+          if (!Array.isArray(json) || json.length < 1 || json.length > 3)
+            throw "Array expected as message.";
+          if (typeof json[0] != "string") throw "Array[0] needs to be string.";
+          if (typeof json[1] != "string") throw "Array[1] needs to be string.";
+        } catch (err) {
+          ws.send(
+            JSON.stringify([
+              null,
+              {
+                ok: false,
+                error: `${err}`,
+              },
+            ])
+          );
+        }
 
-      const [eventId, eventName, eventData] = json;
+        const [eventId, eventName, eventData] = json;
 
-      const handler = handlers.get(eventName);
+        const handler = handlers.get(eventName);
 
-      if (!handler)
-        return ws.send(
-          JSON.stringify([
-            eventId,
-            {
-              ok: false,
-              error: `Unable to find handler.`,
-            },
-          ])
-        );
+        if (!handler)
+          return ws.send(
+            JSON.stringify([
+              eventId,
+              {
+                ok: false,
+                error: `Unable to find handler.`,
+              },
+            ])
+          );
 
-      try {
-        let response = await handler(eventData);
-        ws.send(
-          JSON.stringify([
-            eventId,
-            {
-              ok: true,
-              data: response,
-            },
-          ])
-        );
-      } catch (err) {
-        ws.send(
-          JSON.stringify([
-            eventId,
-            {
-              ok: false,
-              error: `${err}`,
-            },
-          ])
-        );
-      }
-    });
+        try {
+          let response = await handler(eventData);
+          ws.send(
+            JSON.stringify([
+              eventId,
+              {
+                ok: true,
+                data: response,
+              },
+            ])
+          );
+        } catch (err) {
+          ws.send(
+            JSON.stringify([
+              eventId,
+              {
+                ok: false,
+                error: `${err}`,
+              },
+            ])
+          );
+        }
+      });
 
-    ws.on("close", () => sockets.delete(ws));
-  }
-);
+      ws.on("close", () => sockets.delete(ws));
+    }
+  );
+});
 
 function set(eventName, callback) {
   if (typeof eventName != "string")
@@ -94,7 +97,6 @@ function trigger(eventName, ...args) {
     throw new Error("Unable to find handler!");
   return socketEvents.get(eventName)(...args);
 }
-
 
 export default {
   set,
