@@ -165,6 +165,26 @@
           ]
         }
       },
+      "Tooltip": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "prototypes",
+          "by": [
+            [
+              "renderTooltip"
+            ]
+          ]
+        },
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
       "Markdown": {
         "__": true,
         "filter": "$?.prototype?.render && $.rules",

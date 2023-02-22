@@ -13,4 +13,5 @@ export default {
   ModalContent: common.modals.components.other.Content,
   ModalFooter: common.modals.components.other.Footer,
   ModalListContent: common.modals.components.other.ListContent,
+  Tooltip: common.components.Tooltip,
 }
