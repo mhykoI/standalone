@@ -4,6 +4,7 @@ import logger from "../utils/logger.js";
 
 import common from "../modules/common.js";
 import { finderMap } from "../modules/raw/complex-finder.js";
+
 const { React } = common;
 
 let isReady = false;
@@ -39,14 +40,25 @@ const Components = (() => {
   return out;
 })();
 
-const Actions = (() => {
-  let ogModule = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window).exports
-  const out = finderMap(ogModule, {
-    close: ["CONTEXT_MENU_CLOSE"],
-    open: ["renderLazy"]
-  });
-  isReady = isReady && !!out.close && !!out.open;
-  return out;
+let Actions = null;
+
+(async () => {
+  Actions = await (async () => {
+    let ogModule;
+    while (true) {
+      ogModule = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window)?.exports;
+      if (ogModule) break;
+      await new Promise(r => setTimeout(r, 100));
+    }
+    const out = finderMap(ogModule, {
+      close: ["CONTEXT_MENU_CLOSE"],
+      open: ["renderLazy"]
+    });
+    isReady = isReady && !!out.close && !!out.open;
+    return out;
+  })();
+
+  MenuPatcher.initialize();
 })();
 
 
@@ -136,8 +148,6 @@ class MenuPatcher {
     });
   }
 }
-
-MenuPatcher.initialize();
 
 
 // Copied from bd's source
