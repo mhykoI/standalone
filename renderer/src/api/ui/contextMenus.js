@@ -9,36 +9,7 @@ const { React } = common;
 
 let isReady = false;
 
-const Components = (() => {
-  const out = {};
-  const componentMap = {
-    separator: "Separator",
-    checkbox: "CheckboxItem",
-    radio: "RadioItem",
-    control: "ControlItem",
-    groupstart: "Group",
-    customitem: "Item"
-  };
-
-  try {
-    const moduleId = Object.entries(webpack.require.m).find(([, m]) => m?.toString().includes("menuitemcheckbox"))[0];
-    const contextMenuModule = webpack.find((_, idx) => idx == moduleId).exports;
-    const rawMatches = webpack.require.m[moduleId].toString().matchAll(/if\(\w+\.type===\w+\.(\w+)\).+?type:"(.+?)"/g);
-
-    out.Menu = Object.values(contextMenuModule).find(v => v.toString().includes(".isUsingKeyboardNavigation"));
-
-    [...rawMatches].forEach(([, id, type]) => {
-      out[componentMap[type]] = contextMenuModule[id];
-    });
-
-    isReady = Object.values(componentMap).every(k => out[k]) && !!out.Menu;
-  } catch (err) {
-    isReady = false;
-    logger.error("Failed to load context menu components", err);
-  }
-
-  return out;
-})();
+let Components = null;
 
 let Actions = null;
 
@@ -54,7 +25,38 @@ let Actions = null;
       close: ["CONTEXT_MENU_CLOSE"],
       open: ["renderLazy"]
     });
-    isReady = isReady && !!out.close && !!out.open;
+    isReady = !!out.close && !!out.open;
+    return out;
+  })();
+
+  Components = (() => {
+    const out = {};
+    const componentMap = {
+      separator: "Separator",
+      checkbox: "CheckboxItem",
+      radio: "RadioItem",
+      control: "ControlItem",
+      groupstart: "Group",
+      customitem: "Item"
+    };
+
+    try {
+      const moduleId = Object.entries(webpack.require.m).find(([, m]) => m?.toString().includes("menuitemcheckbox"))[0];
+      const contextMenuModule = webpack.find((_, idx) => idx == moduleId).exports;
+      const rawMatches = webpack.require.m[moduleId].toString().matchAll(/if\(\w+\.type===\w+\.(\w+)\).+?type:"(.+?)"/g);
+
+      out.Menu = Object.values(contextMenuModule).find(v => v.toString().includes(".isUsingKeyboardNavigation"));
+
+      [...rawMatches].forEach(([, id, type]) => {
+        out[componentMap[type]] = contextMenuModule[id];
+      });
+
+      isReady = Object.keys(out).length > 1;
+    } catch (err) {
+      isReady = false;
+      logger.error("Failed to load context menu components", err);
+    }
+
     return out;
   })();
 

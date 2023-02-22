@@ -27,6 +27,9 @@ export default {
   findByFinder(finder) {
     return complexFinder.findByFinder(this.require, finder);
   },
+  findByStringValues(...stringValues) {
+    return this.find((a) => { let va = Object.values(a); return stringValues.every(x => va.some(y => typeof y == "string" && y.includes(x))) })?.exports;
+  },
   findByProperties(...props) {
     return this.findByFinder({
       filter: {
