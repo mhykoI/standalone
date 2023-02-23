@@ -28,6 +28,15 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
   );
 });
 
+/*
+  // TODO: build installation page
+  acord.dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"]', (elm) => {
+      let baseElm = acord.dom.parents(elm, 4).pop();
+      baseElm.replaceChildren();
+      console.log(baseElm);
+  });
+*/
+
 function fillSVGElmWithAcordLogo(svgElm) {
   svgElm.setAttribute("viewBox", "0 0 813.5 1493");
   svgElm.setAttribute("xmlns", "http://www.w3.org/2000/svg");

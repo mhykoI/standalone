@@ -8,6 +8,7 @@ import events from './events';
 import patcher from './patcher';
 import internal from './internal';
 import websocket from './websocket';
+import dom from './dom';
 import ui from './ui/index.js';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
@@ -23,6 +24,10 @@ export default {
     i18n,
     events,
     ui,
+    get dom() {
+      if (!dev.enabled) throw devError("DOM");
+      return dom;
+    },
     get patcher() {
       if (!dev.enabled) throw devError("Patcher");
       return patcher;
@@ -59,6 +64,7 @@ export default {
     patcher,
     internal,
     websocket,
-    ui
+    ui,
+    dom
   }
 }
