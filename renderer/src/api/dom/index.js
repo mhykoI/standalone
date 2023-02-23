@@ -67,6 +67,12 @@ export default {
     }
     return parents;
   },
+  /**
+   * 
+   * @param {string} selector 
+   * @param {(element: HTMLDivElement)=>(()=>void)} cb 
+   * @returns {()=>void}
+   */
   patch: (selector, cb) =>
     (() => {
       function nodeAdded(node) {

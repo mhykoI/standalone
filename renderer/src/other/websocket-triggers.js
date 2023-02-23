@@ -12,8 +12,8 @@ websocket.set("InstallExtension", async ({ url } = {}) => {
   await modules.native.window.setAlwaysOnTop(0, true);
 
   const success = await modals.show.confirmation(
-    acord.i18n.format("IMPORT_EXTENSION"),
-    acord.i18n.format("IMPORT_EXTENSION_DESCRIPTION", url)
+    acord.i18n.format("IMPORT_EXTENSION_MODAL_TITLE"),
+    acord.i18n.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
   );
 
   if (!success) return;

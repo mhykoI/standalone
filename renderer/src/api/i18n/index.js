@@ -1,7 +1,7 @@
 import modules from "../modules/index.js"
 import utils from "../utils/index.js";
 
-const BASE_URL = "https://raw.githubusercontent.com/AcordPlugin/i18n/main";
+const BASE_URL = "https://raw.githubusercontent.com/acord-standalone/assets/main/i18n";
 const noStore = { cache: "no-store" };
 
 

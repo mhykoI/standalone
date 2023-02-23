@@ -1,5 +1,12 @@
 import * as complexFinder from "./raw/complex-finder.js";
 
+const defaultBefore = [
+  "exports.Z",
+  "exports.ZP",
+  "exports.default",
+  "exports"
+];
+
 export default {
   __cache__: {},
   get require() {
@@ -38,12 +45,7 @@ export default {
         by: [props]
       },
       path: {
-        before: [
-          "exports.Z",
-          "exports.ZP",
-          "exports.default",
-          "exports"
-        ]
+        before: defaultBefore
       }
     });
   },
@@ -55,12 +57,7 @@ export default {
         by: [props]
       },
       path: {
-        before: [
-          "exports.Z",
-          "exports.ZP",
-          "exports.default",
-          "exports"
-        ]
+        before: defaultBefore
       }
     });
   },
@@ -72,12 +69,7 @@ export default {
         by: [props]
       },
       path: {
-        before: [
-          "exports.Z",
-          "exports.ZP",
-          "exports.default",
-          "exports"
-        ]
+        before: defaultBefore
       }
     });
   },
