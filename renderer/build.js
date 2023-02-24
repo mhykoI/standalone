@@ -12,8 +12,9 @@ await esbuild.build({
   bundle: true,
   minify: false,
   sourcemap: "inline",
-  platform: "node",
+  platform: "browser",
   external: ["electron", "path", "fs"],
   outfile: "./dist.js",
-  logLevel: "info"
+  logLevel: "info",
+  format: "iife"
 });

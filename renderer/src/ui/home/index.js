@@ -1,5 +1,16 @@
-import dom from "../api/dom/index.js";
-import utils from "../api/utils/index.js";
+import dom from "../../api/dom/index.js";
+import webpack from "../../api/modules/webpack.js";
+import patcher from "../../api/patcher/index.js";
+import utils from "../../api/utils/index.js";
+
+import cssText from "./style.scss";
+patcher.injectCSS(cssText);
+
+{
+  let script = document.createElement("script");
+  script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
+  document.head.appendChild(script);
+}
 
 dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   utils.ifExists(
@@ -15,11 +26,54 @@ dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   );
 });
 
+let internalVueApp = null;
+
+const headerItemClasses = webpack.findByProperties("divider", "hamburger", "themed");
+const tabBarClasses = webpack.findByProperties("tabBar", "maxWidthWithToolbar");
+const headerClasses = webpack.findByProperties("topPill", "headerText");
 dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
   utils.ifExists(
     elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
     (titleElm) => {
       titleElm.textContent = "Acord";
+
+      if (internalVueApp) {
+        let container = dom.parents(titleElm, 2).pop();
+
+        container.appendChild(
+          dom.parse(`<div class="${headerItemClasses.divider}"></div>`)
+        );
+
+        const buttonsContainer = dom.parse(`
+          <div class="${tabBarClasses.tabBar} ${headerClasses.topPill}">
+          </div>
+        `);
+
+        let buttons = [];
+
+        function buildButton(id, text, selected = false) {
+          let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tab-button ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
+          buttons.push(elm);
+          elm.setSelected = (s) => {
+            if (s) elm.classList.add(headerClasses.selected);
+            else elm.classList.remove(headerClasses.selected);
+          }
+          elm.setSelected(internalVueApp.selectedTab === id);
+          elm.onclick = () => {
+            buttons.forEach((b) => b.setSelected(false));
+            elm.setSelected(true);
+            internalVueApp.selectedTab = id;
+          }
+          return elm;
+        }
+
+        buttonsContainer.appendChild(buildButton("home", "Home"));
+        buttonsContainer.appendChild(buildButton("plugins", "Plugins"));
+        buttonsContainer.appendChild(buildButton("themes", "Themes"));
+        buttonsContainer.appendChild(buildButton("settings", "Settings"));
+
+        container.appendChild(buttonsContainer);
+      }
     }
   );
   utils.ifExists(
@@ -27,15 +81,6 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
     fillSVGElmWithAcordLogo
   );
 });
-
-/*
-  // TODO: build installation page
-  acord.dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"]', (elm) => {
-      let baseElm = acord.dom.parents(elm, 4).pop();
-      baseElm.replaceChildren();
-      console.log(baseElm);
-  });
-*/
 
 function fillSVGElmWithAcordLogo(svgElm) {
   svgElm.setAttribute("viewBox", "0 0 813.5 1493");
@@ -67,3 +112,41 @@ function fillSVGElmWithAcordLogo(svgElm) {
     </g>
   `;
 }
+
+
+(async () => {
+  while (true) {
+    if (window.Vue) break;
+    await utils.sleep(100);
+  }
+
+  const baseVueElm = dom.parse(`
+    <div class="acord--base-page">
+      {{selectedTab}}
+    </div>
+  `);
+
+  Vue.createApp({
+    data() {
+      return {
+        selectedTab: "home"
+      };
+    },
+    methods: {
+
+    },
+    mounted() {
+      internalVueApp = this;
+    }
+  }).mount(baseVueElm);
+
+  dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"]', (elm) => {
+    /** @type {HTMLDivElement} */
+    let containerElm = dom.parents(elm, 4).pop();
+    containerElm.replaceChildren(baseVueElm);
+  });
+})();
+
+
+
+

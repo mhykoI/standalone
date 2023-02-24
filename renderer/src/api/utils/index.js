@@ -53,4 +53,7 @@ export default {
       document.body.removeChild(copyArea);
     });
   },
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
 }
