@@ -2,6 +2,7 @@ import dom from "../../api/dom/index.js";
 import webpack from "../../api/modules/webpack.js";
 import patcher from "../../api/patcher/index.js";
 import utils from "../../api/utils/index.js";
+import i18n from "../../api/i18n/index.js";
 
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
@@ -16,7 +17,7 @@ dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   utils.ifExists(
     elm.querySelector('[class*="nameAndDecorators-"] [class*="name-"]'),
     (nameElm) => {
-      nameElm.textContent = "Acord";
+      nameElm.textContent = i18n.format("APP_NAME");
     }
   );
 
@@ -35,7 +36,7 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
   utils.ifExists(
     elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
     (titleElm) => {
-      titleElm.textContent = "Acord";
+      titleElm.textContent = i18n.format("APP_NAME");
 
       if (internalVueApp) {
         let container = dom.parents(titleElm, 2).pop();
@@ -51,14 +52,14 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
 
         let buttons = [];
 
-        function buildButton(id, text, selected = false) {
-          let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tab-button ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
+        function buildButton(id, text, customClasses = "") {
+          let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
 
           buttons.push(elm);
 
           elm.setSelected = (s) => {
-            if (s) elm.classList.add(headerClasses.selected);
-            else elm.classList.remove(headerClasses.selected);
+            if (s) elm.classList.add(headerClasses.selected, "selected");
+            else elm.classList.remove(headerClasses.selected, "selected");
           }
 
           elm.setSelected(internalVueApp.selectedTab === id);
@@ -71,10 +72,10 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
           return elm;
         }
 
-        buttonsContainer.appendChild(buildButton("home", "Home"));
-        buttonsContainer.appendChild(buildButton("plugins", "Plugins"));
-        buttonsContainer.appendChild(buildButton("themes", "Themes"));
-        buttonsContainer.appendChild(buildButton("settings", "Settings"));
+        buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
+        buttonsContainer.appendChild(buildButton("installed-extensions", i18n.format("INSTALLED_EXTENSIONS")));
+        buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
+        buttonsContainer.appendChild(buildButton("store", i18n.format("EXTENSION_STORE"), "store-tab-button"));
 
         container.appendChild(buttonsContainer);
       }
@@ -125,19 +126,70 @@ function fillSVGElmWithAcordLogo(svgElm) {
   }
 
   const baseVueElm = dom.parse(`
-    <div class="acord--base-page">
-      {{selectedTab}}
+    <div class="acord--tabs-content-container">
+      <div v-if="selectedTab === 'home'" class="tab-content home">
+        <h1>Home Todo</h1>
+      </div>
+      <div v-if="selectedTab === 'installed-extensions'" class="tab-content installed-extensions">
+        <h1>Installed Extensions</h1>
+      </div>
+      <div v-if="selectedTab === 'store'" class="tab-content store">
+        <h1>Store</h1>
+      </div>
+      <div v-if="selectedTab === 'settings'" class="tab-content settings">
+        <h1>Settings</h1>
+      </div>
     </div>
   `);
 
   Vue.createApp({
     data() {
       return {
-        selectedTab: "home"
+        selectedTab: "home",
+        installedExtensions: [
+          {
+            type: "plugin",
+            name: {
+              default: "Test Plugin",
+              tr: "Deneme Plugin",
+            },
+            description: {
+              default: "Test Plugin description..",
+              tr: "Deneme Plugin açıklaması..",
+            },
+            previews: [
+              {
+                name: "Test Plugin Preview",
+                image: "https://i.imgur.com/TtfjHeP.png",
+              },
+              {
+                name: "Test Plugin Preview 2",
+                image: "https://i.imgur.com/0Z0Z0Z0.png",
+              }
+            ],
+            authors: [
+              {
+                id: "707309693449535599",
+                name: "Armagan#2448",
+                image: "https://i.imgur.com/rSLVd23.png"
+              }
+            ],
+            version: "1.0.0",
+            readme: "### Test Plugin readme..",
+          }
+        ],
       };
     },
     methods: {
 
+    },
+    computed: {
+      installedPlugins() {
+        return this.installedExtensions.filter((ext) => ext.type === "plugin");
+      },
+      installedThemes() {
+        return this.installedExtensions.filter((ext) => ext.type === "theme");
+      }
     },
     mounted() {
       internalVueApp = this;

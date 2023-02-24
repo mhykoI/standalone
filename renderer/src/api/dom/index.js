@@ -76,7 +76,7 @@ export default {
   patch: (selector, cb) =>
     (() => {
       function nodeAdded(node) {
-        if (node.nodeType === Node.TEXT_NODE) return;
+        if (typeof node?.querySelectorAll != "function") return;
         node.querySelectorAll(selector).forEach(async (elm) => {
           if (!elm.acord) {
             elm.acord = { unmount: [], patched: new Set() };
@@ -93,7 +93,7 @@ export default {
       }
 
       function nodeRemoved(node) {
-        if (node.nodeType === Node.TEXT_NODE) return;
+        if (typeof node?.querySelectorAll != "function") return;
         node.querySelectorAll(selector).forEach(async (elm) => {
           if (!elm.acord) return;
           elm.acord.unmount.forEach((f) => f());
