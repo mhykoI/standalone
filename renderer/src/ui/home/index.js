@@ -5,6 +5,7 @@ import utils from "../../api/utils/index.js";
 import i18n from "../../api/i18n/index.js";
 
 import cssText from "./style.scss";
+import { getLocalized } from "../../other/utils.js";
 patcher.injectCSS(cssText);
 
 {
@@ -142,13 +143,15 @@ function fillSVGElmWithAcordLogo(svgElm) {
     </div>
   `);
 
-  Vue.createApp({
+  /** @type {import("vue").App} */
+  const vueApp = Vue.createApp({
     data() {
       return {
         selectedTab: "home",
         installedExtensions: [
           {
             type: "plugin",
+            url: "",
             name: {
               default: "Test Plugin",
               tr: "Deneme Plugin",
@@ -176,6 +179,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
             ],
             version: "1.0.0",
             readme: "### Test Plugin readme..",
+            installed: true
           }
         ],
       };
@@ -194,7 +198,65 @@ function fillSVGElmWithAcordLogo(svgElm) {
     mounted() {
       internalVueApp = this;
     }
-  }).mount(baseVueElm);
+  });
+
+  vueApp.component(
+    "extension-card",
+    {
+      template: `
+        <div class="extension-card">
+          <div class="preview-container" :style="{ backgroundImage: 'url(' + extension.previews[selectedPreview].image + ')' }">
+            <div class="go-back">&gt;</div>
+            <div class="go-forward">&lt;</div>
+            <div class="name">{{ getLocalized(extension.previews[selectedPreview].name) }}</div>
+          </div>
+          <div class="info-container">
+            <div class="top">
+              <div class="name-container">
+                <div class="name">{{ getLocalized(extension.name) }}</div>
+                <div class="version">{{ extension.version }}</div>
+              </div>
+              <div class="description">{{ getLocalized(extension.description) }}</div>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <div class="authors">
+                  <div v-for="author in extension.authors" class="author">
+                    <div :style="{ backgroundImage: 'url(' + author.image + ')' }"></div>
+                    <div class="name">{{ author.name }}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                <div class="buttons">
+                  <div class="button" @click="installOrUninstall">{{i18nFormat(extensions.installed ? 'UNINSTALL' : 'INSTALL')}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `,
+      props: ["extension"],
+      data() {
+        return {
+          selectedPreview: 0,
+        };
+      },
+      methods: {
+        getLocalized,
+        i18nFormat: i18n.format,
+        installOrUninstall() {
+          if (this.extension.installed) {
+            // uninstall
+          } else {
+            // install
+          }
+        }
+      }
+    }
+  )
+
+  vueApp.mount(baseVueElm);
 
   dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"]', (elm) => {
     /** @type {HTMLDivElement} */
