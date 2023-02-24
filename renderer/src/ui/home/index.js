@@ -53,12 +53,16 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
 
         function buildButton(id, text, selected = false) {
           let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tab-button ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
+
           buttons.push(elm);
+
           elm.setSelected = (s) => {
             if (s) elm.classList.add(headerClasses.selected);
             else elm.classList.remove(headerClasses.selected);
           }
+
           elm.setSelected(internalVueApp.selectedTab === id);
+
           elm.onclick = () => {
             buttons.forEach((b) => b.setSelected(false));
             elm.setSelected(true);
