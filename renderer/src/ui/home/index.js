@@ -5,8 +5,7 @@ import utils from "../../api/utils/index.js";
 import i18n from "../../api/i18n/index.js";
 
 import cssText from "./style.scss";
-import { getLocalized } from "../../other/utils.js";
-import modals from "../../api/ui/modals.jsx";
+import vueComponents from "./vue-components/index.js";
 patcher.injectCSS(cssText);
 
 {
@@ -129,18 +128,10 @@ function fillSVGElmWithAcordLogo(svgElm) {
 
   const baseVueElm = dom.parse(`
     <div class="acord--tabs-content-container">
-      <div v-if="selectedTab === 'home'" class="tab-content home">
-        <h1>Home Todo</h1>
-      </div>
-      <div v-if="selectedTab === 'installed-extensions'" class="tab-content installed-extensions">
-        <store-extension-card v-for="extension in extensions" :extension="extension" :key="extension.name.default" />
-      </div>
-      <div v-if="selectedTab === 'store'" class="tab-content store">
-        <h1>Store</h1>
-      </div>
-      <div v-if="selectedTab === 'settings'" class="tab-content settings">
-        <h1>Settings</h1>
-      </div>
+      <home-page v-if="selectedTab === 'home'" />
+      <installed-extensions v-if="selectedTab === 'installed-extensions'" />
+      <store-page v-if="selectedTab === 'store'" />
+      <settings-page v-if="selectedTab === 'settings'" />
     </div>
   `);
 
@@ -148,146 +139,15 @@ function fillSVGElmWithAcordLogo(svgElm) {
   const vueApp = Vue.createApp({
     data() {
       return {
-        selectedTab: "home",
-        extensions: [
-          {
-            type: "plugin",
-            url: "",
-            name: {
-              default: "Test Plugin",
-              tr: "Deneme Plugin",
-            },
-            description: {
-              default: "Test Plugin description..",
-              tr: "Deneme Plugin açıklaması..",
-            },
-            previews: [
-              {
-                name: "Test Plugin Preview",
-                image: "https://i.imgur.com/TtfjHeP.png",
-              },
-              {
-                name: "Test Plugin Preview 2",
-                image: "https://i.imgur.com/0Z0Z0Z0.png",
-              }
-            ],
-            authors: [
-              {
-                id: "707309693449535599",
-                name: "Armagan#2448",
-                image: "https://i.imgur.com/rSLVd23.png"
-              },
-              {
-                id: "707309693449535599",
-                name: "Armagan#2448",
-                image: "https://i.imgur.com/rSLVd23.png"
-              }
-            ],
-            version: "1.0.0",
-            readme: "### Test Plugin readme..",
-            installed: true
-          }
-        ],
+        selectedTab: "home"
       };
-    },
-    methods: {
-
-    },
-    computed: {
-      installedPlugins() {
-        return this.extensions.filter((ext) => ext.type === "plugin" && ext.installed);
-      },
-      installedThemes() {
-        return this.extensions.filter((ext) => ext.type === "theme" && ext.installed);
-      }
     },
     mounted() {
       internalVueApp = this;
     }
   });
 
-  vueApp.component(
-    "store-extension-card",
-    {
-      template: `
-        <div class="acord--store-extension-card">
-          <div v-if="extension.previews?.length" class="preview" :style="{ backgroundImage: 'url(' + extension.previews[selectedPreview].image + ')' }">
-            <div class="controls">
-              <div class="go go-back" @click="goBack">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                  <path d="M11.828 12l2.829 2.828-1.414 1.415L9 12l4.243-4.243 1.414 1.415L11.828 12z" fill="currentColor" />
-                </svg>
-              </div>
-              <div class="go go-forward" @click="goForward">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                  <path d="M12.172 12L9.343 9.172l1.414-1.415L15 12l-4.243 4.243-1.414-1.415z" fill="currentColor" />
-                </svg>
-              </div>
-            </div>
-            <div class="name-container">
-              <div class="name">
-                {{ extension.previews[selectedPreview].name }}
-              </div>
-            </div>
-          </div>
-          <div v-else class="preview no-preview"></div>
-          <div class="info-container">
-            <div class="top">
-              <div class="name-container">
-                <div class="name">{{ getLocalized(extension.name) }}</div>
-                <div class="version">v{{ extension.version }}</div>
-              </div>
-              <div class="description">{{ getLocalized(extension.description) }}</div>
-            </div>
-            <div class="bottom">
-              <div class="left">
-                <div class="authors">
-                  <div v-for="author in extension.authors" class="author" :key="author.name" @click="showProfile(author.id)">
-                    <div class="image" :style="{ backgroundImage: 'url(' + author.image + ')' }"></div>
-                    <div class="name">{{ author.name }}</div>
-                  </div>
-                </div>
-              </div>
-              <div class="right">
-                <div class="buttons">
-                  <div class="button" @click="installOrUninstall">{{i18nFormat(extension.installed ? 'UNINSTALL' : 'INSTALL')}}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      `,
-      props: ["extension"],
-      data() {
-        return {
-          selectedPreview: 0,
-        };
-      },
-      methods: {
-        getLocalized,
-        i18nFormat: i18n.format,
-        installOrUninstall() {
-          if (this.extension.installed) {
-            // uninstall
-          } else {
-            // install
-          }
-        },
-        goBack() {
-          this.selectedPreview--;
-          if (this.selectedPreview < 0) this.selectedPreview = this.extension.previews.length - 1;
-        },
-        goForward() {
-          this.selectedPreview++;
-          if (this.selectedPreview >= this.extension.previews.length) this.selectedPreview = 0;
-        },
-        showProfile(profileId) {
-          modals.show.user(profileId);
-        }
-      }
-    }
-  )
-
+  vueComponents.load(vueApp);
   vueApp.mount(baseVueElm);
 
   dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"]', (elm) => {
