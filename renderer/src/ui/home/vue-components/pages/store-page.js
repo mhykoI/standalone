@@ -1,12 +1,13 @@
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
     vueApp.component(
       "store-page",
       {
         template: `
         <div>
-          <store-extension-card v-for="extension in extensions" :extension="extension" :key="extension.url"></store-extension-card>
+          <store-extension-card v-for="extension in extensions" :extension="extension" :key="extension.name.default" />
         </div>
         `,
         data() {
