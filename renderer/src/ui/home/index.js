@@ -6,6 +6,7 @@ import i18n from "../../api/i18n/index.js";
 
 import cssText from "./style.scss";
 import { getLocalized } from "../../other/utils.js";
+import modals from "../../api/ui/modals.jsx";
 patcher.injectCSS(cssText);
 
 {
@@ -132,7 +133,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
         <h1>Home Todo</h1>
       </div>
       <div v-if="selectedTab === 'installed-extensions'" class="tab-content installed-extensions">
-        <h1>Installed Extensions</h1>
+        <store-extension-card v-for="extension in extensions" :extension="extension" :key="extension.name.default" />
       </div>
       <div v-if="selectedTab === 'store'" class="tab-content store">
         <h1>Store</h1>
@@ -148,7 +149,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
     data() {
       return {
         selectedTab: "home",
-        installedExtensions: [
+        extensions: [
           {
             type: "plugin",
             url: "",
@@ -175,6 +176,11 @@ function fillSVGElmWithAcordLogo(svgElm) {
                 id: "707309693449535599",
                 name: "Armagan#2448",
                 image: "https://i.imgur.com/rSLVd23.png"
+              },
+              {
+                id: "707309693449535599",
+                name: "Armagan#2448",
+                image: "https://i.imgur.com/rSLVd23.png"
               }
             ],
             version: "1.0.0",
@@ -189,10 +195,10 @@ function fillSVGElmWithAcordLogo(svgElm) {
     },
     computed: {
       installedPlugins() {
-        return this.installedExtensions.filter((ext) => ext.type === "plugin");
+        return this.extensions.filter((ext) => ext.type === "plugin" && ext.installed);
       },
       installedThemes() {
-        return this.installedExtensions.filter((ext) => ext.type === "theme");
+        return this.extensions.filter((ext) => ext.type === "theme" && ext.installed);
       }
     },
     mounted() {
@@ -201,35 +207,50 @@ function fillSVGElmWithAcordLogo(svgElm) {
   });
 
   vueApp.component(
-    "extension-card",
+    "store-extension-card",
     {
       template: `
-        <div class="extension-card">
-          <div class="preview-container" :style="{ backgroundImage: 'url(' + extension.previews[selectedPreview].image + ')' }">
-            <div class="go-back">&gt;</div>
-            <div class="go-forward">&lt;</div>
-            <div class="name">{{ getLocalized(extension.previews[selectedPreview].name) }}</div>
+        <div class="acord--store-extension-card">
+          <div v-if="extension.previews?.length" class="preview" :style="{ backgroundImage: 'url(' + extension.previews[selectedPreview].image + ')' }">
+            <div class="controls">
+              <div class="go go-back" @click="goBack">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M11.828 12l2.829 2.828-1.414 1.415L9 12l4.243-4.243 1.414 1.415L11.828 12z" fill="currentColor" />
+                </svg>
+              </div>
+              <div class="go go-forward" @click="goForward">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path d="M12.172 12L9.343 9.172l1.414-1.415L15 12l-4.243 4.243-1.414-1.415z" fill="currentColor" />
+                </svg>
+              </div>
+            </div>
+            <div class="name-container">
+              <div class="name">
+                {{ extension.previews[selectedPreview].name }}
+              </div>
+            </div>
           </div>
+          <div v-else class="preview no-preview"></div>
           <div class="info-container">
             <div class="top">
               <div class="name-container">
                 <div class="name">{{ getLocalized(extension.name) }}</div>
-                <div class="version">{{ extension.version }}</div>
+                <div class="version">v{{ extension.version }}</div>
               </div>
               <div class="description">{{ getLocalized(extension.description) }}</div>
             </div>
             <div class="bottom">
               <div class="left">
                 <div class="authors">
-                  <div v-for="author in extension.authors" class="author">
-                    <div :style="{ backgroundImage: 'url(' + author.image + ')' }"></div>
+                  <div v-for="author in extension.authors" class="author" :key="author.name" @click="showProfile(author.id)">
+                    <div class="image" :style="{ backgroundImage: 'url(' + author.image + ')' }"></div>
                     <div class="name">{{ author.name }}</div>
                   </div>
                 </div>
               </div>
               <div class="right">
                 <div class="buttons">
-                  <div class="button" @click="installOrUninstall">{{i18nFormat(extensions.installed ? 'UNINSTALL' : 'INSTALL')}}</div>
+                  <div class="button" @click="installOrUninstall">{{i18nFormat(extension.installed ? 'UNINSTALL' : 'INSTALL')}}</div>
                 </div>
               </div>
             </div>
@@ -251,6 +272,17 @@ function fillSVGElmWithAcordLogo(svgElm) {
           } else {
             // install
           }
+        },
+        goBack() {
+          this.selectedPreview--;
+          if (this.selectedPreview < 0) this.selectedPreview = this.extension.previews.length - 1;
+        },
+        goForward() {
+          this.selectedPreview++;
+          if (this.selectedPreview >= this.extension.previews.length) this.selectedPreview = 0;
+        },
+        showProfile(profileId) {
+          modals.show.user(profileId);
         }
       }
     }
