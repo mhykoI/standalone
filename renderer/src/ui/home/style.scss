@@ -13,6 +13,10 @@
     align-items: flex-start;
     justify-content: center;
     width: 100%;
+
+    & > .tab {
+      width: 100%;
+    }
   }
 
   &--tabs-tab-button {
