@@ -53,7 +53,9 @@ export default {
                 </div>
                 <div class="right">
                   <div class="buttons">
-                    <div class="button" @click="installOrUninstall">{{i18nFormat(extension.installed ? 'UNINSTALL' : 'INSTALL')}}</div>
+                    <span @click="installOrUninstall">
+                      <discord-button :value="i18nFormat(extension.installed ? 'UNINSTALL' : 'INSTALL')" />
+                    </span>
                   </div>
                 </div>
               </div>
