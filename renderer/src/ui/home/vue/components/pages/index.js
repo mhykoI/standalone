@@ -1,5 +1,5 @@
 import homePage from "./home-page/index.js"
-import installedExtensionsPage from "./installed-extensions-page.js.js";
+import installedExtensionsPage from "./installed-extensions-page/index.js";
 import settingsPage from "./settings-page/index.js";
 import storePage from "./store-page/index.js";
 

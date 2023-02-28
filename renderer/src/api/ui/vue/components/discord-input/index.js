@@ -1,7 +1,7 @@
 import webpack from "../../../../../api/modules/webpack.js";
 
-let inputClasses = webpack.findByProps("inputDefault", "copyInput");
-let inputClasses2 = webpack.findByProps("input", "editable", "disabled", "inputWrapper");
+let inputClasses = webpack.findByProperties("inputDefault", "copyInput");
+let inputClasses2 = webpack.findByProperties("input", "editable", "disabled", "inputWrapper");
 
 export default {
   /** @param {import("vue").App} vueApp */
