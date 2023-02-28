@@ -1,9 +1,10 @@
-import webpack from "../../../../api/modules/webpack.js";
+import webpack from "../../../../../api/modules/webpack.js";
+
+const buttonClasses = webpack.findByProperties("lowSaturationUnderline", "button", "disabledButtonOverlay");
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
-    const buttonClasses = webpack.findByProperties("lowSaturationUnderline", "button", "disabledButtonOverlay");
     vueApp.component("discord-button", {
       template: `
         <div class="${buttonClasses.button} ${buttonClasses.lookFilled} ${buttonClasses.grow}" :class="\`\${buttonClasses[color] ?? buttonClasses.colorBrand} \${buttonClasses[size] ?? buttonClasses.sizeSmall}\`">

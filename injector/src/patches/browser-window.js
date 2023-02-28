@@ -34,6 +34,6 @@ export function patchBrowserWindow() {
   Object.assign(BrowserWindow, electron.BrowserWindow);
 
   const electronPath = require.resolve("electron");
-  delete require.cache[electronPath].exports; // If it didn't work, try to delete existing
-  require.cache[electronPath].exports = { ...electron, BrowserWindow }; // Try to assign again after deleting
+  delete require.cache[electronPath].exports;
+  require.cache[electronPath].exports = { ...electron, BrowserWindow };
 }

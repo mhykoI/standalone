@@ -3,9 +3,10 @@ import webpack from "../../api/modules/webpack.js";
 import patcher from "../../api/patcher/index.js";
 import utils from "../../api/utils/index.js";
 import i18n from "../../api/i18n/index.js";
+import ui from "../../api/ui/index.js";
 
 import cssText from "./style.scss";
-import vueComponents from "./vue-components/index.js";
+import vueComponents from "./vue/components/index.js";
 patcher.injectCSS(cssText);
 
 {
@@ -121,10 +122,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
 
 
 (async () => {
-  while (true) {
-    if (window.Vue) break;
-    await utils.sleep(100);
-  }
+  await ui.vue.ready.when();
 
   const baseVueElm = dom.parse(`
     <div class="acord--tabs-content-container">
@@ -155,6 +153,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
     }
   });
 
+  ui.vue.components.load(vueApp);
   vueComponents.load(vueApp);
   vueApp.mount(baseVueElm);
 

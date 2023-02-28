@@ -8,6 +8,7 @@ import contextMenus from "./contextMenus.js";
 import components from "./components.js";
 import modals from "./modals.jsx";
 import toasts from "./toasts.js";
+import vue from "./vue/index.js";
 
 
 export default {
@@ -16,5 +17,6 @@ export default {
   contextMenus,
   components,
   modals,
-  toasts
+  toasts,
+  vue
 }
