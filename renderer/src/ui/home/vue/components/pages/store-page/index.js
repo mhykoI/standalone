@@ -1,7 +1,6 @@
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAA")
     vueApp.component(
       "store-page",
       {

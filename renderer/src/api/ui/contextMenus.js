@@ -25,11 +25,12 @@ let Actions = null;
       close: ["CONTEXT_MENU_CLOSE"],
       open: ["renderLazy"]
     });
+
     isReady = !!out.close && !!out.open;
     return out;
   })();
 
-  Components = (() => {
+  Components = await (async () => {
     const out = {};
     const componentMap = {
       separator: "Separator",
@@ -41,14 +42,23 @@ let Actions = null;
     };
 
     try {
-      const moduleId = Object.entries(webpack.require.m).find(([, m]) => m?.toString().includes("menuitemcheckbox"))[0];
+      let moduleId;
+      while (true) {
+        moduleId = Object.entries(webpack.require.m).find(([, m]) => m?.toString().includes("menuitemcheckbox"))[0]
+        if (moduleId) break;
+        await new Promise(r => setTimeout(r, 100));
+      }
+
       const contextMenuModule = webpack.find((_, idx) => idx == moduleId).exports;
-      const rawMatches = webpack.require.m[moduleId].toString().matchAll(/if\(\w+\.type===\w+\.(\w+)\).+?type:"(.+?)"/g);
+
+      const moduleString = webpack.require.m[moduleId].toString();
+      const rawMatches = moduleString.matchAll(/if\(\w+\.type===(?:\w+\.)?(\w+)\).+?type:"(.+?)"/gs);
 
       out.Menu = Object.values(contextMenuModule).find(v => v.toString().includes(".isUsingKeyboardNavigation"));
 
-      [...rawMatches].forEach(([, id, type]) => {
-        out[componentMap[type]] = contextMenuModule[id];
+      [...rawMatches].forEach(([, functionName, type]) => {
+        let moduleKey = moduleString.match(new RegExp(new RegExp(`(\\w+):\\(\\)\\=\\>${functionName}`)))?.[1]
+        out[componentMap[type]] = contextMenuModule[moduleKey];
       });
 
       isReady = Object.keys(out).length > 1;
@@ -74,8 +84,6 @@ class MenuPatcher {
 
     const moduleToPatch = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window).exports;
     const keyToPatch = Object.keys(moduleToPatch).find(k => moduleToPatch[k]?.length === 3);
-
-    console.log(moduleToPatch, keyToPatch);
 
     patcher.before(
       keyToPatch,
@@ -167,7 +175,7 @@ function buildItem(props) {
     component = Components.ControlItem;
   }
   if (!props.id) props.id = `${props.label.replace(/^[^a-z]+|[^\w-]+/gi, "-")}`;
-  if (props.danger) props.color = "colorDanger";
+  if (props.danger) props.color = "danger";
   props.extended = true;
 
   if (type === "toggle") {
@@ -191,7 +199,7 @@ function buildMenuChildren(setup) {
   };
   const buildGroup = function (group) {
     const items = group.items.map(mapper).filter(i => i);
-    return React.createElement(MenuComponents.Group, null, items);
+    return React.createElement(Components.Group, null, items);
   };
   return setup.map(mapper).filter(i => i);
 }
@@ -220,7 +228,7 @@ export default {
       return buildMenuChildren(setup);
     },
     menu(setup) {
-      return (props) => React.createElement(MenuComponents.Menu, props, this.buildMenuChildren(setup));
+      return (props) => React.createElement(Components.Menu, props, buildMenuChildren(setup));
     }
   }
 };
