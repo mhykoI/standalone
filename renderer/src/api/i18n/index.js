@@ -25,11 +25,13 @@ const out = {
       return out.get(prop);
     }
   }),
-  localize(str) {
-    if (typeof str === "string") return str;
-    return str?.[out.locale]
+  localize(str, ...args) {
+    if (typeof str === "string") return utils.format(str, ...args);
+    let val = str?.[out.locale]
       || str?.default
       || Object.values(str)[0];
+    if (!val) return null;
+    return utils.format(val, ...args);
   },
   format(key, ...args) {
     return utils.format(out.get(key), ...args);

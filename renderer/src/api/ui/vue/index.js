@@ -1,4 +1,5 @@
 import vueComponents from "./components/index.js";
+import { recomputable, recompute } from "./utils/recompute.js";
 
 export default {
   components: {
@@ -19,5 +20,11 @@ export default {
   },
   get Vue() {
     return window.Vue;
+  },
+  utils: {
+    computed: {
+      recompute,
+      recomputable
+    }
   }
 }

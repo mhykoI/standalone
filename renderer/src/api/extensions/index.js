@@ -9,9 +9,9 @@ import * as nests from "nests";
 /**
  * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[], mode?: "development" | "production" }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} cfg 
  */
-async function buildAPI(cfg) {
+async function buildAPI(cfg, persistKey) {
   const devMode = dev.enabled || cfg?.modules?.mode === "development";
-  const persist = await storage.createPersistNest(`Extension;Persist;${cfg.about.slug}`);
+  const persist = await storage.createPersistNest(persistKey);
   const out = {
     modules: {
       __cache__: {
@@ -119,6 +119,16 @@ const out = {
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
+    out.showConfirmationModal({
+      metadata,
+      readme,
+      config: {
+        autoUpdate: true,
+        enabled: true,
+        order: 0,
+        ...defaultConfig
+      }
+    });
 
     let sourceResp = await fetch(`${url}/source.js`);
     if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);
@@ -140,6 +150,9 @@ const out = {
     };
 
     await out.load(url);
+  },
+  showConfirmationModal(data) {
+
   },
   async update(url) {
     if (!out.__cache__.initialized) await out.init();
@@ -190,8 +203,7 @@ const out = {
 
     if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is already loaded.`);
 
-    let api = await out.buildAPI(data.metadata);
-
+    let api = await out.buildAPI(data.metadata, `Extension;Persist;${url}`);
     let evaluated = out.evaluate(data.source, api);
 
     await evaluated?.load?.();
@@ -209,8 +221,8 @@ const out = {
 
     let { evaluated, api } = out.__cache__.loaded.ghost[url];
 
-    api.extension.events.emit("unload");
     api.extension.subscriptions.forEach(i => typeof i === "function" && i());
+    api.extension.events.emit("unload");
     await evaluated?.unload?.();
 
     delete out.__cache__.loaded.store[url];
@@ -226,6 +238,12 @@ const out = {
   async unloadAll() {
     if (!out.__cache__.initialized) await out.init();
     return Promise.all(Object.keys(out.__cache__.loaded.ghost).map(url => out.unload(url)));
+  },
+  get(url) {
+    return {
+      loaded: out.__cache__.loaded.ghost[url],
+      installed: out.storage.installed.ghost[url]
+    };
   }
 };
 

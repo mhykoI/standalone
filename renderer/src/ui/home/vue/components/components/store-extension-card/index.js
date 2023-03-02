@@ -3,7 +3,6 @@ import i18n from "../../../../../../api/i18n/index.js";
 import patcher from "../../../../../../api/patcher/index.js";
 
 import cssText from "./style.scss";
-import { getLocalized } from "../../../../../../other/utils.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -37,10 +36,10 @@ export default {
             <div class="info-container">
               <div class="top">
                 <div class="name-container">
-                  <div class="name">{{ getLocalized(extension.name) }}</div>
+                  <div class="name">{{ i18nLocalize(extension.name) }}</div>
                   <div class="version">v{{ extension.version }}</div>
                 </div>
-                <div class="description">{{ getLocalized(extension.description) }}</div>
+                <div class="description">{{ i18nLocalize(extension.description) }}</div>
               </div>
               <div class="bottom">
                 <div class="left">
@@ -69,8 +68,8 @@ export default {
           };
         },
         methods: {
-          getLocalized,
           i18nFormat: i18n.format,
+          i18nLocalize: i18n.localize,
           installOrUninstall() {
             if (this.extension.installed) {
               // uninstall

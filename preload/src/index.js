@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { patchDevTools } from "./patches/devtools.js";
-import { patchWindowActions } from "./patches/patchWindowActions.js";
+import { patchWindowActions } from "./patches/window-actions.js";
 import { patchPreload } from "./patches/preload.js";
 import { patchWebpackChunk } from "./patches/webpack-chunk.js";
 

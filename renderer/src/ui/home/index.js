@@ -134,17 +134,10 @@ function fillSVGElmWithAcordLogo(svgElm) {
 
   const baseVueElm = dom.parse(`
     <div class="acord--tabs-content-container">
-      <div v-if="selectedTab === 'home'" class="tab">
-        <home-page />
-      </div>
-      <div v-if="selectedTab === 'installed-extensions'" class="tab">
-        <installed-extensions-page />
-      </div>
-      <div v-if="selectedTab === 'store'" class="tab">
-        <store-page />
-      </div>
-      <div v-if="selectedTab === 'settings'" class="tab">
-        <settings-page />
+      <div class="tab">
+        <keep-alive>
+          <component :is="\`\${selectedTab}-page\`" />
+        </keep-alive>
       </div>
     </div>
   `);

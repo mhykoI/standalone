@@ -1,8 +1,9 @@
-import i18n from "../../../../../api/i18n/index.js";
-import patcher from "../../../../../api/patcher/index.js";
+import i18n from "../../../../../../api/i18n/index.js";
+import patcher from "../../../../../../api/patcher/index.js";
+import extensions from "../../../../../../api/extensions/index.js";
 
 import cssText from "./style.scss";
-import { getLocalized } from "../../../../../other/utils.js";
+import { recomputable, recompute } from "../../../../../../api/ui/vue/utils/recompute.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -26,6 +27,23 @@ export default {
             </div>
           </div>
         `,
+        data() {
+          return {
+            expanded: false,
+            url: null,
+          };
+        },
+        computed: {
+          extension: recomputable(
+            function () {
+              return extensions.get(this.url);
+            },
+            "extension"
+          )
+        },
+        mounted() {
+          recompute(this, "extension");
+        }
       }
     );
   }
