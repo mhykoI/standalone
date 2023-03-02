@@ -144,7 +144,7 @@ const out = {
   async update(url) {
     if (!out.__cache__.initialized) await out.init();
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
-    if (out.storage.loaded.ghost[url]) throw new Error(`"${url}" extension is loaded. Please unload it first.`);
+    if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is loaded. Please unload it first.`);
 
     let data = out.storage.installed.ghost[url];
 
