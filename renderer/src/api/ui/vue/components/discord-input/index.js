@@ -10,11 +10,11 @@ export default {
       template: `
         <div class="${inputClasses2?.input}">
           <div class="${inputClasses?.inputWrapper}">
-            <input type="text" class="${inputClasses?.inputDefault}" v-bind="value" />
+            <input :type="type ?? 'text'" class="${inputClasses?.inputDefault}" v-bind="value" :placeholder="placeholder" />
           </div>
         </div>
       `,
-      props: ["value"]
+      props: ["value", "placeholder", "type"]
     });
   }
 }

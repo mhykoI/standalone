@@ -1,0 +1,18 @@
+.acord--discord-select {
+  position: relative;
+  width: 100%;
+
+  & > .options {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    max-height: 286px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    &.top-popout {
+      top: auto;
+      bottom: 100%;
+    }
+  }
+}

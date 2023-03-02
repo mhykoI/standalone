@@ -30,7 +30,8 @@
             "in": "strings",
             "by": [
               [
-                "ENTERING"
+                "ENTERING",
+                "headerId"
               ]
             ]
           },
@@ -144,12 +145,20 @@
             ]
           ]
         },
+        "map": {
+          "ConfirmationModal": [
+            ".confirmButtonColor"
+          ]
+        },
         "path": {
           "before": [
             "exports.Z",
             "exports.ZP",
             "exports.default",
             "exports"
+          ],
+          "after": [
+            "ConfirmationModal"
           ]
         }
       },

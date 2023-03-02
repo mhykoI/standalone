@@ -38,9 +38,6 @@ export default {
         }
       });
     },
-    close(key) {
-      return modals.actions.close(key);
-    },
     user(userId) {
       if (!UserStore.getUser(userId)) return false;
       FluxDispatcher.dispatch({ type: "USER_PROFILE_MODAL_OPEN", userId });
@@ -49,5 +46,8 @@ export default {
     alert(title, content, { confirm = null, key = undefined, timeout = 60000 * 5 } = {}) {
       return this.confirmation(title, content, { confirm, cancel: null, key, timeout });
     }
+  },
+  close(key) {
+    return modals.actions.close(key);
   }
 }
