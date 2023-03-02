@@ -2,6 +2,7 @@ import extensions from "../extensions/index.js";
 import logger from "../utils/logger.js";
 import i18n from "../i18n/index.js";
 import websocket from "../websocket/index.js";
+import patcher from "../patcher/index.js";
 
 let devModeEnabled = false;
 
@@ -29,11 +30,25 @@ const extension = {
     isLoading = true;
     try {
       let api = await extensions.buildAPI(manifest, `Extension;Persist;Development`);
+      
       let evaluated = extensions.evaluate(source, api);
-      evaluated?.load?.();
+      if (manifest.type === "theme") {
+        let css = evaluated();
+        let config = manifest.config ?? [];
+        config.
+
+        patcher.injectCSS(css)
+      } else {
+        evaluated?.load?.();
+      }
+      function interact(data) {
+
+      }
+
       loaded = {
         evaluated,
-        api
+        api,
+        interact
       };
       installed = {
         manifest

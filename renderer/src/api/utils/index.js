@@ -55,5 +55,13 @@ export default {
   },
   sleep(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  },
+  mapReplace(text, map = {}) {
+    return (Array.isArray(map) ? map : Object.entries(map)).reduce((all, current) => all.replaceAll(current[0], current[1]), text);
+  },
+  escapeRegex(str) {
+    return str
+      .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+      .replace(/-/g, '\\x2d');
   }
 }

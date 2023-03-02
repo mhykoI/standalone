@@ -1,0 +1,76 @@
+{
+  "config": [
+    {
+      "type": "Row",
+      "align": "space-between",
+      "children": [
+        {
+          "type": "Paragraph",
+          "title": "Description",
+          "content": "Description",
+          "id": "description"
+        },
+        {
+          "type": "Button",
+          "content": "Button",
+          "color": "primary",
+          "size": "small",
+          "id": "button",
+          "disabled": false,
+          "visible": "$.description.description === 'Description'"
+        }
+      ]
+    },
+    {
+      "type": "Row",
+      "align": "start",
+      "children": [
+        {
+          "type": "Title",
+          "title": "Description",
+          "content": "Description"
+        },
+        {
+          "type": "Description",
+          "title": "Description",
+          "content": "Description"
+        },
+        {
+          "type": "Column",
+          "align": "start",
+          "children": [
+            {
+              "type": "Button",
+              "content": "Description",
+              "color": "danger"
+            },
+            {
+              "type": "Text",
+              "content": "Description"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Row",
+      "align": "start",
+      "children": [
+        {
+          "type": "Select",
+          "default": "option1",
+          "options": [
+            {
+              "label": "Option 1",
+              "value": "option1"
+            },
+            {
+              "label": "Option 2",
+              "value": "option2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

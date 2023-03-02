@@ -88,6 +88,10 @@ async function buildAPI(cfg, persistKey) {
   return out;
 }
 
+function showConfirmationModal() {
+
+}
+
 const out = {
   __cache__: {
     initialized: false,
@@ -119,7 +123,7 @@ const out = {
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
-    out.showConfirmationModal({
+    showConfirmationModal({
       metadata,
       readme,
       config: {
@@ -150,9 +154,6 @@ const out = {
     };
 
     await out.load(url);
-  },
-  showConfirmationModal(data) {
-
   },
   async update(url) {
     if (!out.__cache__.initialized) await out.init();
@@ -244,6 +245,9 @@ const out = {
       loaded: out.__cache__.loaded.ghost[url],
       installed: out.storage.installed.ghost[url]
     };
+  },
+  utils: {
+    
   }
 };
 

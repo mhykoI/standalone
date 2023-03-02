@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: start;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .title h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .title p {
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .description {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .description h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .description p {
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .paragraph {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+    }
+
+    .paragraph h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .paragraph p {
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .button {
+      border: none;
+      border-radius: 0.25rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .button--primary {
+      background-color: #3f51b5;
+      color: #fff;
+    }
+
+    .button--danger {
+      background-color: #f44336;
+      color: #fff;
+    }
+
+    .button--small {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .text {
+      font-size: 1rem;
+      font-weight: 400;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <component v-for="child in manifest.config" :is="child.type" v-bind="child"></component>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script>
+    class BasicEventEmitter {
+      constructor() {
+        /** @type {Map<string, Map<(...args: any[])=>void, {once: boolean}>>} */
+        this.listeners = new Map();
+      }
+
+      _prepareListenersMap(eventName) {
+        if (!this.listeners.has(eventName))
+          this.listeners.set(eventName, new Map());
+      }
+
+      /**
+       * @param {string} eventName
+       * @param {(...args: any[])=>void} listener
+       */
+      on(eventName, listener) {
+        this._prepareListenersMap(eventName);
+        this.listeners.get(eventName).set(listener, { once: false });
+        return () => {
+          this.listeners.get(eventName).delete(listener);
+        };
+      }
+
+      /**
+       * @param {string} eventName
+       * @param {(...args: any[])=>void} listener
+       */
+      once(eventName, listener) {
+        this._prepareListenersMap(eventName);
+        this.listeners.get(eventName)?.set(listener, { once: true });
+        return () => {
+          this.listeners.get(eventName).delete(listener);
+        };
+      }
+
+      /**
+       * @param {string?} eventName
+       * @param {((...args: any[])=>void)?} listener
+       */
+      off(eventName, listener) {
+        if (!eventName) return (this.listeners = new Map());
+        if (!listener) return this.listeners?.delete(eventName);
+        this.listeners.get(eventName)?.delete(listener);
+      }
+
+      /**
+       * @param {string} eventName
+       * @param  {...any} args
+       */
+      emit(eventName, ...args) {
+        if (!this.listeners.has(eventName)) return;
+        let eventMap = this.listeners.get(eventName);
+        eventMap.forEach(({ once }, listener) => {
+          if (once) eventMap?.delete(listener);
+          listener(...args);
+        });
+      }
+    };
+
+  </script>
+  <script>
+
+    const emitter = new BasicEventEmitter();
+
+    function configInteraction(ctx) {
+      console.log("ctx", ctx);
+
+    }
+
+    const manifest = {
+      "config": [
+        {
+          "type": "Row",
+          "align": "space-between",
+          "children": [
+            {
+              "type": "Paragraph",
+              "title": "Description",
+              "content": "Description",
+              "id": "description"
+            },
+            {
+              "type": "Button",
+              "content": "Button",
+              "color": "primary",
+              "size": "small",
+              "id": "button",
+              "disabled": false
+            }
+          ]
+        },
+        {
+          "type": "Row",
+          "align": "start",
+          "children": [
+            {
+              "type": "Title",
+              "title": "Description",
+              "content": "Description"
+            },
+            {
+              "type": "Description",
+              "title": "Description",
+              "content": "Description"
+            },
+            {
+              "type": "Column",
+              "align": "start",
+              "children": [
+                {
+                  "type": "Button",
+                  "content": "Description",
+                  "color": "danger",
+                  "id": "dangerButton"
+                },
+                {
+                  "type": "Text",
+                  "content": "Description"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Row",
+          "align": "start",
+          "children": [
+            {
+              "type": "Select",
+              "default": "option1",
+              "options": [
+                {
+                  "label": "Option 1",
+                  "value": "option1"
+                },
+                {
+                  "label": "Option 2",
+                  "value": "option2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    const app = Vue.createApp({
+      data() {
+        return {
+          manifest
+        }
+      },
+      mounted() {
+        const self = this;
+        window.self = self;
+        emitter.on("interaction", ({ type, id }) => {
+          configInteraction({
+            id,
+            type,
+            item: self.getItemRecursive(id, self.manifest.config)
+          });
+        });
+      },
+      methods: {
+        getItemRecursive(id, children = null) {
+          let item = children.find(i => i?.id === id);
+          if (item) return item;
+          return this.getItemRecursive(id, children.flatMap(i => i?.children));
+        },
+        getItem(id) {
+          return this.getItemRecursive(id, this.manifest.config);
+        }
+      }
+    });
+
+    app.component("Row", {
+      props: ["align", "children"],
+      template: `
+        <div :class="['row']" :style="'justify-content:'+(align ?? 'start')+';'">
+          <component v-for="child in children" :is="child.type" v-bind="child"></component>
+        </div>
+      `
+    });
+
+    app.component("Column", {
+      props: ["align", "children"],
+      template: `
+        <div :class="['column']" :style="'justify-content:'+(align ?? 'start')+';'">
+          <component v-for="child in children" :is="child.type" v-bind="child"></component>
+        </div>
+      `
+    });
+
+    app.component("Title", {
+      props: ["title", "content"],
+      template: `
+        <div class="title">
+          <h1>{{ title }}</h1>
+          <p>{{ content }}</p>
+        </div>
+      `
+    });
+
+    app.component("Description", {
+      props: ["title", "content"],
+      template: `
+        <div class="description">
+          <h2>{{ title }}</h2>
+          <p>{{ content }}</p>
+        </div>
+      `
+    });
+
+
+    app.component("Paragraph", {
+      props: ["title", "content", "id"],
+      template: `
+        <div class="paragraph">
+          <h3>{{ title }}</h3>
+          <p>{{ content }}</p>
+        </div>
+      `
+    });
+
+    app.component("Button", {
+      props: ["content", "color", "size", "id", "disabled"],
+      template: `
+        <button :class="['button', 'button--' + color, 'button--' + size]" :id="id" :disabled="disabled" @click="onClick">
+          {{ content }}
+        </button>
+      `,
+      methods: {
+        onClick() {
+          emitter.emit("interaction", {
+            type: "click",
+            id: this.id,
+          });
+        }
+      }
+    });
+
+    app.component("Text", {
+      props: ["content"],
+      template: `
+        <p class="text">
+          {{ content }}
+        </p>
+      `
+    });
+
+    app.component("Input", {
+      props: ["type", "placeholder", "id"],
+      template: `
+        <input :class="['input', 'input--' + type]" :placeholder="placeholder" :id="id">
+      `
+    });
+
+    app.mount("#app");
+  </script>
+</body>
+
+</html>
