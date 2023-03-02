@@ -90,12 +90,12 @@ class Tooltip {
       this.contentElement.innerHTML = value;
     } else {
       this.contentElement.innerHTML = "";
-      this.contentElement.appendChild(value);
+      this.contentElement?.appendChild?.(value);
     }
   }
 
   static getContainer() {
-    const appElm = document.querySelector('[class*="notDevTools-"]');
+    const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
 
     let container = appElm.querySelector(".acord--tooltip-container");
     if (!container) {

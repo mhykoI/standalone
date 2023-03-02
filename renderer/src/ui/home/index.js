@@ -24,6 +24,13 @@ dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   );
 
   utils.ifExists(
+    elm.querySelector('[class*="premiumTrialAcknowledgedBadge-"]'),
+    (nitroElm) => {
+      nitroElm.remove();
+    }
+  );
+
+  utils.ifExists(
     elm.querySelector('[class*="avatarWithText-"] [class*="avatar-"] svg'),
     fillSVGElmWithAcordLogo
   );
@@ -35,6 +42,7 @@ const headerItemClasses = webpack.findByProperties("divider", "hamburger", "them
 const tabBarClasses = webpack.findByProperties("tabBar", "maxWidthWithToolbar");
 const headerClasses = webpack.findByProperties("topPill", "headerText");
 dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
+
   utils.ifExists(
     elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
     (titleElm) => {
@@ -157,7 +165,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
   vueComponents.load(vueApp);
   vueApp.mount(baseVueElm);
 
-  dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"]', (elm) => {
+  dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"]', (elm) => {
     /** @type {HTMLDivElement} */
     let containerElm = dom.parents(elm, 4).pop();
     containerElm.replaceChildren(baseVueElm);

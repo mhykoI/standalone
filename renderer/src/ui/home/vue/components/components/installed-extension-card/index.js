@@ -10,7 +10,23 @@ export default {
   load(vueApp) {
     vueApp.component(
       "installed-extension-card",
-      {}
+      {
+        template: `
+          <div class="acord--installed-extension-card">
+            <div class="top">
+              <div class="left">
+
+              </div>
+              <div class="right">
+
+              </div>
+            </div>
+            <div class="bottom">
+              
+            </div>
+          </div>
+        `,
+      }
     );
   }
 }
