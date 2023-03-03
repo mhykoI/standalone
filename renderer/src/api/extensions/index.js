@@ -8,12 +8,20 @@ import * as nests from "nests";
 import events from "../events/index.js";
 import patcher from "../patcher/index.js";
 import findInTree from "../utils/raw/find-in-tree.js";
+import websocket from "../websocket/index.js";
+import ui from "../ui/index.js";
+import utils from "../utils/index.js";
+import dom from "../dom/index.js";
+
+function apiAccessError(name) {
+  return new Error(`${name} is not enabled for this extension`);
+}
 
 /**
- * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[], mode?: "development" | "production" }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
+ * @param {{ mode?: "development" | "production", api: { patcher?: boolean, storage?: boolean, i18n?: boolean, events?: boolean, utils?: boolean, dom?: boolean, websocket?: boolean, ui?: boolean, dev?: boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
 async function buildPluginAPI(manifest, persistKey) {
-  const devMode = dev.enabled || manifest?.modules?.mode === "development";
+  const devMode = dev.enabled || manifest?.mode === "development";
   const persist = await storage.createPersistNest(persistKey);
   const out = {
     modules: {
@@ -78,13 +86,48 @@ async function buildPluginAPI(manifest, persistKey) {
         }
       }),
     },
-    i18n,
     extension: {
       config: JSON.parse(JSON.stringify(manifest)),
       persist,
       i18n: await buildExtensionI18N(manifest),
       events: new BasicEventEmitter(),
       subscriptions: []
+    },
+    get i18n() {
+      if (manifest?.api?.i18n || devMode) return i18n;
+      throw apiAccessError("i18n");
+    },
+    get patcher() {
+      if (manifest?.api?.patcher || devMode) return patcher;
+      throw apiAccessError("patcher");
+    },
+    get events() {
+      if (manifest?.api?.events || devMode) return events;
+      throw apiAccessError("events");
+    },
+    get storage() {
+      if (manifest?.api?.storage || devMode) return storage;
+      throw apiAccessError("storage");
+    },
+    get websocket() {
+      if (manifest?.api?.websocket || devMode) return websocket;
+      throw apiAccessError("websocket");
+    },
+    get ui() {
+      if (manifest?.api?.ui || devMode) return ui;
+      throw apiAccessError("ui");
+    },
+    get utils() {
+      if (manifest?.api?.utils || devMode) return utils;
+      throw apiAccessError("utils");
+    },
+    get dom() {
+      if (manifest?.api?.dom || devMode) return dom;
+      throw apiAccessError("dom");
+    },
+    get dev() {
+      if (manifest?.api?.dev || devMode) return dev;
+      throw apiAccessError("dev");
     }
   };
 
