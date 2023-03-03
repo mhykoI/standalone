@@ -13,10 +13,6 @@ import ui from "../ui/index.js";
 import utils from "../utils/index.js";
 import dom from "../dom/index.js";
 
-function apiAccessError(name) {
-  return new Error(`${name} is not enabled for this extension`);
-}
-
 /**
  * @param {{ mode?: "development" | "production", api: { patcher?: boolean, storage?: boolean, i18n?: boolean, events?: boolean, utils?: boolean, dom?: boolean, websocket?: boolean, ui?: boolean, dev?: boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
@@ -34,7 +30,7 @@ async function buildPluginAPI(manifest, persistKey) {
       require(name) {
         if (!devMode) {
           if (typeof out.modules.__cache__.node[name] !== "undefined") return out.modules.__cache__.node[name];
-          if (manifest?.modules?.node?.some?.(i => i.name === name)) return out.modules.__cache__.node[name] = modules.require(name);
+          if (manifest?.api?.modules?.node?.some?.(i => i.name === name)) return out.modules.__cache__.node[name] = modules.require(name);
         } else {
           return modules.require(name);
         }
@@ -44,7 +40,7 @@ async function buildPluginAPI(manifest, persistKey) {
         get(_, prop) {
           if (!devMode) {
             if (typeof out.modules.__cache__.common[prop] !== "undefined") return out.modules.__cache__.common[prop];
-            if (manifest?.modules?.common?.some?.(i => i.name === prop)) return out.modules.__cache__.common[prop] = modules.common[prop];
+            if (manifest?.api?.modules?.common?.some?.(i => i.name === prop)) return out.modules.__cache__.common[prop] = modules.common[prop];
           } else {
             return modules.common[prop];
           }
@@ -54,7 +50,7 @@ async function buildPluginAPI(manifest, persistKey) {
       custom: new Proxy({}, {
         get(_, prop) {
           if (typeof out.modules.__cache__.custom[prop] !== "undefined") return out.modules.__cache__.custom[prop];
-          let data = manifest?.modules?.custom?.some?.(i => i.name === prop);
+          let data = manifest?.api?.modules?.custom?.some?.(i => i.name === prop);
           if (!data) return null;
           if (data.lazy) {
             let prom = new Promise(async (resolve, reject) => {
@@ -87,7 +83,7 @@ async function buildPluginAPI(manifest, persistKey) {
       }),
     },
     extension: {
-      config: JSON.parse(JSON.stringify(manifest)),
+      manifest,
       persist,
       i18n: await buildExtensionI18N(manifest),
       events: new BasicEventEmitter(),
@@ -95,39 +91,39 @@ async function buildPluginAPI(manifest, persistKey) {
     },
     get i18n() {
       if (manifest?.api?.i18n || devMode) return i18n;
-      throw apiAccessError("i18n");
+      return null;
     },
     get patcher() {
       if (manifest?.api?.patcher || devMode) return patcher;
-      throw apiAccessError("patcher");
+      return null;
     },
     get events() {
       if (manifest?.api?.events || devMode) return events;
-      throw apiAccessError("events");
+      return null;
     },
     get storage() {
       if (manifest?.api?.storage || devMode) return storage;
-      throw apiAccessError("storage");
+      return null;
     },
     get websocket() {
       if (manifest?.api?.websocket || devMode) return websocket;
-      throw apiAccessError("websocket");
+      return null;
     },
     get ui() {
       if (manifest?.api?.ui || devMode) return ui;
-      throw apiAccessError("ui");
+      return null;
     },
     get utils() {
       if (manifest?.api?.utils || devMode) return utils;
-      throw apiAccessError("utils");
+      return null;
     },
     get dom() {
       if (manifest?.api?.dom || devMode) return dom;
-      throw apiAccessError("dom");
+      return null;
     },
     get dev() {
       if (manifest?.api?.dev || devMode) return dev;
-      throw apiAccessError("dev");
+      return null;
     }
   };
 
