@@ -34,10 +34,12 @@ export default {
           }
         }
       },
-      emits: ['update:modelValue'],
+      emits: ['update:modelValue', 'change'],
       methods: {
-        onClick() {
-          this.$emit("update:modelValue", !this.modelValue);
+        onClick(event) {
+          let newValue = !this.modelValue;
+          this.$emit("update:modelValue", newValue);
+          this.$emit("change", { value: newValue, event });
         }
       }
     });

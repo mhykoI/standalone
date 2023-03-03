@@ -1,9 +1,9 @@
-import i18n from "../../../../../../api/i18n/index.js";
-import patcher from "../../../../../../api/patcher/index.js";
-import extensions from "../../../../../../api/extensions/index.js";
+import i18n from "../../../../../../../api/i18n/index.js";
+import patcher from "../../../../../../../api/patcher/index.js";
+import extensions from "../../../../../../../api/extensions/index.js";
 
 import cssText from "./style.scss";
-import { recomputable, recompute } from "../../../../../../api/ui/vue/utils/recompute.js";
+import { recomputable, recompute } from "../../../../../../../api/ui/vue/utils/recompute.js";
 patcher.injectCSS(cssText);
 
 export default {

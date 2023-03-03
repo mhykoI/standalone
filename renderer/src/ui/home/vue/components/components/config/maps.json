@@ -1,0 +1,14 @@
+{
+  "name": {
+    "Column": "config-column",
+    "Row": "config-row",
+    "Button": "config-button",
+    "Check": "config-check",
+    "Input": "config-input",
+    "Select": "config-select",
+    "Textarea": "config-textarea",
+    "Spacer": "config-spacer",
+    "Paragraph": "config-paragraph",
+    "Heading": "config-heading"
+  }
+}

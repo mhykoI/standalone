@@ -16,8 +16,7 @@
           "color": "primary",
           "size": "small",
           "id": "button",
-          "disabled": false,
-          "visible": false
+          "disabled": false
         }
       ]
     },

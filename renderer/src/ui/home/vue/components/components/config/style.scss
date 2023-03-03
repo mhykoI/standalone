@@ -1,0 +1,130 @@
+.acord--config {
+  &-item {
+    width: 100%;
+    display: flex;
+  }
+
+  &-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &.horizontal-align-left {
+      justify-content: flex-start;
+    }
+
+    &.horizontal-align-right {
+      justify-content: flex-end;
+    }
+
+    &.horizontal-align-center {
+      justify-content: center;
+    }
+
+    &.justify-space-between {
+      justify-content: space-between;
+    }
+
+    &.justify-space-around {
+      justify-content: space-around;
+    }
+
+    &.vertical-align-top {
+      align-items: flex-start;
+    }
+
+    &.vertical-align-bottom {
+      align-items: flex-end;
+    }
+
+    &.horizontal-size-large {
+      width: 100%;
+    }
+
+    &.horizontal-size-medium {
+      width: 50%;
+    }
+
+    &.horizontal-size-small {
+      width: 25%;
+    }
+
+    &.vertical-size-large {
+      height: 100%;
+    }
+
+    &.vertical-size-medium {
+      height: 50%;
+    }
+
+    &.vertical-size-small {
+      height: 25%;
+    }
+  }
+
+  &-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    &.horizontal-align-left {
+      justify-content: flex-start;
+    }
+
+    &.horizontal-align-right {
+      justify-content: flex-end;
+    }
+
+    &.horizontal-align-center {
+      justify-content: center;
+    }
+
+    &.justify-space-between {
+      justify-content: space-between;
+    }
+
+    &.justify-space-around {
+      justify-content: space-around;
+    }
+
+    &.vertical-align-top {
+      align-items: flex-start;
+    }
+
+    &.vertical-align-bottom {
+      align-items: flex-end;
+    }
+
+    &.vertical-align-center {
+      align-items: center;
+    }
+
+    &.horizontal-size-large {
+      width: 100%;
+    }
+
+    &.horizontal-size-medium {
+      width: 50%;
+    }
+
+    &.horizontal-size-small {
+      width: 25%;
+    }
+
+    &.vertical-size-large {
+      height: 100%;
+    }
+
+    &.vertical-size-medium {
+      height: 50%;
+    }
+
+    &.vertical-size-small {
+      height: 25%;
+    }
+  }
+}

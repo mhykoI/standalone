@@ -14,10 +14,16 @@ export default {
     vueApp.component("discord-textarea", {
       template: `
         <div class="${inputClasses2.inputWrapper} acord--discord-textarea">
-          <textarea class="${inputClasses2.inputDefault} ${inputClasses.textArea} ${scrollClasses.scrollbarDefault}" v-bind="value" :placeholder="placeholder" :maxlength="maxlength" :style="style"></textarea>
+          <textarea class="${inputClasses2.inputDefault} ${inputClasses.textArea} ${scrollClasses.scrollbarDefault}" v-bind="value" :placeholder="placeholder" :maxlength="maxlength" :cols="cols" :rows="rows" :style="style"></textarea>
         </div>
       `,
-      props: ["value", "placeholder", "maxlength", "style"]
+      props: ["value", "placeholder", "maxlength", "style", "cols", "rows"],
+      emits: ["change"],
+      methods: {
+        onChange(event) {
+          this.$emit("change", { event, value: event.target.value });
+        }
+      }
     });
   }
 }

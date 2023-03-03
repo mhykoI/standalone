@@ -1,6 +1,6 @@
-import modals from "../../../../../../api/ui/modals.jsx";
-import i18n from "../../../../../../api/i18n/index.js";
-import patcher from "../../../../../../api/patcher/index.js";
+import modals from "../../../../../../../api/ui/modals.jsx";
+import i18n from "../../../../../../../api/i18n/index.js";
+import patcher from "../../../../../../../api/patcher/index.js";
 
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
