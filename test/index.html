@@ -108,6 +108,7 @@
 
 <body>
   <div id="app">
+    <div :style="{'width': '25px', 'height': '25px', background: 'red' }"></div>
     <component v-for="child in manifest.config" :is="child.type" v-bind="child"></component>
   </div>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

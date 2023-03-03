@@ -38,30 +38,6 @@
     &.vertical-align-bottom {
       align-items: flex-end;
     }
-
-    &.horizontal-size-large {
-      width: 100%;
-    }
-
-    &.horizontal-size-medium {
-      width: 50%;
-    }
-
-    &.horizontal-size-small {
-      width: 25%;
-    }
-
-    &.vertical-size-large {
-      height: 100%;
-    }
-
-    &.vertical-size-medium {
-      height: 50%;
-    }
-
-    &.vertical-size-small {
-      height: 25%;
-    }
   }
 
   &-column {
@@ -103,28 +79,5 @@
       align-items: center;
     }
 
-    &.horizontal-size-large {
-      width: 100%;
-    }
-
-    &.horizontal-size-medium {
-      width: 50%;
-    }
-
-    &.horizontal-size-small {
-      width: 25%;
-    }
-
-    &.vertical-size-large {
-      height: 100%;
-    }
-
-    &.vertical-size-medium {
-      height: 50%;
-    }
-
-    &.vertical-size-small {
-      height: 25%;
-    }
   }
 }

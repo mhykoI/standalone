@@ -16,14 +16,8 @@ export default {
             'justify-space-around': config?.justify === 'space-around',
             'vertical-align-top': config?.verticalAlign === 'top',
             'vertical-align-center': config?.verticalAlign === 'center',
-            'vertical-align-bottom': config?.verticalAlign === 'bottom',
-            'horizontal-size-large': config?.horizontalSize === 'large',
-            'horizontal-size-medium': config?.horizontalSize === 'medium',
-            'horizontal-size-small': config?.horizontalSize === 'small',
-            'vertical-size-large': config?.verticalSize === 'large',
-            'vertical-size-medium': config?.verticalSize === 'medium',
-            'vertical-size-small': config?.verticalSize === 'small'
-          }">
+            'vertical-align-bottom': config?.verticalAlign === 'bottom'
+          }" :style="{'width': config?.width ?? '100%', 'height': config?.height}" >
             <component v-for="child in config.children" :is="nameMap[child.type]" :key="child.id" :config="child" :extension="extension" />
           </div>
         `,
