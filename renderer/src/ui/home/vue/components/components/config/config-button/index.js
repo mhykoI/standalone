@@ -4,10 +4,10 @@ export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
     vueApp.component("config-button", {
-      props: ["config", "extension"],
+      props: ["item", "extension"],
       template: `
-        <div class="acord--config-button acord--config-item">
-          <discord-button @click="onClick" :value="config.value" :size="config.size" :color="config.color" />
+        <div v-show="item?.visible ?? true" class="acord--config-button acord--config-item">
+          <discord-button @click="onClick" :value="item.value" :size="item.size" :color="item.color" />
         </div>
       `,
       methods: {
@@ -16,7 +16,7 @@ export default {
             "extension-config-interaction",
             {
               extension: this.extension,
-              config: this.config,
+              item: this.item,
               data: {
                 event
               }

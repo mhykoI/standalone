@@ -4,10 +4,10 @@ export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
     vueApp.component("config-input", {
-      props: ["config", "extension"],
+      props: ["item", "extension"],
       template: `
-        <div class="acord--config-input acord--config-item">
-          <discord-input @change="onChange" v-model="config.value" :type="config.inputType" :placeholder="config.placeholder" :maxlength="config.maxlength" />
+        <div v-show="item?.visible ?? true" class="acord--config-input acord--config-item">
+          <discord-input @change="onChange" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder" :maxlength="item.maxlength" />
         </div>
       `,
       methods: {
@@ -16,7 +16,7 @@ export default {
             "extension-config-interaction",
             {
               extension: this.extension,
-              config: this.config,
+              item: this.item,
               data
             }
           )

@@ -4,10 +4,10 @@ export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
     vueApp.component("config-check", {
-      props: ["config", "extension"],
+      props: ["item", "extension"],
       template: `
-        <div class="acord--config-check acord--config-item">
-          <discord-check @change="onChange" v-model="config.value" />
+        <div v-show="item?.visible ?? true" class="acord--config-check acord--config-item">
+          <discord-check @change="onChange" v-model="item.value" />
         </div>
       `,
       methods: {
@@ -16,7 +16,7 @@ export default {
             "extension-config-interaction",
             {
               extension: this.extension,
-              config: this.config,
+              item: this.item,
               data
             }
           )

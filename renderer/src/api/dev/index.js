@@ -2,7 +2,6 @@ import extensions from "../extensions/index.js";
 import logger from "../utils/logger.js";
 import i18n from "../i18n/index.js";
 import websocket from "../websocket/index.js";
-import patcher from "../patcher/index.js";
 
 let devModeEnabled = false;
 
@@ -16,9 +15,7 @@ const extension = {
   get installed() { return installed; },
   unload() {
     if (!loaded) return false;
-    loaded.api.extension.subscriptions.forEach((f) => typeof f === "function" && f());
-    loaded.api.extension.events.emit("unload");
-    loaded.evaluated?.unload?.();
+    extensions.loader.unload("Development");
     loaded = null;
     installed = null;
     return true;
@@ -29,27 +26,7 @@ const extension = {
     if (isLoading) return false;
     isLoading = true;
     try {
-      let api = await extensions.buildAPI(manifest, `Extension;Persist;Development`);
-      
-      let evaluated = extensions.evaluate(source, api);
-      if (manifest.type === "theme") {
-        let css = evaluated();
-        let config = manifest.config ?? [];
-        config.
-
-        patcher.injectCSS(css)
-      } else {
-        evaluated?.load?.();
-      }
-      function interact(data) {
-
-      }
-
-      loaded = {
-        evaluated,
-        api,
-        interact
-      };
+      loaded = await extensions.loader.load("Development", { source, manifest });
       installed = {
         manifest
       };

@@ -1,12 +1,13 @@
 import * as spitRoast from "../../lib/spitroast/dist/esm";
 
 function propReplacer(css, props = {}) {
-  return css.replace(/var\(--acord--([\S\s]+)\)/g, (match, group1) => {
+  css = css.replace(/var\(--acord--([\S\s]+)\)/g, (match, group1) => {
     let splitted = group1.split(",");
     let key = splitted.shift().trim();
     let defaultValue = splitted.join(",").trim();
     return props[key] ?? (defaultValue || match);
   });
+  return css;
 }
 
 export default {
@@ -31,6 +32,7 @@ export default {
         style.textContent = propReplacer(css, args[0]);
       } else {
         style?.remove();
+        css = null;
       }
     };
   },

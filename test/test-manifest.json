@@ -58,6 +58,7 @@
         {
           "type": "Select",
           "default": "option1",
+          "id": "select",
           "options": [
             {
               "label": "Option 1",

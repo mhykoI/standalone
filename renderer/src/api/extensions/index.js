@@ -5,12 +5,15 @@ import modules from "../modules/index.js";
 import storage from "../storage/index.js";
 import { buildExtensionI18N } from "./i18n.js";
 import * as nests from "nests";
+import events from "../events/index.js";
+import patcher from "../patcher/index.js";
+import findInTree from "../utils/raw/find-in-tree.js";
 
 /**
- * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[], mode?: "development" | "production" }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} cfg 
+ * @param {{ modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[], mode?: "development" | "production" }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
-async function buildAPI(cfg, persistKey) {
-  const devMode = dev.enabled || cfg?.modules?.mode === "development";
+async function buildPluginAPI(manifest, persistKey) {
+  const devMode = dev.enabled || manifest?.modules?.mode === "development";
   const persist = await storage.createPersistNest(persistKey);
   const out = {
     modules: {
@@ -23,7 +26,7 @@ async function buildAPI(cfg, persistKey) {
       require(name) {
         if (!devMode) {
           if (typeof out.modules.__cache__.node[name] !== "undefined") return out.modules.__cache__.node[name];
-          if (cfg?.modules?.node?.some?.(i => i.name === name)) return out.modules.__cache__.node[name] = modules.require(name);
+          if (manifest?.modules?.node?.some?.(i => i.name === name)) return out.modules.__cache__.node[name] = modules.require(name);
         } else {
           return modules.require(name);
         }
@@ -33,7 +36,7 @@ async function buildAPI(cfg, persistKey) {
         get(_, prop) {
           if (!devMode) {
             if (typeof out.modules.__cache__.common[prop] !== "undefined") return out.modules.__cache__.common[prop];
-            if (cfg?.modules?.common?.some?.(i => i.name === prop)) return out.modules.__cache__.common[prop] = modules.common[prop];
+            if (manifest?.modules?.common?.some?.(i => i.name === prop)) return out.modules.__cache__.common[prop] = modules.common[prop];
           } else {
             return modules.common[prop];
           }
@@ -43,7 +46,7 @@ async function buildAPI(cfg, persistKey) {
       custom: new Proxy({}, {
         get(_, prop) {
           if (typeof out.modules.__cache__.custom[prop] !== "undefined") return out.modules.__cache__.custom[prop];
-          let data = cfg?.modules?.custom?.some?.(i => i.name === prop);
+          let data = manifest?.modules?.custom?.some?.(i => i.name === prop);
           if (!data) return null;
           if (data.lazy) {
             let prom = new Promise(async (resolve, reject) => {
@@ -77,9 +80,9 @@ async function buildAPI(cfg, persistKey) {
     },
     i18n,
     extension: {
-      config: JSON.parse(JSON.stringify(cfg)),
+      config: JSON.parse(JSON.stringify(manifest)),
       persist,
-      i18n: await buildExtensionI18N(cfg),
+      i18n: await buildExtensionI18N(manifest),
       events: new BasicEventEmitter(),
       subscriptions: []
     }
@@ -101,7 +104,6 @@ const out = {
     /** @type {nests.Nest} */
     installed: {}
   },
-  buildAPI,
   async init() {
     if (out.__cache__.initialized) return;
     out.__cache__.initialized = true;
@@ -204,15 +206,7 @@ const out = {
 
     if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is already loaded.`);
 
-    let api = await out.buildAPI(data.metadata, `Extension;Persist;${url}`);
-    let evaluated = out.evaluate(data.source, api);
-
-    await evaluated?.load?.();
-
-    out.__cache__.loaded.store[url] = {
-      evaluated,
-      api
-    };
+    await out.loader.load(data);
   },
   async unload(url) {
     if (!out.__cache__.initialized) await out.init();
@@ -220,13 +214,7 @@ const out = {
 
     if (!out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is not loaded.`);
 
-    let { evaluated, api } = out.__cache__.loaded.ghost[url];
-
-    api.extension.subscriptions.forEach(i => typeof i === "function" && i());
-    api.extension.events.emit("unload");
-    await evaluated?.unload?.();
-
-    delete out.__cache__.loaded.store[url];
+    await out.loader.unload(url);
   },
   evaluate(source, api) {
     const $acord = api;
@@ -246,8 +234,84 @@ const out = {
       installed: out.storage.installed.ghost[url]
     };
   },
-  utils: {
-    
+  loader: {
+    async load(id, data) {
+      if (data.metadata.type === 'plugin') {
+        let api = await buildPluginAPI(data.metadata, `Extension;Persist;${id}`);
+        findInTree(data.metadata.config, (i) => i.id && i.hasOwnProperty("default"), { all: true }).forEach(
+          (i) => {
+            api.extension.persist.store.settings[i.id] ??= i.default;
+            if (i.hasOwnProperty("value")) i.value ??= api.extension.persist.store.settings[i.id];
+          }
+        );
+
+        let evaluated = out.evaluate(data.source, api);
+
+        await evaluated?.load?.();
+        const offConfigListener =
+          events.on("extension-config-interaction", (data) => {
+            if (data.extension !== id) return;
+            if (data.item.id) {
+              api.extension.persist.store.settings[data.item.id] = data.item.value;
+            }
+            evaluated?.config?.({
+              item: data.item,
+              data: data.data,
+              getItem(itemId) {
+                return findInTree(data.manifest.config, (i) => i.id === itemId);
+              },
+              getItems() {
+                return findInTree(data.manifest.config, (i) => i.id, { all: true });
+              },
+              save() {
+                if (!data.item.id) return false;
+                api.extension.persist.store.settings[data.item.id] = data.item.value;
+                return true;
+              }
+            });
+          });
+        function unload() {
+          offConfigListener();
+          api.extension.subscriptions.forEach(i => typeof i === "function" && i());
+          api.extension.events.emit("unload");
+          evaluated?.unload?.();
+          Object.values(api.persist.listeners).forEach(i => i.clear());
+        }
+        return { evaluated, api, unload };
+      } else if (data.metadata.type === 'theme') {
+        let evaluated = out.evaluate(data.source, null);
+        const persist = await storage.createPersistNest(`Extension;Persist;${id}`);
+        if (persist.ghost.settings === undefined) persist.store.settings = {};
+        findInTree(data.metadata.config, (i) => i.id && i.hasOwnProperty("default"), { all: true }).forEach(
+          (i) => {
+            persist.store.settings[i.id] ??= i.default;
+            if (i.hasOwnProperty("value")) i.value ??= persist.store.settings[i.id];
+          }
+        );
+        let cssText = evaluated();
+        let injectedRes = patcher.injectCSS(cssText, persist.ghost.settings);
+
+        const offConfigListener =
+          events.on("extension-config-interaction", (data) => {
+            if (data.extension !== id) return;
+            if (!data.config.id) return;
+            persist.store.settings[data.config.id] = data.data.value;
+            injectedRes(persist.ghost.settings);
+          });
+        function unload() {
+          offConfigListener();
+          injectedRes();
+          Object.values(persist.listeners).forEach(i => i.clear());
+        }
+
+        out.__cache__.loaded.store[id] = { evaluated, unload };
+        return { evaluated, unload };
+      }
+    },
+    unload(id) {
+      out.__cache__.loaded.store[id]?.unload?.();
+      delete out.__cache__.loaded.store[id];
+    }
   }
 };
 

@@ -4,10 +4,10 @@ export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
     vueApp.component("config-select", {
-      props: ["config", "extension"],
+      props: ["item", "extension"],
       template: `
-        <div class="acord--config-select acord--config-item">
-          <discord-select @change="onChange" v-model="config.value" :options="config.options" />
+        <div v-show="item?.visible ?? true" class="acord--config-select acord--config-item">
+          <discord-select @change="onChange" v-model="item.value" :options="item.options" />
         </div>
       `,
       methods: {
@@ -16,7 +16,7 @@ export default {
             "extension-config-interaction",
             {
               extension: this.extension,
-              config: this.config,
+              item: this.item,
               data
             }
           )

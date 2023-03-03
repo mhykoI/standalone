@@ -78,6 +78,19 @@
     &.vertical-align-center {
       align-items: center;
     }
+  }
 
+  &-heading {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: whitesmoke;
+  }
+
+  &-paragraph {
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: rgba(245, 245, 245, 0.85);
   }
 }

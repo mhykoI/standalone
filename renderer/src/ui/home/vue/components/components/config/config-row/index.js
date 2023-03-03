@@ -6,19 +6,19 @@ export default {
     vueApp.component(
       "config-row",
       {
-        props: ["config", "extension"],
+        props: ["item", "extension"],
         template: `
-          <div class="acord--config-row acord--config-item" :class="{
-            'horizontal-align-left': config?.horizontalAlign === 'left',
-            'horizontal-align-center': config?.horizontalAlign === 'center',
-            'horizontal-align-right': config?.horizontalAlign === 'right',
-            'justify-space-between': config?.justify === 'space-between',
-            'justify-space-around': config?.justify === 'space-around',
-            'vertical-align-top': config?.verticalAlign === 'top',
-            'vertical-align-center': config?.verticalAlign === 'center',
-            'vertical-align-bottom': config?.verticalAlign === 'bottom'
-          }" :style="{'width': config?.width ?? '100%', 'height': config?.height}" >
-            <component v-for="child in config.children" :is="nameMap[child.type]" :key="child.id" :config="child" :extension="extension" />
+          <div v-show="item?.visible ?? true" class="acord--config-row acord--config-item" :class="{
+            'horizontal-align-left': item?.horizontalAlign === 'left',
+            'horizontal-align-center': item?.horizontalAlign === 'center',
+            'horizontal-align-right': item?.horizontalAlign === 'right',
+            'justify-space-between': item?.justify === 'space-between',
+            'justify-space-around': item?.justify === 'space-around',
+            'vertical-align-top': item?.verticalAlign === 'top',
+            'vertical-align-center': item?.verticalAlign === 'center',
+            'vertical-align-bottom': item?.verticalAlign === 'bottom'
+          }" :style="{'width': item?.width ?? '100%', 'height': item?.height}" >
+            <component v-for="child in item.children" :is="nameMap[child.type]" :key="child.id" :item="child" :extension="extension" />
           </div>
         `,
         data() {
