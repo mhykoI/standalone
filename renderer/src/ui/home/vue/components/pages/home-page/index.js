@@ -10,12 +10,18 @@ export default {
               <discord-select v-model="value" :options="options" />
             </div>
             <h1>{{ value }}</h1>
+            <br />
+            <discord-check v-model="checked" />
+            <h1>{{ checked }}</h1>
+            <discord-check v-model="checked" />
+            <h1>{{ checked }}</h1>
           </div>
-        
+
         `,
         data() {
           return {
             value: "1",
+            checked: false,
             options: [
               {
                 value: "1",

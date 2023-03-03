@@ -1,0 +1,19 @@
+.acord--discord-check {
+  color: var(--white-700);
+  background-color: currentColor;
+  z-index: 0;
+
+  .slider {
+    transition: 100ms ease-in-out all;
+    left: -3px;
+  }
+
+  &.checked {
+    color: var(--green-400);
+
+    .slider {
+      transition: 100ms ease-in-out all;
+      left: 12px;
+    }
+  }
+}
