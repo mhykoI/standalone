@@ -366,7 +366,7 @@ const out = {
 };
 
 waitUntilConnectionOpen().then(async () => {
-  await utils.sleep(1000);
+  await utils.sleep(100);
   out.loadAll();
 });
 
