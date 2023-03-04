@@ -12,6 +12,7 @@ import websocket from "../websocket/index.js";
 import ui from "../ui/index.js";
 import utils from "../utils/index.js";
 import dom from "../dom/index.js";
+import { waitUntilConnectionOpen } from "../../other/utils.js";
 
 /**
  * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, websocket?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
@@ -168,7 +169,7 @@ const out = {
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
-    showConfirmationModal({
+    await showConfirmationModal({
       manifest,
       readme,
       config: {
@@ -249,7 +250,7 @@ const out = {
 
     if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is already loaded.`);
 
-    await out.loader.load(data);
+    await out.loader.load(url, data);
   },
   async unload(url) {
     if (!out.__cache__.initialized) await out.init();
@@ -356,5 +357,9 @@ const out = {
     }
   }
 };
+
+waitUntilConnectionOpen().then(() => {
+  out.loadAll();
+})
 
 export default out;

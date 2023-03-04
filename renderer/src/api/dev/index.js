@@ -14,6 +14,7 @@ const extension = {
   get loaded() { return loaded; },
   get installed() { return installed; },
   unload() {
+    if (!loaded) return false;
     extensions.loader.unload("Development");
     loaded = null;
     installed = null;
