@@ -225,7 +225,7 @@ export default {
   },
   build: {
     item(setup) {
-      return buildMenuChildren(setup);
+      return buildMenuChildren([setup]);
     },
     menu(setup) {
       return (props) => React.createElement(Components.Menu, props, buildMenuChildren(setup));

@@ -11,7 +11,7 @@ export default {
     vueApp.component("discord-check", {
       template: `
         <div class="${checkClasses.container} default-colors acord--discord-check" 
-          :class="{'${checkClasses.checked}': value, 'checked': modelValue}" 
+          :class="{'${checkClasses.checked}': modelValue, 'checked': modelValue}" 
           @click="onClick"
         >
           <svg class="${checkClasses.slider} slider" viewBox="0 0 28 20" preserveAspectRatio="xMinYMid meet">
