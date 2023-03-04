@@ -203,6 +203,7 @@ const out = {
   },
   async update(url) {
     if (!out.__cache__.initialized) await out.init();
+    if (url.endsWith("/")) url = url.slice(0, -1);
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
     if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is loaded. Please unload it first.`);
 
@@ -235,6 +236,7 @@ const out = {
   },
   async uninstall(url) {
     if (!out.__cache__.initialized) await out.init();
+    if (url.endsWith("/")) url = url.slice(0, -1);
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
 
     delete out.storage.installed.store[url];
@@ -245,6 +247,7 @@ const out = {
   },
   async load(url) {
     if (!out.__cache__.initialized) await out.init();
+    if (url.endsWith("/")) url = url.slice(0, -1);
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
     let data = out.storage.installed.ghost[url];
 
@@ -254,6 +257,7 @@ const out = {
   },
   async unload(url) {
     if (!out.__cache__.initialized) await out.init();
+    if (url.endsWith("/")) url = url.slice(0, -1);
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
 
     if (!out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is not loaded.`);
