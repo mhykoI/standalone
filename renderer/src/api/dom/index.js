@@ -103,7 +103,7 @@ export default {
       document.querySelectorAll(selector).forEach(nodeAdded);
 
       return events.on(
-        "dom-mutation",
+        "DomMutation",
         /** @param {MutationRecord} mut */(mut) => {
           if (mut.type === "childList") {
             mut.addedNodes.forEach(nodeAdded);
@@ -164,7 +164,7 @@ export default {
 {
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
-      events.emit("dom-mutation", mutation);
+      events.emit("DomMutation", mutation);
     });
   });
   observer.observe(document, {

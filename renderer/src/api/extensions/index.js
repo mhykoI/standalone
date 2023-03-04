@@ -270,7 +270,10 @@ const out = {
   },
   async loadAll() {
     if (!out.__cache__.initialized) await out.init();
-    return Promise.all(Object.entries(out.storage.installed.ghost).sort(([, a], [, b]) => b.config.order - a.config.order).map(([url]) => out.load(url)));
+    return Promise.all(Object.entries(out.storage.installed.ghost).sort(([, a], [, b]) => b.config.order - a.config.order).map(async ([url, d]) => {
+      if (d.config.autoUpdate) await out.update(url);
+      if (d.config.enabled) await out.load(url);
+    }));
   },
   async unloadAll() {
     if (!out.__cache__.initialized) await out.init();

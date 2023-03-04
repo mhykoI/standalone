@@ -1,3 +1,5 @@
+import logger from "../api/utils/logger.js";
+
 export class BasicEventEmitter {
   constructor() {
     /** @type {Map<string, Map<(...args: any[])=>void, {once: boolean}>>} */
@@ -52,7 +54,11 @@ export class BasicEventEmitter {
     let eventMap = this.listeners.get(eventName);
     eventMap.forEach(({ once }, listener) => {
       if (once) eventMap?.delete(listener);
-      listener(...args);
+      try {
+        listener(...args);
+      } catch (e) {
+        logger.error(`Error while emitting ${eventName} event.`, e);
+      }
     });
   }
 };

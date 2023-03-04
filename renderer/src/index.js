@@ -16,5 +16,6 @@ window.global = window;
 })();
 
 // extras
+import "./other/document-title-change.js";
 import "./other/websocket-triggers.js";
 import "./ui/index.js";

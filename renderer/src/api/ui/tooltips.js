@@ -50,7 +50,7 @@ class Tooltip {
     this.target.addEventListener("mouseleave", onMouseLeave);
 
     let unPatchObserver = events.on(
-      "dom-mutation",
+      "DomMutation",
       /** @param {MutationRecord} mut */(mut) => {
         if (mut.type === "attributes") {
           if (mut.target.isSameNode(this.target)) {
