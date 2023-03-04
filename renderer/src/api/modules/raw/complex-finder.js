@@ -58,7 +58,7 @@ const pushListeners = new Set();
 
       modules[moduleId] = (module, exports, require) => {
         try {
-          ogModule?.call?.(null, module, exports, require);
+          ogModule.call(null, module, exports, require);
 
           pushListeners.forEach(listener => {
             try {
@@ -68,7 +68,7 @@ const pushListeners = new Set();
             }
           })
         } catch (error) {
-          utils.logger.error("Unable to patch pushed module.", error);
+          utils.logger.error("Unable to patch pushed module.", error, ogModule, moduleId, chunk);
         }
       };
 
