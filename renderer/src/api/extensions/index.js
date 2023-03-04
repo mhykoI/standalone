@@ -360,6 +360,6 @@ const out = {
 
 waitUntilConnectionOpen().then(() => {
   out.loadAll();
-})
+});
 
 export default out;
