@@ -58,7 +58,7 @@ const pushListeners = new Set();
 
       modules[moduleId] = (module, exports, require) => {
         try {
-          ogModule.call(null, module, exports, require);
+          ogModule?.call?.(null, module, exports, require);
 
           pushListeners.forEach(listener => {
             try {
