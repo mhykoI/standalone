@@ -222,7 +222,7 @@ const out = {
     if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);
     let source = await sourceResp.text();
 
-    ut.storage.installed.store[url] = {
+    out.storage.installed.store[url] = {
       manifest,
       source,
       readme,
@@ -365,7 +365,8 @@ const out = {
   }
 };
 
-waitUntilConnectionOpen().then(() => {
+waitUntilConnectionOpen().then(async () => {
+  await utils.sleep(1000);
   out.loadAll();
 });
 
