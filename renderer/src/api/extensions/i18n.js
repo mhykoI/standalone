@@ -16,13 +16,14 @@ export async function buildExtensionI18N(cfg) {
       return utils.format(out.get(key), ...args);
     },
     get(key) {
-      if (typeof cfg.i18n === "string") check();
+      check();
       return out.__cache__.localizations[out.locale]?.[key]
         || out.__cache__.localizations.default?.[key]
         || out.get(key);
     },
     messages: new Proxy({}, {
       get(_, prop) {
+        check();
         return out.get(prop);
       }
     }),
