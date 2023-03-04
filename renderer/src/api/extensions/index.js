@@ -14,7 +14,7 @@ import utils from "../utils/index.js";
 import dom from "../dom/index.js";
 
 /**
- * @param {{ mode?: "development" | "production", api: { patcher?: boolean, storage?: boolean, i18n?: boolean, events?: boolean, utils?: boolean, dom?: boolean, websocket?: boolean, ui?: boolean, dev?: boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
+ * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, websocket?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
 async function buildPluginAPI(manifest, persistKey) {
   const devMode = dev.enabled || manifest?.mode === "development";
@@ -81,6 +81,10 @@ async function buildPluginAPI(manifest, persistKey) {
           return out.modules.__cache__.custom[prop];
         }
       }),
+      get native() {
+        if (manifest?.modules?.native || devMode) return modules.native;
+        return null;
+      },
     },
     extension: {
       manifest,
@@ -156,16 +160,16 @@ const out = {
     if (url.endsWith("/")) url = url.slice(0, -1);
     if (out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is already installed.`);
 
-    let metaResp = await fetch(`${url}/metadata.json`);
-    if (metaResp.status !== 200) throw new Error(`"${url}" extension metadata is not responded with 200 status code.`);
-    let metadata = await metaResp.json();
+    let metaResp = await fetch(`${url}/manifest.json`);
+    if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
+    let manifest = await metaResp.json();
 
     let readmeResp = await fetch(`${url}/readme.md`);
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
     showConfirmationModal({
-      metadata,
+      manifest,
       readme,
       config: {
         autoUpdate: true,
@@ -180,7 +184,7 @@ const out = {
     let source = await sourceResp.text();
 
     out.storage.installed.store[url] = {
-      metadata,
+      manifest,
       source,
       readme,
       config: {
@@ -203,11 +207,11 @@ const out = {
 
     let data = out.storage.installed.ghost[url];
 
-    let metaResp = await fetch(`${url}/metadata.json`);
-    if (metaResp.status !== 200) throw new Error(`"${url}" extension metadata is not responded with 200 status code.`);
-    let metadata = await metaResp.json();
+    let metaResp = await fetch(`${url}/manifest.json`);
+    if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
+    let manifest = await metaResp.json();
 
-    if (data.metadata.hash === metadata.hash) return false;
+    if (data.manifest.hash === manifest.hash) return false;
 
     let readmeResp = await fetch(`${url}/readme.md`);
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
@@ -217,7 +221,7 @@ const out = {
     let source = await sourceResp.text();
 
     ut.storage.installed.store[url] = {
-      metadata,
+      manifest,
       source,
       readme,
       config: data.config,
@@ -275,9 +279,10 @@ const out = {
   },
   loader: {
     async load(id, data) {
-      if (data.metadata.type === 'plugin') {
-        let api = await buildPluginAPI(data.metadata, `Extension;Persist;${id}`);
-        findInTree(data.metadata.config, (i) => i.id && i.hasOwnProperty("default"), { all: true }).forEach(
+      if (data.manifest.type === 'plugin') {
+        let api = await buildPluginAPI(data.manifest, `Extension;Persist;${id}`);
+        if (api.extension.persist.ghost.settings === undefined) api.extension.persist.store.settings = {};
+        findInTree(data.manifest.config, (i) => i.id, { all: true }).forEach(
           (i) => {
             api.extension.persist.store.settings[i.id] ??= i.default;
             if (i.hasOwnProperty("value")) i.value ??= api.extension.persist.store.settings[i.id];
@@ -285,7 +290,6 @@ const out = {
         );
 
         let evaluated = out.evaluate(data.source, api);
-
         await evaluated?.load?.();
         const offConfigListener =
           events.on("extension-config-interaction", (data) => {
@@ -311,17 +315,17 @@ const out = {
           });
         function unload() {
           offConfigListener();
-          api.extension.subscriptions.forEach(i => typeof i === "function" && i());
+          api.extension.subscriptions.forEach(i => { if (typeof i === "function") i(); });
           api.extension.events.emit("unload");
           evaluated?.unload?.();
-          Object.values(api.persist.listeners).forEach(i => i.clear());
         }
+        out.__cache__.loaded.store[id] = { evaluated, api, unload };
         return { evaluated, api, unload };
-      } else if (data.metadata.type === 'theme') {
+      } else if (data.manifest.type === 'theme') {
         let evaluated = out.evaluate(data.source, null);
         const persist = await storage.createPersistNest(`Extension;Persist;${id}`);
         if (persist.ghost.settings === undefined) persist.store.settings = {};
-        findInTree(data.metadata.config, (i) => i.id && i.hasOwnProperty("default"), { all: true }).forEach(
+        findInTree(data.manifest.config, (i) => i.id, { all: true }).forEach(
           (i) => {
             persist.store.settings[i.id] ??= i.default;
             if (i.hasOwnProperty("value")) i.value ??= persist.store.settings[i.id];
@@ -340,7 +344,6 @@ const out = {
         function unload() {
           offConfigListener();
           injectedRes();
-          Object.values(persist.listeners).forEach(i => i.clear());
         }
 
         out.__cache__.loaded.store[id] = { evaluated, unload };
@@ -348,7 +351,7 @@ const out = {
       }
     },
     unload(id) {
-      out.__cache__.loaded.store[id]?.unload?.();
+      out.__cache__.loaded.ghost?.[id]?.unload?.();
       delete out.__cache__.loaded.store[id];
     }
   }

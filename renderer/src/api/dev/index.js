@@ -14,7 +14,6 @@ const extension = {
   get loaded() { return loaded; },
   get installed() { return installed; },
   unload() {
-    if (!loaded) return false;
     extensions.loader.unload("Development");
     loaded = null;
     installed = null;
@@ -22,7 +21,7 @@ const extension = {
   },
   async load(source, manifest) {
     if (!source || !manifest) throw new Error(`Source and manifest are required to load an extension!`);
-    if (loaded) return false;
+    if (loaded) throw new Error(`Extension is already loaded!`);
     if (isLoading) return false;
     isLoading = true;
     try {
@@ -32,6 +31,7 @@ const extension = {
       };
     } catch (err) {
       logger.error(`Unable to load development extension.`, i18n.localize(manifest.about.name), err);
+      isLoading = false;
       return false;
     }
     isLoading = false;
@@ -69,10 +69,11 @@ websocket.set(
       return logger.warn(`Development extension was sent while extension was already being processed.`);
 
     isProcessing = true;
+
     extension.unload();
     await new Promise((r) => setTimeout(r, 1));
     let success = await extension.load(source, manifest);
-    if (success) logger.info(`Development extension is loaded!(${i18n.localize(manifest.about.name)})`);
+    if (success) logger.info(`Development extension is loaded! (${i18n.localize(manifest.about.name)})`);
     isProcessing = false;
   }
 )

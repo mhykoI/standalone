@@ -271,6 +271,64 @@
         ]
       }
     },
+    "Router": {
+      "transitionTo": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "strings",
+          "by": [
+            [
+              "transitionTo - Transitioning to "
+            ]
+          ]
+        },
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ],
+          "after": [
+            "transitionTo"
+          ]
+        },
+        "map": {
+          "transitionTo": [
+            "transitionTo - Transitioning to "
+          ]
+        }
+      },
+      "replaceWith": {
+        "__": true,
+        "filter": {
+          "export": false,
+          "in": "strings",
+          "by": [
+            [
+              "\"Replacing route with \""
+            ]
+          ]
+        },
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ],
+          "after": [
+            "replaceWith"
+          ]
+        },
+        "map": {
+          "replaceWith": [
+            "\"Replacing route with \""
+          ]
+        }
+      }
+    },
     "Flux": {
       "__": true,
       "path": {
