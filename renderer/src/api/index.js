@@ -10,6 +10,7 @@ import internal from './internal';
 import websocket from './websocket';
 import dom from './dom';
 import ui from './ui/index.js';
+import shared from './shared/index.js';
 
 utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
 
@@ -24,6 +25,7 @@ export default {
     i18n,
     events,
     ui,
+    shared,
     get dom() {
       if (!dev.enabled) throw devError("DOM");
       return dom;
@@ -64,6 +66,7 @@ export default {
     patcher,
     internal,
     websocket,
+    shared,
     ui,
     dom
   }

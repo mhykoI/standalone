@@ -12,6 +12,7 @@ import websocket from "../websocket/index.js";
 import ui from "../ui/index.js";
 import utils from "../utils/index.js";
 import dom from "../dom/index.js";
+import shared from "../shared/index.js";
 import { waitUntilConnectionOpen } from "../../other/utils.js";
 
 /**
@@ -51,7 +52,7 @@ async function buildPluginAPI(manifest, persistKey) {
       custom: new Proxy({}, {
         get(_, prop) {
           if (typeof out.modules.__cache__.custom[prop] !== "undefined") return out.modules.__cache__.custom[prop];
-          let data = manifest?.api?.modules?.custom?.some?.(i => i.name === prop);
+          let data = manifest?.api?.modules?.custom?.find?.(i => i.name === prop);
           if (!data) return null;
           if (data.lazy) {
             let prom = new Promise(async (resolve, reject) => {
@@ -94,6 +95,7 @@ async function buildPluginAPI(manifest, persistKey) {
       events: new BasicEventEmitter(),
       subscriptions: []
     },
+    shared,
     get i18n() {
       if (manifest?.api?.i18n || devMode) return i18n;
       return null;

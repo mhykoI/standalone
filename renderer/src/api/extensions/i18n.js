@@ -18,7 +18,7 @@ export async function buildExtensionI18N(cfg) {
     get(key) {
       return out.__cache__.localizations[i18n.locale]?.[key]
         || out.__cache__.localizations.default?.[key]
-        || out.get(key);
+        || key;
     },
     messages: new Proxy({}, {
       get(_, prop) {

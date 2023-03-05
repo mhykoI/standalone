@@ -113,7 +113,15 @@ class Tooltip {
 
     const container = Tooltip.getContainer();
 
-    if (this.position === "auto") {
+    console.log({
+      position: this.position,
+      canShowAtTop: this.canShowAtTop,
+      canShowAtBottom: this.canShowAtBottom,
+      canShowAtLeft: this.canShowAtLeft,
+      canShowAtRight: this.canShowAtRight,
+    });
+
+    if (!this.position || this.position === "auto") {
       this.calculatePosition(
         this.canShowAtTop ? "top"
           : this.canShowAtBottom ? "bottom"
@@ -131,39 +139,47 @@ class Tooltip {
   }
 
   calculatePosition(position) {
-    const boundingRect = this.target.getBoundingClientRect();
+    const targetRect = this.target.getBoundingClientRect();
 
     this.layerElement.classList.remove(...Object.values(tooltipPositions));
     this.tooltipElement.classList.remove("vertical", "horizontal");
 
+    const topOffset = Number(Tooltip.getContainer().style.getPropertyValue("--top-offset").slice(0, -2));
+
+    console.log({
+      topOffset,
+      targetRect,
+      position
+    });
+
     switch (position) {
       case "top": {
-        this.layerElement.style.top = `${boundingRect.top - this.target.offsetHeight - 10}px`;
-        this.layerElement.style.left = `${boundingRect.left}px`;
+        this.layerElement.style.setProperty("top", `${(targetRect.top - this.layerElement.offsetHeight - 10) - topOffset}px`);
+        this.layerElement.style.setProperty("left", `${targetRect.left}px`);
         this.layerElement.classList.add(tooltipPositions.top);
         this.tooltipElement.classList.add("vertical");
         this.centerPosition("horizontal");
         break;
       }
       case "bottom": {
-        this.layerElement.style.top = `${boundingRect.top + this.target.offsetHeight + 10}px`;
-        this.layerElement.style.left = `${boundingRect.left}px`;
+        this.layerElement.style.setProperty("top", `${(targetRect.top + this.layerElement.offsetHeight + 10) - topOffset}px`);
+        this.layerElement.style.setProperty("left", `${targetRect.left}px`);
         this.layerElement.classList.add(tooltipPositions.bottom);
         this.tooltipElement.classList.add("vertical");
         this.centerPosition("horizontal");
         break;
       }
       case "left": {
-        this.layerElement.style.top = `${boundingRect.top}px`;
-        this.layerElement.style.left = `${boundingRect.left - this.target.offsetWidth - 10}px`;
+        this.layerElement.style.setProperty("top", `${targetRect.top - topOffset}px`);
+        this.layerElement.style.setProperty("left", `${targetRect.left - this.layerElement.offsetWidth - 10}px`);
         this.layerElement.classList.add(tooltipPositions.left);
         this.tooltipElement.classList.add("horizontal");
         this.centerPosition("vertical");
         break;
       }
       case "right": {
-        this.layerElement.style.top = `${boundingRect.top}px`;
-        this.layerElement.style.left = `${boundingRect.left + this.target.offsetWidth + 10}px`;
+        this.layerElement.style.setProperty("top", `${targetRect.top - topOffset}px`);
+        this.layerElement.style.setProperty("left", `${targetRect.left + this.layerElement.offsetWidth + 10}px`);
         this.layerElement.classList.add(tooltipPositions.right);
         this.tooltipElement.classList.add("horizontal");
         this.centerPosition("vertical");

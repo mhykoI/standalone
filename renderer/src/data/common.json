@@ -36,11 +36,20 @@
             ]
           },
           "path": {
-            "after": [
+            "before": [
               "exports.Z",
               "exports.ZP",
               "exports.default",
               "exports"
+            ],
+            "after": [
+              "Root"
+            ]
+          },
+          "map": {
+            "Root": [
+              "ENTERING",
+              "headerId"
             ]
           }
         }
