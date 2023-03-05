@@ -26,16 +26,6 @@
     }
   }
 
-  &--tooltip {
-    &.vertical {
-      transform: translateX(-50%);
-    }
-
-    &.horizontal {
-      transform: translateY(-50%);
-    }
-  }
-
   &--toasts-container {
     display: flex;
     align-items: center;

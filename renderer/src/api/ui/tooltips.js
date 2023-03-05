@@ -112,14 +112,7 @@ class Tooltip {
     this.visible = true;
 
     const container = Tooltip.getContainer();
-
-    console.log({
-      position: this.position,
-      canShowAtTop: this.canShowAtTop,
-      canShowAtBottom: this.canShowAtBottom,
-      canShowAtLeft: this.canShowAtLeft,
-      canShowAtRight: this.canShowAtRight,
-    });
+    container.appendChild(this.layerElement);
 
     if (!this.position || this.position === "auto") {
       this.calculatePosition(
@@ -134,7 +127,6 @@ class Tooltip {
     }
 
 
-    container.appendChild(this.layerElement);
     this.layerElement.classList.add("visible");
   }
 
@@ -144,41 +136,32 @@ class Tooltip {
     this.layerElement.classList.remove(...Object.values(tooltipPositions));
     this.tooltipElement.classList.remove("vertical", "horizontal");
 
-    console.log({
-      targetRect,
-      position
-    });
-
     switch (position) {
       case "top": {
-        this.layerElement.style.setProperty("top", `${(targetRect.y - this.layerElement.offsetHeight - 10)}px`);
-        this.layerElement.style.setProperty("left", `${targetRect.left}px`);
         this.layerElement.classList.add(tooltipPositions.top);
-        this.tooltipElement.classList.add("vertical");
+        this.layerElement.style.setProperty("left", `${targetRect.left}px`);
+        this.layerElement.style.setProperty("top", `${(targetRect.top - this.layerElement.offsetHeight - 10)}px`);
         this.centerPosition("horizontal");
         break;
       }
       case "bottom": {
-        this.layerElement.style.setProperty("top", `${(targetRect.y + this.layerElement.offsetHeight + 10)}px`);
-        this.layerElement.style.setProperty("left", `${targetRect.left}px`);
         this.layerElement.classList.add(tooltipPositions.bottom);
-        this.tooltipElement.classList.add("vertical");
+        this.layerElement.style.setProperty("left", `${targetRect.left}px`);
+        this.layerElement.style.setProperty("top", `${(targetRect.top + this.layerElement.offsetHeight + 10)}px`);
         this.centerPosition("horizontal");
         break;
       }
       case "left": {
-        this.layerElement.style.setProperty("top", `${targetRect.y}px`);
-        this.layerElement.style.setProperty("left", `${targetRect.left - this.layerElement.offsetWidth - 10}px`);
         this.layerElement.classList.add(tooltipPositions.left);
-        this.tooltipElement.classList.add("horizontal");
+        this.layerElement.style.setProperty("top", `${targetRect.top}px`);
+        this.layerElement.style.setProperty("left", `${targetRect.left - this.layerElement.offsetWidth - 10}px`);
         this.centerPosition("vertical");
         break;
       }
       case "right": {
-        this.layerElement.style.setProperty("top", `${targetRect.y}px`);
-        this.layerElement.style.setProperty("left", `${targetRect.left + this.layerElement.offsetWidth + 10}px`);
         this.layerElement.classList.add(tooltipPositions.right);
-        this.tooltipElement.classList.add("horizontal");
+        this.layerElement.style.setProperty("top", `${targetRect.top}px`);
+        this.layerElement.style.setProperty("left", `${targetRect.left + this.layerElement.offsetWidth + 10}px`);
         this.centerPosition("vertical");
         break;
       }
