@@ -18,7 +18,7 @@ export function wrapFilter(filter) {
   };
 }
 
-function checkModuleStrings(m, strings, hasNot) {
+function checkModuleStrings(m, strings = [], hasNot) {
   const check = (s1, s2) => {
     return hasNot ? s1.toString().indexOf(s2.toString()) == -1 : s1.toString().indexOf(s2.toString()) > -1;
   };
@@ -30,13 +30,13 @@ function checkModuleStrings(m, strings, hasNot) {
       || Object.entries(['function', 'object'].includes(typeof m?.prototype) ? typeof m?.prototype : {}).filter(i => i[0]?.includes?.("render")).some(i => check(i[1]?.toString?.() || "", j))
   });
 };
-function checkModuleProps(m, properties, hasNot) {
+function checkModuleProps(m, properties = [], hasNot) {
   return properties.every(prop => {
     const value = m[prop]?.__original__ || m[prop];
     return hasNot ? value === undefined : (value !== undefined && !(typeof value == "string" && !value));
   });
 };
-function checkModulePrototypes(m, protoProps, hasNot) {
+function checkModulePrototypes(m, protoProps = [], hasNot) {
   return m.prototype && protoProps.every(prop => {
     const value = m.prototype[prop];
     return hasNot ? value === undefined : (value !== undefined && !(typeof value == "string" && !value));

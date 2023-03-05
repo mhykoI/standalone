@@ -75,7 +75,7 @@ function decycleWalker(parents, path, val, config) {
     } else {
       var copy, i, k, l;
       if (val.constructor && typeof val.constructor.name === 'string' && val.constructor.name.slice(-5) === 'Array') {
-        if (parents.length >= config.deep) {
+        if (parents.length >= config.deep && val.constructor.name !== 'Array') {
           return '[Array:' + val.constructor.name + ']';
         } else {
           copy = [];

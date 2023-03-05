@@ -14,6 +14,7 @@ import utils from "../utils/index.js";
 import dom from "../dom/index.js";
 import shared from "../shared/index.js";
 import { waitUntilConnectionOpen } from "../../other/utils.js";
+import logger from "../utils/logger.js";
 
 /**
  * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, websocket?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
@@ -53,7 +54,7 @@ async function buildPluginAPI(manifest, persistKey) {
         get(_, prop) {
           if (typeof out.modules.__cache__.custom[prop] !== "undefined") return out.modules.__cache__.custom[prop];
           let data = manifest?.api?.modules?.custom?.find?.(i => i.name === prop);
-          if (!data) return null;
+          if (!data?.finder) return null;
           if (data.lazy) {
             let prom = new Promise(async (resolve, reject) => {
               let r = await modules.webpack.lazyFindByFinder(data.finder);
@@ -165,7 +166,7 @@ const out = {
 
     let metaResp = await fetch(`${url}/manifest.json`);
     if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
-    let manifest = await metaResp.json();
+    let manifest = JSON.parse(await metaResp.text());
 
     let readmeResp = await fetch(`${url}/readme.md`);
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
@@ -213,7 +214,7 @@ const out = {
 
     let metaResp = await fetch(`${url}/manifest.json`);
     if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
-    let manifest = await metaResp.json();
+    let manifest = JSON.parse(await metaResp.text());
 
     if (data.manifest.hash === manifest.hash) return false;
 
@@ -245,7 +246,9 @@ const out = {
 
     try {
       await out.unload(url);
-    } catch { }
+    } catch (err) {
+      logger.error(err);
+    }
   },
   async load(url) {
     if (!out.__cache__.initialized) await out.init();
@@ -260,8 +263,6 @@ const out = {
   async unload(url) {
     if (!out.__cache__.initialized) await out.init();
     if (url.endsWith("/")) url = url.slice(0, -1);
-    if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
-
     if (!out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is not loaded.`);
 
     await out.loader.unload(url);
@@ -274,7 +275,12 @@ const out = {
     if (!out.__cache__.initialized) await out.init();
     return Promise.all(Object.entries(out.storage.installed.ghost).sort(([, a], [, b]) => b.config.order - a.config.order).map(async ([url, d]) => {
       if (d.config.autoUpdate) await out.update(url);
-      if (d.config.enabled) await out.load(url);
+
+      try {
+        if (d.config.enabled) await out.load(url);
+      } catch (e) {
+        logger.error("Unable to load extension", url, e);
+      }
     }));
   },
   async unloadAll() {
@@ -292,7 +298,7 @@ const out = {
       if (data.manifest.type === 'plugin') {
         let api = await buildPluginAPI(data.manifest, `Extension;Persist;${id}`);
         if (api.extension.persist.ghost.settings === undefined) api.extension.persist.store.settings = {};
-        findInTree(data.manifest.config, (i) => i.id, { all: true }).forEach(
+        findInTree(data.manifest?.config ?? [], (i) => i.id, { all: true }).forEach(
           (i) => {
             api.extension.persist.store.settings[i.id] ??= i.default;
             if (i.hasOwnProperty("value")) i.value ??= api.extension.persist.store.settings[i.id];
@@ -335,7 +341,7 @@ const out = {
         let evaluated = out.evaluate(data.source, null);
         const persist = await storage.createPersistNest(`Extension;Persist;${id}`);
         if (persist.ghost.settings === undefined) persist.store.settings = {};
-        findInTree(data.manifest.config, (i) => i.id, { all: true }).forEach(
+        findInTree(data.manifest?.config ?? [], (i) => i.id, { all: true }).forEach(
           (i) => {
             persist.store.settings[i.id] ??= i.default;
             if (i.hasOwnProperty("value")) i.value ??= persist.store.settings[i.id];

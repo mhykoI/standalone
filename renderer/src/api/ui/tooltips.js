@@ -102,7 +102,7 @@ class Tooltip {
       container = dom.parse(`<div class="acord--layer-container acord--tooltip-container"></div>`);
       appElm.appendChild(container);
     }
-    container.style.setProperty("--top-offset", `${appElm.getBoundingClientRect().top.toFixed(1)}px`);
+    // container.style.setProperty("--top-offset", `${appElm.getBoundingClientRect().top.toFixed(1)}px`);
 
     return container;
   }
@@ -144,17 +144,14 @@ class Tooltip {
     this.layerElement.classList.remove(...Object.values(tooltipPositions));
     this.tooltipElement.classList.remove("vertical", "horizontal");
 
-    const topOffset = Number(Tooltip.getContainer().style.getPropertyValue("--top-offset").slice(0, -2));
-
     console.log({
-      topOffset,
       targetRect,
       position
     });
 
     switch (position) {
       case "top": {
-        this.layerElement.style.setProperty("top", `${(targetRect.top - this.layerElement.offsetHeight - 10) - topOffset}px`);
+        this.layerElement.style.setProperty("top", `${(targetRect.y - this.layerElement.offsetHeight - 10)}px`);
         this.layerElement.style.setProperty("left", `${targetRect.left}px`);
         this.layerElement.classList.add(tooltipPositions.top);
         this.tooltipElement.classList.add("vertical");
@@ -162,7 +159,7 @@ class Tooltip {
         break;
       }
       case "bottom": {
-        this.layerElement.style.setProperty("top", `${(targetRect.top + this.layerElement.offsetHeight + 10) - topOffset}px`);
+        this.layerElement.style.setProperty("top", `${(targetRect.y + this.layerElement.offsetHeight + 10)}px`);
         this.layerElement.style.setProperty("left", `${targetRect.left}px`);
         this.layerElement.classList.add(tooltipPositions.bottom);
         this.tooltipElement.classList.add("vertical");
@@ -170,7 +167,7 @@ class Tooltip {
         break;
       }
       case "left": {
-        this.layerElement.style.setProperty("top", `${targetRect.top - topOffset}px`);
+        this.layerElement.style.setProperty("top", `${targetRect.y}px`);
         this.layerElement.style.setProperty("left", `${targetRect.left - this.layerElement.offsetWidth - 10}px`);
         this.layerElement.classList.add(tooltipPositions.left);
         this.tooltipElement.classList.add("horizontal");
@@ -178,7 +175,7 @@ class Tooltip {
         break;
       }
       case "right": {
-        this.layerElement.style.setProperty("top", `${targetRect.top - topOffset}px`);
+        this.layerElement.style.setProperty("top", `${targetRect.y}px`);
         this.layerElement.style.setProperty("left", `${targetRect.left + this.layerElement.offsetWidth + 10}px`);
         this.layerElement.classList.add(tooltipPositions.right);
         this.tooltipElement.classList.add("horizontal");
