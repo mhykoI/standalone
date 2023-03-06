@@ -69,6 +69,7 @@ const pushListeners = new Set();
           })
         } catch (error) {
           utils.logger.error("Unable to patch pushed module.", error, ogModule, moduleId, chunk);
+          modules[moduleId] = ogModule;
         }
       };
 
