@@ -4,12 +4,12 @@ import patcher from "../../../../patcher/index.js";
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
 
-const selectClasses = webpack.findByProperties("select", "searchableSelect", "multiSelectCheck");
-const scrollClasses = webpack.findByProperties("managedReactiveScroller", "scrollerBase", "thin");
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
+    const selectClasses = webpack.findByProperties("select", "searchableSelect", "multiSelectCheck");
+    const scrollClasses = webpack.findByProperties("managedReactiveScroller", "scrollerBase", "thin");
     vueApp.component("discord-select", {
       template: `
         <div class="${selectClasses.select} ${selectClasses.lookFilled} acord--discord-select" :class="{'${selectClasses.open}': active}">

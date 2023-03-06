@@ -4,13 +4,13 @@ import patcher from "../../../../patcher/index.js";
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
 
-let inputClasses = webpack.findByProperties("textArea", "maxLength", "characterCount");
-let inputClasses2 = webpack.findByProperties("inputWrapper", "inputDefault");
-let scrollClasses = webpack.findByProperties("scrollbarDefault", "scrollbar", "scrollbarGhost");
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
+    let inputClasses = webpack.findByProperties("textArea", "maxLength", "characterCount");
+    let inputClasses2 = webpack.findByProperties("inputWrapper", "inputDefault");
+    let scrollClasses = webpack.findByProperties("scrollbarDefault", "scrollbar", "scrollbarGhost");
     vueApp.component("discord-textarea", {
       template: `
         <div class="${inputClasses2.inputWrapper} acord--discord-textarea">

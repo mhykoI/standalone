@@ -3,11 +3,11 @@ import patcher from "../../../../patcher/index.js";
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
 
-const checkClasses = webpack.findByProperties("checked", "container", "slider");
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
+    const checkClasses = webpack.findByProperties("checked", "container", "slider");
     vueApp.component("discord-check", {
       template: `
         <div class="${checkClasses.container} default-colors acord--discord-check" 

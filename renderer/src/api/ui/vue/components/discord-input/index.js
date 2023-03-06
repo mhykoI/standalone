@@ -1,11 +1,11 @@
 import webpack from "../../../../../api/modules/webpack.js";
 
-let inputClasses = webpack.findByProperties("inputDefault", "copyInput");
-let inputClasses2 = webpack.findByProperties("input", "editable", "disabled", "inputWrapper");
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
+    let inputClasses = webpack.findByProperties("inputDefault", "copyInput");
+    let inputClasses2 = webpack.findByProperties("input", "editable", "disabled", "inputWrapper");
     vueApp.component("discord-input", {
       template: `
         <div class="${inputClasses2?.input}">
