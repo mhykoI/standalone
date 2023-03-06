@@ -1,4 +1,4 @@
-.input-3O04eu {
+.acord--discord-input {
   font-size: 16px;
   box-sizing: border-box;
   width: 100%;
@@ -9,7 +9,7 @@
   transition: border-color 0.2s ease-in-out;
 }
 
-.input-3O04eu::placeholder {
+.acord--discord-input::placeholder {
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -17,53 +17,53 @@
   color: var(--input-placeholder-text);
 }
 
-.input-3O04eu:hover {
+.acord--discord-input:hover {
   border-color: var(--deprecated-text-input-border-hover);
 }
 
-.input-3O04eu.focused-16iuXg,
-.input-3O04eu:focus {
+.acord--discord-input.focused-16iuXg,
+.acord--discord-input:focus {
   border-color: var(--text-link);
 }
 
-.input-3O04eu.error-10GvqR {
+.acord--discord-input.error-10GvqR {
   border-color: var(--status-danger);
 }
 
-.input-3O04eu.success-1V4i3f {
+.acord--discord-input.success-1V4i3f {
   border-color: var(--green-360);
 }
 
-.input-3O04eu.disabled-1-f06g {
+.acord--discord-input.disabled-1-f06g {
   border-color: var(--deprecated-text-input-border-disabled);
 }
 
-.input-3O04eu.editable-1wRwlY {
+.acord--discord-input.editable-1wRwlY {
   background-color: transparent;
   border-color: transparent;
 }
 
-.inputWrapper-2-2Zoc {
+.acord--discord-inputWrapper {
   position: relative;
 }
 
-.theme-dark .inputDefault-1AaKiD::placeholder {
+.theme-dark .acord--discord-inputDefault::placeholder {
   color: hsl(var(--primary-100-hsl) / 0.3);
 }
 
-.theme-dark .inputDefault-1AaKiD {
+.theme-dark .acord--discord-inputDefault {
   color: var(--primary-100);
 }
 
-.theme-light .inputDefault-1AaKiD::placeholder {
+.theme-light .acord--discord-inputDefault::placeholder {
   color: hsl(var(--primary-500-hsl) / 0.3);
 }
 
-.theme-light .inputDefault-1AaKiD {
+.theme-light .acord--discord-inputDefault {
   color: var(--primary-500);
 }
 
-.input-2QVoG3 {
+.acord--discord-input-inner {
   position: relative;
   font-size: 16px;
   line-height: 20px;
@@ -74,7 +74,7 @@
   overflow: hidden;
 }
 
-.input-2QVoG3 {
+.acord--discord-input-inner {
   width: 100%;
   min-width: 0;
   box-sizing: border-box;

@@ -9,8 +9,8 @@ export default {
   load(vueApp) {
     vueApp.component("discord-textarea", {
       template: `
-        <div class="inputWrapper-2K8ds1 acord--discord-textarea">
-          <textarea class="inputDefault-Ciwd-S input-3O04eu textArea-3wfxMA scrollbarDefault-2w-Dyz scrollbar-3vVt8d" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :cols="cols" :rows="rows" :style="style" @input="onInput"></textarea>
+        <div class="acord--discord-textarea-inputWrapper acord--discord-textarea">
+          <textarea class="acord--discord-textarea-inputDefault acord--discord-textarea-input acord--discord-textarea-textArea acord--discord-textarea-scrollbarDefault acord--discord-textarea-scrollbar" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :cols="cols" :rows="rows" :style="style" @input="onInput"></textarea>
         </div>
       `,
       props: ["modelValue", "placeholder", "maxlength", "style", "cols", "rows"],

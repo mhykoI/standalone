@@ -8,8 +8,8 @@ export default {
   load(vueApp) {
     vueApp.component("discord-button", {
       template: `
-        <div class="button-ejjZWC lookFilled-1H2Jvj grow-2T4nbg" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'}\`" @click="onClick">
-          <div class="contents-3NembX">{{value}}</div>
+        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'}\`" @click="onClick">
+          <div class="acord--discord-button-contents">{{value}}</div>
         </div>
       `,
       props: ["value", "size", "color"],

@@ -8,9 +8,9 @@ export default {
   load(vueApp) {
     vueApp.component("discord-input", {
       template: `
-        <div class="input-3O04eu">
-          <div class="inputWrapper-2-2Zoc">
-            <input :type="type ?? 'text'" class="inputDefault-1AaKiD input-2QVoG3" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" />
+        <div class="acord--discord-input">
+          <div class="acord--discord-inputWrapper">
+            <input :type="type ?? 'text'" class="acord--discord-inputDefault acord--discord-input-inner" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" />
           </div>
         </div>
       `,
