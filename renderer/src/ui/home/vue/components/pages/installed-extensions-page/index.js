@@ -43,7 +43,6 @@ export default {
           },
           i18nFormat: i18n.format,
           updateFiltered() {
-            if (!this.searchText) return this.filteredExtensions = this.extensions;
             const searchText = this.searchText.toLowerCase();
             const searchCategoryText = this.searchCategoryText;
             this.filteredExtensions = Object.fromEntries(
@@ -62,14 +61,17 @@ export default {
         watch: {
           searchText() {
             this.updateFiltered();
+            this.$forceUpdate();
           },
           searchCategoryText() {
             this.updateFiltered();
+            this.$forceUpdate();
           }
         },
         mounted() {
           this.onStorageUpdate();
           this.updateFiltered();
+          this.$forceUpdate();
           extensions.storage.installed.on("UPDATE", this.onStorageUpdate);
           extensions.storage.installed.on("SET", this.onStorageUpdate);
           extensions.storage.installed.on("DELETE", this.onStorageUpdate);
