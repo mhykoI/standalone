@@ -5,7 +5,7 @@ export default {
       props: ["item", "extension"],
       template: `
         <div v-show="item?.visible ?? true" class="acord--config-paragraph acord--config-item">
-          <p class="paragraph">{{item.value}}</p>
+          {{item.value}}
         </div>
       `,
     });

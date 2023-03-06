@@ -10,6 +10,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 4px;
 
     &.horizontal-align-left {
       justify-content: flex-start;
@@ -46,6 +47,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    gap: 4px;
 
     &.horizontal-align-left {
       justify-content: flex-start;
@@ -83,14 +85,17 @@
   &-heading {
     font-size: 1.2rem;
     font-weight: 500;
-    margin-bottom: 0.5rem;
     color: whitesmoke;
   }
 
   &-paragraph {
     font-size: 1rem;
     font-weight: 400;
-    margin-bottom: 0.5rem;
     color: rgba(245, 245, 245, 0.85);
+  }
+
+  &-check,
+  &-button {
+    width: fit-content;
   }
 }

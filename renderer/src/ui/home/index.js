@@ -85,7 +85,7 @@ dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) =>
         buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
         buttonsContainer.appendChild(buildButton("installed-extensions", i18n.format("INSTALLED_EXTENSIONS")));
         buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
-        buttonsContainer.appendChild(buildButton("store", i18n.format("EXTENSION_STORE"), "store-tab-button"));
+        buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
 
         container.appendChild(buttonsContainer);
       }

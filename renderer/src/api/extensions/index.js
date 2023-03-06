@@ -212,7 +212,6 @@ const out = {
     if (!out.__cache__.initialized) await out.init();
     if (url.endsWith("/")) url = url.slice(0, -1);
     if (!out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is not installed.`);
-    if (out.__cache__.loaded.ghost[url]) throw new Error(`"${url}" extension is loaded. Please unload it first.`);
 
     let data = out.storage.installed.ghost[url];
 
@@ -229,6 +228,12 @@ const out = {
     if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);
     let source = await sourceResp.text();
 
+    let loadedBefore = false;
+    if (out.__cache__.loaded.ghost[url]) {
+      loadedBefore = true;
+      await out.unload(url);
+    }
+
     out.storage.installed.store[url] = {
       manifest,
       source,
@@ -238,6 +243,11 @@ const out = {
         lastUpdatedAt: Date.now()
       }
     };
+
+    if (loadedBefore) {
+      await new Promise(resolve => setTimeout(resolve, 1));
+      await out.load(url);
+    }
 
     return true;
   },
@@ -361,6 +371,7 @@ const out = {
           api.extension.persist.off("SET", onPersistUpdate);
         }
         out.__cache__.loaded.store[id] = { evaluated, api, unload };
+        events.emit("ExtensionLoaded", { id });
         return { evaluated, api, unload };
       } else if (data.manifest.type === 'theme') {
         let evaluated = out.evaluate(data.source, null);
@@ -387,8 +398,8 @@ const out = {
           offConfigListener();
           injectedRes();
         }
-
         out.__cache__.loaded.store[id] = { evaluated, unload };
+        events.emit("ExtensionLoaded", { id });
         return { evaluated, unload };
       }
     },
@@ -396,6 +407,7 @@ const out = {
       out.__cache__.loaded.ghost?.[id]?.unload?.();
       delete out.__cache__.loaded.store[id];
       delete out.__cache__.config[id];
+      events.emit("ExtensionUnloaded", { id });
     }
   }
 };

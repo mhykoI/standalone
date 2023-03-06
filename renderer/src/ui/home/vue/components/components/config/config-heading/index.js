@@ -5,7 +5,7 @@ export default {
       props: ["item", "extension"],
       template: `
         <div v-show="item?.visible ?? true" class="acord--config-heading acord--config-item">
-          <h1 class="heading">{{item.value}}</h1>
+          {{item.value}}
         </div>
       `,
     });

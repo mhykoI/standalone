@@ -22,7 +22,7 @@ export default {
                 </div>
               </div>
               <div class="bottom">
-                <installed-extension-card v-for="(extension, id) of extensions" :id="id" :extension="extension" :key="id" />
+                <installed-extension-card v-for="(extension, id) of filteredExtensions" :id="id" :extension="extension" :key="id" />
               </div>
             </div>
           </div>
@@ -31,17 +31,45 @@ export default {
           return {
             searchText: "",
             searchCategoryText: "all",
-            extensions: {}
+            extensions: {},
+            filteredExtensions: {}
           }
         },
         methods: {
           onStorageUpdate() {
             this.extensions = extensions.storage.installed.ghost;
+            this.updateFiltered();
+            this.$forceUpdate();
           },
-          i18nFormat: i18n.format
+          i18nFormat: i18n.format,
+          updateFiltered() {
+            if (!this.searchText) return this.filteredExtensions = this.extensions;
+            const searchText = this.searchText.toLowerCase();
+            const searchCategoryText = this.searchCategoryText;
+            this.filteredExtensions = Object.fromEntries(
+              Object.entries(this.extensions)
+                .filter(([id, extension]) => {
+                  if (searchCategoryText === "all") return true;
+                  return extension.manifest.type === searchCategoryText;
+                })
+                .filter(([id, extension]) => {
+                  if (!searchText) return true;
+                  return i18n.localize(extension.manifest.about.name).toLowerCase().includes(searchText) || i18n.localize(extension.manifest.about.description).toLowerCase().includes(searchText);
+                })
+            );
+          }
+        },
+        watch: {
+          searchText() {
+            this.updateFiltered();
+          },
+          searchCategoryText() {
+            this.updateFiltered();
+          }
         },
         mounted() {
           this.onStorageUpdate();
+          this.updateFiltered();
           extensions.storage.installed.on("UPDATE", this.onStorageUpdate);
           extensions.storage.installed.on("SET", this.onStorageUpdate);
           extensions.storage.installed.on("DELETE", this.onStorageUpdate);

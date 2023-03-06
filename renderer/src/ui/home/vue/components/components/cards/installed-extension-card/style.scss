@@ -1,16 +1,174 @@
 .acord--installed-extension-card {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: #2c2e32;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  position: relative;
+
+  & > .status-container {
+    position: absolute;
+    top: -9px;
+    right: 8px;
+    border-radius: 9999px;
+    padding: 8px;
+    height: 24px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    background-color: #1e1f22;
+
+    & > .loaded-state {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #82858f;
+
+      &.active {
+        background-color: #23a55a;
+        filter: drop-shadow(0px 0px 4px #23a55a);
+      }
+    }
+
+    & > .development-mode-warning {
+      color: #f0b232;
+      filter: drop-shadow(0px 0px 4px #f0b232);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+  }
 
   & > .top {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #212225;
     border-radius: 8px;
     width: 100%;
-    padding: 8px;
-    height: 100px;
+    padding: 16px;
+    height: 128px;
+    display: flex;
+    justify-content: space-between;
+
+    & > .left {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      gap: 4px;
+
+      & > .top {
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+
+        & > .name {
+          font-size: 1.4rem;
+          font-weight: 500;
+          color: #fff;
+        }
+
+        & > .version {
+          font-size: 1rem;
+          font-weight: 300;
+          color: rgba(255, 255, 255, 0.5);
+        }
+      }
+
+      & > .bottom {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        & > .top {
+          display: flex;
+          & > .authors {
+            display: flex;
+            gap: 2px;
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.45);
+
+            & > .label {
+              font-weight: 500;
+              margin-right: 2px;
+            }
+
+            .author {
+              display: flex;
+
+              .hoverable:hover {
+                cursor: pointer;
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+
+        & > .bottom {
+          & > .description {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.75);
+          }
+        }
+      }
+    }
+
+    & > .right {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      & > .top {
+        display: flex;
+
+        & > .controls {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .control {
+            display: flex;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            color: whitesmoke;
+            cursor: pointer;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+          }
+        }
+      }
+
+      & > .bottom {
+        display: flex;
+
+        & > .settings {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          cursor: pointer;
+          font-weight: 300;
+          color: rgba(255, 255, 255, 0.75);
+          gap: 8px;
+
+          svg {
+            padding: 4px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 1);
+          }
+        }
+      }
+    }
+  }
+
+  & > .bottom {
+    border-radius: 8px;
+    width: 100%;
+    padding: 16px;
   }
 }
