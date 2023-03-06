@@ -18,7 +18,7 @@ export default {
                   <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')" />
                 </div>
                 <div class="category">
-                  <discord-select v-model="searchCategoryText" :options="[{value: 'all', label: i18nFormat('ALL')}, {value: 'plugins', label: i18nFormat('PLUGINS')}, {value: 'themes', label: i18nFormat('THEMES')}]" />
+                  <discord-select v-model="searchCategoryText" :options="[{value: 'all', label: i18nFormat('ALL')}, {value: 'plugin', label: i18nFormat('PLUGINS')}, {value: 'theme', label: i18nFormat('THEMES')}]" />
                 </div>
               </div>
               <div class="bottom">
