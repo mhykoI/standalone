@@ -56,27 +56,28 @@ const pushListeners = new Set();
     for (const moduleId in Object.keys(modules || {})) {
       const ogModule = modules[moduleId];
 
-      modules[moduleId] = (module, exports, require) => {
-        try {
-          ogModule.call(null, module, exports, require);
+      if (typeof modules[moduleId] == "function") {
+        modules[moduleId] = (module, exports, require) => {
+          try {
+            ogModule.call(null, module, exports, require);
 
-          pushListeners.forEach(listener => {
-            try {
-              listener(exports);
-            } catch (error) {
-              utils.logger.error("Push listener threw an exception.", listener, error);
-            }
-          })
-        } catch (error) {
-          utils.logger.error("Unable to patch pushed module.", error, ogModule, moduleId, chunk);
-          modules[moduleId] = ogModule;
-        }
-      };
+            pushListeners.forEach(listener => {
+              try {
+                listener(exports);
+              } catch (error) {
+                utils.logger.error("Push listener threw an exception.", listener, error);
+              }
+            })
+          } catch (error) {
+            utils.logger.error("Unable to patch pushed module.", error, ogModule, moduleId, chunk);
+          }
+        };
 
-      Object.assign(modules[moduleId], ogModule, {
-        __original__: ogModule,
-        toString: () => ogModule.toString(),
-      });
+        Object.assign(modules[moduleId], ogModule, {
+          __original__: ogModule,
+          toString: () => ogModule.toString(),
+        });
+      }
     }
 
     return ogPush.call(window[webpackChunkName], chunk);
