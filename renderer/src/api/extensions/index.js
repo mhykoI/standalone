@@ -303,8 +303,8 @@ const out = {
         if (api.extension.persist.ghost.settings === undefined) api.extension.persist.store.settings = {};
         findInTree(data.manifest?.config ?? [], (i) => i.id, { all: true }).forEach(
           (i) => {
-            api.extension.persist.store.settings[i.id] ??= i.default;
-            if (i.hasOwnProperty("value")) i.value ??= api.extension.persist.store.settings[i.id];
+            api.extension.persist.store.settings[i.id] = api.extension.persist.ghost?.settings?.[i.id] ?? i.default;
+            i.value ??= api.extension.persist.ghost?.settings?.[i.id];
           }
         );
 
@@ -346,8 +346,8 @@ const out = {
         if (persist.ghost.settings === undefined) persist.store.settings = {};
         findInTree(data.manifest?.config ?? [], (i) => i.id, { all: true }).forEach(
           (i) => {
-            persist.store.settings[i.id] ??= i.default;
-            if (i.hasOwnProperty("value")) i.value ??= persist.store.settings[i.id];
+            persist.store.settings[i.id] = persist.ghost?.settings?.[i.id] ?? i.default;
+            i.value ??= persist.ghost?.settings?.[i.id];
           }
         );
         let cssText = evaluated();
