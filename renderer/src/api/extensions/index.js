@@ -148,7 +148,8 @@ function showConfirmationModal() {
 const out = {
   __cache__: {
     initialized: false,
-    loaded: nests.make({})
+    loaded: nests.make({}),
+    config: {}
   },
   storage: {
     /** @type {nests.Nest} */
@@ -301,35 +302,53 @@ const out = {
       if (data.manifest.type === 'plugin') {
         let api = await buildPluginAPI(data.manifest, `Extension;Persist;${id}`);
         if (api.extension.persist.ghost.settings === undefined) api.extension.persist.store.settings = {};
-        findInTree(data.manifest?.config ?? [], (i) => i.id, { all: true }).forEach(
+        await ui.vue.ready.when();
+        out.__cache__.config[id] = Vue.reactive(JSON.parse(JSON.stringify(data.manifest.config)));
+        findInTree(out.__cache__.config[id], (i) => i.id, { all: true }).forEach(
           (i) => {
             api.extension.persist.store.settings[i.id] = api.extension.persist.ghost?.settings?.[i.id] ?? i.default;
-            i.value ??= api.extension.persist.ghost?.settings?.[i.id];
+            i.value = api.extension.persist.ghost?.settings?.[i.id];
           }
         );
 
         let evaluated = out.evaluate(data.source, api);
         await evaluated?.load?.();
+
+        function onPersistUpdate(eventName, { path, value } = {}) {
+          if (path[0] === "settings") {
+            let item = findInTree(out.__cache__.config[id], (i) => i.id === path[1]);
+            let val = eventName === "DELETE" ? null : value;
+            if (item.inputType === "number") val = Number(val);
+            if (item) item.value = val;
+          }
+        }
+        api.extension.persist.on("UPDATE", onPersistUpdate);
+        api.extension.persist.on("DELETE", onPersistUpdate);
+        api.extension.persist.on("SET", onPersistUpdate);
         const offConfigListener =
-          events.on("extension-config-interaction", (data) => {
+          events.on("ExtensionConfigInteraction", (data) => {
             if (data.extension !== id) return;
+            function save() {
+              if (!data.item.id) return false;
+              let val = data.item.value ?? data.data.value;
+              if (data.item.inputType === "number") val = Number(val);
+              api.extension.persist.store.settings[data.item.id] = val;
+              return true;
+            }
+            save();
             if (data.item.id) {
-              api.extension.persist.store.settings[data.item.id] = data.item.value;
+              api.extension.persist.store.settings[data.item.id] = data.item.value ?? data.data.value;
             }
             evaluated?.config?.({
               item: data.item,
               data: data.data,
               getItem(itemId) {
-                return findInTree(data.manifest.config, (i) => i.id === itemId);
+                return findInTree(out.__cache__.config[id], (i) => i.id === itemId);
               },
               getItems() {
-                return findInTree(data.manifest.config, (i) => i.id, { all: true });
+                return findInTree(out.__cache__.config[id], (i) => i.id, { all: true });
               },
-              save() {
-                if (!data.item.id) return false;
-                api.extension.persist.store.settings[data.item.id] = data.item.value;
-                return true;
-              }
+              save
             });
           });
         function unload() {
@@ -337,6 +356,9 @@ const out = {
           api.extension.subscriptions.forEach(i => { if (typeof i === "function") i(); });
           api.extension.events.emit("unload");
           evaluated?.unload?.();
+          api.extension.persist.off("UPDATE", onPersistUpdate);
+          api.extension.persist.off("DELETE", onPersistUpdate);
+          api.extension.persist.off("SET", onPersistUpdate);
         }
         out.__cache__.loaded.store[id] = { evaluated, api, unload };
         return { evaluated, api, unload };
@@ -344,20 +366,21 @@ const out = {
         let evaluated = out.evaluate(data.source, null);
         const persist = await storage.createPersistNest(`Extension;Persist;${id}`);
         if (persist.ghost.settings === undefined) persist.store.settings = {};
-        findInTree(data.manifest?.config ?? [], (i) => i.id, { all: true }).forEach(
+        out.__cache__.config[id] = JSON.parse(JSON.stringify(data.manifest.config));
+        findInTree(out.__cache__.config[id], (i) => i.id, { all: true }).forEach(
           (i) => {
             persist.store.settings[i.id] = persist.ghost?.settings?.[i.id] ?? i.default;
-            i.value ??= persist.ghost?.settings?.[i.id];
+            i.value = persist.ghost?.settings?.[i.id];
           }
         );
         let cssText = evaluated();
         let injectedRes = patcher.injectCSS(cssText, persist.ghost.settings);
 
         const offConfigListener =
-          events.on("extension-config-interaction", (data) => {
+          events.on("ExtensionConfigInteraction", (data) => {
             if (data.extension !== id) return;
-            if (!data.config.id) return;
-            persist.store.settings[data.config.id] = data.data.value;
+            if (!data.item.id) return;
+            persist.store.settings[data.item.id] = data.data.value;
             injectedRes(persist.ghost.settings);
           });
         function unload() {
@@ -372,6 +395,7 @@ const out = {
     unload(id) {
       out.__cache__.loaded.ghost?.[id]?.unload?.();
       delete out.__cache__.loaded.store[id];
+      delete out.__cache__.config[id];
     }
   }
 };

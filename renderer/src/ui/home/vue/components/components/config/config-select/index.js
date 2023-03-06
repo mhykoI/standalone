@@ -13,7 +13,7 @@ export default {
       methods: {
         onChange(data) {
           events.emit(
-            "extension-config-interaction",
+            "ExtensionConfigInteraction",
             {
               extension: this.extension,
               item: this.item,

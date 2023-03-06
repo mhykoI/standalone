@@ -1,5 +1,6 @@
 import i18n from "../../../../../../../api/i18n/index.js";
 import patcher from "../../../../../../../api/patcher/index.js";
+import extensions from "../../../../../../../api/extensions/index.js";
 
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
@@ -68,18 +69,19 @@ export default {
               </div>
             </div>
             <div v-if="expanded" class="bottom">
-              <config-column :extension="id" :item="{children: extension.manifest.config}"/>
+              <config-column :extension="id" :item="{children: configCache}"/>
             </div>
           </div>
         `,
         data() {
           return {
-            expanded: false
+            expanded: false,
+            configCache: extensions.__cache__.config[this.id]
           };
         },
         methods: {
           i18nFormat: i18n.format,
-          i18nLocalize: i18n.localize,
+          i18nLocalize: i18n.localize
         },
         props: ["id", "extension"]
       }

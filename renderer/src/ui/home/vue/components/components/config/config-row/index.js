@@ -18,7 +18,7 @@ export default {
             'vertical-align-center': item?.verticalAlign === 'center',
             'vertical-align-bottom': item?.verticalAlign === 'bottom'
           }" :style="{'width': item?.width ?? '100%', 'height': item?.height}" >
-            <component v-for="child in item.children" :is="nameMap[child.type]" :key="child.id" :item="child" :extension="extension" />
+            <component v-for="(child, idx) in item.children" :is="nameMap[child.type]" :key="idx" :item="child" :extension="extension" />
           </div>
         `,
         data() {

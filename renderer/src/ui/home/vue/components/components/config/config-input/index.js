@@ -7,13 +7,13 @@ export default {
       props: ["item", "extension"],
       template: `
         <div v-show="item?.visible ?? true" class="acord--config-input acord--config-item">
-          <discord-input @change="onChange" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder" :maxlength="item.maxlength"  :max="item.max" :min="item.min" :step="item.step" />
+          <discord-input @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder" :maxlength="item.maxlength"  :max="item.max" :min="item.min" :step="item.step" />
         </div>
       `,
       methods: {
-        onChange(data) {
+        onInput(data) {
           events.emit(
-            "extension-config-interaction",
+            "ExtensionConfigInteraction",
             {
               extension: this.extension,
               item: this.item,

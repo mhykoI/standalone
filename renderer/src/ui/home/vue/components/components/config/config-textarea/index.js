@@ -7,20 +7,20 @@ export default {
       props: ["item", "extension"],
       template: `
         <div v-show="item?.visible ?? true" class="acord--config-textarea acord--config-item">
-          <discord-textarea @change="onChange" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder" :maxlength="item.maxlength" :cols="item.columns" :rows="item.rows" />
+          <discord-textarea @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder" :maxlength="item.maxlength" :cols="item.columns" :rows="item.rows" />
         </div>
       `,
       methods: {
-        onChange(data) {
+        onInput(data) {
           events.emit(
-            "extension-config-interaction",
+            "ExtensionConfigInteraction",
             {
               extension: this.extension,
               item: this.item,
               data
             }
           )
-        }
+        },
       }
     });
   }

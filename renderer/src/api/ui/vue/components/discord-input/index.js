@@ -10,15 +10,16 @@ export default {
       template: `
         <div class="${inputClasses2?.input}">
           <div class="${inputClasses?.inputWrapper}">
-            <input :type="type ?? 'text'" class="${inputClasses?.inputDefault}" v-bind="value" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @change="onChange" />
+            <input :type="type ?? 'text'" class="${inputClasses?.inputDefault}" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" />
           </div>
         </div>
       `,
-      props: ["value", "placeholder", "type", "maxlength", "max", "min", "step", "style"],
-      emits: ["change"],
+      props: ["modelValue", "placeholder", "type", "maxlength", "max", "min", "step", "style"],
+      emits: ["input", 'update:modelValue'],
       methods: {
-        onChange(event) {
-          this.$emit("change", { event, value: event.target.value });
+        onInput(event) {
+          this.$emit("update:modelValue", event.target.value);
+          this.$emit("input", { event, value: event.target.value });
         }
       }
     });
