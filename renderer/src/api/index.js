@@ -12,7 +12,7 @@ import dom from './dom';
 import ui from './ui/index.js';
 import shared from './shared/index.js';
 
-utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
+// utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
 
 function devError(api) {
   return new Error(`The ${api} API can only be accessed when Dev mode is enabled!`);
@@ -21,11 +21,26 @@ function devError(api) {
 export default {
   exposedAPI: {
     dev,
-    utils,
-    i18n,
-    events,
-    ui,
-    shared,
+    get utils() {
+      if (!dev.enabled) throw devError("Utils");
+      return utils;
+    },
+    get i18n() {
+      if (!dev.enabled) throw devError("i18n");
+      return i18n;
+    },
+    get events() {
+      if (!dev.enabled) throw devError("Events");
+      return events;
+    },
+    get ui() {
+      if (!dev.enabled) throw devError("UI");
+      return ui;
+    },
+    get shared() {
+      if (!dev.enabled) throw devError("Shared");
+      return shared;
+    },
     get dom() {
       if (!dev.enabled) throw devError("DOM");
       return dom;

@@ -96,7 +96,10 @@ async function buildPluginAPI(manifest, persistKey) {
       events: new BasicEventEmitter(),
       subscriptions: []
     },
-    shared,
+    get shared() {
+      if (manifest?.api?.shared || devMode) return shared;
+      return null;
+    },
     get i18n() {
       if (manifest?.api?.i18n || devMode) return i18n;
       return null;

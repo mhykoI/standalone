@@ -23,5 +23,12 @@
         width: 20%;
       }
     }
+
+    & > .bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 16px;
+    }
   }
 }
