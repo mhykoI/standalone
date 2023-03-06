@@ -1,16 +1,16 @@
-import webpack from "../../../../../api/modules/webpack.js";
+import patcher from "../../../../patcher/index.js";
 
+import cssText from "./style.scss";
+patcher.injectCSS(cssText);
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
-    let inputClasses = webpack.findByProperties("inputDefault", "copyInput");
-    let inputClasses2 = webpack.findByProperties("input", "editable", "disabled", "inputWrapper");
     vueApp.component("discord-input", {
       template: `
-        <div class="${inputClasses2?.input}">
-          <div class="${inputClasses?.inputWrapper}">
-            <input :type="type ?? 'text'" class="${inputClasses?.inputDefault}" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" />
+        <div class="input-3O04eu">
+          <div class="inputWrapper-2-2Zoc">
+            <input :type="type ?? 'text'" class="inputDefault-1AaKiD input-2QVoG3" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" />
           </div>
         </div>
       `,

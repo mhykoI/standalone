@@ -1,13 +1,15 @@
-import webpack from "../../../../../api/modules/webpack.js";
+import patcher from "../../../../patcher/index.js";
+
+import cssText from "./style.scss";
+patcher.injectCSS(cssText);
 
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
-    const buttonClasses = webpack.findByProperties("lowSaturationUnderline", "button", "disabledButtonOverlay");
     vueApp.component("discord-button", {
       template: `
-        <div class="${buttonClasses.button} ${buttonClasses.lookFilled} ${buttonClasses.grow}" :class="\`\${color ? buttonClasses[\`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\`] : buttonClasses.colorBrand} \${size ? buttonClasses[\`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\`] : buttonClasses.sizeSmall}\`" @click="onClick">
-          <div class="${buttonClasses.contents}">{{value}}</div>
+        <div class="button-ejjZWC lookFilled-1H2Jvj grow-2T4nbg" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'}\`" @click="onClick">
+          <div class="contents-3NembX">{{value}}</div>
         </div>
       `,
       props: ["value", "size", "color"],

@@ -1,3 +1,85 @@
 .acord--discord-textarea {
   width: 100%;
 }
+
+.inputWrapper-2K8ds1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputDefault-Ciwd-S {
+  padding: 10px;
+  height: 40px;
+}
+
+.input-3O04eu {
+  font-size: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 3px;
+  color: var(--text-normal);
+  background-color: var(--input-background);
+  border: none;
+  transition: border-color 0.2s ease-in-out;
+}
+
+.input-3O04eu::placeholder {
+  user-select: none;
+  color: var(--input-placeholder-text);
+}
+
+.input-3O04eu:hover {
+  border-color: var(--deprecated-text-input-border-hover);
+}
+
+.input-3O04eu:focus {
+  border-color: var(--text-link);
+}
+
+.input-3O04eu.error {
+  border-color: var(--status-danger);
+}
+
+.input-3O04eu.success {
+  border-color: var(--green-360);
+}
+
+.input-3O04eu.disabled {
+  border-color: var(--deprecated-text-input-border-disabled);
+}
+
+.input-3O04eu.editable {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.textArea-3wfxMA {
+  height: auto;
+  resize: none;
+}
+
+.scrollbarDefault-2w-Dyz::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+.scrollbarDefault-2w-Dyz::-webkit-scrollbar-thumb,
+.scrollbarDefault-2w-Dyz::-webkit-scrollbar-track {
+  border-radius: 7px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+}
+
+.scrollbarDefault-2w-Dyz::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-auto-thumb);
+}
+
+.scrollbarDefault-2w-Dyz::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-auto-track);
+  border-width: initial;
+}
+
+.scrollbar-3vVt8d::-webkit-scrollbar-corner {
+  border: none;
+  background: none
+}

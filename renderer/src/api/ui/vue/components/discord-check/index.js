@@ -1,4 +1,3 @@
-import webpack from "../../../../modules/webpack.js";
 import patcher from "../../../../patcher/index.js";
 import cssText from "./style.scss";
 patcher.injectCSS(cssText);
@@ -7,14 +6,13 @@ patcher.injectCSS(cssText);
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
-    const checkClasses = webpack.findByProperties("checked", "container", "slider");
     vueApp.component("discord-check", {
       template: `
-        <div class="${checkClasses.container} default-colors acord--discord-check" 
-          :class="{'${checkClasses.checked}': modelValue, 'checked': modelValue}" 
+        <div class="container-1QtPKm default-colors acord--discord-check" 
+          :class="{'checked-16gMAN': modelValue, 'checked': modelValue}" 
           @click="onClick"
         >
-          <svg class="${checkClasses.slider} slider" viewBox="0 0 28 20" preserveAspectRatio="xMinYMid meet">
+          <svg class="slider-HJFN2i slider" viewBox="0 0 28 20" preserveAspectRatio="xMinYMid meet">
             <rect fill="white" x="4" y="0" rx="10" width="20" height="20"></rect>
             <svg v-if="modelValue" viewBox="0 0 20 20" fill="none">
               <path fill="currentColor" d="M7.89561 14.8538L6.30462 13.2629L14.3099 5.25755L15.9009 6.84854L7.89561 14.8538Z"></path>
