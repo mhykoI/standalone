@@ -38,64 +38,72 @@ dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
 
 let internalVueApp = null;
 
-const headerItemClasses = webpack.findByProperties("divider", "hamburger", "themed");
-const tabBarClasses = webpack.findByProperties("tabBar", "maxWidthWithToolbar");
-const headerClasses = webpack.findByProperties("topPill", "headerText");
-dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
+(async () => {
+  let headerItemClasses;
+  while (true) {
+    headerItemClasses = webpack.findByProperties("divider", "hamburger", "themed");
+    if (headerItemClasses) break;
+    await new Promise((r) => setTimeout(r, 100));
+  }
 
-  utils.ifExists(
-    elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
-    (titleElm) => {
-      titleElm.textContent = i18n.format("APP_NAME");
+  const tabBarClasses = webpack.findByProperties("tabBar", "maxWidthWithToolbar");
+  const headerClasses = webpack.findByProperties("topPill", "headerText");
+  dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
 
-      if (internalVueApp) {
-        let container = dom.parents(titleElm, 2).pop();
+    utils.ifExists(
+      elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
+      (titleElm) => {
+        titleElm.textContent = i18n.format("APP_NAME");
 
-        container.appendChild(
-          dom.parse(`<div class="${headerItemClasses.divider}"></div>`)
-        );
+        if (internalVueApp) {
+          let container = dom.parents(titleElm, 2).pop();
 
-        const buttonsContainer = dom.parse(`
+          container.appendChild(
+            dom.parse(`<div class="${headerItemClasses.divider}"></div>`)
+          );
+
+          const buttonsContainer = dom.parse(`
           <div class="${tabBarClasses.tabBar} ${headerClasses.topPill}">
           </div>
         `);
 
-        let buttons = [];
+          let buttons = [];
 
-        function buildButton(id, text, customClasses = "") {
-          let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
+          function buildButton(id, text, customClasses = "") {
+            let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
 
-          buttons.push(elm);
+            buttons.push(elm);
 
-          elm.setSelected = (s) => {
-            if (s) elm.classList.add(headerClasses.selected, "selected");
-            else elm.classList.remove(headerClasses.selected, "selected");
+            elm.setSelected = (s) => {
+              if (s) elm.classList.add(headerClasses.selected, "selected");
+              else elm.classList.remove(headerClasses.selected, "selected");
+            }
+
+            elm.setSelected(internalVueApp.selectedTab === id);
+
+            elm.onclick = () => {
+              buttons.forEach((b) => b.setSelected(false));
+              elm.setSelected(true);
+              internalVueApp.selectedTab = id;
+            }
+            return elm;
           }
 
-          elm.setSelected(internalVueApp.selectedTab === id);
+          buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
+          buttonsContainer.appendChild(buildButton("installed-extensions", i18n.format("INSTALLED_EXTENSIONS")));
+          buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
+          buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
 
-          elm.onclick = () => {
-            buttons.forEach((b) => b.setSelected(false));
-            elm.setSelected(true);
-            internalVueApp.selectedTab = id;
-          }
-          return elm;
+          container.appendChild(buttonsContainer);
         }
-
-        buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
-        buttonsContainer.appendChild(buildButton("installed-extensions", i18n.format("INSTALLED_EXTENSIONS")));
-        buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
-        buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
-
-        container.appendChild(buttonsContainer);
       }
-    }
-  );
-  utils.ifExists(
-    elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
-    fillSVGElmWithAcordLogo
-  );
-});
+    );
+    utils.ifExists(
+      elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
+      fillSVGElmWithAcordLogo
+    );
+  });
+})();
 
 function fillSVGElmWithAcordLogo(svgElm) {
   svgElm.setAttribute("viewBox", "0 0 813.5 1493");
