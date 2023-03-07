@@ -168,11 +168,11 @@ const out = {
     if (url.endsWith("/")) url = url.slice(0, -1);
     if (out.storage.installed.ghost[url]) throw new Error(`"${url}" extension is already installed.`);
 
-    let metaResp = await fetch(`${url}/manifest.json`);
+    let metaResp = await fetch(`${url}/manifest.json`, { cache: "no-store" });
     if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
     let manifest = await metaResp.json();
 
-    let readmeResp = await fetch(`${url}/readme.md`);
+    let readmeResp = await fetch(`${url}/readme.md`, { cache: "no-store" });
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
@@ -187,7 +187,7 @@ const out = {
       }
     });
 
-    let sourceResp = await fetch(`${url}/source.js`);
+    let sourceResp = await fetch(`${url}/source.js`, { cache: "no-store" });
     if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);
     let source = await sourceResp.text();
 
@@ -215,16 +215,16 @@ const out = {
 
     let data = out.storage.installed.ghost[url];
 
-    let metaResp = await fetch(`${url}/manifest.json`);
+    let metaResp = await fetch(`${url}/manifest.json`, { cache: "no-store" });
     if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
     let manifest = JSON.parse(await metaResp.text());
 
     if (data.manifest.hash === manifest.hash) return false;
 
-    let readmeResp = await fetch(`${url}/readme.md`);
+    let readmeResp = await fetch(`${url}/readme.md`, { cache: "no-store" });
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
-    let sourceResp = await fetch(`${url}/source.js`);
+    let sourceResp = await fetch(`${url}/source.js`, { cache: "no-store" });
     if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);
     let source = await sourceResp.text();
 

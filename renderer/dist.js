@@ -1,37 +1,3171 @@
-(()=>{var ko=Object.create;var ye=Object.defineProperty;var Eo=Object.getOwnPropertyDescriptor;var Co=Object.getOwnPropertyNames;var So=Object.getPrototypeOf,Po=Object.prototype.hasOwnProperty;var To=(e,t,o)=>t in e?ye(e,t,{enumerable:!0,configurable:!0,writable:!0,value:o}):e[t]=o;var ie=(e,t)=>()=>(t||e((t={exports:{}}).exports,t),t.exports);var Lo=(e,t,o,r)=>{if(t&&typeof t=="object"||typeof t=="function")for(let i of Co(t))!Po.call(e,i)&&i!==o&&ye(e,i,{get:()=>t[i],enumerable:!(r=Eo(t,i))||r.enumerable});return e};var Ye=(e,t,o)=>(o=e!=null?ko(So(e)):{},Lo(t||!e||!e.__esModule?ye(o,"default",{value:e,enumerable:!0}):o,e));var ne=(e,t,o)=>(To(e,typeof t!="symbol"?t+"":t,o),o);var $e=ie(Fe=>{"use strict";Object.defineProperty(Fe,"__esModule",{value:!0});Fe.default=Object.freeze({GET:"GET",SET:"SET",DELETE:"DELETE",UPDATE:"UPDATE"})});var ft=ie(Y=>{"use strict";var Zo=Y&&Y.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(Y,"__esModule",{value:!0});var ut=Zo($e()),Ze=class{constructor(){this.listeners=Object.values(ut.default).reduce((t,o)=>(t[o]=new Set,t),{}),this.on=function(t,o){if(this.listeners[t].has(o))throw Error(`This listener on ${t} already exists.`);this.listeners[t].add(o)},this.once=function(t,o){let r=(i,s)=>{this.off(i,r),o(i,s)};this.on(t,r)},this.off=function(t,o){this.listeners[t].delete(o)},this.emit=function(t,o){for(let r of this.listeners[t])r(t,o)};for(let t of Object.values(ut.default))this[t.toLowerCase()]=o=>{this.emit(t,o)}}};Y.default=Ze});var ht=ie(X=>{"use strict";var Bo=X&&X.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(X,"__esModule",{value:!0});var Do=Bo(ft());function Ro(e={},{nestArrays:t=!0}={}){let o=new Do.default;function r(i,s,l){return new Proxy(i,{get(a,n){let c=[...l,n],d=a[n];return d!=null?(o.get({path:c,value:d}),!t&&Array.isArray(d)?d:typeof d=="object"?r(d,s,c):d):r(a[n]={},s,c)},set(a,n,c){return a[n]=c,o.set({path:[...l,n],value:c}),!0},deleteProperty(a,n){return delete a[n]?(o.delete({path:[...l,n]}),!0):!1},has(a,n){return typeof a[n]=="object"&&Object.keys(a[n]).length===0?!1:n in a}})}return Object.assign({store:r(e,e,[]),ghost:e},o)}X.default=Ro});var Be=ie(B=>{"use strict";var mt=B&&B.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(B,"__esModule",{value:!0});B.make=B.Events=void 0;var No=$e();Object.defineProperty(B,"Events",{enumerable:!0,get:function(){return mt(No).default}});var Uo=ht();Object.defineProperty(B,"make",{enumerable:!0,get:function(){return mt(Uo).default}})});var Xe={common:{modals:{components:{other:{__:!0,filter:{export:!1,in:"properties",by:[["Header","Footer"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},Root:{__:!0,filter:{export:!1,in:"strings",by:[["ENTERING","headerId"]]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:["Root"]},map:{Root:["ENTERING","headerId"]}}},actions:{open:{__:!0,filter:{export:!1,in:"strings",by:[["onCloseCallback","Layer"]]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:["open"]},map:{open:["onCloseCallback","Layer"]}},close:{__:!0,filter:{export:!1,in:"strings",by:[["onCloseCallback()"]]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:["close"]},map:{close:["onCloseCallback()"]}}}},components:{Button:{__:!0,filter:{export:!1,in:"properties",by:[["BorderColors"]]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:"Button"},map:{Button:[".FILLED",".onMouseLeave"]}},ConfirmationModal:{__:!0,filter:{export:!1,in:"strings",by:[[".confirmButtonColor"]]},map:{ConfirmationModal:[".confirmButtonColor"]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:["ConfirmationModal"]}},Text:{__:!0,filter:"$?.Sizes?.SIZE_32 && $.Colors",path:{before:["exports.Z","exports.ZP","exports.default","exports"]}},Tooltip:{__:!0,filter:{export:!1,in:"prototypes",by:[["renderTooltip"]]},path:{before:["exports.Z","exports.ZP","exports.default","exports"]}},Markdown:{__:!0,filter:"$?.prototype?.render && $.rules",path:{after:["exports.Z","exports.ZP","exports.default","exports"]}}},FluxDispatcher:{__:!0,path:{after:["exports.Z","exports.ZP","exports.default","exports"]},filter:{export:!1,in:"properties",by:[["_currentDispatchActionType","dispatch"]]}},React:{__:!0,path:{after:["exports.Z","exports.ZP","exports.default","exports"]},filter:{export:!1,in:"properties",by:[["createElement","useState"]]}},Rest:{__:!0,path:{after:["exports.Z","exports.ZP","exports.default","exports"]},filter:{export:!1,in:"properties",by:[["get","post","getAPIBaseURL"]]}},Router:{transitionTo:{__:!0,filter:{export:!1,in:"strings",by:[["transitionTo - Transitioning to "]]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:["transitionTo"]},map:{transitionTo:["transitionTo - Transitioning to "]}},replaceWith:{__:!0,filter:{export:!1,in:"strings",by:[['"Replacing route with "']]},path:{before:["exports.Z","exports.ZP","exports.default","exports"],after:["replaceWith"]},map:{replaceWith:['"Replacing route with "']}}},Flux:{__:!0,path:{after:["exports.Z","exports.ZP","exports.default","exports"]},filter:{export:!1,in:"properties",by:[["connectStores","destroy"]]}},WebSocket:{__:!0,filter:"$?.__proto__?.handleConnection",path:{before:["exports.Z","exports.ZP","exports.default","exports"]}},ActivityActions:{__:!0,path:{after:["exports.Z","exports.ZP","exports.default","exports"]},filter:{export:!1,in:"properties",by:[["sendActivityInvite","updateActivity"]]}},PrivateChannelActions:{__:!0,path:{after:["exports.Z","exports.ZP","exports.default","exports"]},filter:{export:!1,in:"properties",by:[["openPrivateChannel","ensurePrivateChannel"]]}},AckActions:{__:!0,filter:{in:"strings",by:[['type:"BULK_ACK"'],[]]},path:{export:!0,before:"exports"},map:{ack:['type:"CHANNEL_ACK"',"messageId","channelId"],bulkAck:['type:"BULK_ACK"']}},AnalyticsActions:{__:!0,filter:{export:!1,in:"properties",by:[["isThrottled","track"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},AnimationActions:{__:!0,export:!1,filter:{in:"properties",by:[["spring","decay"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},ConnectionActions:{__:!0,filter:{export:!1,in:"properties",by:[["setShowActivity","setVisibility"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},RTCConnectionActions:{__:!0,filter:{export:!1,in:"properties",by:[["getChannelId","getGuildId","getRTCConnectionId"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},EmojiActions:{__:!0,filter:{export:!1,in:"properties",by:[["translateInlineEmojiToSurrogates","translateSurrogatesToInlineEmoji"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},EmojiStateActions:{__:!0,filter:{export:!1,in:"properties",by:[["getURL","isEmojiDisabled"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},GuildNotificationsActions:{__:!0,filter:{export:!1,in:"properties",by:[["updateChannelOverrideSettings","updateGuildNotificationSettings"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},InternalReact:{__:!0,filter:{export:!1,in:"properties",by:[["jsx","jsxs","Fragment"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},LoginActions:{__:!0,filter:{export:!1,in:"properties",by:[["login","logout"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},QueryActions:{__:!0,filter:{export:!1,in:"properties",by:[["queryEmojiResults","queryFriends"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},MessageActions:{__:!0,filter:{export:!1,in:"properties",by:[["receiveMessage","sendMessage"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},PremiumActions:{__:!0,filter:{export:!1,in:"properties",by:[["isPremium","canUseEmojisEverywhere"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},VoiceActions:{__:!0,filter:{export:!1,in:"properties",by:[["selectVoiceChannel","disconnect"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},TypingActions:{__:!0,filter:{export:!1,in:"properties",by:[["startTyping","stopTyping"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},GuildActions:{__:!0,filter:{export:!1,in:"properties",by:[["setChannel","setServerMute"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},InviteActions:{__:!0,filter:{export:!1,in:"properties",by:[["acceptInvite","acceptInviteAndTransitionToInviteChannel"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},MediaEngineActions:{__:!0,filter:{export:!1,in:"properties",by:[["toggleSelfDeaf","toggleSelfMute"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},i18n:{__:!0,filter:{export:!1,in:"properties",by:[["_requestedLocale","getDefaultLocale"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},uuid:{__:!0,filter:{export:!1,in:"properties",by:[["v1","v4"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}},hljs:{__:!0,filter:{export:!1,in:"properties",by:[["highlightAll","highlight"]]},path:{after:["exports.Z","exports.ZP","exports.default","exports"]}}}};function M(e,t,{walkable:o=null,ignore:r=[],limit:i=256,all:s=!1}={}){let l=0,a=[];function n(c,d,{walkable:f=null,ignore:g=[]}={}){if(l+=1,!(l>i)){if(typeof d=="string"){if(c.hasOwnProperty(d)&&(s&&a.push(c[d]),!s))return c[d]}else if(d(c)&&(s&&a.push(c),!s))return c;if(c){if(Array.isArray(c))for(let v of c){let E=n(v,d,{walkable:f,ignore:g});if(E&&a.push(E),E&&!s)return E}else if(typeof c=="object"){for(let v in c)if(!(f!=null&&!f.includes(v))&&!g.includes(v))try{let E=n(c[v],d,{walkable:f,ignore:g});if(E&&a.push(E),E&&!s)return E}catch{}}}}}return n(e,t,{walkable:o,ignore:r})??a}function U(e="Acord",t,o){return(...r)=>console[t](`%c${e}%c`,`background-color: ${o}; color: white; border-radius: 4px; padding: 0px 6px 0px 6px; font-weight: bold`,"",...r)}var k={log:U("Acord","log","#00fbb0"),debug:U("Acord Debug","debug","#00fbb0"),info:U("Acord Info","log","#82aaff"),warn:U("Acord Warn","warn","#debf18"),error:U("Acord Error","error","#ef5858"),build:U};var Je={getInstance(e){return Object.entries(e).find(t=>t[0].startsWith("__reactInternalInstance")||t[0].startsWith("__reactFiber"))?.[1]},getOwnerInstance(e){let t=this.getInstance(e);for(let o=t;o;o=o.return)if(o.stateNode?.forceUpdate)return o.stateNode},findInTree(e,t){return M(e,t,{walkable:["props","state","children","return"]})},getComponents(e){let t=this.getInstance(e),o=[],r=t;for(;r&&r.return&&typeof r.return.type!="string";)r.return.type&&o.push(r.return.type),r=r.return;return o},getStateNodes(e){let t=this.getInstance(e),o=[],r=t;for(;r&&r.return&&!(r.return.stateNode instanceof HTMLElement);)r.return.stateNode&&o.push(r.return.stateNode),r=r.return;return o},getProps(e,t=r=>r,o=1e4){let r=this.getInstance(e);if(!r?.return)return null;for(let i=r?.return,s=0;s>o||i!==null;i=i?.return,s++)if(i?.pendingProps&&t(i.pendingProps))return i.pendingProps;return null}};var y={logger:k,react:Je,findInTree:M,format(e,...t){return`${e}`.replaceAll(/{(\d+)}/g,(o,r)=>t[Number(r)])},interval(e,t){let o=setInterval(e,t);return()=>{clearInterval(o)}},timeout(e,t){let o=setTimeout(e,t);return()=>{clearTimeout(o)}},ifExists(e,t){e&&t(e)},copyText(e){if(window.DiscordNative){DiscordNative.clipboard.copy(e);return}navigator.clipboard.writeText(e).catch(()=>{let t=document.createElement("textarea");t.style.visibility="hidden",t.style.position="fixed",t.style.top="0",t.style.left="0",document.body.appendChild(t),t.focus(),t.select();try{document.execCommand("copy")}catch(o){console.error(o)}document.body.removeChild(t)})},sleep(e){return new Promise(t=>setTimeout(t,e))},mapReplace(e,t={}){return(Array.isArray(t)?t:Object.entries(t)).reduce((o,r)=>o.replaceAll(r[0],r[1]),e)},escapeRegex(e){return e.replace(/[|\\{}()[\]^$+*?.]/g,"\\$&").replace(/-/g,"\\x2d")}};function j(e){return(...t)=>{try{return t[0]?.document&&t[0]?.window||t[0]?.default?.remove&&t[0]?.default?.set&&t[0]?.default?.clear&&t[0]?.default?.get&&!t[0]?.default?.sort||t[0].remove&&t[0].set&&t[0].clear&&t[0].get&&!t[0].sort||t[0]?.default?.getToken||t[0]?.default?.getEmail||t[0]?.default?.showToken||t[0]?.getToken||t[0]?.getEmail||t[0]?.showToken?!1:e(...t)}catch(o){return k.warn("Module filter threw an exception.",e,o),!1}}}function we(e,t=[],o){let r=(i,s)=>o?i.toString().indexOf(s.toString())==-1:i.toString().indexOf(s.toString())>-1;return t.every(i=>r(e?.toString?.()||"",i)||r(e?.__original__?.toString?.()||"",i)||r(e?.type?.toString?.()||"",i)||r(e?.type?.__original__?.toString?.()||"",i)||Object.entries(["function","object"].includes(typeof e?.prototype)?typeof e?.prototype:{}).filter(s=>s[0]?.includes?.("render")).some(s=>r(s[1]?.toString?.()||"",i)))}function _e(e,t=[],o){return t.every(r=>{let i=e[r]?.__original__||e[r];return o?i===void 0:i!==void 0&&!(typeof i=="string"&&!i)})}function ke(e,t=[],o){return e.prototype&&t.every(r=>{let i=e.prototype[r];return o?i===void 0:i!==void 0&&!(typeof i=="string"&&!i)})}var Ee="webpackChunkdiscord_app",Ce=new Set;{let t=function(o){let[,r]=o;for(let i in Object.keys(r||{})){let s=r[i];typeof r[i]=="function"&&(r[i]=(l,a,n)=>{try{s.call(null,l,a,n),Ce.forEach(c=>{try{c(a)}catch(d){y.logger.error("Push listener threw an exception.",c,d)}})}catch(c){y.logger.error("Unable to patch pushed module.",c,s,i,o)}},Object.assign(r[i],s,{__original__:s,toString:()=>s.toString()}))}return e.call(window[Ee],o)},e=window[Ee].push;Object.defineProperty(window[Ee],"push",{configurable:!0,get(){return t},set(o){e=o,Object.defineProperty(window[this.chunkName],"push",{value:this.handlePush,configurable:!0,writable:!0})}})}async function Se(e,{signal:t=null,searchExports:o=!1}){return new Promise((r,i)=>{let s=()=>Ce.delete(l),l=a=>{if(!a||a===window||a===document.documentElement)return;let n=null;if(typeof a=="object"&&o)for(let c in a){let d=a[c];if(d&&e(d)){n=d;break}}else n=["exports.Z","exports.ZP","exports.default","exports",""].map(d=>{let f=d?_.get(a,d):a;if(f&&e(f))return f}).find(d=>d);n&&(s(),r(n))};Ce.add(l),t?.addEventListener("abort",()=>{s(),r(null)})})}function ae(e,t,o={}){let r=typeof o.defaultExport!="boolean"?!1:o.defaultExport,i=typeof o.unloaded!="boolean"?!1:o.unloaded,s=typeof o.all!="boolean"?!1:o.all,l=[];if(!i){for(let a in e.c)if(e.c.hasOwnProperty(a)){let n=e.c[a].exports,c=null;if(n&&(typeof n=="object"||typeof n=="function")){if(c=t(n,a))if(s)l.push(r?c:e.c[a]);else return r?c:e.c[a];else for(let d of Object.keys(n))if(d.length<4&&n[d]&&(c=t(n[d],a)))if(s)l.push(r?c:e.c[a]);else return r?c:e.c[a]}if(n&&n.__esModule&&n.default&&(typeof n.default=="object"||typeof n.default=="function")){if(c=t(n.default,a))if(s)l.push(r?c:e.c[a]);else return r?c:e.c[a];else if(n.default.type&&(typeof n.default.type=="object"||typeof n.default.type=="function")&&(c=t(n.default.type,a)))if(s)l.push(r?c:e.c[a]);else return r?c:e.c[a]}}}for(let a in e.m)if(e.m.hasOwnProperty(a)){let n=e.m[a];if(n&&typeof n=="function"){if(e.c[a]&&!i&&t(n,a))if(s)l.push(r?e.c[a].exports:e.c[a]);else return r?e.c[a].exports:e.c[a];if(!e.c[a]&&i&&t(n,a)){let c={},d={};n(c,d,e);let f=d&&Object.getOwnPropertyNames(d||{}).length==0?c:d;if(s)l.push(r?f.exports:f);else return r?f.exports:f}}}if(s)return l}function jo(e,t){return e.find(o=>{let r=typeof o[1]=="function"?o[1]?.__original__?.toString?.()||o[1]?.toString?.()||"":(()=>{try{return JSON.stringify(o[1])}catch{return o[1].toString()}})(),i=o[1]?.render?.__original__?.toString?.()||o[1]?.render?.toString?.()||"";return t.every(s=>r.indexOf(s)!=-1||i.indexOf(s)!=-1)})}function Qe(finder){let found=()=>!1;if(typeof finder?.filter=="string")found=j(eval(`(($)=>{ try { return (${finder.filter}); } catch { return false; } })`));else if(typeof finder?.filter=="function")found=j(finder.filter);else switch(finder.filter.in){case"properties":{finder.filter.by?.[1]?.length?found=j(e=>_e(e,finder.filter.by?.[0]||[])&&_e(e,finder.filter.by?.[1]||[],!0)):found=j(e=>_e(e,finder.filter.by?.[0]||[]));break}case"prototypes":{finder.filter.by?.[1]?.length?found=j(e=>ke(e,finder.filter.by?.[0]||[])&&ke(e,finder.filter.by?.[1]||[],!0)):found=j(e=>ke(e,finder.filter.by?.[0]||[]));break}case"strings":{finder.filter.by?.[1]?.length?found=j(e=>we(e,finder.filter.by?.[0]||[])&&we(e,finder.filter.by?.[1]||[],!0)):found=j(e=>we(e,finder.filter.by?.[0]||[]));break}}return found}function se(e,t){let o={},r={__original__:e,__mapped__:o,...e};return Object.entries(t).forEach(([i,s])=>{Object.defineProperty(r,i,{get(){if(o[i])return e[o[i]];let l=jo(Object.entries(e||{}),t[i]||[]);if(l?.length)return o[i]=l[0],l[1]}})}),r}function et(e,t={}){let o=!!t?.filter?.export,r=ae(e,Qe(t),{defaultExport:o,all:!0}).find(i=>i!==globalThis.window||i?.exports!==globalThis.window);return!r||(t.path?.before&&(r=(Array.isArray(t.path.before)?t.path.before.map(i=>_.get(r,i)).find(i=>i):_.get(r,t.path.before))||r),t.assign&&(r=Object.assign({},r)),!r)?null:(t.map&&(r=se(r,t.map)),t.path?.after&&(r=(Array.isArray(t.path.after)?t.path.after.map(i=>_.get(r,i)).find(i=>i):_.get(r,t.path.after))||r),r)}async function tt(e={}){let t=await Se(Qe(e),{searchExports:!1});return!t||(e.path?.before&&(t=(Array.isArray(e.path.before)?e.path.before.map(o=>_.get(t,o)).find(o=>o):_.get(t,e.path.before))||t),e.assign&&(t=Object.assign({},t)),!t)?null:(e.map&&(t=se(t,e.map)),e.path?.after&&(t=(Array.isArray(e.path.after)?e.path.after.map(o=>_.get(t,o)).find(o=>o):_.get(t,e.path.after))||t),t)}var Pe=["exports.Z","exports.ZP","exports.default","exports"],P={__cache__:{},get require(){if(this.__cache__.require)return this.__cache__.require;let e=`AcordWebpackModules${Date.now()}`,t=window.webpackChunkdiscord_app.push([[e],{},o=>o]);return delete t.m[e],delete t.c[e],window.webpackChunkdiscord_app.pop(),this.__cache__.require=t,t},find(e,t={}){return ae(this.require,j(e),t)},lazyFind(e,t={}){return Se(j(e),t)},lazyFindByFinder(e){return tt(e)},filter(e,t={}){return ae(this.require,j(e),{...t,all:!0})},findByFinder(e){return et(this.require,e)},findByStringValues(...e){return this.find(t=>{let o=Object.values(t);return e.every(r=>o.some(i=>typeof i=="string"&&i.includes(r)))})?.exports},findByProperties(...e){return this.findByFinder({filter:{export:!1,in:"properties",by:[e]},path:{before:Pe}})},findByPrototypes(...e){return this.findByFinder({filter:{export:!1,in:"prototypes",by:[e]},path:{before:Pe}})},findByStrings(...e){return this.findByFinder({filter:{export:!1,in:"strings",by:[e]},path:{before:Pe}})}};function ot(e,t){e?.__cache__||(e.__cache__={});for(let o in t)t?.[o]?.__===!0?Object.defineProperty(e,o,{get(){return e.__cache__[o]?e.__cache__[o]:e.__cache__[o]=P.findByFinder(t[o])}}):(typeof e[o]>"u"&&(e[o]={}),ot(e[o],t[o]))}var I={__cache__:{},LayerActions:{push(e){I.FluxDispatcher.dispatch({type:"LAYER_PUSH",component:e})},pop(){I.FluxDispatcher.dispatch({type:"LAYER_POP"})},popAll(){I.FluxDispatcher.dispatch({type:"LAYER_POP_ALL"})}}};ot(I,Xe.common);function rt(){let e=["exports.Z","exports.ZP","exports.default","exports"];P.filter(t=>t?.getName?.()?.endsWith?.("Store"),{defaultExport:!1}).forEach(t=>{let o=e.map(i=>_.get(t,i)).find(i=>i);if(!o)return;let r=o?.getName?.();r&&(I[r]||Object.defineProperty(I,r,{get(){return I.__cache__[r]?I.__cache__[r]:I.__cache__[r]=o}}))})}rt();Z().then(rt);var w=I;var C={common:w,webpack:P,require:globalThis["<PRELOAD_KEY>"].require,native:DiscordNative};var Te="https://raw.githubusercontent.com/acord-standalone/assets/main/i18n",Le={cache:"no-store"},L={__cache__:{localeIds:[],localizations:{}},get locale(){return C.common.i18n._requestedLocale},get(e){return it(),L.__cache__.localizations[L.locale]?.[e]||L.__cache__.localizations.default?.[e]||C.common.i18n.Messages[e]||e},messages:new Proxy({},{get(e,t){return L.get(t)}}),localize(e,...t){if(typeof e=="string")return y.format(e,...t);let o=e?.[L.locale]||e?.default||Object.values(e)[0];return o?y.format(o,...t):null},format(e,...t){return y.format(L.get(e),...t)}};async function it(){let e=L.locale;if(!L.__cache__.localeIds.length){try{L.__cache__.localeIds=await(await fetch(`${Te}/locales.json`,Le)).json()}catch{}try{L.__cache__.localizations.default=await(await fetch(`${Te}/default.json`,Le)).json()}catch{}}if(L.__cache__.localeIds.includes(e)&&!L.__cache__.localizations?.[e])try{L.__cache__.localizations[e]=await(await fetch(`${Te}/${e}.json`,Le)).json()}catch{}}it();var u=L;var nt=!1;function Z(){return new Promise(e=>{if(nt)return e(!0);function t(){C.common.FluxDispatcher.unsubscribe("CONNECTION_OPEN",t),nt=!0,e(!0)}C.common.FluxDispatcher.subscribe("CONNECTION_OPEN",t)})}var H=class{constructor(){this.listeners=new Map}_prepareListenersMap(t){this.listeners.has(t)||this.listeners.set(t,new Map)}on(t,o){return this._prepareListenersMap(t),this.listeners.get(t).set(o,{once:!1}),()=>{this.listeners.get(t).delete(o)}}once(t,o){return this._prepareListenersMap(t),this.listeners.get(t)?.set(o,{once:!0}),()=>{this.listeners.get(t).delete(o)}}off(t,o){if(!t)return this.listeners=new Map;if(!o)return this.listeners?.delete(t);this.listeners.get(t)?.delete(o)}emit(t,...o){if(!this.listeners.has(t))return;let r=this.listeners.get(t);r.forEach(({once:i},s)=>{i&&r?.delete(s);try{s(...o)}catch(l){k.error(`Error while emitting ${t} event.`,l)}})}};var Oo=new H,h=Oo;var at=P.findByProperties("scrollbarGhostHairline","spinner"),Mo={bold:/\*\*([^*]+)\*\*/g,italic:/\*([^*]+)\*/g,underline:/\_([^*]+)\_/g,strike:/\~\~([^*]+)\~\~/g,url:/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig,inline:/\`([^*]+)\`/g,codeblockSingle:/\`\`\`([^*]+)\`\`\`/g,codeblockMulti:/\`\`\`(\w+)\n((?:(?!\`\`\`)[\s\S])*)\`\`\`/g},x={parse(e){let t=document.createElement("div");return t.innerHTML=e,t.firstElementChild},toCSSProp(e){let t=document.createElement("div");return Object.entries(e).forEach(o=>{t.style.hasOwnProperty(o[0])?t.style[o[0]]=o[1]:t.style.setProperty(o[0],o[1])}),t.getAttribute("style")},toHTMLProps(e){return Object.entries(e).map(t=>`${t[0].replace(/ +/,"-")}="${t[0]=="style"&&typeof t[1]!="string"?this.toCSSProp(t[1]):this.escapeHTML(t[1])}"`).join(" ")},escape(e){return new Option(e).innerHTML},parents(e,t){let o=[];if(typeof t=="number")for(let r=0;r<t;r++)e.parentElement&&(e=e.parentElement,o.push(e));else for(;e.parentElement&&e.parentElement.closest(t);)e=e.parentElement.closest(t),o.push(e);return o},patch:(e,t)=>(()=>{function o(i){typeof i?.querySelectorAll=="function"&&i.querySelectorAll(e).forEach(async s=>{if(s.acord||(s.acord={unmount:[],patched:new Set},s.classList.add("acord--patched")),s.acord.patched.has(t))return;s.acord.patched.add(t);let l=await t(s);typeof l=="function"&&s.acord.unmount.push(l)})}function r(i){typeof i?.querySelectorAll=="function"&&i.querySelectorAll(e).forEach(async s=>{s.acord&&s.acord.unmount.forEach(l=>l())})}return document.querySelectorAll(e).forEach(o),h.on("DomMutation",i=>{i.type==="childList"&&(i.addedNodes.forEach(o),i.removedNodes.forEach(r))})})(),formatContent(e){if(!e)return"";let{bold:t,italic:o,underline:r,strike:i,codeblockMulti:s,codeblockSingle:l,inline:a,url:n}=Mo,c=Object.fromEntries([...e.matchAll(s)||[],...e.matchAll(l)||[]].map(([f,g,v],E)=>(e=e.replace(f,`{{CODEBLOCK_${E}}}`),[`{{CODEBLOCK_${E}}}`,v?`<pre><code class="${at.scrollbarGhostHairline} hljs ${g}" style="position: relative;">${modules.common.hljs.highlight(g,v).value}</code></pre>`:`<pre><code class="${at.scrollbarGhostHairline} hljs" style="position: relative;">${g}</code></pre>`]))),d=Object.fromEntries([...e.matchAll(a)||[]].map(([f,g],v)=>(e=e.replace(f,`{{INLINE_${v}}}`),[`{{INLINE_${v}}}`,`<code class="inline">${g}</code>`])));e=e.replace(t,"<b>$1</b>").replace(o,"<i>$1</i>").replace(r,"<U>$1</U>").replace(i,"<s>$1</s>").replace(n,'<a href="$1">$1</a>');for(let[f,g]of Object.entries(c))e=e.replace(f,g);for(let[f,g]of Object.entries(d))e=e.replace(f,g);return e},resolve(e){return e instanceof Element?e:this.parse(e)}};new MutationObserver(t=>{t.forEach(o=>{h.emit("DomMutation",o)})}).observe(document,{attributes:!0,childList:!0,subtree:!0});var Ae=["a","b","i"],A=new Map;function st(e,t,o,r,i){let s=A.get(t)?.[e];if(!s)return i?Reflect.construct(t[e],o,r):t[e].apply(r,o);for(let n of s.b.values()){let c=n.call(r,o);Array.isArray(c)&&(o=c)}let l=(...n)=>i?Reflect.construct(s.o,n,r):s.o.apply(r,n);for(let n of s.i.values()){let c=l;l=(...d)=>n.call(r,d,c)}let a=l(...o);for(let n of s.a.values())a=n.call(r,o,a)??a;return a}function je(e,t,o,r){let i=A.get(e),s=i?.[t];return s?.[r].has(o)?(s[r].delete(o),Ae.every(l=>s[l].size===0)&&(Reflect.defineProperty(e,t,{value:s.o,writable:!0,configurable:!0})||(e[t]=s.o),delete i[t]),Object.keys(i).length==0&&A.delete(e),!0):!1}function ze(){for(let[e,t]of A.entries())for(let o in t)for(let r of Ae)for(let i of t[o]?.[r].keys()??[])je(e,o,i,r)}var le=e=>(t,o,r,i=!1)=>{if(typeof o[t]!="function")throw new Error(`${t} is not a function in ${o.constructor.name}`);A.has(o)||A.set(o,{});let s=A.get(o);if(!s[t]){let n=o[t];s[t]={o:n,b:new Map,i:new Map,a:new Map};let c=(g,v,E)=>{let _o=st(t,o,v,g,E);return i&&a(),_o},d=new Proxy(n,{apply:(g,v,E)=>c(v,E,!1),construct:(g,v)=>c(n,v,!0),get:(g,v,E)=>v=="toString"?n.toString.bind(n):Reflect.get(g,v,E)});Reflect.defineProperty(o,t,{value:d,configurable:!0,writable:!0})||(o[t]=d),o[t].__original__=s[t].o}let l=Symbol(),a=()=>je(o,t,l,e);return s[t][e].set(l,r),a};var lt=le("b"),ct=le("i"),dt=le("a");function Oe(e,t={}){return e=e.replace(/var\(--acord--([\S\s]+)\)/g,(o,r)=>{let i=r.split(","),s=i.shift().trim(),l=i.join(",").trim();return t[s]??(l||o)}),e}var m={__cache__:{patched:A},before:lt,after:dt,instead:ct,unPatchAll:ze,injectCSS(e,t={}){let o=document.createElement("style");return o.className="acord--injected-css",o.textContent=Oe(e,t),document.head.appendChild(o),(...r)=>{typeof r[0]=="string"?(o.textContent=Oe(r[0],r[1]),e=r[0]):typeof r[0]=="object"?o.textContent=Oe(e,r[0]):(o?.remove(),e=null)}},unPatchAllCSS(){document.querySelectorAll(".acord--injected-css").forEach(e=>{e.remove()})}};var pt=`
-@keyframes acordLoadingFade{0%{opacity:.1}100%{opacity:.9}}.acord--startup-loading{animation:acordLoadingFade .5s alternate infinite linear;position:absolute;transition:all .5s linear;right:8px;bottom:8px;width:16px;height:16px;background-image:url("https://raw.githubusercontent.com/AcordPlugin/assets/main/Acord.svg");filter:grayscale(1) brightness(1);background-position:center;background-repeat:no-repeat;background-size:contain;z-index:999999}.acord--startup-loading.hidden{opacity:0 !important}`;var Me;async function Fo(){if(document.querySelector(".acord--startup-loading"))return;for(;!document.querySelector("#app-mount");)await new Promise(t=>setTimeout(t,100));Me=m.injectCSS(pt);let e=x.parse(`
+(() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+    // If the importer is in node compatibility mode or this is not an ESM
+    // file that has been converted to a CommonJS file using a Babel-
+    // compatible transform (i.e. "__esModule" has not been set), then set
+    // "default" to the CommonJS "module.exports" for node compatibility.
+    isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+    mod
+  ));
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
+
+  // node_modules/nests/cjs/Events.js
+  var require_Events = __commonJS({
+    "node_modules/nests/cjs/Events.js"(exports) {
+      "use strict";
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.default = Object.freeze({
+        GET: "GET",
+        SET: "SET",
+        DELETE: "DELETE",
+        UPDATE: "UPDATE"
+      });
+    }
+  });
+
+  // node_modules/nests/cjs/EventEmitter.js
+  var require_EventEmitter = __commonJS({
+    "node_modules/nests/cjs/EventEmitter.js"(exports) {
+      "use strict";
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      var Events_1 = __importDefault(require_Events());
+      var EventEmitter = class {
+        constructor() {
+          this.listeners = Object.values(Events_1.default).reduce((acc, val) => (acc[val] = /* @__PURE__ */ new Set(), acc), {});
+          this.on = function(event, listener) {
+            if (this.listeners[event].has(listener)) {
+              throw Error(`This listener on ${event} already exists.`);
+            }
+            this.listeners[event].add(listener);
+          };
+          this.once = function(event, listener) {
+            const onceListener = (event2, data) => {
+              this.off(event2, onceListener);
+              listener(event2, data);
+            };
+            this.on(event, onceListener);
+          };
+          this.off = function(event, listener) {
+            this.listeners[event].delete(listener);
+          };
+          this.emit = function(event, data) {
+            for (const listener of this.listeners[event]) {
+              listener(event, data);
+            }
+          };
+          for (const event of Object.values(Events_1.default)) {
+            this[event.toLowerCase()] = (data) => {
+              this.emit(event, data);
+            };
+          }
+        }
+      };
+      exports.default = EventEmitter;
+    }
+  });
+
+  // node_modules/nests/cjs/make.js
+  var require_make = __commonJS({
+    "node_modules/nests/cjs/make.js"(exports) {
+      "use strict";
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      var EventEmitter_1 = __importDefault(require_EventEmitter());
+      function make3(data = {}, { nestArrays = true } = {}) {
+        const emitter = new EventEmitter_1.default();
+        function createProxy(target, root, path) {
+          return new Proxy(target, {
+            get(target2, property) {
+              const newPath = [...path, property];
+              const value = target2[property];
+              if (value !== void 0 && value !== null) {
+                emitter.get({
+                  path: newPath,
+                  value
+                });
+                if (!nestArrays && Array.isArray(value)) {
+                  return value;
+                }
+                if (typeof value === "object") {
+                  return createProxy(value, root, newPath);
+                }
+                return value;
+              }
+              return createProxy(target2[property] = {}, root, newPath);
+            },
+            set(target2, property, value) {
+              target2[property] = value;
+              emitter.set({
+                path: [...path, property],
+                value
+              });
+              return true;
+            },
+            deleteProperty(target2, property) {
+              if (delete target2[property]) {
+                emitter.delete({
+                  path: [...path, property]
+                });
+                return true;
+              }
+              return false;
+            },
+            has(target2, property) {
+              if (typeof target2[property] === "object" && Object.keys(target2[property]).length === 0) {
+                return false;
+              }
+              return property in target2;
+            }
+          });
+        }
+        return Object.assign({
+          store: createProxy(data, data, []),
+          // This can be safely ignored, the Data will always be an object or it won't work anyway.
+          // @ts-ignore
+          ghost: data
+        }, emitter);
+      }
+      exports.default = make3;
+    }
+  });
+
+  // node_modules/nests/cjs/index.js
+  var require_cjs = __commonJS({
+    "node_modules/nests/cjs/index.js"(exports) {
+      "use strict";
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.make = exports.Events = void 0;
+      var Events_1 = require_Events();
+      Object.defineProperty(exports, "Events", { enumerable: true, get: function() {
+        return __importDefault(Events_1).default;
+      } });
+      var make_1 = require_make();
+      Object.defineProperty(exports, "make", { enumerable: true, get: function() {
+        return __importDefault(make_1).default;
+      } });
+    }
+  });
+
+  // src/data/common.json
+  var common_default = {
+    common: {
+      modals: {
+        components: {
+          other: {
+            __: true,
+            filter: {
+              export: false,
+              in: "properties",
+              by: [
+                [
+                  "Header",
+                  "Footer"
+                ]
+              ]
+            },
+            path: {
+              after: [
+                "exports.Z",
+                "exports.ZP",
+                "exports.default",
+                "exports"
+              ]
+            }
+          },
+          Root: {
+            __: true,
+            filter: {
+              export: false,
+              in: "strings",
+              by: [
+                [
+                  "ENTERING",
+                  "headerId"
+                ]
+              ]
+            },
+            path: {
+              before: [
+                "exports.Z",
+                "exports.ZP",
+                "exports.default",
+                "exports"
+              ],
+              after: [
+                "Root"
+              ]
+            },
+            map: {
+              Root: [
+                "ENTERING",
+                "headerId"
+              ]
+            }
+          }
+        },
+        actions: {
+          open: {
+            __: true,
+            filter: {
+              export: false,
+              in: "strings",
+              by: [
+                [
+                  "onCloseCallback",
+                  "Layer"
+                ]
+              ]
+            },
+            path: {
+              before: [
+                "exports.Z",
+                "exports.ZP",
+                "exports.default",
+                "exports"
+              ],
+              after: [
+                "open"
+              ]
+            },
+            map: {
+              open: [
+                "onCloseCallback",
+                "Layer"
+              ]
+            }
+          },
+          close: {
+            __: true,
+            filter: {
+              export: false,
+              in: "strings",
+              by: [
+                [
+                  "onCloseCallback()"
+                ]
+              ]
+            },
+            path: {
+              before: [
+                "exports.Z",
+                "exports.ZP",
+                "exports.default",
+                "exports"
+              ],
+              after: [
+                "close"
+              ]
+            },
+            map: {
+              close: [
+                "onCloseCallback()"
+              ]
+            }
+          }
+        }
+      },
+      components: {
+        Button: {
+          __: true,
+          filter: {
+            export: false,
+            in: "properties",
+            by: [
+              [
+                "BorderColors"
+              ]
+            ]
+          },
+          path: {
+            before: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ],
+            after: "Button"
+          },
+          map: {
+            Button: [
+              ".FILLED",
+              ".onMouseLeave"
+            ]
+          }
+        },
+        ConfirmationModal: {
+          __: true,
+          filter: {
+            export: false,
+            in: "strings",
+            by: [
+              [
+                ".confirmButtonColor"
+              ]
+            ]
+          },
+          map: {
+            ConfirmationModal: [
+              ".confirmButtonColor"
+            ]
+          },
+          path: {
+            before: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ],
+            after: [
+              "ConfirmationModal"
+            ]
+          }
+        },
+        Text: {
+          __: true,
+          filter: "$?.Sizes?.SIZE_32 && $.Colors",
+          path: {
+            before: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ]
+          }
+        },
+        Tooltip: {
+          __: true,
+          filter: {
+            export: false,
+            in: "prototypes",
+            by: [
+              [
+                "renderTooltip"
+              ]
+            ]
+          },
+          path: {
+            before: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ]
+          }
+        },
+        Markdown: {
+          __: true,
+          filter: "$?.prototype?.render && $.rules",
+          path: {
+            after: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ]
+          }
+        }
+      },
+      FluxDispatcher: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "_currentDispatchActionType",
+              "dispatch"
+            ]
+          ]
+        }
+      },
+      React: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "createElement",
+              "useState"
+            ]
+          ]
+        }
+      },
+      Rest: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "get",
+              "post",
+              "getAPIBaseURL"
+            ]
+          ]
+        }
+      },
+      Router: {
+        transitionTo: {
+          __: true,
+          filter: {
+            export: false,
+            in: "strings",
+            by: [
+              [
+                "transitionTo - Transitioning to "
+              ]
+            ]
+          },
+          path: {
+            before: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ],
+            after: [
+              "transitionTo"
+            ]
+          },
+          map: {
+            transitionTo: [
+              "transitionTo - Transitioning to "
+            ]
+          }
+        },
+        replaceWith: {
+          __: true,
+          filter: {
+            export: false,
+            in: "strings",
+            by: [
+              [
+                '"Replacing route with "'
+              ]
+            ]
+          },
+          path: {
+            before: [
+              "exports.Z",
+              "exports.ZP",
+              "exports.default",
+              "exports"
+            ],
+            after: [
+              "replaceWith"
+            ]
+          },
+          map: {
+            replaceWith: [
+              '"Replacing route with "'
+            ]
+          }
+        }
+      },
+      Flux: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "connectStores",
+              "destroy"
+            ]
+          ]
+        }
+      },
+      WebSocket: {
+        __: true,
+        filter: "$?.__proto__?.handleConnection",
+        path: {
+          before: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      ActivityActions: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "sendActivityInvite",
+              "updateActivity"
+            ]
+          ]
+        }
+      },
+      PrivateChannelActions: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "openPrivateChannel",
+              "ensurePrivateChannel"
+            ]
+          ]
+        }
+      },
+      AckActions: {
+        __: true,
+        filter: {
+          in: "strings",
+          by: [
+            [
+              'type:"BULK_ACK"'
+            ],
+            []
+          ]
+        },
+        path: {
+          export: true,
+          before: "exports"
+        },
+        map: {
+          ack: [
+            'type:"CHANNEL_ACK"',
+            "messageId",
+            "channelId"
+          ],
+          bulkAck: [
+            'type:"BULK_ACK"'
+          ]
+        }
+      },
+      AnalyticsActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "isThrottled",
+              "track"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      AnimationActions: {
+        __: true,
+        export: false,
+        filter: {
+          in: "properties",
+          by: [
+            [
+              "spring",
+              "decay"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      ConnectionActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "setShowActivity",
+              "setVisibility"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      RTCConnectionActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "getChannelId",
+              "getGuildId",
+              "getRTCConnectionId"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      EmojiActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "translateInlineEmojiToSurrogates",
+              "translateSurrogatesToInlineEmoji"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      EmojiStateActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "getURL",
+              "isEmojiDisabled"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      GuildNotificationsActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "updateChannelOverrideSettings",
+              "updateGuildNotificationSettings"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      InternalReact: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "jsx",
+              "jsxs",
+              "Fragment"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      LoginActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "login",
+              "logout"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      QueryActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "queryEmojiResults",
+              "queryFriends"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      MessageActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "receiveMessage",
+              "sendMessage"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      PremiumActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "isPremium",
+              "canUseEmojisEverywhere"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      VoiceActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "selectVoiceChannel",
+              "disconnect"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      TypingActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "startTyping",
+              "stopTyping"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      GuildActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "setChannel",
+              "setServerMute"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      InviteActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "acceptInvite",
+              "acceptInviteAndTransitionToInviteChannel"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      MediaEngineActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "toggleSelfDeaf",
+              "toggleSelfMute"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      i18n: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "_requestedLocale",
+              "getDefaultLocale"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      uuid: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "v1",
+              "v4"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
+      hljs: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "highlightAll",
+              "highlight"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      }
+    }
+  };
+
+  // src/api/utils/raw/find-in-tree.js
+  function findInTree(tree, searchFilter, { walkable = null, ignore = [], limit = 256, all = false } = {}) {
+    let iteration = 0;
+    let foundList = [];
+    function doSearch(tree2, searchFilter2, { walkable: walkable2 = null, ignore: ignore2 = [] } = {}) {
+      iteration += 1;
+      if (iteration > limit)
+        return;
+      if (typeof searchFilter2 === "string") {
+        if (tree2.hasOwnProperty(searchFilter2)) {
+          if (all)
+            foundList.push(tree2[searchFilter2]);
+          if (!all)
+            return tree2[searchFilter2];
+        }
+      } else if (searchFilter2(tree2)) {
+        if (all)
+          foundList.push(tree2);
+        if (!all)
+          return tree2;
+      }
+      if (!tree2)
+        return;
+      if (Array.isArray(tree2)) {
+        for (const item of tree2) {
+          const found2 = doSearch(item, searchFilter2, { walkable: walkable2, ignore: ignore2 });
+          if (found2)
+            foundList.push(found2);
+          if (found2 && !all)
+            return found2;
+        }
+      } else if (typeof tree2 === "object") {
+        for (const key in tree2) {
+          if (walkable2 != null && !walkable2.includes(key))
+            continue;
+          if (ignore2.includes(key))
+            continue;
+          try {
+            const found2 = doSearch(tree2[key], searchFilter2, {
+              walkable: walkable2,
+              ignore: ignore2
+            });
+            if (found2)
+              foundList.push(found2);
+            if (found2 && !all)
+              return found2;
+          } catch {
+          }
+        }
+      }
+    }
+    return doSearch(tree, searchFilter, { walkable, ignore }) ?? foundList;
+  }
+
+  // src/api/utils/logger.js
+  function build(prefix = "Acord", type, color) {
+    return (...input) => console[type](
+      `%c${prefix}%c`,
+      `background-color: ${color}; color: white; border-radius: 4px; padding: 0px 6px 0px 6px; font-weight: bold`,
+      "",
+      ...input
+    );
+  }
+  var logger_default = {
+    log: build("Acord", "log", "#00fbb0"),
+    debug: build("Acord Debug", "debug", "#00fbb0"),
+    info: build("Acord Info", "log", "#82aaff"),
+    warn: build("Acord Warn", "warn", "#debf18"),
+    error: build("Acord Error", "error", "#ef5858"),
+    build
+  };
+
+  // src/api/utils/react.js
+  var react_default = {
+    getInstance(node) {
+      return Object.entries(node).find((i) => i[0].startsWith("__reactInternalInstance") || i[0].startsWith("__reactFiber"))?.[1];
+    },
+    getOwnerInstance(node) {
+      let instance = this.getInstance(node);
+      for (let el = instance; el; el = el.return)
+        if (el.stateNode?.forceUpdate)
+          return el.stateNode;
+    },
+    findInTree(tree, filter) {
+      return findInTree(tree, filter, {
+        walkable: ["props", "state", "children", "return"]
+      });
+    },
+    getComponents(node) {
+      const instance = this.getInstance(node);
+      const components2 = [];
+      let lastInstance = instance;
+      while (lastInstance && lastInstance.return) {
+        if (typeof lastInstance.return.type === "string")
+          break;
+        if (lastInstance.return.type)
+          components2.push(lastInstance.return.type);
+        lastInstance = lastInstance.return;
+      }
+      return components2;
+    },
+    getStateNodes(node) {
+      const instance = this.getInstance(node);
+      const stateNodes = [];
+      let lastInstance = instance;
+      while (lastInstance && lastInstance.return) {
+        if (lastInstance.return.stateNode instanceof HTMLElement)
+          break;
+        if (lastInstance.return.stateNode)
+          stateNodes.push(lastInstance.return.stateNode);
+        lastInstance = lastInstance.return;
+      }
+      return stateNodes;
+    },
+    getProps(el, filter = (i) => i, max = 1e4) {
+      const instance = this.getInstance(el);
+      if (!instance?.return)
+        return null;
+      for (let current = instance?.return, i = 0; i > max || current !== null; current = current?.return, i++) {
+        if (current?.pendingProps && filter(current.pendingProps))
+          return current.pendingProps;
+      }
+      return null;
+    }
+  };
+
+  // src/api/utils/index.js
+  var utils_default = {
+    logger: logger_default,
+    react: react_default,
+    findInTree,
+    format(val, ...args) {
+      return `${val}`.replaceAll(/{(\d+)}/g, (_2, cap) => {
+        return args[Number(cap)];
+      });
+    },
+    interval(cb, dur) {
+      let interval = setInterval(cb, dur);
+      return () => {
+        clearInterval(interval);
+      };
+    },
+    timeout(cb, dur) {
+      let timeout = setTimeout(cb, dur);
+      return () => {
+        clearTimeout(timeout);
+      };
+    },
+    ifExists(val, cb) {
+      if (val)
+        cb(val);
+    },
+    copyText(text) {
+      if (window.DiscordNative) {
+        DiscordNative.clipboard.copy(text);
+        return;
+      }
+      navigator.clipboard.writeText(text).catch(() => {
+        const copyArea = document.createElement("textarea");
+        copyArea.style.visibility = "hidden";
+        copyArea.style.position = "fixed";
+        copyArea.style.top = "0";
+        copyArea.style.left = "0";
+        document.body.appendChild(copyArea);
+        copyArea.focus();
+        copyArea.select();
+        try {
+          document.execCommand("copy");
+        } catch (err) {
+          console.error(err);
+        }
+        document.body.removeChild(copyArea);
+      });
+    },
+    sleep(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    },
+    mapReplace(text, map = {}) {
+      return (Array.isArray(map) ? map : Object.entries(map)).reduce((all, current) => all.replaceAll(current[0], current[1]), text);
+    },
+    escapeRegex(str) {
+      return str.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+    }
+  };
+
+  // src/api/modules/raw/complex-finder.js
+  function wrapFilter(filter) {
+    return (...args) => {
+      try {
+        if (args[0]?.document && args[0]?.window)
+          return false;
+        if (args[0]?.default?.remove && args[0]?.default?.set && args[0]?.default?.clear && args[0]?.default?.get && !args[0]?.default?.sort)
+          return false;
+        if (args[0].remove && args[0].set && args[0].clear && args[0].get && !args[0].sort)
+          return false;
+        if (args[0]?.default?.getToken || args[0]?.default?.getEmail || args[0]?.default?.showToken)
+          return false;
+        if (args[0]?.getToken || args[0]?.getEmail || args[0]?.showToken)
+          return false;
+        return filter(...args);
+      } catch (err) {
+        logger_default.warn("Module filter threw an exception.", filter, err);
+        return false;
+      }
+    };
+  }
+  function checkModuleStrings(m, strings = [], hasNot) {
+    const check2 = (s1, s2) => {
+      return hasNot ? s1.toString().indexOf(s2.toString()) == -1 : s1.toString().indexOf(s2.toString()) > -1;
+    };
+    return strings.every((j) => {
+      return check2(m?.toString?.() || "", j) || check2(m?.__original__?.toString?.() || "", j) || check2(m?.type?.toString?.() || "", j) || check2(m?.type?.__original__?.toString?.() || "", j) || Object.entries(["function", "object"].includes(typeof m?.prototype) ? typeof m?.prototype : {}).filter((i) => i[0]?.includes?.("render")).some((i) => check2(i[1]?.toString?.() || "", j));
+    });
+  }
+  function checkModuleProps(m, properties = [], hasNot) {
+    return properties.every((prop) => {
+      const value = m[prop]?.__original__ || m[prop];
+      return hasNot ? value === void 0 : value !== void 0 && !(typeof value == "string" && !value);
+    });
+  }
+  function checkModulePrototypes(m, protoProps = [], hasNot) {
+    return m.prototype && protoProps.every((prop) => {
+      const value = m.prototype[prop];
+      return hasNot ? value === void 0 : value !== void 0 && !(typeof value == "string" && !value);
+    });
+  }
+  var webpackChunkName = "webpackChunkdiscord_app";
+  var pushListeners = /* @__PURE__ */ new Set();
+  {
+    let handlePush = function(chunk) {
+      const [, modules2] = chunk;
+      for (const moduleId in Object.keys(modules2 || {})) {
+        const ogModule = modules2[moduleId];
+        if (typeof modules2[moduleId] == "function") {
+          modules2[moduleId] = (module, exports, require2) => {
+            try {
+              ogModule.call(null, module, exports, require2);
+              pushListeners.forEach((listener) => {
+                try {
+                  listener(exports);
+                } catch (error) {
+                  utils_default.logger.error("Push listener threw an exception.", listener, error);
+                }
+              });
+            } catch (error) {
+              utils_default.logger.error("Unable to patch pushed module.", error, ogModule, moduleId, chunk);
+            }
+          };
+          Object.assign(modules2[moduleId], ogModule, {
+            __original__: ogModule,
+            toString: () => ogModule.toString()
+          });
+        }
+      }
+      return ogPush.call(window[webpackChunkName], chunk);
+    };
+    let ogPush = window[webpackChunkName].push;
+    Object.defineProperty(window[webpackChunkName], "push", {
+      configurable: true,
+      get() {
+        return handlePush;
+      },
+      set(value) {
+        ogPush = value;
+        Object.defineProperty(window[this.chunkName], "push", {
+          value: this.handlePush,
+          configurable: true,
+          writable: true
+        });
+      }
+    });
+  }
+  async function lazyFind(filter, { signal = null, searchExports = false }) {
+    return new Promise((resolve, reject) => {
+      const cancel = () => pushListeners.delete(listener);
+      const listener = (exports) => {
+        if (!exports || exports === window || exports === document.documentElement)
+          return;
+        let found2 = null;
+        if (typeof exports == "object" && searchExports) {
+          for (const key in exports) {
+            let exported = exports[key];
+            if (!exported)
+              continue;
+            if (filter(exported)) {
+              found2 = exported;
+              break;
+            }
+          }
+        } else {
+          let paths = [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports",
+            ""
+          ];
+          found2 = paths.map((i) => {
+            let pathed = !i ? exports : _.get(exports, i);
+            if (pathed && filter(pathed))
+              return pathed;
+          }).find((i) => i);
+        }
+        if (!found2)
+          return;
+        cancel();
+        resolve(found2);
+      };
+      pushListeners.add(listener);
+      signal?.addEventListener("abort", () => {
+        cancel();
+        resolve(null);
+      });
+    });
+  }
+  function find(req, filter, config = {}) {
+    let defaultExport = typeof config.defaultExport != "boolean" ? false : config.defaultExport;
+    let unloaded = typeof config.unloaded != "boolean" ? false : config.unloaded;
+    let all = typeof config.all != "boolean" ? false : config.all;
+    const found2 = [];
+    if (!unloaded) {
+      for (let i in req.c)
+        if (req.c.hasOwnProperty(i)) {
+          let m = req.c[i].exports, r = null;
+          if (m && (typeof m == "object" || typeof m == "function")) {
+            if (!!(r = filter(m, i))) {
+              if (all)
+                found2.push(defaultExport ? r : req.c[i]);
+              else
+                return defaultExport ? r : req.c[i];
+            } else
+              for (let key of Object.keys(m))
+                if (key.length < 4 && m[key] && !!(r = filter(m[key], i))) {
+                  if (all)
+                    found2.push(defaultExport ? r : req.c[i]);
+                  else
+                    return defaultExport ? r : req.c[i];
+                }
+          }
+          if (m && m.__esModule && m.default && (typeof m.default == "object" || typeof m.default == "function")) {
+            if (!!(r = filter(m.default, i))) {
+              if (all)
+                found2.push(defaultExport ? r : req.c[i]);
+              else
+                return defaultExport ? r : req.c[i];
+            } else if (m.default.type && (typeof m.default.type == "object" || typeof m.default.type == "function") && !!(r = filter(m.default.type, i))) {
+              if (all)
+                found2.push(defaultExport ? r : req.c[i]);
+              else
+                return defaultExport ? r : req.c[i];
+            }
+          }
+        }
+    }
+    for (let i in req.m)
+      if (req.m.hasOwnProperty(i)) {
+        let m = req.m[i];
+        if (m && typeof m == "function") {
+          if (req.c[i] && !unloaded && filter(m, i)) {
+            if (all)
+              found2.push(defaultExport ? req.c[i].exports : req.c[i]);
+            else
+              return defaultExport ? req.c[i].exports : req.c[i];
+          }
+          if (!req.c[i] && unloaded && filter(m, i)) {
+            const resolved = {}, resolved2 = {};
+            m(resolved, resolved2, req);
+            const trueResolved = resolved2 && Object.getOwnPropertyNames(resolved2 || {}).length == 0 ? resolved : resolved2;
+            if (all)
+              found2.push(defaultExport ? trueResolved.exports : trueResolved);
+            else
+              return defaultExport ? trueResolved.exports : trueResolved;
+          }
+        }
+      }
+    if (all)
+      return found2;
+  }
+  function finderFindFunction(entries, strings) {
+    return entries.find((n) => {
+      let funcString = typeof n[1] == "function" ? n[1]?.__original__?.toString?.() || n[1]?.toString?.() || "" : (() => {
+        try {
+          return JSON.stringify(n[1]);
+        } catch (err) {
+          return n[1].toString();
+        }
+      })();
+      let renderFuncString = n[1]?.render?.__original__?.toString?.() || n[1]?.render?.toString?.() || "";
+      return strings.every((string) => funcString.indexOf(string) != -1 || renderFuncString.indexOf(string) != -1);
+    });
+  }
+  function finderToFilter(finder) {
+    let found = () => false;
+    if (typeof finder?.filter === "string") {
+      found = wrapFilter(eval(`(($)=>{ try { return (${finder.filter}); } catch { return false; } })`));
+    } else if (typeof finder?.filter === "function") {
+      found = wrapFilter(finder.filter);
+    } else {
+      switch (finder.filter.in) {
+        case "properties": {
+          if (finder.filter.by?.[1]?.length) {
+            found = wrapFilter((m) => checkModuleProps(m, finder.filter.by?.[0] || []) && checkModuleProps(m, finder.filter.by?.[1] || [], true));
+          } else {
+            found = wrapFilter((m) => checkModuleProps(m, finder.filter.by?.[0] || []));
+          }
+          break;
+        }
+        case "prototypes": {
+          if (finder.filter.by?.[1]?.length) {
+            found = wrapFilter((m) => checkModulePrototypes(m, finder.filter.by?.[0] || []) && checkModulePrototypes(m, finder.filter.by?.[1] || [], true));
+          } else {
+            found = wrapFilter((m) => checkModulePrototypes(m, finder.filter.by?.[0] || []));
+          }
+          break;
+        }
+        case "strings": {
+          if (finder.filter.by?.[1]?.length) {
+            found = wrapFilter((m) => checkModuleStrings(m, finder.filter.by?.[0] || []) && checkModuleStrings(m, finder.filter.by?.[1] || [], true));
+          } else {
+            found = wrapFilter((m) => checkModuleStrings(m, finder.filter.by?.[0] || []));
+          }
+          break;
+        }
+      }
+    }
+    return found;
+  }
+  function finderMap(__original__, map) {
+    let __mapped__ = {};
+    let temp = {
+      __original__,
+      __mapped__,
+      ...__original__
+    };
+    Object.entries(map).forEach(([key, strings]) => {
+      Object.defineProperty(temp, key, {
+        get() {
+          if (__mapped__[key])
+            return __original__[__mapped__[key]];
+          let foundFunc = finderFindFunction(Object.entries(__original__ || {}), map[key] || []);
+          if (!foundFunc?.length)
+            return;
+          __mapped__[key] = foundFunc[0];
+          return foundFunc[1];
+        }
+      });
+    });
+    return temp;
+  }
+  function findByFinder(req, finder2 = {}) {
+    const defaultExport = !!finder2?.filter?.export;
+    let found2 = find(req, finderToFilter(finder2), { defaultExport, all: true }).find((i) => i !== globalThis.window || i?.exports !== globalThis.window);
+    if (!found2)
+      return null;
+    if (finder2.path?.before)
+      found2 = (Array.isArray(finder2.path.before) ? finder2.path.before.map((i) => _.get(found2, i)).find((i) => i) : _.get(found2, finder2.path.before)) || found2;
+    if (finder2.assign)
+      found2 = Object.assign({}, found2);
+    if (!found2)
+      return null;
+    if (finder2.map)
+      found2 = finderMap(found2, finder2.map);
+    if (finder2.path?.after)
+      found2 = (Array.isArray(finder2.path.after) ? finder2.path.after.map((i) => _.get(found2, i)).find((i) => i) : _.get(found2, finder2.path.after)) || found2;
+    return found2;
+  }
+  async function lazyFindByFinder(finder2 = {}) {
+    let found2 = await lazyFind(finderToFilter(finder2), { searchExports: false });
+    if (!found2)
+      return null;
+    if (finder2.path?.before)
+      found2 = (Array.isArray(finder2.path.before) ? finder2.path.before.map((i) => _.get(found2, i)).find((i) => i) : _.get(found2, finder2.path.before)) || found2;
+    if (finder2.assign)
+      found2 = Object.assign({}, found2);
+    if (!found2)
+      return null;
+    if (finder2.map)
+      found2 = finderMap(found2, finder2.map);
+    if (finder2.path?.after)
+      found2 = (Array.isArray(finder2.path.after) ? finder2.path.after.map((i) => _.get(found2, i)).find((i) => i) : _.get(found2, finder2.path.after)) || found2;
+    return found2;
+  }
+
+  // src/api/modules/webpack.js
+  var defaultBefore = [
+    "exports.Z",
+    "exports.ZP",
+    "exports.default",
+    "exports"
+  ];
+  var webpack_default = {
+    __cache__: {},
+    get require() {
+      if (this.__cache__.require)
+        return this.__cache__.require;
+      let reqId = `AcordWebpackModules${Date.now()}`;
+      const req = window.webpackChunkdiscord_app.push([[reqId], {}, (req2) => req2]);
+      delete req.m[reqId];
+      delete req.c[reqId];
+      window.webpackChunkdiscord_app.pop();
+      this.__cache__.require = req;
+      return req;
+    },
+    find(filter, config = {}) {
+      return find(this.require, wrapFilter(filter), config);
+    },
+    lazyFind(filter, config = {}) {
+      return lazyFind(wrapFilter(filter), config);
+    },
+    lazyFindByFinder(finder2) {
+      return lazyFindByFinder(finder2);
+    },
+    filter(filter, config = {}) {
+      return find(this.require, wrapFilter(filter), { ...config, all: true });
+    },
+    findByFinder(finder2) {
+      return findByFinder(this.require, finder2);
+    },
+    findByStringValues(...stringValues) {
+      return this.find((a) => {
+        let va = Object.values(a);
+        return stringValues.every((x) => va.some((y) => typeof y == "string" && y.includes(x)));
+      })?.exports;
+    },
+    findByProperties(...props) {
+      return this.findByFinder({
+        filter: {
+          export: false,
+          in: "properties",
+          by: [props]
+        },
+        path: {
+          before: defaultBefore
+        }
+      });
+    },
+    findByPrototypes(...props) {
+      return this.findByFinder({
+        filter: {
+          export: false,
+          in: "prototypes",
+          by: [props]
+        },
+        path: {
+          before: defaultBefore
+        }
+      });
+    },
+    findByStrings(...props) {
+      return this.findByFinder({
+        filter: {
+          export: false,
+          in: "strings",
+          by: [props]
+        },
+        path: {
+          before: defaultBefore
+        }
+      });
+    }
+  };
+
+  // src/api/modules/common.js
+  function mapObject(temp, inp) {
+    if (!temp?.__cache__)
+      temp.__cache__ = {};
+    for (const key in inp) {
+      if (inp?.[key]?.__ === true) {
+        Object.defineProperty(temp, key, {
+          get() {
+            if (temp.__cache__[key])
+              return temp.__cache__[key];
+            return temp.__cache__[key] = webpack_default.findByFinder(inp[key]);
+          }
+        });
+      } else {
+        if (typeof temp[key] === "undefined")
+          temp[key] = {};
+        mapObject(temp[key], inp[key]);
+      }
+    }
+  }
+  var common = {
+    __cache__: {},
+    LayerActions: {
+      push(component) {
+        common.FluxDispatcher.dispatch({
+          type: "LAYER_PUSH",
+          component
+        });
+      },
+      pop() {
+        common.FluxDispatcher.dispatch({
+          type: "LAYER_POP"
+        });
+      },
+      popAll() {
+        common.FluxDispatcher.dispatch({
+          type: "LAYER_POP_ALL"
+        });
+      }
+    }
+  };
+  mapObject(common, common_default.common);
+  function findStores() {
+    let paths = [
+      "exports.Z",
+      "exports.ZP",
+      "exports.default",
+      "exports"
+    ];
+    webpack_default.filter((i) => i?.getName?.()?.endsWith?.("Store"), { defaultExport: false }).forEach((m) => {
+      let obj = paths.map((path) => _.get(m, path)).find((i) => i);
+      if (!obj)
+        return;
+      let name2 = obj?.getName?.();
+      if (!name2)
+        return;
+      if (common[name2])
+        return;
+      Object.defineProperty(common, name2, {
+        get() {
+          if (common.__cache__[name2])
+            return common.__cache__[name2];
+          return common.__cache__[name2] = obj;
+        }
+      });
+    });
+  }
+  findStores();
+  waitUntilConnectionOpen().then(findStores);
+  var common_default2 = common;
+
+  // src/api/modules/index.js
+  var modules_default = {
+    common: common_default2,
+    webpack: webpack_default,
+    require: globalThis["<PRELOAD_KEY>"].require,
+    native: DiscordNative
+  };
+
+  // src/api/i18n/index.js
+  var BASE_URL = "https://raw.githubusercontent.com/acord-standalone/assets/main/i18n";
+  var noStore2 = { cache: "no-store" };
+  var out = {
+    __cache__: {
+      localeIds: [],
+      localizations: {}
+    },
+    get locale() {
+      return modules_default.common.i18n._requestedLocale;
+    },
+    get(key) {
+      check();
+      return out.__cache__.localizations[out.locale]?.[key] || out.__cache__.localizations.default?.[key] || modules_default.common.i18n.Messages[key] || key;
+    },
+    messages: new Proxy({}, {
+      get(_2, prop) {
+        return out.get(prop);
+      }
+    }),
+    localize(str, ...args) {
+      if (typeof str === "string")
+        return utils_default.format(str, ...args);
+      let val = str?.[out.locale] || str?.default || Object.values(str)[0];
+      if (!val)
+        return null;
+      return utils_default.format(val, ...args);
+    },
+    format(key, ...args) {
+      return utils_default.format(out.get(key), ...args);
+    }
+  };
+  async function check() {
+    const locale = out.locale;
+    if (!out.__cache__.localeIds.length) {
+      try {
+        out.__cache__.localeIds = await (await fetch(`${BASE_URL}/locales.json`, noStore2)).json();
+      } catch {
+      }
+      try {
+        out.__cache__.localizations.default = await (await fetch(`${BASE_URL}/default.json`, noStore2)).json();
+      } catch {
+      }
+    }
+    if (out.__cache__.localeIds.includes(locale) && !out.__cache__.localizations?.[locale]) {
+      try {
+        out.__cache__.localizations[locale] = await (await fetch(`${BASE_URL}/${locale}.json`, noStore2)).json();
+      } catch {
+      }
+      ;
+    }
+  }
+  check();
+  var i18n_default = out;
+
+  // src/other/utils.js
+  var isConnectionOpen = false;
+  function waitUntilConnectionOpen() {
+    return new Promise((resolve) => {
+      if (isConnectionOpen)
+        return resolve(true);
+      function onEvent() {
+        modules_default.common.FluxDispatcher.unsubscribe("CONNECTION_OPEN", onEvent);
+        isConnectionOpen = true;
+        resolve(true);
+      }
+      modules_default.common.FluxDispatcher.subscribe("CONNECTION_OPEN", onEvent);
+    });
+  }
+
+  // src/lib/BasicEventEmitter.js
+  var BasicEventEmitter = class {
+    constructor() {
+      this.listeners = /* @__PURE__ */ new Map();
+    }
+    _prepareListenersMap(eventName) {
+      if (!this.listeners.has(eventName))
+        this.listeners.set(eventName, /* @__PURE__ */ new Map());
+    }
+    /**
+     * @param {string} eventName
+     * @param {(...args: any[])=>void} listener
+     */
+    on(eventName, listener) {
+      this._prepareListenersMap(eventName);
+      this.listeners.get(eventName).set(listener, { once: false });
+      return () => {
+        this.listeners.get(eventName).delete(listener);
+      };
+    }
+    /**
+     * @param {string} eventName
+     * @param {(...args: any[])=>void} listener
+     */
+    once(eventName, listener) {
+      this._prepareListenersMap(eventName);
+      this.listeners.get(eventName)?.set(listener, { once: true });
+      return () => {
+        this.listeners.get(eventName).delete(listener);
+      };
+    }
+    /**
+     * @param {string?} eventName
+     * @param {((...args: any[])=>void)?} listener
+     */
+    off(eventName, listener) {
+      if (!eventName)
+        return this.listeners = /* @__PURE__ */ new Map();
+      if (!listener)
+        return this.listeners?.delete(eventName);
+      this.listeners.get(eventName)?.delete(listener);
+    }
+    /**
+     * @param {string} eventName
+     * @param  {...any} args
+     */
+    emit(eventName, ...args) {
+      if (!this.listeners.has(eventName))
+        return;
+      let eventMap = this.listeners.get(eventName);
+      eventMap.forEach(({ once }, listener) => {
+        if (once)
+          eventMap?.delete(listener);
+        try {
+          listener(...args);
+        } catch (e) {
+          logger_default.error(`Error while emitting ${eventName} event.`, e);
+        }
+      });
+    }
+  };
+
+  // src/api/events/index.js
+  var events = new BasicEventEmitter();
+  var events_default = events;
+
+  // src/api/dom/index.js
+  var scrollbarClasses = webpack_default.findByProperties("scrollbarGhostHairline", "spinner");
+  var formatRegexes = {
+    bold: /\*\*([^*]+)\*\*/g,
+    italic: /\*([^*]+)\*/g,
+    underline: /\_([^*]+)\_/g,
+    strike: /\~\~([^*]+)\~\~/g,
+    url: /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig,
+    inline: /\`([^*]+)\`/g,
+    codeblockSingle: /\`\`\`([^*]+)\`\`\`/g,
+    codeblockMulti: /\`\`\`(\w+)\n((?:(?!\`\`\`)[\s\S])*)\`\`\`/g
+  };
+  var dom_default = {
+    parse(html) {
+      const div = document.createElement("div");
+      div.innerHTML = html;
+      return div.firstElementChild;
+    },
+    toCSSProp(o) {
+      let elm = document.createElement("div");
+      Object.entries(o).forEach((i) => {
+        if (elm.style.hasOwnProperty(i[0])) {
+          elm.style[i[0]] = i[1];
+        } else {
+          elm.style.setProperty(i[0], i[1]);
+        }
+      });
+      return elm.getAttribute("style");
+    },
+    toHTMLProps(o) {
+      return Object.entries(o).map(
+        (i) => `${i[0].replace(/ +/, "-")}="${i[0] == "style" && typeof i[1] != "string" ? this.toCSSProp(i[1]) : this.escapeHTML(i[1])}"`
+      ).join(" ");
+    },
+    escape(html) {
+      return new Option(html).innerHTML;
+    },
+    /**
+     * @param {Element} elm 
+     * @param {number|string} selectorOrNumber 
+     * @returns {Element[]}
+     */
+    parents(elm, selectorOrNumber) {
+      let parents = [];
+      if (typeof selectorOrNumber === "number") {
+        for (let i = 0; i < selectorOrNumber; i++) {
+          if (elm.parentElement) {
+            elm = elm.parentElement;
+            parents.push(elm);
+          }
+        }
+      } else {
+        while (elm.parentElement && elm.parentElement.closest(selectorOrNumber)) {
+          elm = elm.parentElement.closest(selectorOrNumber);
+          parents.push(elm);
+        }
+      }
+      return parents;
+    },
+    /**
+     * 
+     * @param {string} selector 
+     * @param {(element: HTMLDivElement)=>(()=>void)} cb 
+     * @returns {()=>void}
+     */
+    patch: (selector, cb) => (() => {
+      function nodeAdded(node) {
+        if (typeof node?.querySelectorAll != "function")
+          return;
+        node.querySelectorAll(selector).forEach(async (elm) => {
+          if (!elm.acord) {
+            elm.acord = { unmount: [], patched: /* @__PURE__ */ new Set() };
+            elm.classList.add("acord--patched");
+          }
+          if (elm.acord.patched.has(cb))
+            return;
+          elm.acord.patched.add(cb);
+          let unPatchCb = await cb(elm);
+          if (typeof unPatchCb === "function")
+            elm.acord.unmount.push(unPatchCb);
+        });
+      }
+      function nodeRemoved(node) {
+        if (typeof node?.querySelectorAll != "function")
+          return;
+        node.querySelectorAll(selector).forEach(async (elm) => {
+          if (!elm.acord)
+            return;
+          elm.acord.unmount.forEach((f) => f());
+        });
+      }
+      document.querySelectorAll(selector).forEach(nodeAdded);
+      return events_default.on(
+        "DomMutation",
+        /** @param {MutationRecord} mut */
+        (mut) => {
+          if (mut.type === "childList") {
+            mut.addedNodes.forEach(nodeAdded);
+            mut.removedNodes.forEach(nodeRemoved);
+          }
+        }
+      );
+    })(),
+    formatContent(msg) {
+      if (!msg)
+        return "";
+      const { bold, italic, underline, strike, codeblockMulti, codeblockSingle, inline, url } = formatRegexes;
+      const codeBlocksMap = Object.fromEntries([
+        ...msg.matchAll(codeblockMulti) || [],
+        ...msg.matchAll(codeblockSingle) || []
+      ].map(
+        ([_2, codeBlockOrCode, codeBlockContent], i) => {
+          msg = msg.replace(_2, `{{CODEBLOCK_${i}}}`);
+          return [
+            `{{CODEBLOCK_${i}}}`,
+            codeBlockContent ? `<pre><code class="${scrollbarClasses.scrollbarGhostHairline} hljs ${codeBlockOrCode}" style="position: relative;">${modules.common.hljs.highlight(codeBlockOrCode, codeBlockContent).value}</code></pre>` : `<pre><code class="${scrollbarClasses.scrollbarGhostHairline} hljs" style="position: relative;">${codeBlockOrCode}</code></pre>`
+          ];
+        }
+      ));
+      const inlineMap = Object.fromEntries(
+        [...msg.matchAll(inline) || []].map(
+          ([_2, inlineContent], i) => {
+            msg = msg.replace(_2, `{{INLINE_${i}}}`);
+            return [`{{INLINE_${i}}}`, `<code class="inline">${inlineContent}</code>`];
+          }
+        )
+      );
+      msg = msg.replace(bold, "<b>$1</b>").replace(italic, "<i>$1</i>").replace(underline, "<U>$1</U>").replace(strike, "<s>$1</s>").replace(url, '<a href="$1">$1</a>');
+      for (const [key, value] of Object.entries(codeBlocksMap)) {
+        msg = msg.replace(key, value);
+      }
+      for (const [key, value] of Object.entries(inlineMap)) {
+        msg = msg.replace(key, value);
+      }
+      return msg;
+    },
+    resolve(htmlOrElm) {
+      if (htmlOrElm instanceof Element)
+        return htmlOrElm;
+      return this.parse(htmlOrElm);
+    }
+  };
+  {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        events_default.emit("DomMutation", mutation);
+      });
+    });
+    observer.observe(document, {
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
+  }
+
+  // src/lib/spitroast/dist/esm/shared.js
+  var patchTypes = ["a", "b", "i"];
+  var patchedObjects = /* @__PURE__ */ new Map();
+
+  // src/lib/spitroast/dist/esm/hook.js
+  function hook_default(funcName, funcParent, funcArgs, ctxt, isConstruct) {
+    const patch = patchedObjects.get(funcParent)?.[funcName];
+    if (!patch)
+      return isConstruct ? Reflect.construct(funcParent[funcName], funcArgs, ctxt) : funcParent[funcName].apply(ctxt, funcArgs);
+    for (const hook of patch.b.values()) {
+      const maybefuncArgs = hook.call(ctxt, funcArgs);
+      if (Array.isArray(maybefuncArgs))
+        funcArgs = maybefuncArgs;
+    }
+    let insteadPatchedFunc = (...args) => isConstruct ? Reflect.construct(patch.o, args, ctxt) : patch.o.apply(ctxt, args);
+    for (const callback of patch.i.values()) {
+      const oldPatchFunc = insteadPatchedFunc;
+      insteadPatchedFunc = (...args) => callback.call(ctxt, args, oldPatchFunc);
+    }
+    let workingRetVal = insteadPatchedFunc(...funcArgs);
+    for (const hook of patch.a.values())
+      workingRetVal = hook.call(ctxt, funcArgs, workingRetVal) ?? workingRetVal;
+    return workingRetVal;
+  }
+
+  // src/lib/spitroast/dist/esm/un-patch.js
+  function unPatch(funcParent, funcName, hookId, type) {
+    const patchedObject = patchedObjects.get(funcParent);
+    const patch = patchedObject?.[funcName];
+    if (!patch?.[type].has(hookId))
+      return false;
+    patch[type].delete(hookId);
+    if (patchTypes.every((t) => patch[t].size === 0)) {
+      const success = Reflect.defineProperty(funcParent, funcName, {
+        value: patch.o,
+        writable: true,
+        configurable: true
+      });
+      if (!success)
+        funcParent[funcName] = patch.o;
+      delete patchedObject[funcName];
+    }
+    if (Object.keys(patchedObject).length == 0)
+      patchedObjects.delete(funcParent);
+    return true;
+  }
+  function unPatchAll() {
+    for (const [parentObject, patchedObject] of patchedObjects.entries())
+      for (const funcName in patchedObject)
+        for (const hookType of patchTypes)
+          for (const hookId of patchedObject[funcName]?.[hookType].keys() ?? [])
+            unPatch(parentObject, funcName, hookId, hookType);
+  }
+
+  // src/lib/spitroast/dist/esm/get-patch-func.js
+  var get_patch_func_default = (patchType) => (funcName, funcParent, callback, oneTime = false) => {
+    if (typeof funcParent[funcName] !== "function")
+      throw new Error(`${funcName} is not a function in ${funcParent.constructor.name}`);
+    if (!patchedObjects.has(funcParent))
+      patchedObjects.set(funcParent, {});
+    const parentInjections = patchedObjects.get(funcParent);
+    if (!parentInjections[funcName]) {
+      const origFunc = funcParent[funcName];
+      parentInjections[funcName] = {
+        o: origFunc,
+        b: /* @__PURE__ */ new Map(),
+        i: /* @__PURE__ */ new Map(),
+        a: /* @__PURE__ */ new Map()
+      };
+      const runHook = (ctxt, args, construct) => {
+        const ret = hook_default(funcName, funcParent, args, ctxt, construct);
+        if (oneTime)
+          unpatchThisPatch();
+        return ret;
+      };
+      const replaceProxy = new Proxy(origFunc, {
+        apply: (_2, ctxt, args) => runHook(ctxt, args, false),
+        construct: (_2, args) => runHook(origFunc, args, true),
+        get: (target, prop, receiver) => prop == "toString" ? origFunc.toString.bind(origFunc) : Reflect.get(target, prop, receiver)
+      });
+      const success = Reflect.defineProperty(funcParent, funcName, {
+        value: replaceProxy,
+        configurable: true,
+        writable: true
+      });
+      if (!success)
+        funcParent[funcName] = replaceProxy;
+      funcParent[funcName].__original__ = parentInjections[funcName].o;
+    }
+    const hookId = Symbol();
+    const unpatchThisPatch = () => unPatch(funcParent, funcName, hookId, patchType);
+    parentInjections[funcName][patchType].set(hookId, callback);
+    return unpatchThisPatch;
+  };
+
+  // src/lib/spitroast/dist/esm/index.js
+  var before = get_patch_func_default("b");
+  var instead = get_patch_func_default("i");
+  var after = get_patch_func_default("a");
+
+  // src/api/patcher/index.js
+  function propReplacer(css, props = {}) {
+    css = css.replace(/var\(--acord--([\S\s]+)\)/g, (match, group1) => {
+      let splitted = group1.split(",");
+      let key = splitted.shift().trim();
+      let defaultValue = splitted.join(",").trim();
+      return props[key] ?? (defaultValue || match);
+    });
+    return css;
+  }
+  var patcher_default = {
+    __cache__: {
+      patched: patchedObjects
+    },
+    before,
+    after,
+    instead,
+    unPatchAll,
+    injectCSS(css, customProps = {}) {
+      const style = document.createElement("style");
+      style.className = `acord--injected-css`;
+      style.textContent = propReplacer(css, customProps);
+      document.head.appendChild(style);
+      return (...args) => {
+        if (typeof args[0] === "string") {
+          style.textContent = propReplacer(args[0], args[1]);
+          css = args[0];
+        } else if (typeof args[0] === "object") {
+          style.textContent = propReplacer(css, args[0]);
+        } else {
+          style?.remove();
+          css = null;
+        }
+      };
+    },
+    unPatchAllCSS() {
+      document.querySelectorAll(".acord--injected-css").forEach((element) => {
+        element.remove();
+      });
+    }
+  };
+
+  // src/other/loading-animation/style.scss
+  var style_default = `
+@keyframes acordLoadingFade{0%{opacity:.1}100%{opacity:.9}}.acord--startup-loading{animation:acordLoadingFade .5s alternate infinite linear;position:absolute;transition:all .5s linear;right:8px;bottom:8px;width:16px;height:16px;background-image:url("https://raw.githubusercontent.com/AcordPlugin/assets/main/Acord.svg");filter:grayscale(1) brightness(1);background-position:center;background-repeat:no-repeat;background-size:contain;z-index:999999}.acord--startup-loading.hidden{opacity:0 !important}`;
+
+  // src/other/loading-animation/index.js
+  var unInject;
+  async function show() {
+    if (document.querySelector(".acord--startup-loading"))
+      return;
+    while (true) {
+      if (document.querySelector("#app-mount"))
+        break;
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    unInject = patcher_default.injectCSS(style_default);
+    const element = dom_default.parse(`
     <div class="acord--startup-loading"></div>
-  `);document.querySelector("#app-mount").appendChild(e)}function $o(){let e=document.querySelector(".acord--startup-loading");e&&(e.classList.add("hidden"),setTimeout(()=>{e.remove(),Me?.(),Me=null},500))}var Ie={show:Fo,hide:$o};var V=Ye(Be(),1);function Re(e){return new Promise((t,o)=>{e.oncomplete=e.onsuccess=()=>t(e.result),e.onabort=e.onerror=()=>o(e.error)})}function Ho(e,t){let o=indexedDB.open(e);o.onupgradeneeded=()=>o.result.createObjectStore(t);let r=Re(o);return(i,s)=>r.then(l=>s(l.transaction(t,i).objectStore(t)))}var De;function gt(){return De||(De=Ho("keyval-store","keyval")),De}function xt(e,t=gt()){return t("readonly",o=>Re(o.get(e)))}function Ne(e,t,o=gt()){return o("readwrite",r=>(r.put(t,e),Re(r.transaction)))}function Wo(e,t){return t=typeof t=="number"?{deep:t}:t||{},t.deep=t.deep||10,Ue([],[],e,t)}function He(e,t){t=typeof t=="number"?{deep:t}:t||{},e=Wo(e,t);try{return JSON.stringify(e,void 0,t.spacer)}catch(o){return o}}var bt=/^\[Date:((\d{4}-\d{2}-\d{2})[A-Z]+(\d{2}:\d{2}:\d{2}).([0-9+-:]+)Z)\]$/,vt=/^\[Regexp:\/(.+)\/\]$/,yt=/^\[Error:([\W\w]+)\]$/,wt=/^\[Function:(.+)\]$/;function _t(e,t){try{return JSON.parse(e,o)}catch(r){return r}function o(r,i){if(bt.test(i))return i=bt.exec(i),i=new Date(i[1]),new Date(i);if(vt.test(i))return i=vt.exec(i)[1],new RegExp(i);if(yt.test(i)){i=yt.exec(i)[1];var s=new Error(i.split(`
-`)[0]);return s.stack&&(s.stack=i),s}else if(t&&wt.test(i)){i=wt.exec(i)[1];try{return new Function("return "+i+";")()}catch(l){return l}}else return i}}function Ue(e,t,o,r){if(["undefined","number","boolean","string"].indexOf(typeof o)>=0||o===null)return o;if(typeof o=="object"&&o.constructor===Date)return r.dates!==!1?"[Date:"+o.toISOString()+"]":o;if(typeof o=="object"&&o.constructor===RegExp)return r.regexps!==!1?"[Regexp:"+o.toString()+"]":o;if(typeof o=="object"&&o.constructor&&typeof o.constructor.name=="string"&&o.constructor.name.slice(-5)==="Error"){var i=(o.stack||"").split(`
-`).slice(1),s=o.message||o.toString(),l=s+`
-`+i;return r.errors!==!1?"[Error:"+l+"]":o}else if(typeof o=="object")if(e.indexOf(o)>=0){var a=t.slice(0,e.indexOf(o)).join(".");return"[Circular"+(a?":"+a:"")+"]"}else{var n,c,d,f;if(o.constructor&&typeof o.constructor.name=="string"&&o.constructor.name.slice(-5)==="Array"){if(e.length>=r.deep&&o.constructor.name!=="Array")return"[Array:"+o.constructor.name+"]";for(n=[],c=0,f=o.length;c<f;c++)n[c]=Ue(e.concat([o]),t.concat(c),o[c],r);return n}else{if(e.length>=r.deep)return"[Object:"+(o.constructor&&o.constructor.name?o.constructor.name:"Object")+"]";for(n={},c=0,d=Object.keys(o),f=d.length;c<f;c++)n[d[c]]=Ue(e.concat([o]),t.concat([d[c]]),o[d[c]],r);return n}}else return typeof o=="function"?r.functions===!0?"[Function:"+o.toString()+"]":void 0:o.toString()}var D={async createPersistNest(e){let t=await xt(`AcordStore;${e}`);typeof t=="string"&&(t=_t(t));let o=V.make(t??{}),r=()=>{try{Ne(`AcordStore;${e}`,He({...o.ghost}))}catch{Ne(`AcordStore;${e}`,He({}))}};return o.on(V.Events.SET,r),o.on(V.Events.UPDATE,r),o.on(V.Events.DELETE,r),o}};async function kt(e){if(!e?.i18n)return null;let t={__cache__:{localeIds:[],localizations:{}},format(r,...i){return y.format(t.get(r),...i)},get(r){return t.__cache__.localizations[u.locale]?.[r]||t.__cache__.localizations.default?.[r]||r},messages:new Proxy({},{get(r,i){return t.get(i)}})};async function o(){let r=u.locale;if(typeof e.i18n=="string"){let i=e.i18n.endsWith("/")?e.i18n.slice(0,-1):e.i18n;if(!t.__cache__.localeIds.length){try{t.__cache__.localeIds=await(await fetch(`${i}/locales.json`,noStore)).json()}catch{}try{t.__cache__.localizations.default=await(await fetch(`${i}/default.json`,noStore)).json()}catch{}}if(t.__cache__.localeIds.includes(r)&&!t.__cache__.localizations?.[r])try{t.__cache__.localizations[r]=await(await fetch(`${i}/${r}.json`,noStore)).json()}catch{}}else t.__cache__.localeIds=Object.keys(e.i18n),t.__cache__.localizations=e.i18n}return await o(),t}var Wt=Ye(Be(),1);var Et=new Set,ce=new Map;Z().then(()=>{m.instead("handleConnection",w.WebSocket,(e,t)=>{let o=e[0];if(o.upgradeReq().url!=="/acord")return t(...e);Et.add(o),o.on("message",async r=>{let i;try{if(i=JSON.parse(r),!Array.isArray(i)||i.length<1||i.length>3)throw"Array expected as message.";if(typeof i[0]!="string")throw"Array[0] needs to be string.";if(typeof i[1]!="string")throw"Array[1] needs to be string."}catch(c){o.send(JSON.stringify([null,{ok:!1,error:`${c}`}]))}let[s,l,a]=i,n=ce.get(l);if(!n)return o.send(JSON.stringify([s,{ok:!1,error:"Unable to find handler."}]));try{let c=await n(a);o.send(JSON.stringify([s,{ok:!0,data:c}]))}catch(c){o.send(JSON.stringify([s,{ok:!1,error:`${c}`}]))}}),o.on("close",()=>Et.delete(o))})});function qo(e,t){if(typeof e!="string")throw new Error("EventName needs to be a string.");if(typeof t!="function")throw new Error("Callback needs to be a function.");if(ce.has(e))throw new Error("EventName already in use.");return ce.set(e,t),()=>{ce.delete(e)}}function Go(e,...t){if(!socketEvents.has(e))throw new Error("Unable to find handler!");return socketEvents.get(e)(...t)}var $={set:qo,trigger:Go};var Ct=`
-.acord--layer-container{--top-offset: 0px;width:100vw;height:calc(100vh - var(--top-offset));z-index:9999999;pointer-events:none;position:absolute;top:var(--top-offset);left:0px}.acord--layer-container *{z-index:99999999999999}.acord--tooltip-layer{opacity:0;transition:50ms linear opacity;position:absolute;pointer-events:none}.acord--tooltip-layer.visible{opacity:1;pointer-events:all}.acord--toasts-container{display:flex;align-items:center;justify-content:flex-end;flex-direction:column;width:100vw;height:calc(100vh - var(--top-offset));position:absolute;top:0;left:0;pointer-events:none;padding-bottom:32px}.acord--toasts-container .acord--toast{transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;display:flex;align-items:center;pointer-events:none;border-radius:4px;padding:8px;box-shadow:0px 2px 8px rgba(0,0,0,.25);opacity:1;gap:8px;font-size:14px;margin:4px}.acord--toasts-container .acord--toast svg{width:16px;height:16px}.acord--toasts-container .acord--toast.clickable{cursor:pointer;pointer-events:all}.acord--toasts-container .acord--toast.closing{opacity:0;transform:translate(0, -50px)}.acord--toasts-container .acord--toast.hidden{opacity:0;transform:translate(0, 50px)}.acord--toasts-container .acord--toast.style-info{background-color:#4a8fe1;color:#f5f5f5}.acord--toasts-container .acord--toast.style-warning{background-color:#faa81a;color:#000}.acord--toasts-container .acord--toast.style-error{background-color:#ed4245;color:#000}.acord--toasts-container .acord--toast.style-success{background-color:#3ba55d;color:#f5f5f5}.acord--toasts-container .acord--toast.style-default{background-color:#f5f5f5;color:#000}.acord--notification-layer{width:100vw;height:calc(100vh - var(--top-offset));display:flex;position:absolute;top:0;left:0;pointer-events:none;flex-direction:column}.acord--notification-layer .acord--notification{display:flex;flex-direction:column;pointer-events:all;transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;margin:4px;backdrop-filter:blur(16px) brightness(0.75);-webkit-app-region:no-drag;--animation-size: 50px}.acord--notification-layer .acord--notification.hidden,.acord--notification-layer .acord--notification.closing{opacity:0}.acord--notification-layer .acord--notification>.container{display:flex;align-items:center;justify-content:space-between;padding:8px;color:#fff;min-width:250px}.acord--notification-layer .acord--notification>.container>.close{width:24px;height:24px;color:#fff;opacity:.5;cursor:pointer;margin-left:8px;z-index:999999999}.acord--notification-layer .acord--notification>.container>.close.hidden{display:none}.acord--notification-layer .acord--notification>.progress-container{width:100%;height:5px}.acord--notification-layer .acord--notification>.progress-container>.progress{width:0%;height:5px;transition:width var(--duration) linear;background-color:var(--bar-color)}.acord--notification-layer .acord--notification>.progress-container>.progress.progressing{width:100%}.acord--notification-layer .acord--notification.style-info{--bar-color: #4a8fe1}.acord--notification-layer .acord--notification.style-warning{--bar-color: #faa81a}.acord--notification-layer .acord--notification.style-error{--bar-color: #ed4245}.acord--notification-layer .acord--notification.style-success{--bar-color: #3ba55d}.acord--notification-layer .acord--notification.style-default{--bar-color: whitesmoke}.acord--notification-layer.top-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.top-right .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-right .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.top-left{justify-content:flex-end;align-items:flex-start}.acord--notification-layer.top-left .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-left .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.bottom-right .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.bottom-left{justify-content:flex-start;align-items:flex-start}.acord--notification-layer.bottom-left .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-left .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}`;var R=P.findByProperties("tooltipContentAllowOverflow","tooltip"),J={top:R.tooltipTop,bottom:R.tooltipBottom,left:R.tooltipLeft,right:R.tooltipRight},Q=class{constructor(t,o,r="auto"){this.layerElement=x.parse(`
+  `);
+    document.querySelector("#app-mount").appendChild(element);
+  }
+  function hide() {
+    let elm = document.querySelector(".acord--startup-loading");
+    if (elm) {
+      elm.classList.add("hidden");
+      setTimeout(() => {
+        elm.remove();
+        unInject?.();
+        unInject = null;
+      }, 500);
+    }
+  }
+  var loading_animation_default = {
+    show,
+    hide
+  };
+
+  // src/api/storage/index.js
+  var nests = __toESM(require_cjs(), 1);
+
+  // node_modules/idb-keyval/dist/index.js
+  function promisifyRequest(request) {
+    return new Promise((resolve, reject) => {
+      request.oncomplete = request.onsuccess = () => resolve(request.result);
+      request.onabort = request.onerror = () => reject(request.error);
+    });
+  }
+  function createStore(dbName, storeName) {
+    const request = indexedDB.open(dbName);
+    request.onupgradeneeded = () => request.result.createObjectStore(storeName);
+    const dbp = promisifyRequest(request);
+    return (txMode, callback) => dbp.then((db) => callback(db.transaction(storeName, txMode).objectStore(storeName)));
+  }
+  var defaultGetStoreFunc;
+  function defaultGetStore() {
+    if (!defaultGetStoreFunc) {
+      defaultGetStoreFunc = createStore("keyval-store", "keyval");
+    }
+    return defaultGetStoreFunc;
+  }
+  function get(key, customStore = defaultGetStore()) {
+    return customStore("readonly", (store) => promisifyRequest(store.get(key)));
+  }
+  function set(key, value, customStore = defaultGetStore()) {
+    return customStore("readwrite", (store) => {
+      store.put(value, key);
+      return promisifyRequest(store.transaction);
+    });
+  }
+
+  // src/lib/json-decycled/index.js
+  function deCycler(val, config) {
+    config = typeof config === "number" ? { deep: config } : config || {};
+    config.deep = config.deep || 10;
+    return decycleWalker([], [], val, config);
+  }
+  function deCycled(val, config) {
+    config = typeof config === "number" ? { deep: config } : config || {};
+    val = deCycler(val, config);
+    try {
+      return JSON.stringify(val, void 0, config.spacer);
+    } catch (e) {
+      return e;
+    }
+  }
+  var reviverDate = /^\[Date:((\d{4}-\d{2}-\d{2})[A-Z]+(\d{2}:\d{2}:\d{2}).([0-9+-:]+)Z)\]$/;
+  var reviverRegExp = /^\[Regexp:\/(.+)\/\]$/;
+  var reviverError = /^\[Error:([\W\w]+)\]$/;
+  var reviverFunction = /^\[Function:(.+)\]$/;
+  function revive(val, functions) {
+    try {
+      return JSON.parse(val, reviver);
+    } catch (e) {
+      return e;
+    }
+    function reviver(key, val2) {
+      if (reviverDate.test(val2)) {
+        val2 = reviverDate.exec(val2);
+        val2 = new Date(val2[1]);
+        return new Date(val2);
+      } else if (reviverRegExp.test(val2)) {
+        val2 = reviverRegExp.exec(val2)[1];
+        return new RegExp(val2);
+      } else if (reviverError.test(val2)) {
+        val2 = reviverError.exec(val2)[1];
+        var error = new Error(val2.split("\n")[0]);
+        if (error.stack) {
+          error.stack = val2;
+        }
+        return error;
+      } else if (functions && reviverFunction.test(val2)) {
+        val2 = reviverFunction.exec(val2)[1];
+        try {
+          return new Function("return " + val2 + ";")();
+        } catch (error2) {
+          return error2;
+        }
+      } else {
+        return val2;
+      }
+    }
+  }
+  function decycleWalker(parents, path, val, config) {
+    if (["undefined", "number", "boolean", "string"].indexOf(typeof val) >= 0 || val === null) {
+      return val;
+    } else if (typeof val === "object" && val.constructor === Date) {
+      return config.dates !== false ? "[Date:" + val.toISOString() + "]" : val;
+    } else if (typeof val === "object" && val.constructor === RegExp) {
+      return config.regexps !== false ? "[Regexp:" + val.toString() + "]" : val;
+    } else if (typeof val === "object" && val.constructor && typeof val.constructor.name === "string" && val.constructor.name.slice(-5) === "Error") {
+      var stack = (val.stack || "").split("\n").slice(1);
+      var message = val.message || val.toString();
+      var error = message + "\n" + stack;
+      return config.errors !== false ? "[Error:" + error + "]" : val;
+    } else if (typeof val === "object") {
+      if (parents.indexOf(val) >= 0) {
+        var point = path.slice(0, parents.indexOf(val)).join(".");
+        return "[Circular" + (point ? ":" + point : "") + "]";
+      } else {
+        var copy, i, k, l;
+        if (val.constructor && typeof val.constructor.name === "string" && val.constructor.name.slice(-5) === "Array") {
+          if (parents.length >= config.deep && val.constructor.name !== "Array") {
+            return "[Array:" + val.constructor.name + "]";
+          } else {
+            copy = [];
+            for (i = 0, l = val.length; i < l; i++) {
+              copy[i] = decycleWalker(parents.concat([val]), path.concat(i), val[i], config);
+            }
+            return copy;
+          }
+        } else {
+          if (parents.length >= config.deep) {
+            return "[Object:" + (val.constructor && val.constructor.name ? val.constructor.name : "Object") + "]";
+          } else {
+            copy = {};
+            for (i = 0, k = Object.keys(val), l = k.length; i < l; i++) {
+              copy[k[i]] = decycleWalker(parents.concat([val]), path.concat([k[i]]), val[k[i]], config);
+            }
+            return copy;
+          }
+        }
+      }
+    } else if (typeof val === "function") {
+      return config.functions === true ? "[Function:" + val.toString() + "]" : void 0;
+    } else {
+      return val.toString();
+    }
+  }
+
+  // src/api/storage/index.js
+  var storage_default = {
+    async createPersistNest(suffix) {
+      let cached = await get(`AcordStore;${suffix}`);
+      if (typeof cached == "string")
+        cached = revive(cached);
+      const nest = nests.make(cached ?? {});
+      const save = () => {
+        try {
+          set(`AcordStore;${suffix}`, deCycled({ ...nest.ghost }));
+        } catch {
+          set(`AcordStore;${suffix}`, deCycled({}));
+        }
+      };
+      nest.on(nests.Events.SET, save);
+      nest.on(nests.Events.UPDATE, save);
+      nest.on(nests.Events.DELETE, save);
+      return nest;
+    }
+  };
+
+  // src/api/extensions/i18n.js
+  async function buildExtensionI18N(cfg) {
+    if (!cfg?.i18n)
+      return null;
+    let out4 = {
+      __cache__: {
+        localeIds: [],
+        localizations: {}
+      },
+      format(key, ...args) {
+        return utils_default.format(out4.get(key), ...args);
+      },
+      get(key) {
+        return out4.__cache__.localizations[i18n_default.locale]?.[key] || out4.__cache__.localizations.default?.[key] || key;
+      },
+      messages: new Proxy({}, {
+        get(_2, prop) {
+          return out4.get(prop);
+        }
+      })
+    };
+    async function check2() {
+      const locale = i18n_default.locale;
+      if (typeof cfg.i18n === "string") {
+        const BASE_URL2 = cfg.i18n.endsWith("/") ? cfg.i18n.slice(0, -1) : cfg.i18n;
+        if (!out4.__cache__.localeIds.length) {
+          try {
+            out4.__cache__.localeIds = await (await fetch(`${BASE_URL2}/locales.json`, noStore)).json();
+          } catch {
+          }
+          try {
+            out4.__cache__.localizations.default = await (await fetch(`${BASE_URL2}/default.json`, noStore)).json();
+          } catch {
+          }
+        }
+        if (out4.__cache__.localeIds.includes(locale) && !out4.__cache__.localizations?.[locale]) {
+          try {
+            out4.__cache__.localizations[locale] = await (await fetch(`${BASE_URL2}/${locale}.json`, noStore)).json();
+          } catch {
+          }
+          ;
+        }
+      } else {
+        out4.__cache__.localeIds = Object.keys(cfg.i18n);
+        out4.__cache__.localizations = cfg.i18n;
+      }
+    }
+    await check2();
+    return out4;
+  }
+
+  // src/api/extensions/index.js
+  var nests2 = __toESM(require_cjs(), 1);
+
+  // src/api/websocket/index.js
+  var sockets = /* @__PURE__ */ new Set();
+  var handlers = /* @__PURE__ */ new Map();
+  waitUntilConnectionOpen().then(() => {
+    patcher_default.instead(
+      "handleConnection",
+      common_default2.WebSocket,
+      (args, orig) => {
+        const ws = args[0];
+        if (ws.upgradeReq().url !== "/acord")
+          return orig(...args);
+        sockets.add(ws);
+        ws.on("message", async (msg) => {
+          let json;
+          try {
+            json = JSON.parse(msg);
+            if (!Array.isArray(json) || json.length < 1 || json.length > 3)
+              throw "Array expected as message.";
+            if (typeof json[0] != "string")
+              throw "Array[0] needs to be string.";
+            if (typeof json[1] != "string")
+              throw "Array[1] needs to be string.";
+          } catch (err) {
+            ws.send(
+              JSON.stringify([
+                null,
+                {
+                  ok: false,
+                  error: `${err}`
+                }
+              ])
+            );
+          }
+          const [eventId, eventName, eventData] = json;
+          const handler = handlers.get(eventName);
+          if (!handler)
+            return ws.send(
+              JSON.stringify([
+                eventId,
+                {
+                  ok: false,
+                  error: `Unable to find handler.`
+                }
+              ])
+            );
+          try {
+            let response = await handler(eventData);
+            ws.send(
+              JSON.stringify([
+                eventId,
+                {
+                  ok: true,
+                  data: response
+                }
+              ])
+            );
+          } catch (err) {
+            ws.send(
+              JSON.stringify([
+                eventId,
+                {
+                  ok: false,
+                  error: `${err}`
+                }
+              ])
+            );
+          }
+        });
+        ws.on("close", () => sockets.delete(ws));
+      }
+    );
+  });
+  function set2(eventName, callback) {
+    if (typeof eventName != "string")
+      throw new Error("EventName needs to be a string.");
+    if (typeof callback != "function")
+      throw new Error("Callback needs to be a function.");
+    if (handlers.has(eventName))
+      throw new Error("EventName already in use.");
+    handlers.set(eventName, callback);
+    return () => {
+      handlers.delete(eventName);
+    };
+  }
+  function trigger(eventName, ...args) {
+    if (!socketEvents.has(eventName))
+      throw new Error("Unable to find handler!");
+    return socketEvents.get(eventName)(...args);
+  }
+  var websocket_default = {
+    set: set2,
+    trigger
+  };
+
+  // src/api/ui/styles.scss
+  var styles_default = `
+.acord--layer-container{--top-offset: 0px;width:100vw;height:calc(100vh - var(--top-offset));z-index:9999999;pointer-events:none;position:absolute;top:var(--top-offset);left:0px}.acord--layer-container *{z-index:99999999999999}.acord--tooltip-layer{opacity:0;transition:50ms linear opacity;position:absolute;pointer-events:none}.acord--tooltip-layer.visible{opacity:1;pointer-events:all}.acord--toasts-container{display:flex;align-items:center;justify-content:flex-end;flex-direction:column;width:100vw;height:calc(100vh - var(--top-offset));position:absolute;top:0;left:0;pointer-events:none;padding-bottom:32px}.acord--toasts-container .acord--toast{transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;display:flex;align-items:center;pointer-events:none;border-radius:4px;padding:8px;box-shadow:0px 2px 8px rgba(0,0,0,.25);opacity:1;gap:8px;font-size:14px;margin:4px}.acord--toasts-container .acord--toast svg{width:16px;height:16px}.acord--toasts-container .acord--toast.clickable{cursor:pointer;pointer-events:all}.acord--toasts-container .acord--toast.closing{opacity:0;transform:translate(0, -50px)}.acord--toasts-container .acord--toast.hidden{opacity:0;transform:translate(0, 50px)}.acord--toasts-container .acord--toast.style-info{background-color:#4a8fe1;color:#f5f5f5}.acord--toasts-container .acord--toast.style-warning{background-color:#faa81a;color:#000}.acord--toasts-container .acord--toast.style-error{background-color:#ed4245;color:#000}.acord--toasts-container .acord--toast.style-success{background-color:#3ba55d;color:#f5f5f5}.acord--toasts-container .acord--toast.style-default{background-color:#f5f5f5;color:#000}.acord--notification-layer{width:100vw;height:calc(100vh - var(--top-offset));display:flex;position:absolute;top:0;left:0;pointer-events:none;flex-direction:column}.acord--notification-layer .acord--notification{display:flex;flex-direction:column;pointer-events:all;transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;margin:4px;backdrop-filter:blur(16px) brightness(0.75);-webkit-app-region:no-drag;--animation-size: 50px}.acord--notification-layer .acord--notification.hidden,.acord--notification-layer .acord--notification.closing{opacity:0}.acord--notification-layer .acord--notification>.container{display:flex;align-items:center;justify-content:space-between;padding:8px;color:#fff;min-width:250px}.acord--notification-layer .acord--notification>.container>.close{width:24px;height:24px;color:#fff;opacity:.5;cursor:pointer;margin-left:8px;z-index:999999999}.acord--notification-layer .acord--notification>.container>.close.hidden{display:none}.acord--notification-layer .acord--notification>.progress-container{width:100%;height:5px}.acord--notification-layer .acord--notification>.progress-container>.progress{width:0%;height:5px;transition:width var(--duration) linear;background-color:var(--bar-color)}.acord--notification-layer .acord--notification>.progress-container>.progress.progressing{width:100%}.acord--notification-layer .acord--notification.style-info{--bar-color: #4a8fe1}.acord--notification-layer .acord--notification.style-warning{--bar-color: #faa81a}.acord--notification-layer .acord--notification.style-error{--bar-color: #ed4245}.acord--notification-layer .acord--notification.style-success{--bar-color: #3ba55d}.acord--notification-layer .acord--notification.style-default{--bar-color: whitesmoke}.acord--notification-layer.top-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.top-right .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-right .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.top-left{justify-content:flex-end;align-items:flex-start}.acord--notification-layer.top-left .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-left .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.bottom-right .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.bottom-left{justify-content:flex-start;align-items:flex-start}.acord--notification-layer.bottom-left .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-left .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}`;
+
+  // src/api/ui/tooltips.js
+  var tooltipClasses = webpack_default.findByProperties("tooltipContentAllowOverflow", "tooltip");
+  var tooltipPositions = {
+    top: tooltipClasses.tooltipTop,
+    bottom: tooltipClasses.tooltipBottom,
+    left: tooltipClasses.tooltipLeft,
+    right: tooltipClasses.tooltipRight
+  };
+  var Tooltip = class {
+    /**
+     * @param {HTMLDivElement} target 
+     * @param {string|HTMLDivElement} content
+     */
+    constructor(target, content, position = "auto") {
+      this.layerElement = dom_default.parse(`
       <div class="acord--tooltip-layer">
-        <div class="${R.tooltip} ${R.tooltipPrimary} acord--tooltip">
-          <div class="${R.tooltipPointer} acord--tooltip-pointer"></div>
-          <div class="${R.tooltipContent} acord--tooltip-content"></div>
+        <div class="${tooltipClasses.tooltip} ${tooltipClasses.tooltipPrimary} acord--tooltip">
+          <div class="${tooltipClasses.tooltipPointer} acord--tooltip-pointer"></div>
+          <div class="${tooltipClasses.tooltipContent} acord--tooltip-content"></div>
         </div>
       </div>
-    `),this.tooltipElement=this.layerElement.querySelector(".acord--tooltip"),this.contentElement=this.layerElement.querySelector(".acord--tooltip-content"),this.content=o,this.target=t,this.position=r,this.visible=!1,this.disabled=!1,this.paused=!1;let i=()=>{this.disabled||this.paused||this.show()},s=()=>{this.paused||this.hide()};this.target.addEventListener("mouseenter",i),this.target.addEventListener("mouseleave",s);let l=h.on("DomMutation",a=>{if(a.type==="attributes"&&a.target.isSameNode(this.target))switch(a.attributeName){case"acord--tooltip-disabled":{this.disabled=this.target.getAttribute("acord--tooltip-disabled")==="true";break}case"acord--tooltip-content":{this.content=this.target.getAttribute("acord--tooltip-content");break}case"acord--tooltip-position":{this.position=this.target.getAttribute("acord--tooltip-position");break}}});this.destroy=()=>{this.target.removeEventListener("mouseenter",i),this.target.removeEventListener("mouseleave",s),this.hide(),l()}}get content(){return this.contentElement.firstElementChild}set content(t){typeof t=="string"?this.contentElement.innerHTML=t:(this.contentElement.innerHTML="",this.contentElement?.appendChild?.(t))}static getContainer(){let t=document.querySelector('[class*="notAppAsidePanel-"]'),o=t.querySelector(".acord--tooltip-container");return o||(o=x.parse('<div class="acord--layer-container acord--tooltip-container"></div>'),t.appendChild(o)),o}show(){if(this.visible)return;this.visible=!0,Q.getContainer().appendChild(this.layerElement),!this.position||this.position==="auto"?this.calculatePosition(this.canShowAtTop?"top":this.canShowAtBottom?"bottom":this.canShowAtLeft?"left":this.canShowAtRight?"right":"top"):this.calculatePosition(this.position),this.layerElement.classList.add("visible")}calculatePosition(t){let o=this.target.getBoundingClientRect();switch(this.layerElement.classList.remove(...Object.values(J)),this.tooltipElement.classList.remove("vertical","horizontal"),t){case"top":{this.layerElement.classList.add(J.top),this.layerElement.style.setProperty("left",`${o.left}px`),this.layerElement.style.setProperty("top",`${o.top-this.layerElement.offsetHeight-10}px`),this.centerPosition("horizontal");break}case"bottom":{this.layerElement.classList.add(J.bottom),this.layerElement.style.setProperty("left",`${o.left}px`),this.layerElement.style.setProperty("top",`${o.top+this.layerElement.offsetHeight+10}px`),this.centerPosition("horizontal");break}case"left":{this.layerElement.classList.add(J.left),this.layerElement.style.setProperty("top",`${o.top}px`),this.layerElement.style.setProperty("left",`${o.left-this.layerElement.offsetWidth-10}px`),this.centerPosition("vertical");break}case"right":{this.layerElement.classList.add(J.right),this.layerElement.style.setProperty("top",`${o.top}px`),this.layerElement.style.setProperty("left",`${o.left+this.layerElement.offsetWidth+10}px`),this.centerPosition("vertical");break}}}centerPosition(t){switch(t){case"horizontal":{let o=this.target.getBoundingClientRect().left+this.target.offsetWidth/2;this.layerElement.style.setProperty("left",`${o-this.layerElement.offsetWidth/2}px`);break}case"vertical":{let o=this.target.getBoundingClientRect().top+this.target.offsetHeight/2;this.layerElement.style.setProperty("top",`${o-this.layerElement.offsetHeight/2}px`)}}}hide(){this.visible&&(this.visible=!1,this.layerElement.classList.remove("visible"),setTimeout(()=>{this.layerElement.remove()},50))}get canShowAtTop(){return this.target.getBoundingClientRect().top-this.layerElement.offsetHeight>=0}get canShowAtBottom(){return this.target.getBoundingClientRect().top+this.target.offsetHeight+this.layerElement.offsetHeight<=window.innerHeight}get canShowAtLeft(){return this.target.getBoundingClientRect().left-this.layerElement.offsetWidth>=0}get canShowAtRight(){return this.target.getBoundingClientRect().left+this.target.offsetWidth+this.layerElement.offsetWidth<=window.innerWidth}};function St(e,t,o="auto"){return new Q(e,t,o)}x.patch("[acord--tooltip-content]",e=>{let t=St(e,e.getAttribute("acord--tooltip-content"),e.getAttribute("acord--tooltip-position"));t.disabled=e.getAttribute("acord--tooltip-disabled")==="true"});var Pt={create:St};var Tt=["top-right","top-left","bottom-right","bottom-left"];function Ko(e){if(!Tt.includes(e))throw new Error(`Invalid position "${e}". Valid positions are: ${Tt.join(", ")}`);let t=document.querySelector('[class*="notAppAsidePanel-"]'),o=t.querySelector(".acord--notification-layer-container");o||(o=x.parse('<div class="acord--layer-container acord--notification-layer-container"></div>'),t.appendChild(o)),o.style.setProperty("--top-offset",`${t.getBoundingClientRect().top.toFixed(1)}px`);let r=o.querySelector(`.acord--notification-layer.${e}`);return r||(r=x.parse(`<div class="acord--notification-layer ${e}"></div>`),o.appendChild(r)),r}function ee(e,{style:t="default",timeout:o=1e4,position:r="top-right",closable:i=!0,onClick:s=null,onClose:l=null}={}){let a=Ko(r),n=x.parse(`
-    <div class="acord--notification style-${t} hidden">
+    `);
+      this.tooltipElement = this.layerElement.querySelector(".acord--tooltip");
+      this.contentElement = this.layerElement.querySelector(".acord--tooltip-content");
+      this.content = content;
+      this.target = target;
+      this.position = position;
+      this.visible = false;
+      this.disabled = false;
+      this.paused = false;
+      const onMouseEnter = () => {
+        if (this.disabled || this.paused)
+          return;
+        this.show();
+      };
+      const onMouseLeave = () => {
+        if (this.paused)
+          return;
+        this.hide();
+      };
+      this.target.addEventListener("mouseenter", onMouseEnter);
+      this.target.addEventListener("mouseleave", onMouseLeave);
+      let unPatchObserver = events_default.on(
+        "DomMutation",
+        /** @param {MutationRecord} mut */
+        (mut) => {
+          if (mut.type === "attributes") {
+            if (mut.target.isSameNode(this.target)) {
+              switch (mut.attributeName) {
+                case "acord--tooltip-disabled": {
+                  this.disabled = this.target.getAttribute("acord--tooltip-disabled") === "true";
+                  break;
+                }
+                case "acord--tooltip-content": {
+                  this.content = this.target.getAttribute("acord--tooltip-content");
+                  break;
+                }
+                case "acord--tooltip-position": {
+                  this.position = this.target.getAttribute("acord--tooltip-position");
+                  break;
+                }
+              }
+            }
+          }
+        }
+      );
+      this.destroy = () => {
+        this.target.removeEventListener("mouseenter", onMouseEnter);
+        this.target.removeEventListener("mouseleave", onMouseLeave);
+        this.hide();
+        unPatchObserver();
+      };
+    }
+    get content() {
+      return this.contentElement.firstElementChild;
+    }
+    set content(value) {
+      if (typeof value === "string") {
+        this.contentElement.innerHTML = value;
+      } else {
+        this.contentElement.innerHTML = "";
+        this.contentElement?.appendChild?.(value);
+      }
+    }
+    static getContainer() {
+      const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
+      let container = appElm.querySelector(".acord--tooltip-container");
+      if (!container) {
+        container = dom_default.parse(`<div class="acord--layer-container acord--tooltip-container"></div>`);
+        appElm.appendChild(container);
+      }
+      return container;
+    }
+    show() {
+      if (this.visible)
+        return;
+      this.visible = true;
+      const container = Tooltip.getContainer();
+      container.appendChild(this.layerElement);
+      if (!this.position || this.position === "auto") {
+        this.calculatePosition(
+          this.canShowAtTop ? "top" : this.canShowAtBottom ? "bottom" : this.canShowAtLeft ? "left" : this.canShowAtRight ? "right" : "top"
+        );
+      } else {
+        this.calculatePosition(this.position);
+      }
+      this.layerElement.classList.add("visible");
+    }
+    calculatePosition(position) {
+      const targetRect = this.target.getBoundingClientRect();
+      this.layerElement.classList.remove(...Object.values(tooltipPositions));
+      this.tooltipElement.classList.remove("vertical", "horizontal");
+      switch (position) {
+        case "top": {
+          this.layerElement.classList.add(tooltipPositions.top);
+          this.layerElement.style.setProperty("left", `${targetRect.left}px`);
+          this.layerElement.style.setProperty("top", `${targetRect.top - this.layerElement.offsetHeight - 10}px`);
+          this.centerPosition("horizontal");
+          break;
+        }
+        case "bottom": {
+          this.layerElement.classList.add(tooltipPositions.bottom);
+          this.layerElement.style.setProperty("left", `${targetRect.left}px`);
+          this.layerElement.style.setProperty("top", `${targetRect.top + this.layerElement.offsetHeight + 10}px`);
+          this.centerPosition("horizontal");
+          break;
+        }
+        case "left": {
+          this.layerElement.classList.add(tooltipPositions.left);
+          this.layerElement.style.setProperty("top", `${targetRect.top}px`);
+          this.layerElement.style.setProperty("left", `${targetRect.left - this.layerElement.offsetWidth - 10}px`);
+          this.centerPosition("vertical");
+          break;
+        }
+        case "right": {
+          this.layerElement.classList.add(tooltipPositions.right);
+          this.layerElement.style.setProperty("top", `${targetRect.top}px`);
+          this.layerElement.style.setProperty("left", `${targetRect.left + this.layerElement.offsetWidth + 10}px`);
+          this.centerPosition("vertical");
+          break;
+        }
+      }
+    }
+    centerPosition(direction) {
+      switch (direction) {
+        case "horizontal": {
+          const center = this.target.getBoundingClientRect().left + this.target.offsetWidth / 2;
+          this.layerElement.style.setProperty("left", `${center - this.layerElement.offsetWidth / 2}px`);
+          break;
+        }
+        case "vertical": {
+          const center = this.target.getBoundingClientRect().top + this.target.offsetHeight / 2;
+          this.layerElement.style.setProperty("top", `${center - this.layerElement.offsetHeight / 2}px`);
+        }
+      }
+    }
+    hide() {
+      if (!this.visible)
+        return;
+      this.visible = false;
+      this.layerElement.classList.remove("visible");
+      setTimeout(() => {
+        this.layerElement.remove();
+      }, 50);
+    }
+    get canShowAtTop() {
+      return this.target.getBoundingClientRect().top - this.layerElement.offsetHeight >= 0;
+    }
+    get canShowAtBottom() {
+      return this.target.getBoundingClientRect().top + this.target.offsetHeight + this.layerElement.offsetHeight <= window.innerHeight;
+    }
+    get canShowAtLeft() {
+      return this.target.getBoundingClientRect().left - this.layerElement.offsetWidth >= 0;
+    }
+    get canShowAtRight() {
+      return this.target.getBoundingClientRect().left + this.target.offsetWidth + this.layerElement.offsetWidth <= window.innerWidth;
+    }
+  };
+  function create(target, content, position = "auto") {
+    return new Tooltip(target, content, position);
+  }
+  dom_default.patch(
+    "[acord--tooltip-content]",
+    (elm) => {
+      let tooltip = create(elm, elm.getAttribute("acord--tooltip-content"), elm.getAttribute("acord--tooltip-position"));
+      tooltip.disabled = elm.getAttribute("acord--tooltip-disabled") === "true";
+    }
+  );
+  var tooltips_default = { create };
+
+  // src/api/ui/notifications.js
+  var validPositions = [
+    "top-right",
+    "top-left",
+    "bottom-right",
+    "bottom-left"
+  ];
+  function getContainer(position) {
+    if (!validPositions.includes(position))
+      throw new Error(`Invalid position "${position}". Valid positions are: ${validPositions.join(", ")}`);
+    const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
+    let topContainer = appElm.querySelector(".acord--notification-layer-container");
+    if (!topContainer) {
+      topContainer = dom_default.parse(`<div class="acord--layer-container acord--notification-layer-container"></div>`);
+      appElm.appendChild(topContainer);
+    }
+    topContainer.style.setProperty("--top-offset", `${appElm.getBoundingClientRect().top.toFixed(1)}px`);
+    let positionContainer = topContainer.querySelector(`.acord--notification-layer.${position}`);
+    if (!positionContainer) {
+      positionContainer = dom_default.parse(`<div class="acord--notification-layer ${position}"></div>`);
+      topContainer.appendChild(positionContainer);
+    }
+    return positionContainer;
+  }
+  function show2(content, {
+    style = "default",
+    timeout = 1e4,
+    position = "top-right",
+    closable = true,
+    onClick = null,
+    onClose = null
+  } = {}) {
+    const container = getContainer(position);
+    const notifElm = dom_default.parse(`
+    <div class="acord--notification style-${style} hidden">
         <div class="container">
             <div class="content"></div>
-            <svg class="close ${i?"":"hidden"}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <svg class="close ${!closable ? "hidden" : ""}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                 <path fill="currentColor" d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/>
             </svg>
         </div>
-        <div class="progress-container" style="--duration: ${o}ms;">
+        <div class="progress-container" style="--duration: ${timeout}ms;">
             <div class="progress"></div>
         </div>
     </div>
-  `);n.querySelector(".content").innerHTML=e;let c=!1;function d(f){c||(c=!0,n.classList.add("closing"),setTimeout(()=>{n.remove(),y.ifExists(document.querySelector(".acord--notification-layer-container"),g=>{[...g.childNodes.values()].reduce((v,E)=>v+E.childElementCount,0)||g.remove()})},275),l?.(f))}return typeof s=="function"&&(n.classList.add("clickable"),n.onclick=()=>{s(d)}),y.ifExists(n.querySelector(".close"),f=>{f.onclick=()=>{d("user")}}),a.prepend(n),requestAnimationFrame(()=>{n.classList.remove("hidden"),n.querySelector(".progress").classList.add("progressing")}),setTimeout(()=>{d("timeout")},o),()=>{d("force")}}var de={show:Object.assign(ee,{info:(e,t={})=>ee(e,{...t,style:"info"}),error:(e,t={})=>ee(e,{...t,style:"error"}),warning:(e,t={})=>ee(e,{...t,style:"warning"}),success:(e,t={})=>ee(e,{...t,style:"success"})})};var{React:q}=w,pe=!1,N=null,ue=null;(async()=>(ue=await(async()=>{let e;for(;e=P.filter(o=>Object.values(o).some(r=>typeof r=="function"&&r.toString().includes("CONTEXT_MENU_CLOSE"))).find(o=>o.exports!==window)?.exports,!e;)await new Promise(o=>setTimeout(o,100));let t=se(e,{close:["CONTEXT_MENU_CLOSE"],open:["renderLazy"]});return pe=!!t.close&&!!t.open,t})(),N=await(async()=>{let e={},t={separator:"Separator",checkbox:"CheckboxItem",radio:"RadioItem",control:"ControlItem",groupstart:"Group",customitem:"Item"};try{let o;for(;o=Object.entries(P.require.m).find(([,l])=>l?.toString().includes("menuitemcheckbox"))[0],!o;)await new Promise(l=>setTimeout(l,100));let r=P.find((l,a)=>a==o).exports,i=P.require.m[o].toString(),s=i.matchAll(/if\(\w+\.type===(?:\w+\.)?(\w+)\).+?type:"(.+?)"/gs);e.Menu=Object.values(r).find(l=>l.toString().includes(".isUsingKeyboardNavigation")),[...s].forEach(([,l,a])=>{let n=i.match(new RegExp(new RegExp(`(\\w+):\\(\\)\\=\\>${l}`)))?.[1];e[t[a]]=r[n]}),pe=Object.keys(e).length>1}catch(o){pe=!1,k.error("Failed to load context menu components",o)}return e})(),z.initialize()))();var W=class{static initialize(){if(!pe)return k.warn("Unable to load context menu.");let t=P.filter(r=>Object.values(r).some(i=>typeof i=="function"&&i.toString().includes("CONTEXT_MENU_CLOSE"))).find(r=>r.exports!==window).exports,o=Object.keys(t).find(r=>t[r]?.length===3);m.before(o,t,function(r){let i=r[1];return r[1]=async function(...s){let l=await i.call(this,...s);return a=>{let n=l(a);return n?.props.navId?W.executePatches(n.props.navId,n,a):typeof n?.type=="function"&&W.patchRecursive(n,"type"),n}},r})}static patchRecursive(t,o,r=0){if(r>=this.MAX_PATCH_ITERATIONS)return;let i=this.subPatches.get(t[o])??(()=>{let s=t[o],l=++r;function a(...n){let c=s.call(this,...n);if(!c)return c;let d=c.props?.navId??c.props?.children?.props?.navId;if(d)W.executePatches(d,c,n[0]);else{let f=c.props.children?c.props.children:c;typeof f?.type=="function"&&W.patchRecursive(f,"type",l)}return c}return a.__original__=s,Object.assign(a,s),this.subPatches.set(s,a),a})();t[o]=i}static executePatches(t,o,r){this.patches.has(t)&&this.patches.get(t).forEach(i=>{try{i(o,r)}catch(s){k.error("Failed to patch context menu",i,s)}})}},z=W;ne(z,"MAX_PATCH_ITERATIONS",16),ne(z,"patches",new Map),ne(z,"subPatches",new WeakMap);function Yo(e){let{type:t}=e;if(t==="separator")return q.createElement(N.Separator);let o=N.Item;if(t==="submenu"?e.children||(e.children=Ve(e.render||e.items)):t==="toggle"||t==="radio"?(o=t==="toggle"?N.CheckboxItem:N.RadioItem,e.active&&(e.checked=e.active)):t==="control"&&(o=N.ControlItem),e.id||(e.id=`${e.label.replace(/^[^a-z]+|[^\w-]+/gi,"-")}`),e.danger&&(e.color="danger"),e.extended=!0,t==="toggle"){let[r,i]=q.useState(e.checked||!1),s=e.action;e.checked=r,e.action=function(l){s(l),i(!r)}}return q.createElement(o,e)}function Ve(e){let t=r=>r.type==="group"?o(r):Yo(r),o=function(r){let i=r.items.map(t).filter(s=>s);return q.createElement(N.Group,null,i)};return e.map(t).filter(r=>r)}var Lt={__cache__:{patches:z.patches,subPatches:z.subPatches},patch(e,t){return z.patches.has(e)||z.patches.set(e,new Set),z.patches.get(e).add(t),()=>{z.patches.get(e).delete(t)}},open(e,t,o){return ue.open(e,r=>q.createElement(t,Object.assign({},r,{onClose:ue.close})),o)},close(){return ue.close()},build:{item(e){return Ve([e])},menu(e){return t=>q.createElement(N.Menu,t,Ve(e))}}};var{React:fe}=w,F=class extends fe.Component{constructor(t){super(t),this.state={error:null}}componentDidCatch(t){this.setState({error:t}),k.error(t),typeof this.props.onError=="function"&&this.props.onError(t)}render(){return this.state.error?fe.createElement("div",{className:"acord--react-error"},fe.createElement("p",null,"Unexpected React Error Happened."),fe.createElement("p",null,`${this.state.error}`)):this.props.children}},Xo=F.prototype.render;Object.defineProperty(F.prototype,"render",{enumerable:!1,configurable:!1,set:function(){throw new Error("Cannot set render method of ErrorBoundary")},get:()=>Xo});var At={ErrorBoundary:F,Button:w.components.Button,Markdown:w.components.Markdown,Text:w.components.Text,ConfirmationModal:w.components.ConfirmationModal,ModalRoot:w.modals.components.Root,ModalCloseButton:w.modals.components.other.CloseButton,ModalHeader:w.modals.components.other.Header,ModalContent:w.modals.components.other.Content,ModalFooter:w.modals.components.other.Footer,ModalListContent:w.modals.components.other.ListContent,Tooltip:w.components.Tooltip};var{React:he,FluxDispatcher:Jo,components:me,modals:G,UserStore:Qo}=w,K={show:{confirmation(e,t,{confirm:o=null,cancel:r=null,danger:i=!1,key:s=void 0,timeout:l=6e4*5}={}){return new Promise(a=>{Array.isArray(t)||(t=[t]),t=t.map(c=>typeof c=="string"?he.createElement(me.Markdown,null,c):c);let n=G.actions.open(c=>{let d=!1;return he.createElement(F,{onError:()=>{a(!1)}},he.createElement(me.ConfirmationModal,{header:e,confirmButtonColor:i?me.Button.Colors.RED:me.Button.Colors.BRAND,confirmText:o||u.format("CONFIRM"),cancelText:r,onCancel:()=>{a(!1),G.actions.close(n),d=!0},onConfirm:()=>{a(!0),G.actions.close(n),d=!0},...c,onClose:()=>{c.onClose(),a(!1),G.actions.close(n)}},he.createElement(F,{onError:()=>{a(!1)}},t)))},{modalKey:s});l&&setTimeout(()=>{interacted||(a(!1),G.actions.close(n))},l)})},user(e){return Qo.getUser(e)?(Jo.dispatch({type:"USER_PROFILE_MODAL_OPEN",userId:e}),!0):!1},alert(e,t,{confirm:o=null,key:r=void 0,timeout:i=6e4*5}={}){return this.confirmation(e,t,{confirm:o,cancel:null,key:r,timeout:i})}},close(e){return G.actions.close(e)}};function er(){let e=document.querySelector('[class*="notAppAsidePanel-"]'),t=e.querySelector(".acord--toasts-container");return t||(t=x.parse('<div class="acord--layer-container acord--toasts-container"></div>'),e.appendChild(t)),t.style.setProperty("--top-offset",`${e.getBoundingClientRect().top.toFixed(1)}px`),t}var tr={info:'<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z" fill="currentColor" /></svg>',warning:'<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z" fill="currentColor" /></svg>',error:'<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"fill="currentColor" /></svg>',success:'<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" fill="currentColor" /></svg>'};function te(e,{style:t="default",timeout:o=3500,onClick:r=null,hideIcon:i=!1}={}){let s=er(),l=x.parse(`
-    <div class="acord--toast style-${t} hidden">
-      ${i?"":tr[t]||""}
+  `);
+    notifElm.querySelector(".content").innerHTML = content;
+    let closed = false;
+    function close(closeType) {
+      if (closed)
+        return;
+      closed = true;
+      notifElm.classList.add("closing");
+      setTimeout(() => {
+        notifElm.remove();
+        utils_default.ifExists(
+          document.querySelector(`.acord--notification-layer-container`),
+          /** @param {HTMLDivElement} elm */
+          (elm) => {
+            if (![...elm.childNodes.values()].reduce((prev, curr) => prev + curr.childElementCount, 0))
+              elm.remove();
+          }
+        );
+      }, 275);
+      onClose?.(closeType);
+    }
+    if (typeof onClick == "function") {
+      notifElm.classList.add("clickable");
+      notifElm.onclick = () => {
+        onClick(close);
+      };
+    }
+    utils_default.ifExists(notifElm.querySelector(".close"), (elm) => {
+      elm.onclick = () => {
+        close("user");
+      };
+    });
+    container.prepend(notifElm);
+    requestAnimationFrame(() => {
+      notifElm.classList.remove("hidden");
+      notifElm.querySelector(".progress").classList.add("progressing");
+    });
+    setTimeout(() => {
+      close("timeout");
+    }, timeout);
+    return () => {
+      close("force");
+    };
+  }
+  var notifications_default = {
+    show: Object.assign(show2, {
+      info: (html, obj = {}) => show2(html, { ...obj, style: "info" }),
+      error: (html, obj = {}) => show2(html, { ...obj, style: "error" }),
+      warning: (html, obj = {}) => show2(html, { ...obj, style: "warning" }),
+      success: (html, obj = {}) => show2(html, { ...obj, style: "success" })
+    })
+  };
+
+  // src/api/ui/contextMenus.js
+  var { React } = common_default2;
+  var isReady = false;
+  var Components = null;
+  var Actions = null;
+  (async () => {
+    Actions = await (async () => {
+      let ogModule;
+      while (true) {
+        ogModule = webpack_default.filter((m) => Object.values(m).some((v) => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find((m) => m.exports !== window)?.exports;
+        if (ogModule)
+          break;
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      const out4 = finderMap(ogModule, {
+        close: ["CONTEXT_MENU_CLOSE"],
+        open: ["renderLazy"]
+      });
+      isReady = !!out4.close && !!out4.open;
+      return out4;
+    })();
+    Components = await (async () => {
+      const out4 = {};
+      const componentMap = {
+        separator: "Separator",
+        checkbox: "CheckboxItem",
+        radio: "RadioItem",
+        control: "ControlItem",
+        groupstart: "Group",
+        customitem: "Item"
+      };
+      try {
+        let moduleId;
+        while (true) {
+          moduleId = Object.entries(webpack_default.require.m).find(([, m]) => m?.toString().includes("menuitemcheckbox"))[0];
+          if (moduleId)
+            break;
+          await new Promise((r) => setTimeout(r, 100));
+        }
+        const contextMenuModule = webpack_default.find((_2, idx) => idx == moduleId).exports;
+        const moduleString = webpack_default.require.m[moduleId].toString();
+        const rawMatches = moduleString.matchAll(/if\(\w+\.type===(?:\w+\.)?(\w+)\).+?type:"(.+?)"/gs);
+        out4.Menu = Object.values(contextMenuModule).find((v) => v.toString().includes(".isUsingKeyboardNavigation"));
+        [...rawMatches].forEach(([, functionName, type]) => {
+          let moduleKey = moduleString.match(new RegExp(new RegExp(`(\\w+):\\(\\)\\=\\>${functionName}`)))?.[1];
+          out4[componentMap[type]] = contextMenuModule[moduleKey];
+        });
+        isReady = Object.keys(out4).length > 1;
+      } catch (err) {
+        isReady = false;
+        logger_default.error("Failed to load context menu components", err);
+      }
+      return out4;
+    })();
+    MenuPatcher.initialize();
+  })();
+  var _MenuPatcher = class {
+    static initialize() {
+      if (!isReady)
+        return logger_default.warn("Unable to load context menu.");
+      const moduleToPatch = webpack_default.filter((m) => Object.values(m).some((v) => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find((m) => m.exports !== window).exports;
+      const keyToPatch = Object.keys(moduleToPatch).find((k) => moduleToPatch[k]?.length === 3);
+      patcher_default.before(
+        keyToPatch,
+        moduleToPatch,
+        function(methodArgs) {
+          const promise = methodArgs[1];
+          methodArgs[1] = async function(...args) {
+            const render = await promise.call(this, ...args);
+            return (props) => {
+              const res = render(props);
+              if (res?.props.navId) {
+                _MenuPatcher.executePatches(res.props.navId, res, props);
+              } else if (typeof res?.type === "function") {
+                _MenuPatcher.patchRecursive(res, "type");
+              }
+              return res;
+            };
+          };
+          return methodArgs;
+        }
+      );
+    }
+    static patchRecursive(target, method, iteration = 0) {
+      if (iteration >= this.MAX_PATCH_ITERATIONS)
+        return;
+      const proxyFunction = this.subPatches.get(target[method]) ?? (() => {
+        const originalFunction = target[method];
+        const depth = ++iteration;
+        function patch(...args) {
+          const res = originalFunction.call(this, ...args);
+          if (!res)
+            return res;
+          const navId = res.props?.navId ?? res.props?.children?.props?.navId;
+          if (navId) {
+            _MenuPatcher.executePatches(navId, res, args[0]);
+          } else {
+            const layer = res.props.children ? res.props.children : res;
+            if (typeof layer?.type == "function") {
+              _MenuPatcher.patchRecursive(layer, "type", depth);
+            }
+          }
+          return res;
+        }
+        patch.__original__ = originalFunction;
+        Object.assign(patch, originalFunction);
+        this.subPatches.set(originalFunction, patch);
+        return patch;
+      })();
+      target[method] = proxyFunction;
+    }
+    static executePatches(id, res, props) {
+      if (!this.patches.has(id))
+        return;
+      this.patches.get(id).forEach((patch) => {
+        try {
+          patch(res, props);
+        } catch (err) {
+          logger_default.error("Failed to patch context menu", patch, err);
+        }
+      });
+    }
+  };
+  var MenuPatcher = _MenuPatcher;
+  __publicField(MenuPatcher, "MAX_PATCH_ITERATIONS", 16);
+  __publicField(MenuPatcher, "patches", /* @__PURE__ */ new Map());
+  __publicField(MenuPatcher, "subPatches", /* @__PURE__ */ new WeakMap());
+  function buildItem(props) {
+    const { type } = props;
+    if (type === "separator")
+      return React.createElement(Components.Separator);
+    let component = Components.Item;
+    if (type === "submenu") {
+      if (!props.children)
+        props.children = buildMenuChildren(props.render || props.items);
+    } else if (type === "toggle" || type === "radio") {
+      component = type === "toggle" ? Components.CheckboxItem : Components.RadioItem;
+      if (props.active)
+        props.checked = props.active;
+    } else if (type === "control") {
+      component = Components.ControlItem;
+    }
+    if (!props.id)
+      props.id = `${props.label.replace(/^[^a-z]+|[^\w-]+/gi, "-")}`;
+    if (props.danger)
+      props.color = "danger";
+    props.extended = true;
+    if (type === "toggle") {
+      const [active, doToggle] = React.useState(props.checked || false);
+      const originalAction = props.action;
+      props.checked = active;
+      props.action = function(ev) {
+        originalAction(ev);
+        doToggle(!active);
+      };
+    }
+    return React.createElement(component, props);
+  }
+  function buildMenuChildren(setup) {
+    const mapper = (s) => {
+      if (s.type === "group")
+        return buildGroup(s);
+      return buildItem(s);
+    };
+    const buildGroup = function(group) {
+      const items = group.items.map(mapper).filter((i) => i);
+      return React.createElement(Components.Group, null, items);
+    };
+    return setup.map(mapper).filter((i) => i);
+  }
+  var contextMenus_default = {
+    __cache__: {
+      patches: MenuPatcher.patches,
+      subPatches: MenuPatcher.subPatches
+    },
+    patch(navId, cb) {
+      if (!MenuPatcher.patches.has(navId))
+        MenuPatcher.patches.set(navId, /* @__PURE__ */ new Set());
+      MenuPatcher.patches.get(navId).add(cb);
+      return () => {
+        MenuPatcher.patches.get(navId).delete(cb);
+      };
+    },
+    open(event, component, config) {
+      return Actions.open(event, (e) => React.createElement(component, Object.assign({}, e, { onClose: Actions.close })), config);
+    },
+    close() {
+      return Actions.close();
+    },
+    build: {
+      item(setup) {
+        return buildMenuChildren([setup]);
+      },
+      menu(setup) {
+        return (props) => React.createElement(Components.Menu, props, buildMenuChildren(setup));
+      }
+    }
+  };
+
+  // src/lib/components/ErrorBoundary.jsx
+  var { React: React2 } = common_default2;
+  var ErrorBoundary = class extends React2.Component {
+    constructor(props) {
+      super(props);
+      this.state = { error: null };
+    }
+    componentDidCatch(error) {
+      this.setState({ error });
+      logger_default.error(error);
+      if (typeof this.props.onError === "function")
+        this.props.onError(error);
+    }
+    render() {
+      if (this.state.error)
+        return /* @__PURE__ */ React2.createElement("div", { className: "acord--react-error" }, /* @__PURE__ */ React2.createElement("p", null, "Unexpected React Error Happened."), /* @__PURE__ */ React2.createElement("p", null, `${this.state.error}`));
+      return this.props.children;
+    }
+  };
+  var originalRender = ErrorBoundary.prototype.render;
+  Object.defineProperty(ErrorBoundary.prototype, "render", {
+    enumerable: false,
+    configurable: false,
+    set: function() {
+      throw new Error("Cannot set render method of ErrorBoundary");
+    },
+    get: () => originalRender
+  });
+
+  // src/api/ui/components.js
+  var components_default = {
+    ErrorBoundary,
+    Button: common_default2.components.Button,
+    Markdown: common_default2.components.Markdown,
+    Text: common_default2.components.Text,
+    ConfirmationModal: common_default2.components.ConfirmationModal,
+    ModalRoot: common_default2.modals.components.Root,
+    ModalCloseButton: common_default2.modals.components.other.CloseButton,
+    ModalHeader: common_default2.modals.components.other.Header,
+    ModalContent: common_default2.modals.components.other.Content,
+    ModalFooter: common_default2.modals.components.other.Footer,
+    ModalListContent: common_default2.modals.components.other.ListContent,
+    Tooltip: common_default2.components.Tooltip
+  };
+
+  // src/api/ui/modals.jsx
+  var { React: React3, FluxDispatcher, components, modals, UserStore } = common_default2;
+  var modals_default = {
+    show: {
+      confirmation(title, content, { confirm = null, cancel = null, danger = false, key = void 0, timeout = 6e4 * 5 } = {}) {
+        return new Promise((resolve) => {
+          if (!Array.isArray(content))
+            content = [content];
+          content = content.map((i) => typeof i === "string" ? React3.createElement(components.Markdown, null, i) : i);
+          const modalKey = modals.actions.open((props) => {
+            let interacted2 = false;
+            return /* @__PURE__ */ React3.createElement(ErrorBoundary, { onError: () => {
+              resolve(false);
+            } }, /* @__PURE__ */ React3.createElement(
+              components.ConfirmationModal,
+              {
+                header: title,
+                confirmButtonColor: danger ? components.Button.Colors.RED : components.Button.Colors.BRAND,
+                confirmText: confirm || i18n_default.format("CONFIRM"),
+                cancelText: cancel,
+                onCancel: () => {
+                  resolve(false);
+                  modals.actions.close(modalKey);
+                  interacted2 = true;
+                },
+                onConfirm: () => {
+                  resolve(true);
+                  modals.actions.close(modalKey);
+                  interacted2 = true;
+                },
+                ...props,
+                onClose: () => {
+                  props.onClose();
+                  resolve(false);
+                  modals.actions.close(modalKey);
+                }
+              },
+              /* @__PURE__ */ React3.createElement(ErrorBoundary, { onError: () => {
+                resolve(false);
+              } }, content)
+            ));
+          }, { modalKey: key });
+          if (timeout) {
+            setTimeout(() => {
+              if (!interacted) {
+                resolve(false);
+                modals.actions.close(modalKey);
+              }
+            }, timeout);
+          }
+        });
+      },
+      user(userId) {
+        if (!UserStore.getUser(userId))
+          return false;
+        FluxDispatcher.dispatch({ type: "USER_PROFILE_MODAL_OPEN", userId });
+        return true;
+      },
+      alert(title, content, { confirm = null, key = void 0, timeout = 6e4 * 5 } = {}) {
+        return this.confirmation(title, content, { confirm, cancel: null, key, timeout });
+      }
+    },
+    close(key) {
+      return modals.actions.close(key);
+    }
+  };
+
+  // src/api/ui/toasts.js
+  function getContainer2() {
+    const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
+    let topContainer = appElm.querySelector(".acord--toasts-container");
+    if (!topContainer) {
+      topContainer = dom_default.parse(`<div class="acord--layer-container acord--toasts-container"></div>`);
+      appElm.appendChild(topContainer);
+    }
+    topContainer.style.setProperty("--top-offset", `${appElm.getBoundingClientRect().top.toFixed(1)}px`);
+    return topContainer;
+  }
+  var icons = {
+    info: `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z" fill="currentColor" /></svg>`,
+    warning: `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z" fill="currentColor" /></svg>`,
+    error: `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"fill="currentColor" /></svg>`,
+    success: `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" fill="currentColor" /></svg>`
+  };
+  function show3(content, {
+    style = "default",
+    timeout = 3500,
+    onClick = null,
+    hideIcon = false
+  } = {}) {
+    const container = getContainer2();
+    const toastElm = dom_default.parse(`
+    <div class="acord--toast style-${style} hidden">
+      ${hideIcon ? "" : icons[style] || ""}
       <div class="content"></div>
     </div>
-  `);l.querySelector(".content").innerHTML=e;let a=!1;function n(){a||(a=!0,l.classList.add("closing"),setTimeout(()=>{l.remove(),utils.ifExists(document.querySelector(".acord--toasts-container"),c=>{c.childElementCount||c.remove()})},275))}return typeof r=="function"&&(l.classList.add("clickable"),l.onclick=()=>{r(n)}),s.appendChild(l),requestAnimationFrame(()=>{l.classList.remove("hidden")}),setTimeout(n,o),()=>{n()}}var jt={show:Object.assign(te,{info:(e,t={})=>te(e,{...t,style:"info"}),error:(e,t={})=>te(e,{...t,style:"error"}),warning:(e,t={})=>te(e,{...t,style:"warning"}),success:(e,t={})=>te(e,{...t,style:"success"})})};var zt=`
-.acord--discord-button{position:relative;display:flex;justify-content:center;align-items:center;box-sizing:border-box;background:none;border:none;border-radius:3px;font-size:14px;font-weight:500;line-height:16px;padding:2px 16px;user-select:none;transition:background-color .17s ease,color .17s ease;cursor:pointer}.acord--discord-button:disabled,.acord--discord-button[aria-disabled=true]{cursor:not-allowed;opacity:.5}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button-lookFilled.colorBrand{color:var(--white-500);background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorBrand:hover{background-color:var(--brand-experiment-560)}.acord--discord-button-lookFilled.colorBrand:active{background-color:var(--brand-experiment-600)}.acord--discord-button-lookFilled.colorBrand .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrand:disabled,.acord--discord-button-lookFilled.colorBrand[aria-disabled=true]{background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorPrimary{color:var(--white-500);background-color:var(--button-secondary-background)}.acord--discord-button-lookFilled.colorPrimary:hover{background-color:var(--button-secondary-background-hover)}.acord--discord-button-lookFilled.colorPrimary:active{background-color:var(--button-secondary-background-active)}.acord--discord-button-lookFilled.colorPrimary .spinnerItem-3Y5NsU{background-color:var(--primary-100)}.acord--discord-button-lookFilled.colorPrimary:disabled,.acord--discord-button-lookFilled.colorPrimary[aria-disabled=true]{background-color:var(--button-secondary-background-disabled)}.acord--discord-button-lookFilled.colorGreen{color:var(--white-500);background-color:var(--button-positive-background)}.acord--discord-button-lookFilled.colorGreen:hover{background-color:var(--button-positive-background-hover)}.acord--discord-button-lookFilled.colorGreen:active{background-color:var(--button-positive-background-active)}.acord--discord-button-lookFilled.colorGreen .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorGreen:disabled,.acord--discord-button-lookFilled.colorGreen[aria-disabled=true]{background-color:var(--button-positive-background-disabled)}.acord--discord-button-lookFilled.colorRed{color:var(--white-500);background-color:var(--button-danger-background)}.acord--discord-button-lookFilled.colorRed:hover{background-color:var(--button-danger-background-hover)}.acord--discord-button-lookFilled.colorRed:active{background-color:var(--button-danger-background-active)}.acord--discord-button-lookFilled.colorRed .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorRed:disabled,.acord--discord-button-lookFilled.colorRed[aria-disabled=true]{background-color:var(--button-danger-background-disabled)}.acord--discord-button-lookFilled.colorBrandNew{color:var(--white-500);background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorBrandNew:hover{background-color:var(--brand-560)}.acord--discord-button-lookFilled.colorBrandNew:active{background-color:var(--brand-600)}.acord--discord-button-lookFilled.colorBrandNew .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrandNew:disabled,.acord--discord-button-lookFilled.colorBrandNew[aria-disabled=true]{background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorWhite{color:var(--primary-500);background-color:var(--white-500)}.acord--discord-button-lookFilled.colorWhite .spinnerItem-3Y5NsU{background-color:var(--primary-500)}.acord--discord-button-lookFilled.colorWhite:disabled,.acord--discord-button-lookFilled.colorWhite[aria-disabled=true]{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow{color:var(--white-500);background-color:var(--status-warning)}.acord--discord-button-lookFilled.colorYellow .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow:disabled,.acord--discord-button-lookFilled.colorYellow[aria-disabled=true]{background-color:var(--status-warning)}.acord--discord-button-grow{width:auto}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button.sizeTiny{width:52px;height:24px;min-width:52px;min-height:24px}.acord--discord-button.sizeSmall{width:60px;height:32px;min-width:60px;min-height:32px}.acord--discord-button.sizeMedium{width:96px;height:38px;min-width:96px;min-height:38px}.acord--discord-button.sizeLarge{width:130px;height:44px;min-width:130px;min-height:44px}.acord--discord-button.sizeXlarge{width:148px;height:50px;min-width:148px;min-height:50px;font-size:16px;line-height:normal;padding:2px 20px}.acord--discord-button.sizeMin{display:inline;width:auto;height:auto;padding:2px 4px}.acord--discord-button.sizeMax{width:100%;height:100%;min-width:100%;min-height:100%;font-size:16px}`;m.injectCSS(zt);var Ot={load(e){e.component("discord-button",{template:'\n        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="`${color ? `color${color[0].toUpperCase()}${color.slice(1).toLowerCase()}` : \'colorBrand\'} ${size ? `size${size[0].toUpperCase()}${size.slice(1).toLowerCase()}` : \'sizeMedium\'}`" @click="onClick">\n          <div class="acord--discord-button-contents">{{value}}</div>\n        </div>\n      ',props:["value","size","color"],emits:["click"],methods:{onClick(t){this.$emit("click",t)}}})}};var Mt=`
-.acord--discord-check{color:var(--white-700);background-color:currentColor;z-index:0}.acord--discord-check .slider{transition:100ms ease-in-out all;left:-3px}.acord--discord-check.checked{color:var(--green-400)}.acord--discord-check.checked .slider{transition:100ms ease-in-out all;left:12px}.acord--discord-check{position:relative;width:40px;height:24px}.acord--discord-check,.input-125oad{border-radius:14px;cursor:pointer}.acord--discord-check-slider{display:block;position:absolute;left:0;width:28px;height:18px;margin:3px}`;m.injectCSS(Mt);var It={load(e){e.component("discord-check",{template:`
+  `);
+    toastElm.querySelector(".content").innerHTML = content;
+    let closed = false;
+    function close() {
+      if (closed)
+        return;
+      closed = true;
+      toastElm.classList.add("closing");
+      setTimeout(() => {
+        toastElm.remove();
+        utils.ifExists(
+          document.querySelector(`.acord--toasts-container`),
+          /** @param {HTMLDivElement} elm */
+          (elm) => {
+            if (!elm.childElementCount)
+              elm.remove();
+          }
+        );
+      }, 275);
+    }
+    if (typeof onClick == "function") {
+      toastElm.classList.add("clickable");
+      toastElm.onclick = () => {
+        onClick(close);
+      };
+    }
+    container.appendChild(toastElm);
+    requestAnimationFrame(() => {
+      toastElm.classList.remove("hidden");
+    });
+    setTimeout(close, timeout);
+    return () => {
+      close();
+    };
+  }
+  var toasts_default = {
+    show: Object.assign(show3, {
+      info: (html, obj = {}) => show3(html, { ...obj, style: "info" }),
+      error: (html, obj = {}) => show3(html, { ...obj, style: "error" }),
+      warning: (html, obj = {}) => show3(html, { ...obj, style: "warning" }),
+      success: (html, obj = {}) => show3(html, { ...obj, style: "success" })
+    })
+  };
+
+  // src/api/ui/vue/components/discord-button/style.scss
+  var style_default2 = `
+.acord--discord-button{position:relative;display:flex;justify-content:center;align-items:center;box-sizing:border-box;background:none;border:none;border-radius:3px;font-size:14px;font-weight:500;line-height:16px;padding:2px 16px;user-select:none;transition:background-color .17s ease,color .17s ease;cursor:pointer}.acord--discord-button:disabled,.acord--discord-button[aria-disabled=true]{cursor:not-allowed;opacity:.5}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button-lookFilled.colorBrand{color:var(--white-500);background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorBrand:hover{background-color:var(--brand-experiment-560)}.acord--discord-button-lookFilled.colorBrand:active{background-color:var(--brand-experiment-600)}.acord--discord-button-lookFilled.colorBrand .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrand:disabled,.acord--discord-button-lookFilled.colorBrand[aria-disabled=true]{background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorPrimary{color:var(--white-500);background-color:var(--button-secondary-background)}.acord--discord-button-lookFilled.colorPrimary:hover{background-color:var(--button-secondary-background-hover)}.acord--discord-button-lookFilled.colorPrimary:active{background-color:var(--button-secondary-background-active)}.acord--discord-button-lookFilled.colorPrimary .spinnerItem-3Y5NsU{background-color:var(--primary-100)}.acord--discord-button-lookFilled.colorPrimary:disabled,.acord--discord-button-lookFilled.colorPrimary[aria-disabled=true]{background-color:var(--button-secondary-background-disabled)}.acord--discord-button-lookFilled.colorGreen{color:var(--white-500);background-color:var(--button-positive-background)}.acord--discord-button-lookFilled.colorGreen:hover{background-color:var(--button-positive-background-hover)}.acord--discord-button-lookFilled.colorGreen:active{background-color:var(--button-positive-background-active)}.acord--discord-button-lookFilled.colorGreen .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorGreen:disabled,.acord--discord-button-lookFilled.colorGreen[aria-disabled=true]{background-color:var(--button-positive-background-disabled)}.acord--discord-button-lookFilled.colorRed{color:var(--white-500);background-color:var(--button-danger-background)}.acord--discord-button-lookFilled.colorRed:hover{background-color:var(--button-danger-background-hover)}.acord--discord-button-lookFilled.colorRed:active{background-color:var(--button-danger-background-active)}.acord--discord-button-lookFilled.colorRed .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorRed:disabled,.acord--discord-button-lookFilled.colorRed[aria-disabled=true]{background-color:var(--button-danger-background-disabled)}.acord--discord-button-lookFilled.colorBrandNew{color:var(--white-500);background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorBrandNew:hover{background-color:var(--brand-560)}.acord--discord-button-lookFilled.colorBrandNew:active{background-color:var(--brand-600)}.acord--discord-button-lookFilled.colorBrandNew .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrandNew:disabled,.acord--discord-button-lookFilled.colorBrandNew[aria-disabled=true]{background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorWhite{color:var(--primary-500);background-color:var(--white-500)}.acord--discord-button-lookFilled.colorWhite .spinnerItem-3Y5NsU{background-color:var(--primary-500)}.acord--discord-button-lookFilled.colorWhite:disabled,.acord--discord-button-lookFilled.colorWhite[aria-disabled=true]{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow{color:var(--white-500);background-color:var(--status-warning)}.acord--discord-button-lookFilled.colorYellow .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow:disabled,.acord--discord-button-lookFilled.colorYellow[aria-disabled=true]{background-color:var(--status-warning)}.acord--discord-button-grow{width:auto}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button.sizeTiny{width:52px;height:24px;min-width:52px;min-height:24px}.acord--discord-button.sizeSmall{width:60px;height:32px;min-width:60px;min-height:32px}.acord--discord-button.sizeMedium{width:96px;height:38px;min-width:96px;min-height:38px}.acord--discord-button.sizeLarge{width:130px;height:44px;min-width:130px;min-height:44px}.acord--discord-button.sizeXlarge{width:148px;height:50px;min-width:148px;min-height:50px;font-size:16px;line-height:normal;padding:2px 20px}.acord--discord-button.sizeMin{display:inline;width:auto;height:auto;padding:2px 4px}.acord--discord-button.sizeMax{width:100%;height:100%;min-width:100%;min-height:100%;font-size:16px}`;
+
+  // src/api/ui/vue/components/discord-button/index.js
+  patcher_default.injectCSS(style_default2);
+  var discord_button_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("discord-button", {
+        template: `
+        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'}\`" @click="onClick">
+          <div class="acord--discord-button-contents">{{value}}</div>
+        </div>
+      `,
+        props: ["value", "size", "color"],
+        emits: ["click"],
+        methods: {
+          onClick(e) {
+            this.$emit("click", e);
+          }
+        }
+      });
+    }
+  };
+
+  // src/api/ui/vue/components/discord-check/style.scss
+  var style_default3 = `
+.acord--discord-check{color:var(--white-700);background-color:currentColor;z-index:0}.acord--discord-check .slider{transition:100ms ease-in-out all;left:-3px}.acord--discord-check.checked{color:var(--green-400)}.acord--discord-check.checked .slider{transition:100ms ease-in-out all;left:12px}.acord--discord-check{position:relative;width:40px;height:24px}.acord--discord-check,.input-125oad{border-radius:14px;cursor:pointer}.acord--discord-check-slider{display:block;position:absolute;left:0;width:28px;height:18px;margin:3px}`;
+
+  // src/api/ui/vue/components/discord-check/index.js
+  patcher_default.injectCSS(style_default3);
+  var discord_check_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("discord-check", {
+        template: `
         <div class="acord--discord-check default-colors" 
           :class="{'checked': modelValue}" 
           @click="onClick"
@@ -48,15 +3182,66 @@
             </svg>
           </svg>
         </div>
-      `,props:{modelValue:{default(){return!1}}},emits:["update:modelValue","change"],methods:{onClick(t){let o=!this.modelValue;this.$emit("update:modelValue",o),this.$emit("change",{value:o,event:t})}}})}};var Ft=`
-.acord--discord-input{font-size:16px;box-sizing:border-box;width:100%;border-radius:3px;color:var(--text-normal);background-color:var(--input-background);border:none;transition:border-color .2s ease-in-out}.acord--discord-input::placeholder{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:var(--input-placeholder-text)}.acord--discord-input:hover{border-color:var(--deprecated-text-input-border-hover)}.acord--discord-input.focused-16iuXg,.acord--discord-input:focus{border-color:var(--text-link)}.acord--discord-input.error-10GvqR{border-color:var(--status-danger)}.acord--discord-input.success-1V4i3f{border-color:var(--green-360)}.acord--discord-input.disabled-1-f06g{border-color:var(--deprecated-text-input-border-disabled)}.acord--discord-input.editable-1wRwlY{background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.acord--discord-inputWrapper{position:relative}.theme-dark .acord--discord-inputDefault::placeholder{color:hsl(var(--primary-100-hsl)/0.3)}.theme-dark .acord--discord-inputDefault{color:var(--primary-100)}.theme-light .acord--discord-inputDefault::placeholder{color:hsl(var(--primary-500-hsl)/0.3)}.theme-light .acord--discord-inputDefault{color:var(--primary-500)}.acord--discord-input-inner{position:relative;font-size:16px;line-height:20px;background-color:rgba(0,0,0,0);padding:10px 0 10px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.acord--discord-input-inner{width:100%;min-width:0;box-sizing:border-box;flex:1 1 auto;border:none;transition:color .15s ease;cursor:text}`;m.injectCSS(Ft);var $t={load(e){e.component("discord-input",{template:`
+      `,
+        props: {
+          modelValue: {
+            default() {
+              return false;
+            }
+          }
+        },
+        emits: ["update:modelValue", "change"],
+        methods: {
+          onClick(event) {
+            let newValue = !this.modelValue;
+            this.$emit("update:modelValue", newValue);
+            this.$emit("change", { value: newValue, event });
+          }
+        }
+      });
+    }
+  };
+
+  // src/api/ui/vue/components/discord-input/style.scss
+  var style_default4 = `
+.acord--discord-input{font-size:16px;box-sizing:border-box;width:100%;border-radius:3px;color:var(--text-normal);background-color:var(--input-background);border:none;transition:border-color .2s ease-in-out}.acord--discord-input::placeholder{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;color:var(--input-placeholder-text)}.acord--discord-input:hover{border-color:var(--deprecated-text-input-border-hover)}.acord--discord-input.focused-16iuXg,.acord--discord-input:focus{border-color:var(--text-link)}.acord--discord-input.error-10GvqR{border-color:var(--status-danger)}.acord--discord-input.success-1V4i3f{border-color:var(--green-360)}.acord--discord-input.disabled-1-f06g{border-color:var(--deprecated-text-input-border-disabled)}.acord--discord-input.editable-1wRwlY{background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.acord--discord-inputWrapper{position:relative}.theme-dark .acord--discord-inputDefault::placeholder{color:hsl(var(--primary-100-hsl)/0.3)}.theme-dark .acord--discord-inputDefault{color:var(--primary-100)}.theme-light .acord--discord-inputDefault::placeholder{color:hsl(var(--primary-500-hsl)/0.3)}.theme-light .acord--discord-inputDefault{color:var(--primary-500)}.acord--discord-input-inner{position:relative;font-size:16px;line-height:20px;background-color:rgba(0,0,0,0);padding:10px 0 10px 10px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.acord--discord-input-inner{width:100%;min-width:0;box-sizing:border-box;flex:1 1 auto;border:none;transition:color .15s ease;cursor:text}`;
+
+  // src/api/ui/vue/components/discord-input/index.js
+  patcher_default.injectCSS(style_default4);
+  var discord_input_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("discord-input", {
+        template: `
         <div class="acord--discord-input">
           <div class="acord--discord-inputWrapper">
             <input :type="type ?? 'text'" class="acord--discord-inputDefault acord--discord-input-inner" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" @keyup="$emit('keyup', $event)" />
           </div>
         </div>
-      `,props:["modelValue","placeholder","type","maxlength","max","min","step","style"],emits:["input","update:modelValue","keyup"],methods:{onInput(t){this.$emit("update:modelValue",t.target.value),this.$emit("input",{event:t,value:t.target.value})}}})}};var Zt=`
-.acord--discord-select{position:relative;width:100%}.acord--discord-select>.options{position:absolute;top:100%;width:100%;max-height:286px;overflow-x:hidden;overflow-y:scroll;z-index:1}.acord--discord-select>.options.top-popout{top:auto;bottom:100%}.acord--discord-select{border:1px solid rgba(0,0,0,0);padding:8px 8px 8px 12px;cursor:pointer;-webkit-box-sizing:border-box;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-radius:4px}.acord--discord-select{color:var(--text-normal);font-weight:500}.acord--discord-select-lookFilled.acord--discord-select-option,.acord--discord-select-lookFilled.acord--discord-select:hover.acord--discord-select-option{border-bottom-color:var(--brand-experiment);border-color:var(--brand-experiment) var(--brand-experiment) var(--background-tertiary)}.acord--discord-select-lookFilled.acord--discord-select{background-color:var(--input-background);border-color:var(--input-background)}.acord--discord-select-popout{box-sizing:border-box;border:1px solid var(--background-tertiary);background:var(--background-secondary);border-radius:0 0 4px 4px}.acord--discord-select-lookFilled.acord--discord-select-popout{border-radius:0 0 3px 3px}.acord--discord-select-lookFilled.acord--discord-select-popout.popoutPositionTop-3Uhefd{border-radius:3px 3px 0 0}.acord--discord-select-open{border-radius:4px 4px 0 0;border-bottom-color:rgba(0,0,0,0)}.selectPositionTop-3OGkHL.acord--discord-select-open{border-radius:0 0 4px 4px}.placeholder-2k_BvH,.acord--discord-select-value{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.wrapper-mJT04A .acord--discord-select-value{display:flex}.wrapper-mJT04A .acord--discord-select-value.multi-2vPqc4{display:block;white-space:normal}.acord--discord-select-value{gap:8px}.acord--discord-select-value{display:flex;align-items:center}.acord--discord-select-icons{gap:4px}.acord--discord-select-icons,.acord--discord-select-value{display:flex;align-items:center}.wrapper-mJT04A .acord--discord-select-icons{grid-column:2;grid-row:1;-webkit-margin-end:8px;margin-inline-end:8px;pointer-events:none}.acord--discord-select-scrollerBase{position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;min-height:0;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}.acord--discord-select-scrollThin{scrollbar-width:thin}.acord--discord-select-scrollThin,.acord--discord-select-scrollThin.fade-27X6bG.scrolling-37kgoT,.acord--discord-select-scrollThin.fade-27X6bG:hover{scrollbar-color:var(--scrollbar-thin-thumb) var(--scrollbar-thin-track)}.acord--discord-select-scrollThin::-webkit-scrollbar{width:8px;height:8px}.acord--discord-select-scrollThin::-webkit-scrollbar-track{border-color:var(--scrollbar-thin-track);background-color:var(--scrollbar-thin-track);border:2px solid var(--scrollbar-thin-track)}.acord--discord-select-scrollThin::-webkit-scrollbar-thumb{background-clip:padding-box;border:2px solid rgba(0,0,0,0);border-radius:4px;background-color:var(--scrollbar-thin-thumb);min-height:40px}.acord--discord-select-scrollThin::-webkit-scrollbar-corner{background-color:rgba(0,0,0,0)}.theme-dark.custom-theme-background .customTheme-3QAYZq.acord--discord-select-scrollThin::-webkit-scrollbar-thumb{background-size:200vh;background-image:linear-gradient(rgb(var(--bg-overlay-color-inverse)/var(--bg-overlay-opacity-4)), rgb(var(--bg-overlay-color-inverse)/var(--bg-overlay-opacity-4))),var(--custom-theme-background)}.theme-light.custom-theme-background .customTheme-3QAYZq.acord--discord-select-scrollThin::-webkit-scrollbar-thumb{background-size:100vh;background-image:rgb(var(--bg-overlay-color-inverse)/var(--bg-overlay-opacity-6)),rgb(var(--bg-overlay-color)/var(--bg-overlay-opacity-3))}.acord--discord-select-lookFilled.acord--discord-select-option,.acord--discord-select-lookFilled.acord--discord-select:hover.acord--discord-select-option{border-bottom-color:var(--brand-experiment);border-color:var(--brand-experiment) var(--brand-experiment) var(--background-tertiary)}.acord--discord-select-option{padding:12px;cursor:pointer;color:var(--interactive-normal);display:grid;grid-template-columns:1fr auto;align-items:center;font-weight:500;box-sizing:border-box}.acord--discord-select-option.focused-10mbp-,.acord--discord-select-option:focus,.acord--discord-select-option:hover{background-color:var(--background-modifier-hover);color:var(--interactive-hover)}.acord--discord-select-option[aria-selected=true]:not(.acord--discord-select-option.multi-2vPqc4){color:var(--interactive-active);background-color:var(--background-modifier-selected)}.acord--discord-select-selectedIcon{color:var(--brand-experiment)}`;m.injectCSS(Zt);var Bt={load(e){e.component("discord-select",{template:`
+      `,
+        props: ["modelValue", "placeholder", "type", "maxlength", "max", "min", "step", "style"],
+        emits: ["input", "update:modelValue", "keyup"],
+        methods: {
+          onInput(event) {
+            this.$emit("update:modelValue", event.target.value);
+            this.$emit("input", { event, value: event.target.value });
+          }
+        }
+      });
+    }
+  };
+
+  // src/api/ui/vue/components/discord-select/style.scss
+  var style_default5 = `
+.acord--discord-select{position:relative;width:100%}.acord--discord-select>.options{position:absolute;top:100%;width:100%;max-height:286px;overflow-x:hidden;overflow-y:scroll;z-index:1}.acord--discord-select>.options.top-popout{top:auto;bottom:100%}.acord--discord-select{border:1px solid rgba(0,0,0,0);padding:8px 8px 8px 12px;cursor:pointer;-webkit-box-sizing:border-box;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;-webkit-box-align:center;-ms-flex-align:center;align-items:center;border-radius:4px}.acord--discord-select{color:var(--text-normal);font-weight:500}.acord--discord-select-lookFilled.acord--discord-select-option,.acord--discord-select-lookFilled.acord--discord-select:hover.acord--discord-select-option{border-bottom-color:var(--brand-experiment);border-color:var(--brand-experiment) var(--brand-experiment) var(--background-tertiary)}.acord--discord-select-lookFilled.acord--discord-select{background-color:var(--input-background);border-color:var(--input-background)}.acord--discord-select-popout{box-sizing:border-box;border:1px solid var(--background-tertiary);background:var(--background-secondary);border-radius:0 0 4px 4px}.acord--discord-select-lookFilled.acord--discord-select-popout{border-radius:0 0 3px 3px}.acord--discord-select-lookFilled.acord--discord-select-popout.popoutPositionTop-3Uhefd{border-radius:3px 3px 0 0}.acord--discord-select-open{border-radius:4px 4px 0 0;border-bottom-color:rgba(0,0,0,0)}.selectPositionTop-3OGkHL.acord--discord-select-open{border-radius:0 0 4px 4px}.placeholder-2k_BvH,.acord--discord-select-value{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.wrapper-mJT04A .acord--discord-select-value{display:flex}.wrapper-mJT04A .acord--discord-select-value.multi-2vPqc4{display:block;white-space:normal}.acord--discord-select-value{gap:8px}.acord--discord-select-value{display:flex;align-items:center}.acord--discord-select-icons{gap:4px}.acord--discord-select-icons,.acord--discord-select-value{display:flex;align-items:center}.wrapper-mJT04A .acord--discord-select-icons{grid-column:2;grid-row:1;-webkit-margin-end:8px;margin-inline-end:8px;pointer-events:none}.acord--discord-select-scrollerBase{position:relative;-webkit-box-sizing:border-box;box-sizing:border-box;min-height:0;-webkit-box-flex:1;-ms-flex:1 1 auto;flex:1 1 auto}.acord--discord-select-scrollThin{scrollbar-width:thin}.acord--discord-select-scrollThin,.acord--discord-select-scrollThin.fade-27X6bG.scrolling-37kgoT,.acord--discord-select-scrollThin.fade-27X6bG:hover{scrollbar-color:var(--scrollbar-thin-thumb) var(--scrollbar-thin-track)}.acord--discord-select-scrollThin::-webkit-scrollbar{width:8px;height:8px}.acord--discord-select-scrollThin::-webkit-scrollbar-track{border-color:var(--scrollbar-thin-track);background-color:var(--scrollbar-thin-track);border:2px solid var(--scrollbar-thin-track)}.acord--discord-select-scrollThin::-webkit-scrollbar-thumb{background-clip:padding-box;border:2px solid rgba(0,0,0,0);border-radius:4px;background-color:var(--scrollbar-thin-thumb);min-height:40px}.acord--discord-select-scrollThin::-webkit-scrollbar-corner{background-color:rgba(0,0,0,0)}.theme-dark.custom-theme-background .customTheme-3QAYZq.acord--discord-select-scrollThin::-webkit-scrollbar-thumb{background-size:200vh;background-image:linear-gradient(rgb(var(--bg-overlay-color-inverse)/var(--bg-overlay-opacity-4)), rgb(var(--bg-overlay-color-inverse)/var(--bg-overlay-opacity-4))),var(--custom-theme-background)}.theme-light.custom-theme-background .customTheme-3QAYZq.acord--discord-select-scrollThin::-webkit-scrollbar-thumb{background-size:100vh;background-image:rgb(var(--bg-overlay-color-inverse)/var(--bg-overlay-opacity-6)),rgb(var(--bg-overlay-color)/var(--bg-overlay-opacity-3))}.acord--discord-select-lookFilled.acord--discord-select-option,.acord--discord-select-lookFilled.acord--discord-select:hover.acord--discord-select-option{border-bottom-color:var(--brand-experiment);border-color:var(--brand-experiment) var(--brand-experiment) var(--background-tertiary)}.acord--discord-select-option{padding:12px;cursor:pointer;color:var(--interactive-normal);display:grid;grid-template-columns:1fr auto;align-items:center;font-weight:500;box-sizing:border-box}.acord--discord-select-option.focused-10mbp-,.acord--discord-select-option:focus,.acord--discord-select-option:hover{background-color:var(--background-modifier-hover);color:var(--interactive-hover)}.acord--discord-select-option[aria-selected=true]:not(.acord--discord-select-option.multi-2vPqc4){color:var(--interactive-active);background-color:var(--background-modifier-selected)}.acord--discord-select-selectedIcon{color:var(--brand-experiment)}`;
+
+  // src/api/ui/vue/components/discord-select/index.js
+  patcher_default.injectCSS(style_default5);
+  var discord_select_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("discord-select", {
+        template: `
         <div class="acord--discord-select acord--discord-select-lookFilled acord--discord-select" :class="{'acord--discord-select-open': active}">
           <div class="acord--discord-select-value">{{options.find(i=>i.value === modelValue)?.label}}</div>
           <div class="acord--discord-select-icons">
@@ -70,13 +3255,787 @@
             </div>
           </div>
         </div>
-      `,data(){return{active:!1}},props:["options","modelValue","popoutPosition"],emits:["update:modelValue","change"],mounted(){window.addEventListener("click",this.onClick)},unmounted(){window.removeEventListener("click",this.onClick)},methods:{onOptionClick(t,o){this.$emit("update:modelValue",o.value),this.$emit("change",{value:o.value,event:t})},onClick(t){if(t.target.classList.contains("acord--discord-select")||t.target.classList.contains("acord--discord-select-value")||t.target.classList.contains("acord--discord-select-icons")||t.target.classList.contains("acord--discord-select-popout")||t.target.classList.contains("acord--discord-select-option")||t.target.classList.contains("icon")){this.active=!this.active;return}this.active=!1}}})}};var Dt=`
-.acord--discord-textarea{width:100%}.acord--discord-textarea-inputWrapper{display:flex;flex-direction:column}.acord--discord-textarea-inputDefault{padding:10px;height:40px}.acord--discord-textarea-input{font-size:16px;box-sizing:border-box;width:100%;border-radius:3px;color:var(--text-normal);background-color:var(--input-background);border:none;transition:border-color .2s ease-in-out}.acord--discord-textarea-input::placeholder{user-select:none;color:var(--input-placeholder-text)}.acord--discord-textarea-input:hover{border-color:var(--deprecated-text-input-border-hover)}.acord--discord-textarea-input:focus{border-color:var(--text-link)}.acord--discord-textarea-input.error{border-color:var(--status-danger)}.acord--discord-textarea-input.success{border-color:var(--green-360)}.acord--discord-textarea-input.disabled{border-color:var(--deprecated-text-input-border-disabled)}.acord--discord-textarea-input.editable{background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.acord--discord-textarea-textArea{height:auto;resize:none}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar{width:14px;height:14px}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-thumb,.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-track{border-radius:7px;background-clip:padding-box;border:3px solid rgba(0,0,0,0)}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-thumb{background-color:var(--scrollbar-auto-thumb)}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-track{background-color:var(--scrollbar-auto-track);border-width:initial}.acord--discord-textarea-scrollbar::-webkit-scrollbar-corner{border:none;background:none}`;m.injectCSS(Dt);var Rt={load(e){e.component("discord-textarea",{template:`
+      `,
+        data() {
+          return {
+            active: false
+          };
+        },
+        props: ["options", "modelValue", "popoutPosition"],
+        emits: ["update:modelValue", "change"],
+        mounted() {
+          window.addEventListener("click", this.onClick);
+        },
+        unmounted() {
+          window.removeEventListener("click", this.onClick);
+        },
+        methods: {
+          onOptionClick(event, option) {
+            this.$emit("update:modelValue", option.value);
+            this.$emit("change", { value: option.value, event });
+          },
+          onClick(e) {
+            if (e.target.classList.contains("acord--discord-select") || e.target.classList.contains("acord--discord-select-value") || e.target.classList.contains("acord--discord-select-icons") || e.target.classList.contains("acord--discord-select-popout") || e.target.classList.contains("acord--discord-select-option") || e.target.classList.contains("icon")) {
+              this.active = !this.active;
+              return;
+            }
+            this.active = false;
+          }
+        }
+      });
+    }
+  };
+
+  // src/api/ui/vue/components/discord-textarea/style.scss
+  var style_default6 = `
+.acord--discord-textarea{width:100%}.acord--discord-textarea-inputWrapper{display:flex;flex-direction:column}.acord--discord-textarea-inputDefault{padding:10px;height:40px}.acord--discord-textarea-input{font-size:16px;box-sizing:border-box;width:100%;border-radius:3px;color:var(--text-normal);background-color:var(--input-background);border:none;transition:border-color .2s ease-in-out}.acord--discord-textarea-input::placeholder{user-select:none;color:var(--input-placeholder-text)}.acord--discord-textarea-input:hover{border-color:var(--deprecated-text-input-border-hover)}.acord--discord-textarea-input:focus{border-color:var(--text-link)}.acord--discord-textarea-input.error{border-color:var(--status-danger)}.acord--discord-textarea-input.success{border-color:var(--green-360)}.acord--discord-textarea-input.disabled{border-color:var(--deprecated-text-input-border-disabled)}.acord--discord-textarea-input.editable{background-color:rgba(0,0,0,0);border-color:rgba(0,0,0,0)}.acord--discord-textarea-textArea{height:auto;resize:none}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar{width:14px;height:14px}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-thumb,.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-track{border-radius:7px;background-clip:padding-box;border:3px solid rgba(0,0,0,0)}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-thumb{background-color:var(--scrollbar-auto-thumb)}.acord--discord-textarea-scrollbarDefault::-webkit-scrollbar-track{background-color:var(--scrollbar-auto-track);border-width:initial}.acord--discord-textarea-scrollbar::-webkit-scrollbar-corner{border:none;background:none}`;
+
+  // src/api/ui/vue/components/discord-textarea/index.js
+  patcher_default.injectCSS(style_default6);
+  var discord_textarea_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("discord-textarea", {
+        template: `
         <div class="acord--discord-textarea-inputWrapper acord--discord-textarea">
           <textarea class="acord--discord-textarea-inputDefault acord--discord-textarea-input acord--discord-textarea-textArea acord--discord-textarea-scrollbarDefault acord--discord-textarea-scrollbar" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :cols="cols" :rows="rows" :style="style" @input="onInput"></textarea>
         </div>
-      `,props:["modelValue","placeholder","maxlength","style","cols","rows"],emits:["input","update:modelValue"],methods:{onInput(t){this.$emit("update:modelValue",t.target.value),this.$emit("input",{event:t,value:t.target.value})}}})}};var Nt={load(e){It.load(e),Rt.load(e),Bt.load(e),$t.load(e),Ot.load(e)}};function Ut(e,t){!e.$__recomputables||!e.$__recomputables[t]||e.$__recomputables[t].backdoor++}function Ht(e,t){let o=Vue.computed({backdoor:0});return function(){return this.$__recomputables||(this.$__recomputables={}),this.$__recomputables[e.name||t]||(this.$__recomputables[e.name||t]=o),o.backdoor,e.call(this)}}var Vt={components:{load(e){Nt.load(e)}},ready:{async when(){for(;!window.Vue;)await new Promise(e=>setTimeout(e,100));return!0},get is(){return!!window.Vue}},get Vue(){return window.Vue},utils:{computed:{recompute:Ut,recomputable:Ht}}};m.injectCSS(Ct);var T={tooltips:Pt,notifications:de,contextMenus:Lt,components:At,modals:K,toasts:jt,vue:Vt};var or={},oe=or;async function rr(e,t){let o=S.enabled||e?.mode==="development",r=await D.createPersistNest(t),i={modules:{__cache__:{common:{},node:{},custom:{},customLazy:{}},require(s){return o?C.require(s):typeof i.modules.__cache__.node[s]<"u"?i.modules.__cache__.node[s]:e?.api?.modules?.node?.some?.(l=>l.name===s)?i.modules.__cache__.node[s]=C.require(s):null},common:new Proxy({},{get(s,l){return o?C.common[l]:typeof i.modules.__cache__.common[l]<"u"?i.modules.__cache__.common[l]:e?.api?.modules?.common?.some?.(a=>a.name===l)?i.modules.__cache__.common[l]=C.common[l]:null}}),custom:new Proxy({},{get(s,l){if(typeof i.modules.__cache__.custom[l]<"u")return i.modules.__cache__.custom[l];let a=e?.api?.modules?.custom?.find?.(n=>n.name===l);if(!a?.finder)return null;if(a.lazy){let n=new Promise(async(c,d)=>{let f=await C.webpack.lazyFindByFinder(a.finder);i.modules.__cache__.customLazy[l]=f,c(f)});i.modules.__cache__.custom[l]={get(){return n},get value(){return i.modules.__cache__.customLazy[l]}}}else{let n=C.webpack.findByFinder(a.finder);try{typeof n?.value<"u"?i.modules.__cache__.custom[l]=n?Object.assign(n,{value:n,get(){return n}}):null:i.modules.__cache__.custom[l]=n}catch{i.modules.__cache__.custom[l]=n?{value:n,get(){return n}}:null}}return i.modules.__cache__.custom[l]}}),get native(){return e?.modules?.native||o?C.native:null}},extension:{manifest:e,persist:r,i18n:await kt(e),events:new H,subscriptions:[]},get shared(){return e?.api?.shared||o?oe:null},get i18n(){return e?.api?.i18n||o?u:null},get patcher(){return e?.api?.patcher||o?m:null},get events(){return e?.api?.events||o?h:null},get storage(){return e?.api?.storage||o?D:null},get websocket(){return e?.api?.websocket||o?$:null},get ui(){return e?.api?.ui||o?T:null},get utils(){return e?.api?.utils||o?y:null},get dom(){return e?.api?.dom||o?x:null},get dev(){return e?.api?.dev||o?S:null}};return i}function Xn(){}var p={__cache__:{initialized:!1,loaded:Wt.make({}),config:{}},storage:{installed:{}},async init(){p.__cache__.initialized||(p.__cache__.initialized=!0,p.storage.installed=await D.createPersistNest("Extensions;Installed"))},async install(e,t={}){if(p.__cache__.initialized||await p.init(),e.endsWith("/")&&(e=e.slice(0,-1)),p.storage.installed.ghost[e])throw new Error(`"${e}" extension is already installed.`);let o=await fetch(`${e}/manifest.json`);if(o.status!==200)throw new Error(`"${e}" extension manifest is not responded with 200 status code.`);let r=await o.json(),i=await fetch(`${e}/readme.md`),s=i.status===200?await i.text():null;await({...t},void 0);let l=await fetch(`${e}/source.js`);if(l.status!==200)throw new Error(`"${e}" extension source is not responded with 200 status code.`);let a=await l.text();p.storage.installed.store[e]={manifest:r,source:a,readme:s,config:{autoUpdate:!0,enabled:!0,order:0,...t},extra:{lastUpdatedAt:Date.now()}},await p.load(e)},async update(e){if(p.__cache__.initialized||await p.init(),e.endsWith("/")&&(e=e.slice(0,-1)),!p.storage.installed.ghost[e])throw new Error(`"${e}" extension is not installed.`);let t=p.storage.installed.ghost[e],o=await fetch(`${e}/manifest.json`);if(o.status!==200)throw new Error(`"${e}" extension manifest is not responded with 200 status code.`);let r=JSON.parse(await o.text());if(t.manifest.hash===r.hash)return!1;let i=await fetch(`${e}/readme.md`),s=i.status===200?await i.text():null,l=await fetch(`${e}/source.js`);if(l.status!==200)throw new Error(`"${e}" extension source is not responded with 200 status code.`);let a=await l.text(),n=!1;return p.__cache__.loaded.ghost[e]&&(n=!0,await p.unload(e)),p.storage.installed.store[e]={manifest:r,source:a,readme:s,config:t.config,extra:{lastUpdatedAt:Date.now()}},n&&(await new Promise(c=>setTimeout(c,1)),await p.load(e)),!0},async uninstall(e){if(p.__cache__.initialized||await p.init(),e.endsWith("/")&&(e=e.slice(0,-1)),!p.storage.installed.ghost[e])throw new Error(`"${e}" extension is not installed.`);delete p.storage.installed.store[e];try{await p.unload(e)}catch(t){k.error(t)}},async load(e){if(p.__cache__.initialized||await p.init(),e.endsWith("/")&&(e=e.slice(0,-1)),!p.storage.installed.ghost[e])throw new Error(`"${e}" extension is not installed.`);let t=p.storage.installed.ghost[e];if(p.__cache__.loaded.ghost[e])throw new Error(`"${e}" extension is already loaded.`);await p.loader.load(e,t)},async unload(e){if(p.__cache__.initialized||await p.init(),e.endsWith("/")&&(e=e.slice(0,-1)),!p.__cache__.loaded.ghost[e])throw new Error(`"${e}" extension is not loaded.`);await p.loader.unload(e)},evaluate(source,api){let $acord=api;return eval(source)},async loadAll(){return p.__cache__.initialized||await p.init(),Promise.all(Object.entries(p.storage.installed.ghost).sort(([,e],[,t])=>t.config.order-e.config.order).map(async([e,t])=>{t.config.autoUpdate&&await p.update(e);try{t.config.enabled&&await p.load(e)}catch(o){k.error("Unable to load extension",e,o)}}))},async unloadAll(){return p.__cache__.initialized||await p.init(),Promise.all(Object.keys(p.__cache__.loaded.ghost).map(e=>p.unload(e)))},get(e){return{loaded:p.__cache__.loaded.ghost[e],installed:p.storage.installed.ghost[e]}},loader:{async load(e,t){if(t.manifest.type==="plugin"){let i=function(a,{path:n,value:c}={}){if(n[0]==="settings"){let d=M(p.__cache__.config[e],g=>g.id===n[1]),f=a==="DELETE"?null:c;d.inputType==="number"&&(f=Number(f)),d&&(d.value=f)}},l=function(){s(),o.extension.subscriptions.forEach(a=>{typeof a=="function"&&a()}),o.extension.events.emit("unload"),r?.unload?.(),o.extension.persist.off("UPDATE",i),o.extension.persist.off("DELETE",i),o.extension.persist.off("SET",i)},o=await rr(t.manifest,`Extension;Persist;${e}`);o.extension.persist.ghost.settings===void 0&&(o.extension.persist.store.settings={}),await T.vue.ready.when(),p.__cache__.config[e]=Vue.reactive(JSON.parse(JSON.stringify(t.manifest.config))),M(p.__cache__.config[e],a=>a.id,{all:!0}).forEach(a=>{o.extension.persist.store.settings[a.id]=o.extension.persist.ghost?.settings?.[a.id]??a.default,a.value=o.extension.persist.ghost?.settings?.[a.id]});let r=p.evaluate(t.source,o);await r?.load?.(),o.extension.persist.on("UPDATE",i),o.extension.persist.on("DELETE",i),o.extension.persist.on("SET",i);let s=h.on("ExtensionConfigInteraction",a=>{if(a.extension!==e)return;function n(){if(!a.item.id)return!1;let c=a.item.value??a.data.value;return a.item.inputType==="number"&&(c=Number(c)),o.extension.persist.store.settings[a.item.id]=c,!0}n(),a.item.id&&(o.extension.persist.store.settings[a.item.id]=a.item.value??a.data.value),r?.config?.({item:a.item,data:a.data,getItem(c){return M(p.__cache__.config[e],d=>d.id===c)},getItems(){return M(p.__cache__.config[e],c=>c.id,{all:!0})},save:n})});return p.__cache__.loaded.store[e]={evaluated:r,api:o,unload:l},h.emit("ExtensionLoaded",{id:e}),{evaluated:r,api:o,unload:l}}else if(t.manifest.type==="theme"){let a=function(){l(),s()},o=p.evaluate(t.source,null),r=await D.createPersistNest(`Extension;Persist;${e}`);r.ghost.settings===void 0&&(r.store.settings={}),p.__cache__.config[e]=JSON.parse(JSON.stringify(t.manifest.config)),M(p.__cache__.config[e],n=>n.id,{all:!0}).forEach(n=>{r.store.settings[n.id]=r.ghost?.settings?.[n.id]??n.default,n.value=r.ghost?.settings?.[n.id]});let i=o(),s=m.injectCSS(i,r.ghost.settings),l=h.on("ExtensionConfigInteraction",n=>{n.extension===e&&n.item.id&&(r.store.settings[n.item.id]=n.data.value,s(r.ghost.settings))});return p.__cache__.loaded.store[e]={evaluated:o,unload:a},h.emit("ExtensionLoaded",{id:e}),{evaluated:o,unload:a}}},unload(e){p.__cache__.loaded.ghost?.[e]?.unload?.(),delete p.__cache__.loaded.store[e],delete p.__cache__.config[e],h.emit("ExtensionUnloaded",{id:e})}}};Z().then(async()=>{await y.sleep(100),p.loadAll()});var b=p;var xe=!1,ge=!1,re,We,Ge={get loaded(){return re},get installed(){return We},unload(){return re?(b.loader.unload("Development"),re=null,We=null,!0):!1},async load(e,t){if(!e||!t)throw new Error("Source and manifest are required to load an extension!");if(re)throw new Error("Extension is already loaded!");if(ge)return!1;ge=!0;try{re=await b.loader.load("Development",{source:e,manifest:t}),We={manifest:t}}catch(o){return k.error("Unable to load development extension.",u.localize(t.about.name),o),ge=!1,!1}return ge=!1,!0}},ir={get enabled(){return xe},set enabled(e){if(!globalThis["<PRELOAD_KEY>"].isDevToolsOpen())throw new Error("Dev mode status can only be modified when DevTools is open!");xe=e},get extension(){if(!xe)throw new Error("Dev mode is not enabled!");return Ge}},S=ir,qe=!1;$.set("UpdateDevelopmentExtension",async({source:e,manifest:t}={})=>{if(!xe)return k.warn("Development extension was sent before dev mode was enabled.");if(!e||!t)return k.warn("Development extension was sent without source or manifest.");if(qe)return k.warn("Development extension was sent while extension was already being processed.");qe=!0,Ge.unload(),await new Promise(r=>setTimeout(r,1)),await Ge.load(e,t)&&k.info(`Development extension is loaded! (${u.localize(t.about.name)})`),qe=!1});var Ke={process:globalThis["<PRELOAD_KEY>"].process,isDevToolsOpen:globalThis["<PRELOAD_KEY>"].isDevToolsOpen};function O(e){return new Error(`The ${e} API can only be accessed when Dev mode is enabled!`)}var qt={exposedAPI:{dev:S,get utils(){if(!S.enabled)throw O("Utils");return y},get i18n(){if(!S.enabled)throw O("i18n");return u},get events(){if(!S.enabled)throw O("Events");return h},get ui(){if(!S.enabled)throw O("UI");return T},get shared(){if(!S.enabled)throw O("Shared");return oe},get dom(){if(!S.enabled)throw O("DOM");return x},get patcher(){if(!S.enabled)throw O("Patcher");return m},get storage(){if(!S.enabled)throw O("Storage");return D},get modules(){if(!S.enabled)throw O("Modules");return C},get extensions(){if(!S.enabled)throw O("Extensions");return b},get internal(){if(!S.enabled)throw O("Internal");return Ke},get websocket(){if(!S.enabled)throw O("Websocket");return $}},unexposedAPI:{dev:S,modules:C,utils:y,extensions:b,i18n:u,storage:D,events:h,patcher:m,internal:Ke,websocket:$,shared:oe,ui:T,dom:x}};var nr=document.__lookupSetter__("title"),ar=document.__lookupGetter__("title");Object.defineProperty(document,"title",{get(){return ar.call(this)},set(e){return h.emit("DocumentTitleChange",e),nr.call(this,e)}});$.set("InstallExtension",async({url:e}={})=>{if(!(!e||(await C.native.window.setAlwaysOnTop(0,!0),await new Promise(o=>setTimeout(o,250)),await C.native.window.setAlwaysOnTop(0,!0),!await K.show.confirmation(acord.i18n.format("IMPORT_EXTENSION_MODAL_TITLE"),acord.i18n.format("IMPORT_EXTENSION_MODAL_DESCRIPTION",e)))))try{await b.load(e)}catch(o){de.show.error(`${o}`,{timeout:3e4})}});var Gt=`
-[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:var(--background-modifier-selected)}`;var Kt={load(e){e.component("home-page",{template:`
+      `,
+        props: ["modelValue", "placeholder", "maxlength", "style", "cols", "rows"],
+        emits: ["input", "update:modelValue"],
+        methods: {
+          onInput(event) {
+            this.$emit("update:modelValue", event.target.value);
+            this.$emit("input", { event, value: event.target.value });
+          }
+        }
+      });
+    }
+  };
+
+  // src/api/ui/vue/components/index.js
+  var components_default2 = {
+    load(vueApp) {
+      discord_check_default.load(vueApp);
+      discord_textarea_default.load(vueApp);
+      discord_select_default.load(vueApp);
+      discord_input_default.load(vueApp);
+      discord_button_default.load(vueApp);
+    }
+  };
+
+  // src/api/ui/vue/utils/recompute.js
+  function recompute(vm, propName) {
+    if (!vm.$__recomputables || !vm.$__recomputables[propName]) {
+      return;
+    }
+    vm.$__recomputables[propName].backdoor++;
+  }
+  function recomputable(fn, name2) {
+    const reactive = Vue.computed({
+      backdoor: 0
+    });
+    return function() {
+      if (!this.$__recomputables) {
+        this.$__recomputables = {};
+      }
+      if (!this.$__recomputables[fn.name || name2]) {
+        this.$__recomputables[fn.name || name2] = reactive;
+      }
+      reactive.backdoor;
+      return fn.call(this);
+    };
+  }
+
+  // src/api/ui/vue/index.js
+  var vue_default = {
+    components: {
+      load(vueApp) {
+        components_default2.load(vueApp);
+      }
+    },
+    ready: {
+      async when() {
+        while (!window.Vue) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        return true;
+      },
+      get is() {
+        return !!window.Vue;
+      }
+    },
+    get Vue() {
+      return window.Vue;
+    },
+    utils: {
+      computed: {
+        recompute,
+        recomputable
+      }
+    }
+  };
+
+  // src/api/ui/index.js
+  patcher_default.injectCSS(styles_default);
+  var ui_default = {
+    tooltips: tooltips_default,
+    notifications: notifications_default,
+    contextMenus: contextMenus_default,
+    components: components_default,
+    modals: modals_default,
+    toasts: toasts_default,
+    vue: vue_default
+  };
+
+  // src/api/shared/index.js
+  var shared = {};
+  var shared_default = shared;
+
+  // src/api/extensions/index.js
+  async function buildPluginAPI(manifest, persistKey) {
+    const devMode = manifest?.mode === "development";
+    const persist = await storage_default.createPersistNest(persistKey);
+    const out4 = {
+      modules: {
+        __cache__: {
+          common: {},
+          node: {},
+          custom: {},
+          customLazy: {}
+        },
+        require(name2) {
+          if (!devMode) {
+            if (typeof out4.modules.__cache__.node[name2] !== "undefined")
+              return out4.modules.__cache__.node[name2];
+            if (manifest?.api?.modules?.node?.some?.((i) => i.name === name2))
+              return out4.modules.__cache__.node[name2] = modules_default.require(name2);
+          } else {
+            return modules_default.require(name2);
+          }
+          return null;
+        },
+        common: new Proxy({}, {
+          get(_2, prop) {
+            if (!devMode) {
+              if (typeof out4.modules.__cache__.common[prop] !== "undefined")
+                return out4.modules.__cache__.common[prop];
+              if (manifest?.api?.modules?.common?.some?.((i) => i.name === prop))
+                return out4.modules.__cache__.common[prop] = modules_default.common[prop];
+            } else {
+              return modules_default.common[prop];
+            }
+            return null;
+          }
+        }),
+        custom: new Proxy({}, {
+          get(_2, prop) {
+            if (typeof out4.modules.__cache__.custom[prop] !== "undefined")
+              return out4.modules.__cache__.custom[prop];
+            let data = manifest?.api?.modules?.custom?.find?.((i) => i.name === prop);
+            if (!data?.finder)
+              return null;
+            if (data.lazy) {
+              let prom = new Promise(async (resolve, reject) => {
+                let r = await modules_default.webpack.lazyFindByFinder(data.finder);
+                out4.modules.__cache__.customLazy[prop] = r;
+                resolve(r);
+              });
+              out4.modules.__cache__.custom[prop] = {
+                get() {
+                  return prom;
+                },
+                get value() {
+                  return out4.modules.__cache__.customLazy[prop];
+                }
+              };
+            } else {
+              let value = modules_default.webpack.findByFinder(data.finder);
+              try {
+                if (typeof value?.value !== "undefined") {
+                  out4.modules.__cache__.custom[prop] = value ? Object.assign(value, { value, get() {
+                    return value;
+                  } }) : null;
+                } else {
+                  out4.modules.__cache__.custom[prop] = value;
+                }
+              } catch {
+                out4.modules.__cache__.custom[prop] = value ? { value, get() {
+                  return value;
+                } } : null;
+              }
+            }
+            return out4.modules.__cache__.custom[prop];
+          }
+        }),
+        get native() {
+          if (manifest?.modules?.native || devMode)
+            return modules_default.native;
+          return null;
+        }
+      },
+      extension: {
+        manifest,
+        persist,
+        i18n: await buildExtensionI18N(manifest),
+        events: new BasicEventEmitter(),
+        subscriptions: []
+      },
+      get shared() {
+        if (manifest?.api?.shared || devMode)
+          return shared_default;
+        return null;
+      },
+      get i18n() {
+        if (manifest?.api?.i18n || devMode)
+          return i18n_default;
+        return null;
+      },
+      get patcher() {
+        if (manifest?.api?.patcher || devMode)
+          return patcher_default;
+        return null;
+      },
+      get events() {
+        if (manifest?.api?.events || devMode)
+          return events_default;
+        return null;
+      },
+      get storage() {
+        if (manifest?.api?.storage || devMode)
+          return storage_default;
+        return null;
+      },
+      get websocket() {
+        if (manifest?.api?.websocket || devMode)
+          return websocket_default;
+        return null;
+      },
+      get ui() {
+        if (manifest?.api?.ui || devMode)
+          return ui_default;
+        return null;
+      },
+      get utils() {
+        if (manifest?.api?.utils || devMode)
+          return utils_default;
+        return null;
+      },
+      get dom() {
+        if (manifest?.api?.dom || devMode)
+          return dom_default;
+        return null;
+      },
+      get dev() {
+        if (manifest?.api?.dev || devMode)
+          return dev_default;
+        return null;
+      }
+    };
+    return out4;
+  }
+  function showConfirmationModal() {
+  }
+  var out2 = {
+    __cache__: {
+      initialized: false,
+      loaded: nests2.make({}),
+      config: {}
+    },
+    storage: {
+      /** @type {nests.Nest} */
+      installed: {}
+    },
+    async init() {
+      if (out2.__cache__.initialized)
+        return;
+      out2.__cache__.initialized = true;
+      out2.storage.installed = await storage_default.createPersistNest("Extensions;Installed");
+    },
+    /**
+     * @param {string} url 
+     */
+    async install(url, defaultConfig = {}) {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      if (url.endsWith("/"))
+        url = url.slice(0, -1);
+      if (out2.storage.installed.ghost[url])
+        throw new Error(`"${url}" extension is already installed.`);
+      let metaResp = await fetch(`${url}/manifest.json`, { cache: "no-store" });
+      if (metaResp.status !== 200)
+        throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
+      let manifest = await metaResp.json();
+      let readmeResp = await fetch(`${url}/readme.md`, { cache: "no-store" });
+      let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
+      await showConfirmationModal({
+        manifest,
+        readme,
+        config: {
+          autoUpdate: true,
+          enabled: true,
+          order: 0,
+          ...defaultConfig
+        }
+      });
+      let sourceResp = await fetch(`${url}/source.js`, { cache: "no-store" });
+      if (sourceResp.status !== 200)
+        throw new Error(`"${url}" extension source is not responded with 200 status code.`);
+      let source2 = await sourceResp.text();
+      out2.storage.installed.store[url] = {
+        manifest,
+        source: source2,
+        readme,
+        config: {
+          autoUpdate: true,
+          enabled: true,
+          order: 0,
+          ...defaultConfig
+        },
+        extra: {
+          lastUpdatedAt: Date.now()
+        }
+      };
+      await out2.load(url);
+    },
+    async update(url) {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      if (url.endsWith("/"))
+        url = url.slice(0, -1);
+      if (!out2.storage.installed.ghost[url])
+        throw new Error(`"${url}" extension is not installed.`);
+      let data = out2.storage.installed.ghost[url];
+      let metaResp = await fetch(`${url}/manifest.json`, { cache: "no-store" });
+      if (metaResp.status !== 200)
+        throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
+      let manifest = JSON.parse(await metaResp.text());
+      if (data.manifest.hash === manifest.hash)
+        return false;
+      let readmeResp = await fetch(`${url}/readme.md`, { cache: "no-store" });
+      let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
+      let sourceResp = await fetch(`${url}/source.js`, { cache: "no-store" });
+      if (sourceResp.status !== 200)
+        throw new Error(`"${url}" extension source is not responded with 200 status code.`);
+      let source2 = await sourceResp.text();
+      let loadedBefore = false;
+      if (out2.__cache__.loaded.ghost[url]) {
+        loadedBefore = true;
+        await out2.unload(url);
+      }
+      out2.storage.installed.store[url] = {
+        manifest,
+        source: source2,
+        readme,
+        config: data.config,
+        extra: {
+          lastUpdatedAt: Date.now()
+        }
+      };
+      if (loadedBefore) {
+        await new Promise((resolve) => setTimeout(resolve, 1));
+        await out2.load(url);
+      }
+      return true;
+    },
+    async uninstall(url) {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      if (url.endsWith("/"))
+        url = url.slice(0, -1);
+      if (!out2.storage.installed.ghost[url])
+        throw new Error(`"${url}" extension is not installed.`);
+      delete out2.storage.installed.store[url];
+      try {
+        await out2.unload(url);
+      } catch (err) {
+        logger_default.error(err);
+      }
+    },
+    async load(url) {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      if (url.endsWith("/"))
+        url = url.slice(0, -1);
+      if (!out2.storage.installed.ghost[url])
+        throw new Error(`"${url}" extension is not installed.`);
+      let data = out2.storage.installed.ghost[url];
+      if (out2.__cache__.loaded.ghost[url])
+        throw new Error(`"${url}" extension is already loaded.`);
+      await out2.loader.load(url, data);
+    },
+    async unload(url) {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      if (url.endsWith("/"))
+        url = url.slice(0, -1);
+      if (!out2.__cache__.loaded.ghost[url])
+        throw new Error(`"${url}" extension is not loaded.`);
+      await out2.loader.unload(url);
+    },
+    evaluate(source, api) {
+      const $acord = api;
+      return eval(source);
+    },
+    async loadAll() {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      return Promise.all(Object.entries(out2.storage.installed.ghost).sort(([, a], [, b]) => b.config.order - a.config.order).map(async ([url, d]) => {
+        if (d.config.autoUpdate)
+          await out2.update(url);
+        try {
+          if (d.config.enabled)
+            await out2.load(url);
+        } catch (e) {
+          logger_default.error("Unable to load extension", url, e);
+        }
+      }));
+    },
+    async unloadAll() {
+      if (!out2.__cache__.initialized)
+        await out2.init();
+      return Promise.all(Object.keys(out2.__cache__.loaded.ghost).map((url) => out2.unload(url)));
+    },
+    get(url) {
+      return {
+        loaded: out2.__cache__.loaded.ghost[url],
+        installed: out2.storage.installed.ghost[url]
+      };
+    },
+    loader: {
+      async load(id, data) {
+        if (data.manifest.type === "plugin") {
+          let onPersistUpdate = function(eventName, { path, value } = {}) {
+            if (path[0] === "settings") {
+              let item = findInTree(out2.__cache__.config[id], (i) => i.id === path[1]);
+              let val = eventName === "DELETE" ? null : value;
+              if (item.inputType === "number")
+                val = Number(val);
+              if (item)
+                item.value = val;
+            }
+          }, unload = function() {
+            offConfigListener();
+            api2.extension.subscriptions.forEach((i) => {
+              if (typeof i === "function")
+                i();
+            });
+            api2.extension.events.emit("unload");
+            evaluated?.unload?.();
+            api2.extension.persist.off("UPDATE", onPersistUpdate);
+            api2.extension.persist.off("DELETE", onPersistUpdate);
+            api2.extension.persist.off("SET", onPersistUpdate);
+          };
+          let api2 = await buildPluginAPI(data.manifest, `Extension;Persist;${id}`);
+          if (api2.extension.persist.ghost.settings === void 0)
+            api2.extension.persist.store.settings = {};
+          await ui_default.vue.ready.when();
+          out2.__cache__.config[id] = Vue.reactive(JSON.parse(JSON.stringify(data.manifest.config)));
+          findInTree(out2.__cache__.config[id], (i) => i.id, { all: true }).forEach(
+            (i) => {
+              api2.extension.persist.store.settings[i.id] = api2.extension.persist.ghost?.settings?.[i.id] ?? i.default;
+              i.value = api2.extension.persist.ghost?.settings?.[i.id];
+            }
+          );
+          let evaluated = out2.evaluate(data.source, api2);
+          await evaluated?.load?.();
+          api2.extension.persist.on("UPDATE", onPersistUpdate);
+          api2.extension.persist.on("DELETE", onPersistUpdate);
+          api2.extension.persist.on("SET", onPersistUpdate);
+          const offConfigListener = events_default.on("ExtensionConfigInteraction", (data2) => {
+            if (data2.extension !== id)
+              return;
+            function save() {
+              if (!data2.item.id)
+                return false;
+              let val = data2.item.value ?? data2.data.value;
+              if (data2.item.inputType === "number")
+                val = Number(val);
+              api2.extension.persist.store.settings[data2.item.id] = val;
+              return true;
+            }
+            save();
+            if (data2.item.id) {
+              api2.extension.persist.store.settings[data2.item.id] = data2.item.value ?? data2.data.value;
+            }
+            evaluated?.config?.({
+              item: data2.item,
+              data: data2.data,
+              getItem(itemId) {
+                return findInTree(out2.__cache__.config[id], (i) => i.id === itemId);
+              },
+              getItems() {
+                return findInTree(out2.__cache__.config[id], (i) => i.id, { all: true });
+              },
+              save
+            });
+          });
+          out2.__cache__.loaded.store[id] = { evaluated, api: api2, unload };
+          events_default.emit("ExtensionLoaded", { id });
+          return { evaluated, api: api2, unload };
+        } else if (data.manifest.type === "theme") {
+          let unload = function() {
+            offConfigListener();
+            injectedRes();
+          };
+          let evaluated = out2.evaluate(data.source, null);
+          const persist = await storage_default.createPersistNest(`Extension;Persist;${id}`);
+          if (persist.ghost.settings === void 0)
+            persist.store.settings = {};
+          out2.__cache__.config[id] = JSON.parse(JSON.stringify(data.manifest.config));
+          findInTree(out2.__cache__.config[id], (i) => i.id, { all: true }).forEach(
+            (i) => {
+              persist.store.settings[i.id] = persist.ghost?.settings?.[i.id] ?? i.default;
+              i.value = persist.ghost?.settings?.[i.id];
+            }
+          );
+          let cssText = evaluated();
+          let injectedRes = patcher_default.injectCSS(cssText, persist.ghost.settings);
+          const offConfigListener = events_default.on("ExtensionConfigInteraction", (data2) => {
+            if (data2.extension !== id)
+              return;
+            if (!data2.item.id)
+              return;
+            persist.store.settings[data2.item.id] = data2.data.value;
+            injectedRes(persist.ghost.settings);
+          });
+          out2.__cache__.loaded.store[id] = { evaluated, unload };
+          events_default.emit("ExtensionLoaded", { id });
+          return { evaluated, unload };
+        }
+      },
+      unload(id) {
+        out2.__cache__.loaded.ghost?.[id]?.unload?.();
+        delete out2.__cache__.loaded.store[id];
+        delete out2.__cache__.config[id];
+        events_default.emit("ExtensionUnloaded", { id });
+      }
+    }
+  };
+  waitUntilConnectionOpen().then(async () => {
+    await utils_default.sleep(100);
+    out2.loadAll();
+  });
+  var extensions_default = out2;
+
+  // src/api/dev/index.js
+  var devModeEnabled = false;
+  var isLoading = false;
+  var loaded;
+  var installed;
+  var extension = {
+    get loaded() {
+      return loaded;
+    },
+    get installed() {
+      return installed;
+    },
+    unload() {
+      if (!loaded)
+        return false;
+      extensions_default.loader.unload("Development");
+      loaded = null;
+      installed = null;
+      return true;
+    },
+    async load(source2, manifest) {
+      if (!source2 || !manifest)
+        throw new Error(`Source and manifest are required to load an extension!`);
+      if (loaded)
+        throw new Error(`Extension is already loaded!`);
+      if (isLoading)
+        return false;
+      isLoading = true;
+      try {
+        installed = {
+          manifest
+        };
+        loaded = await extensions_default.loader.load("Development", { source: source2, manifest });
+      } catch (err) {
+        logger_default.error(`Unable to load development extension.`, i18n_default.localize(manifest.about.name), err);
+        isLoading = false;
+        return false;
+      }
+      isLoading = false;
+      return true;
+    }
+  };
+  var out3 = {
+    get enabled() {
+      return devModeEnabled;
+    },
+    set enabled(value) {
+      if (!globalThis["<PRELOAD_KEY>"].isDevToolsOpen())
+        throw new Error("Dev mode status can only be modified when DevTools is open!");
+      devModeEnabled = value;
+    },
+    get extension() {
+      if (!devModeEnabled)
+        throw new Error("Dev mode is not enabled!");
+      return extension;
+    }
+  };
+  var dev_default = out3;
+  var isProcessing = false;
+  websocket_default.set(
+    "UpdateDevelopmentExtension",
+    async ({ source: source2, manifest } = {}) => {
+      if (!devModeEnabled)
+        return logger_default.warn(`Development extension was sent before dev mode was enabled.`);
+      if (!source2 || !manifest)
+        return logger_default.warn(`Development extension was sent without source or manifest.`);
+      if (isProcessing)
+        return logger_default.warn(`Development extension was sent while extension was already being processed.`);
+      isProcessing = true;
+      extension.unload();
+      await new Promise((r) => setTimeout(r, 1));
+      let success = await extension.load(source2, manifest);
+      if (success)
+        logger_default.info(`Development extension is loaded! (${i18n_default.localize(manifest.about.name)})`);
+      isProcessing = false;
+    }
+  );
+
+  // src/api/internal/index.js
+  var internal_default = {
+    process: globalThis["<PRELOAD_KEY>"].process,
+    isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen
+  };
+
+  // src/api/index.js
+  function devError(api2) {
+    return new Error(`The ${api2} API can only be accessed when Dev mode is enabled!`);
+  }
+  var api_default = {
+    exposedAPI: {
+      dev: dev_default,
+      get utils() {
+        if (!dev_default.enabled)
+          throw devError("Utils");
+        return utils_default;
+      },
+      get i18n() {
+        if (!dev_default.enabled)
+          throw devError("i18n");
+        return i18n_default;
+      },
+      get events() {
+        if (!dev_default.enabled)
+          throw devError("Events");
+        return events_default;
+      },
+      get ui() {
+        if (!dev_default.enabled)
+          throw devError("UI");
+        return ui_default;
+      },
+      get shared() {
+        if (!dev_default.enabled)
+          throw devError("Shared");
+        return shared_default;
+      },
+      get dom() {
+        if (!dev_default.enabled)
+          throw devError("DOM");
+        return dom_default;
+      },
+      get patcher() {
+        if (!dev_default.enabled)
+          throw devError("Patcher");
+        return patcher_default;
+      },
+      get storage() {
+        if (!dev_default.enabled)
+          throw devError("Storage");
+        return storage_default;
+      },
+      get modules() {
+        if (!dev_default.enabled)
+          throw devError("Modules");
+        return modules_default;
+      },
+      get extensions() {
+        if (!dev_default.enabled)
+          throw devError("Extensions");
+        return extensions_default;
+      },
+      get internal() {
+        if (!dev_default.enabled)
+          throw devError("Internal");
+        return internal_default;
+      },
+      get websocket() {
+        if (!dev_default.enabled)
+          throw devError("Websocket");
+        return websocket_default;
+      }
+    },
+    unexposedAPI: {
+      dev: dev_default,
+      modules: modules_default,
+      utils: utils_default,
+      extensions: extensions_default,
+      i18n: i18n_default,
+      storage: storage_default,
+      events: events_default,
+      patcher: patcher_default,
+      internal: internal_default,
+      websocket: websocket_default,
+      shared: shared_default,
+      ui: ui_default,
+      dom: dom_default
+    }
+  };
+
+  // src/other/document-title-change.js
+  var ogTitleSetter = document.__lookupSetter__("title");
+  var ogTitleGetter = document.__lookupGetter__("title");
+  Object.defineProperty(
+    document,
+    "title",
+    {
+      get() {
+        return ogTitleGetter.call(this);
+      },
+      set(v) {
+        events_default.emit("DocumentTitleChange", v);
+        return ogTitleSetter.call(this, v);
+      }
+    }
+  );
+
+  // src/other/websocket-triggers.js
+  websocket_default.set("InstallExtension", async ({ url } = {}) => {
+    if (!url)
+      return;
+    await modules_default.native.window.setAlwaysOnTop(0, true);
+    await new Promise((r) => setTimeout(r, 250));
+    await modules_default.native.window.setAlwaysOnTop(0, true);
+    const success = await modals_default.show.confirmation(
+      acord.i18n.format("IMPORT_EXTENSION_MODAL_TITLE"),
+      acord.i18n.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
+    );
+    if (!success)
+      return;
+    try {
+      await extensions_default.load(url);
+    } catch (err) {
+      notifications_default.show.error(`${err}`, { timeout: 3e4 });
+    }
+  });
+
+  // src/ui/home/style.scss
+  var style_default7 = `
+[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:var(--background-modifier-selected)}`;
+
+  // src/ui/home/vue/components/pages/home-page/index.js
+  var home_page_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "home-page",
+        {
+          template: `
           <div>
             <div style="width: 300px;">
               <discord-select v-model="value" :options="options" />
@@ -89,8 +4048,45 @@
             <h1>{{ checked }}</h1>
           </div>
 
-        `,data(){return{value:"1",checked:!1,options:[{value:"1",label:"Option 1"},{value:"2",label:"Option 2"},{value:"3",label:"Option 3"}]}}})}};var Yt=`
-.acord--extensions-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--extensions-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--extensions-page .container>.top{display:flex;align-items:center;gap:8px}.acord--extensions-page .container>.top>.search{width:60%}.acord--extensions-page .container>.top>.category{width:20%}.acord--extensions-page .container>.top .install{width:20%}.acord--extensions-page .container>.bottom{display:flex;flex-direction:column;gap:16px;margin-top:16px}`;m.injectCSS(Yt);var Xt={load(e){e.component("extensions-page",{template:`
+        `,
+          data() {
+            return {
+              value: "1",
+              checked: false,
+              options: [
+                {
+                  value: "1",
+                  label: "Option 1"
+                },
+                {
+                  value: "2",
+                  label: "Option 2"
+                },
+                {
+                  value: "3",
+                  label: "Option 3"
+                }
+              ]
+            };
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/extensions-page/style.scss
+  var style_default8 = `
+.acord--extensions-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--extensions-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--extensions-page .container>.top{display:flex;align-items:center;gap:8px}.acord--extensions-page .container>.top>.search{width:60%}.acord--extensions-page .container>.top>.category{width:20%}.acord--extensions-page .container>.top .install{width:20%}.acord--extensions-page .container>.bottom{display:flex;flex-direction:column;gap:16px;margin-top:16px}`;
+
+  // src/ui/home/vue/components/pages/extensions-page/index.js
+  patcher_default.injectCSS(style_default8);
+  var extensions_page_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "extensions-page",
+        {
+          template: `
           <div class="acord--extensions-page">
             <div class="container">
               <div class="top">
@@ -105,24 +4101,267 @@
                 </div>
               </div>
               <div class="bottom">
-                <installed-extension-card v-if="developmentExtension" :id="developmentExtension.id" :extension="developmentExtension.extension" />
+                <installed-extension-card v-if="developmentExtension" :id="developmentExtension.id" :extension="developmentExtension.extension" :hide-controls="true" />
                 <installed-extension-card v-for="(extension, id) of filteredExtensions" :id="id" :extension="extension" :key="id" />
               </div>
             </div>
           </div>
-        `,data(){return{searchText:"",searchCategoryText:"all",extensions:{},filteredExtensions:{},developmentExtension:null,installUrl:""}},methods:{onStorageUpdate(){this.extensions=b.storage.installed.ghost,this.updateFiltered(),this.$forceUpdate()},i18nFormat:u.format,updateFiltered(){let t=this.searchText.toLowerCase(),o=this.searchCategoryText;this.filteredExtensions=Object.fromEntries(Object.entries(this.extensions).filter(([r,i])=>o==="all"?!0:i.manifest.type===o).filter(([r,i])=>t?u.localize(i.manifest.about.name).toLowerCase().includes(t)||u.localize(i.manifest.about.description).toLowerCase().includes(t):!0))},onExtensionLoaded({id:t}){t==="Development"&&(this.developmentExtension={extension:S.extension.installed,id:"Development"})},onExtensionUnloaded({id:t}){t==="Development"&&(this.developmentExtension=null)},async onInstallKeyUp(t){if(t.key==="Enter"){let o=this.installUrl;this.installUrl="",T.notifications.show(u.format("INSTALLING_EXTENSION"));try{await b.install(o),T.notifications.show.success(u.format("EXTENSION_INSTALLED"))}catch(r){T.notifications.show.error(r.message)}}}},watch:{searchText(){this.updateFiltered(),this.$forceUpdate()},searchCategoryText(){this.updateFiltered(),this.$forceUpdate()}},mounted(){this.onStorageUpdate(),this.updateFiltered(),this.$forceUpdate(),b.storage.installed.on("UPDATE",this.onStorageUpdate),b.storage.installed.on("SET",this.onStorageUpdate),b.storage.installed.on("DELETE",this.onStorageUpdate),h.on("ExtensionLoaded",this.onExtensionLoaded),h.on("ExtensionUnloaded",this.onExtensionUnloaded)},unmounted(){b.storage.installed.off("UPDATE",this.onStorageUpdate),b.storage.installed.off("SET",this.onStorageUpdate),b.storage.installed.off("DELETE",this.onStorageUpdate),h.off("ExtensionLoaded",this.onExtensionLoaded),h.off("ExtensionUnloaded",this.onExtensionUnloaded)}})}};var Jt={load(e){e.component("settings-page",{template:"<div>Settings Page</div>"})}};var Qt={load(e){e.component("store-page",{template:`
+        `,
+          data() {
+            return {
+              searchText: "",
+              searchCategoryText: "all",
+              extensions: {},
+              filteredExtensions: {},
+              developmentExtension: null,
+              installUrl: ""
+            };
+          },
+          methods: {
+            onStorageUpdate() {
+              this.extensions = extensions_default.storage.installed.ghost;
+              this.updateFiltered();
+              this.$forceUpdate();
+            },
+            i18nFormat: i18n_default.format,
+            updateFiltered() {
+              const searchText = this.searchText.toLowerCase();
+              const searchCategoryText = this.searchCategoryText;
+              this.filteredExtensions = Object.fromEntries(
+                Object.entries(this.extensions).filter(([id, extension2]) => {
+                  if (searchCategoryText === "all")
+                    return true;
+                  return extension2.manifest.type === searchCategoryText;
+                }).filter(([id, extension2]) => {
+                  if (!searchText)
+                    return true;
+                  return i18n_default.localize(extension2.manifest.about.name).toLowerCase().includes(searchText) || i18n_default.localize(extension2.manifest.about.description).toLowerCase().includes(searchText);
+                })
+              );
+            },
+            onExtensionLoaded({ id }) {
+              if (id === "Development") {
+                this.developmentExtension = {
+                  extension: dev_default.extension.installed,
+                  id: "Development"
+                };
+              }
+            },
+            onExtensionUnloaded({ id }) {
+              if (id === "Development") {
+                this.developmentExtension = null;
+              }
+            },
+            async onInstallKeyUp(event) {
+              if (event.key === "Enter") {
+                let installUrl = this.installUrl;
+                this.installUrl = "";
+                ui_default.notifications.show(i18n_default.format("INSTALLING_EXTENSION"));
+                try {
+                  await extensions_default.install(installUrl);
+                  ui_default.notifications.show.success(i18n_default.format("EXTENSION_INSTALLED"));
+                } catch (err) {
+                  ui_default.notifications.show.error(err.message);
+                }
+              }
+            }
+          },
+          watch: {
+            searchText() {
+              this.updateFiltered();
+              this.$forceUpdate();
+            },
+            searchCategoryText() {
+              this.updateFiltered();
+              this.$forceUpdate();
+            }
+          },
+          mounted() {
+            this.onStorageUpdate();
+            this.updateFiltered();
+            this.$forceUpdate();
+            extensions_default.storage.installed.on("UPDATE", this.onStorageUpdate);
+            extensions_default.storage.installed.on("SET", this.onStorageUpdate);
+            extensions_default.storage.installed.on("DELETE", this.onStorageUpdate);
+            events_default.on("ExtensionLoaded", this.onExtensionLoaded);
+            events_default.on("ExtensionUnloaded", this.onExtensionUnloaded);
+          },
+          unmounted() {
+            extensions_default.storage.installed.off("UPDATE", this.onStorageUpdate);
+            extensions_default.storage.installed.off("SET", this.onStorageUpdate);
+            extensions_default.storage.installed.off("DELETE", this.onStorageUpdate);
+            events_default.off("ExtensionLoaded", this.onExtensionLoaded);
+            events_default.off("ExtensionUnloaded", this.onExtensionUnloaded);
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/settings-page/index.js
+  var settings_page_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "settings-page",
+        {
+          template: "<div>Settings Page</div>"
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/store-page/index.js
+  var store_page_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "store-page",
+        {
+          template: `
         <div>
           <store-extension-card v-for="extension in extensions" :extension="extension" :key="extension.name.default" />
         </div>
-        `,data(){return{extensions:[{type:"plugin",url:"",name:{default:"Test Plugin",tr:"Deneme Plugin"},description:{default:"Test Plugin description..",tr:"Deneme Plugin a\xE7\u0131klamas\u0131.."},previews:[{name:"Test Plugin Preview",image:"https://i.imgur.com/TtfjHeP.png"},{name:"Test Plugin Preview 2",image:"https://i.imgur.com/0Z0Z0Z0.png"}],authors:[{id:"707309693449535599",name:"Armagan#2448",image:"https://i.imgur.com/rSLVd23.png"},{id:"707309693449535599",name:"Armagan#2448",image:"https://i.imgur.com/rSLVd23.png"}],version:"1.0.0",readme:"### Test Plugin readme..",installed:!0}]}}})}};var eo={load(e){Kt.load(e),Xt.load(e),Jt.load(e),Qt.load(e)}};var to={load(e){e.component("config-button",{props:["item","extension"],template:`
+        `,
+          data() {
+            return {
+              extensions: [
+                {
+                  type: "plugin",
+                  url: "",
+                  name: {
+                    default: "Test Plugin",
+                    tr: "Deneme Plugin"
+                  },
+                  description: {
+                    default: "Test Plugin description..",
+                    tr: "Deneme Plugin a\xE7\u0131klamas\u0131.."
+                  },
+                  previews: [
+                    {
+                      name: "Test Plugin Preview",
+                      image: "https://i.imgur.com/TtfjHeP.png"
+                    },
+                    {
+                      name: "Test Plugin Preview 2",
+                      image: "https://i.imgur.com/0Z0Z0Z0.png"
+                    }
+                  ],
+                  authors: [
+                    {
+                      id: "707309693449535599",
+                      name: "Armagan#2448",
+                      image: "https://i.imgur.com/rSLVd23.png"
+                    },
+                    {
+                      id: "707309693449535599",
+                      name: "Armagan#2448",
+                      image: "https://i.imgur.com/rSLVd23.png"
+                    }
+                  ],
+                  version: "1.0.0",
+                  readme: "### Test Plugin readme..",
+                  installed: true
+                }
+              ]
+            };
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/index.js
+  var pages_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      home_page_default.load(vueApp);
+      extensions_page_default.load(vueApp);
+      settings_page_default.load(vueApp);
+      store_page_default.load(vueApp);
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-button/index.js
+  var config_button_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-button", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-button acord--config-item">
           <discord-button @click="onClick" :value="i18nFormat(item.value)" :size="item.size" :color="item.color" />
         </div>
-      `,methods:{onClick(t){h.emit("ExtensionConfigInteraction",{extension:this.extension,item:this.item,data:{event:t}})},i18nFormat:u.format}})}};var oo={load(e){e.component("config-check",{props:["item","extension"],template:`
+      `,
+        methods: {
+          onClick(event) {
+            events_default.emit(
+              "ExtensionConfigInteraction",
+              {
+                extension: this.extension,
+                item: this.item,
+                data: {
+                  event
+                }
+              }
+            );
+          },
+          i18nFormat: i18n_default.format
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-check/index.js
+  var config_check_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-check", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-check acord--config-item">
           <discord-check @change="onChange" v-model="item.value" />
         </div>
-      `,methods:{onChange(t){h.emit("ExtensionConfigInteraction",{extension:this.extension,item:this.item,data:t})}}})}};var be={Column:"config-column",Row:"config-row",Button:"config-button",Check:"config-check",Input:"config-input",Select:"config-select",Textarea:"config-textarea",Spacer:"config-spacer",Paragraph:"config-paragraph",Heading:"config-heading"};var ro={load(e){e.component("config-column",{props:["item","extension"],template:`
+      `,
+        methods: {
+          onChange(data) {
+            events_default.emit(
+              "ExtensionConfigInteraction",
+              {
+                extension: this.extension,
+                item: this.item,
+                data
+              }
+            );
+          }
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/maps.json
+  var name = {
+    Column: "config-column",
+    Row: "config-row",
+    Button: "config-button",
+    Check: "config-check",
+    Input: "config-input",
+    Select: "config-select",
+    Textarea: "config-textarea",
+    Spacer: "config-spacer",
+    Paragraph: "config-paragraph",
+    Heading: "config-heading"
+  };
+
+  // src/ui/home/vue/components/components/config/config-column/index.js
+  var config_column_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "config-column",
+        {
+          props: ["item", "extension"],
+          template: `
           <div v-show="item?.visible ?? true" class="acord--config-column acord--config-item" :class="{
             'horizontal-align-left': item?.horizontalAlign === 'left',
             'horizontal-align-center': item?.horizontalAlign === 'center',
@@ -135,19 +4374,90 @@
           }" :style="{'width': item?.width ?? '100%', 'height': item?.height, 'gap': item?.gap}" >
             <component v-for="(child, idx) in item.children" :is="nameMap[child.type]" :key="idx" :item="child" :extension="extension" />
           </div>
-        `,data(){return{nameMap:be}}})}};var io={load(e){e.component("config-heading",{props:["item","extension"],template:`
+        `,
+          data() {
+            return {
+              nameMap: name
+            };
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-heading/index.js
+  var config_heading_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-heading", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-heading acord--config-item">
           {{i18nFormat(item.value)}}
         </div>
-      `,methods:{i18nFormat:u.format}})}};var no={load(e){e.component("config-input",{props:["item","extension"],template:`
+      `,
+        methods: {
+          i18nFormat: i18n_default.format
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-input/index.js
+  var config_input_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-input", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-input acord--config-item">
           <discord-input @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="i18nFormat(item.placeholder)" :maxlength="item.maxlength"  :max="item.max" :min="item.min" :step="item.step" />
         </div>
-      `,methods:{onInput(t){h.emit("ExtensionConfigInteraction",{extension:this.extension,item:this.item,data:t})},i18nFormat:u.format}})}};var ao={load(e){e.component("config-paragraph",{props:["item","extension"],template:`
+      `,
+        methods: {
+          onInput(data) {
+            events_default.emit(
+              "ExtensionConfigInteraction",
+              {
+                extension: this.extension,
+                item: this.item,
+                data
+              }
+            );
+          },
+          i18nFormat: i18n_default.format
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-paragraph/index.js
+  var config_paragraph_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-paragraph", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-paragraph acord--config-item">
           {{i18nFormat(item.value)}}
         </div>
-      `,methods:{i18nFormat:u.format}})}};var so={load(e){e.component("config-row",{props:["item","extension"],template:`
+      `,
+        methods: {
+          i18nFormat: i18n_default.format
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-row/index.js
+  var config_row_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "config-row",
+        {
+          props: ["item", "extension"],
+          template: `
           <div v-show="item?.visible ?? true" class="acord--config-row acord--config-item" :class="{
             'horizontal-align-left': item?.horizontalAlign === 'left',
             'horizontal-align-center': item?.horizontalAlign === 'center',
@@ -160,21 +4470,123 @@
           }" :style="{'width': item?.width ?? '100%', 'height': item?.height, 'gap': item?.gap}" >
             <component v-for="(child, idx) in item.children" :is="nameMap[child.type]" :key="idx" :item="child" :extension="extension" />
           </div>
-        `,data(){return{nameMap:be}}})}};var lo={load(e){e.component("config-select",{props:["item","extension"],template:`
+        `,
+          data() {
+            return {
+              nameMap: name
+            };
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-select/index.js
+  var config_select_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-select", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-select acord--config-item">
           <discord-select @change="onChange" v-model="item.value" :options="item.options.map(i=>({ label: i18nFormat(i.label), value: i.value }))" />
         </div>
-      `,methods:{onChange(t){h.emit("ExtensionConfigInteraction",{extension:this.extension,item:this.item,data:t})},i18nFormat:u.format}})}};var co={load(e){e.component("config-spacer",{props:["item","extension"],template:`
+      `,
+        methods: {
+          onChange(data) {
+            events_default.emit(
+              "ExtensionConfigInteraction",
+              {
+                extension: this.extension,
+                item: this.item,
+                data
+              }
+            );
+          },
+          i18nFormat: i18n_default.format
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-spacer/index.js
+  var config_spacer_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-spacer", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-spacer acord--config-item">
           <div class="spacer" :style="{'height': item?.height, 'width': item?.width}" />
         </div>
-      `})}};var po={load(e){e.component("config-textarea",{props:["item","extension"],template:`
+      `
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/config-textarea/index.js
+  var config_textarea_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component("config-textarea", {
+        props: ["item", "extension"],
+        template: `
         <div v-show="item?.visible ?? true" class="acord--config-textarea acord--config-item">
           <discord-textarea @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="i18nFormat(item.placeholder)" :maxlength="item.maxlength" :cols="item.cols" :rows="item.rows" :style="{'height': item?.height, 'width': item?.width}" />
         </div>
-      `,methods:{onInput(t){h.emit("ExtensionConfigInteraction",{extension:this.extension,item:this.item,data:t})},i18nFormat:u.format}})}};var uo=`
-.acord--config-item{width:100%;display:flex}.acord--config-row{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:4px}.acord--config-row.horizontal-align-left{justify-content:flex-start}.acord--config-row.horizontal-align-right{justify-content:flex-end}.acord--config-row.horizontal-align-center{justify-content:center}.acord--config-row.justify-space-between{justify-content:space-between}.acord--config-row.justify-space-around{justify-content:space-around}.acord--config-row.vertical-align-top{align-items:flex-start}.acord--config-row.vertical-align-bottom{align-items:flex-end}.acord--config-column{width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px}.acord--config-column.horizontal-align-left{justify-content:flex-start}.acord--config-column.horizontal-align-right{justify-content:flex-end}.acord--config-column.horizontal-align-center{justify-content:center}.acord--config-column.justify-space-between{justify-content:space-between}.acord--config-column.justify-space-around{justify-content:space-around}.acord--config-column.vertical-align-top{align-items:flex-start}.acord--config-column.vertical-align-bottom{align-items:flex-end}.acord--config-column.vertical-align-center{align-items:center}.acord--config-heading{font-size:1.2rem;font-weight:500;color:#f5f5f5}.acord--config-paragraph{font-size:1rem;font-weight:400;color:rgba(245,245,245,.85)}.acord--config-check,.acord--config-button{width:fit-content}`;m.injectCSS(uo);var fo={load(e){ao.load(e),io.load(e),co.load(e),to.load(e),oo.load(e),no.load(e),lo.load(e),po.load(e),ro.load(e),so.load(e)}};var ho=`
-.acord--installed-extension-card{width:100%;background-color:#2c2e32;border-radius:8px;display:flex;flex-direction:column;gap:8px;position:relative}.acord--installed-extension-card>.status-container{position:absolute;top:-9px;right:8px;border-radius:9999px;padding:8px;height:24px;display:flex;gap:6px;align-items:center;background-color:#1e1f22}.acord--installed-extension-card>.status-container>.loaded-state{width:14px;height:14px;border-radius:50%;background-color:#82858f}.acord--installed-extension-card>.status-container>.loaded-state.active{background-color:#23a55a;filter:drop-shadow(0px 0px 4px #23a55a)}.acord--installed-extension-card>.status-container>.development-mode-warning{color:#f0b232;filter:drop-shadow(0px 0px 4px #f0b232);display:flex;align-items:center;justify-content:center;border-radius:50%}.acord--installed-extension-card>.top{background-color:#212225;border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--installed-extension-card>.top>.left{display:flex;flex-direction:column;height:100%;gap:4px}.acord--installed-extension-card>.top>.left>.top{display:flex;align-items:flex-end;gap:4px}.acord--installed-extension-card>.top>.left>.top>.name{font-size:1.4rem;font-weight:500;color:#fff}.acord--installed-extension-card>.top>.left>.top>.version{font-size:1rem;font-weight:300;color:rgba(255,255,255,.5)}.acord--installed-extension-card>.top>.left>.bottom{display:flex;flex-direction:column;gap:8px}.acord--installed-extension-card>.top>.left>.bottom>.top{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors{display:flex;gap:2px;font-size:12px;font-weight:300;color:rgba(255,255,255,.45)}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors>.label{font-weight:500;margin-right:2px}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author .hoverable:hover{cursor:pointer;text-decoration:underline}.acord--installed-extension-card>.top>.left>.bottom>.bottom>.description{font-size:16px;color:rgba(255,255,255,.75)}.acord--installed-extension-card>.top>.right{display:flex;height:100%;flex-direction:column;justify-content:space-between;align-items:flex-end}.acord--installed-extension-card>.top>.right>.top{display:flex}.acord--installed-extension-card>.top>.right>.top>.controls{display:flex;align-items:center;gap:8px}.acord--installed-extension-card>.top>.right>.top>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--installed-extension-card>.top>.right>.top>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--installed-extension-card>.top>.right>.top>.controls .control.uninstall:hover{color:#f23f42}.acord--installed-extension-card>.top>.right>.bottom{display:flex}.acord--installed-extension-card>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px}.acord--installed-extension-card>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--installed-extension-card>.bottom{border-radius:8px;width:100%;padding:16px}`;m.injectCSS(ho);var mo={load(e){e.component("installed-extension-card",{template:`
+      `,
+        methods: {
+          onInput(data) {
+            events_default.emit(
+              "ExtensionConfigInteraction",
+              {
+                extension: this.extension,
+                item: this.item,
+                data
+              }
+            );
+          },
+          i18nFormat: i18n_default.format
+        }
+      });
+    }
+  };
+
+  // src/ui/home/vue/components/components/config/style.scss
+  var style_default9 = `
+.acord--config-item{width:100%;display:flex}.acord--config-row{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:4px}.acord--config-row.horizontal-align-left{justify-content:flex-start}.acord--config-row.horizontal-align-right{justify-content:flex-end}.acord--config-row.horizontal-align-center{justify-content:center}.acord--config-row.justify-space-between{justify-content:space-between}.acord--config-row.justify-space-around{justify-content:space-around}.acord--config-row.vertical-align-top{align-items:flex-start}.acord--config-row.vertical-align-bottom{align-items:flex-end}.acord--config-column{width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px}.acord--config-column.horizontal-align-left{justify-content:flex-start}.acord--config-column.horizontal-align-right{justify-content:flex-end}.acord--config-column.horizontal-align-center{justify-content:center}.acord--config-column.justify-space-between{justify-content:space-between}.acord--config-column.justify-space-around{justify-content:space-around}.acord--config-column.vertical-align-top{align-items:flex-start}.acord--config-column.vertical-align-bottom{align-items:flex-end}.acord--config-column.vertical-align-center{align-items:center}.acord--config-heading{font-size:1.2rem;font-weight:500;color:#f5f5f5}.acord--config-paragraph{font-size:1rem;font-weight:400;color:rgba(245,245,245,.85)}.acord--config-check,.acord--config-button{width:fit-content}`;
+
+  // src/ui/home/vue/components/components/config/index.js
+  patcher_default.injectCSS(style_default9);
+  var config_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      config_paragraph_default.load(vueApp);
+      config_heading_default.load(vueApp);
+      config_spacer_default.load(vueApp);
+      config_button_default.load(vueApp);
+      config_check_default.load(vueApp);
+      config_input_default.load(vueApp);
+      config_select_default.load(vueApp);
+      config_textarea_default.load(vueApp);
+      config_column_default.load(vueApp);
+      config_row_default.load(vueApp);
+    }
+  };
+
+  // src/ui/home/vue/components/components/cards/installed-extension-card/style.scss
+  var style_default10 = `
+.acord--installed-extension-card{width:100%;background-color:#2c2e32;border-radius:8px;display:flex;flex-direction:column;gap:8px;position:relative}.acord--installed-extension-card>.status-container{position:absolute;top:-9px;right:8px;border-radius:9999px;padding:8px;height:24px;display:flex;gap:6px;align-items:center;background-color:#1e1f22}.acord--installed-extension-card>.status-container>.loaded-state{width:14px;height:14px;border-radius:50%;background-color:#82858f}.acord--installed-extension-card>.status-container>.loaded-state.active{background-color:#23a55a;filter:drop-shadow(0px 0px 4px #23a55a)}.acord--installed-extension-card>.status-container>.development-mode-warning{color:#f0b232;filter:drop-shadow(0px 0px 4px #f0b232);display:flex;align-items:center;justify-content:center;border-radius:50%}.acord--installed-extension-card>.top{background-color:#212225;border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--installed-extension-card>.top>.left{display:flex;flex-direction:column;height:100%;gap:4px}.acord--installed-extension-card>.top>.left>.top{display:flex;align-items:flex-end;gap:4px}.acord--installed-extension-card>.top>.left>.top>.name{font-size:1.4rem;font-weight:500;color:#fff}.acord--installed-extension-card>.top>.left>.top>.version{font-size:1rem;font-weight:300;color:rgba(255,255,255,.5)}.acord--installed-extension-card>.top>.left>.bottom{display:flex;flex-direction:column;gap:8px}.acord--installed-extension-card>.top>.left>.bottom>.top{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors{display:flex;gap:2px;font-size:12px;font-weight:300;color:rgba(255,255,255,.45)}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors>.label{font-weight:500;margin-right:2px}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author .hoverable:hover{cursor:pointer;text-decoration:underline}.acord--installed-extension-card>.top>.left>.bottom>.bottom>.description{font-size:16px;color:rgba(255,255,255,.75)}.acord--installed-extension-card>.top>.right{display:flex;height:100%;flex-direction:column;justify-content:space-between;align-items:flex-end}.acord--installed-extension-card>.top>.right>.top{display:flex}.acord--installed-extension-card>.top>.right>.top>.controls{display:flex;align-items:center;gap:8px}.acord--installed-extension-card>.top>.right>.top>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--installed-extension-card>.top>.right>.top>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--installed-extension-card>.top>.right>.top>.controls .control.uninstall:hover{color:#f23f42}.acord--installed-extension-card>.top>.right>.bottom{display:flex}.acord--installed-extension-card>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px}.acord--installed-extension-card>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--installed-extension-card>.bottom{border-radius:8px;width:100%;padding:16px}`;
+
+  // src/ui/home/vue/components/components/cards/installed-extension-card/index.js
+  patcher_default.injectCSS(style_default10);
+  var installed_extension_card_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "installed-extension-card",
+        {
+          template: `
           <div class="acord--installed-extension-card" @contextmenu="onContextMenu">
             <div class="status-container">
               <div class="loaded-state" :class="{'active': !!this.configCache}" :acord--tooltip-content="i18nFormat(!!this.configCache ? 'EXTENSION_ACTIVE' : 'EXTENSION_INACTIVE')"></div>
@@ -207,7 +4619,7 @@
               </div>
               <div class="right">
                 <div class="top">
-                  <div class="controls">
+                  <div v-if="!hideControls" class="controls">
                     <div class="control" @click="onUpdateExtension" :acord--tooltip-content="i18nFormat('UPDATE_EXTENSION')">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
                         <path fill="currentColor" d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"/>
@@ -245,8 +4657,94 @@
               <config-column :extension="id" :item="{children: configCache, gap: '8px'}"/>
             </div>
           </div>
-        `,data(){return{expanded:!1,configCache:null,enabled:b.storage.installed.ghost[this.id].config.enabled}},methods:{i18nFormat:u.format,i18nLocalize:u.localize,onAuthorClick(t){t.id&&T.modals.show.user(t.id)},onExtensionLoaded({id:t}){t===this.id&&(this.configCache=b.__cache__.config[this.id])},onExtensionUnloaded({id:t}){t===this.id&&(this.configCache=null,this.expanded=!1)},onToggleExtension(){let o=!b.storage.installed.ghost[this.id].config.enabled;b.storage.installed.store[this.id].config.enabled=o,this.enabled=o;try{o?b.load(this.id):b.unload(this.id)}catch{}},onUpdateExtension(){b.update(this.id)},onUninstallExtension(){b.uninstall(this.id)},onContextMenu(t){T.contextMenus.open(t,T.contextMenus.build.menu([{label:u.format("COPY_ID"),action:()=>{y.copyText(this.id)}}]))}},props:["id","extension"],mounted(){this.configCache=b.__cache__.config[this.id],h.on("ExtensionLoaded",this.onExtensionLoaded),h.on("ExtensionUnloaded",this.onExtensionUnloaded)},unmounted(){h.off("ExtensionLoaded",this.onExtensionLoaded),h.off("ExtensionUnloaded",this.onExtensionUnloaded)}})}};var go=`
-.acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:center;color:var(--header-primary);padding:8px}.acord--store-extension-card>.preview>.name-container>.name{font-size:14px;background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:9999px;padding:4px 8px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:center;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:16px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}`;m.injectCSS(go);var xo={load(e){e.component("store-extension-card",{template:`
+        `,
+          data() {
+            return {
+              expanded: false,
+              configCache: null,
+              enabled: !!extensions_default.storage.installed.ghost[this.id]?.config?.enabled
+            };
+          },
+          methods: {
+            i18nFormat: i18n_default.format,
+            i18nLocalize: i18n_default.localize,
+            onAuthorClick(author) {
+              if (author.id)
+                ui_default.modals.show.user(author.id);
+            },
+            onExtensionLoaded({ id }) {
+              if (id === this.id) {
+                this.configCache = extensions_default.__cache__.config[this.id];
+              }
+            },
+            onExtensionUnloaded({ id }) {
+              if (id === this.id) {
+                this.configCache = null;
+                this.expanded = false;
+              }
+            },
+            onToggleExtension() {
+              let enabled = !!extensions_default.storage.installed.ghost[this.id]?.config?.enabled;
+              let newState = !enabled;
+              extensions_default.storage.installed.store[this.id].config.enabled = newState;
+              this.enabled = newState;
+              try {
+                if (newState) {
+                  extensions_default.load(this.id);
+                } else {
+                  extensions_default.unload(this.id);
+                }
+              } catch {
+              }
+            },
+            onUpdateExtension() {
+              extensions_default.update(this.id);
+            },
+            onUninstallExtension() {
+              extensions_default.uninstall(this.id);
+            },
+            onContextMenu(e) {
+              ui_default.contextMenus.open(
+                e,
+                ui_default.contextMenus.build.menu([
+                  {
+                    label: i18n_default.format("COPY_ID"),
+                    action: () => {
+                      utils_default.copyText(this.id);
+                    }
+                  }
+                ])
+              );
+            }
+          },
+          props: ["id", "extension", "hideControls"],
+          mounted() {
+            this.configCache = extensions_default.__cache__.config[this.id];
+            events_default.on("ExtensionLoaded", this.onExtensionLoaded);
+            events_default.on("ExtensionUnloaded", this.onExtensionUnloaded);
+          },
+          unmounted() {
+            events_default.off("ExtensionLoaded", this.onExtensionLoaded);
+            events_default.off("ExtensionUnloaded", this.onExtensionUnloaded);
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
+  var style_default11 = `
+.acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:center;color:var(--header-primary);padding:8px}.acord--store-extension-card>.preview>.name-container>.name{font-size:14px;background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:9999px;padding:4px 8px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:center;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:16px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}`;
+
+  // src/ui/home/vue/components/components/cards/store-extension-card/index.js
+  patcher_default.injectCSS(style_default11);
+  var store_extension_card_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "store-extension-card",
+        {
+          template: `
           <div class="acord--store-extension-card">
             <div v-if="extension.previews?.length" class="preview" :style="{ backgroundImage: 'url(' + extension.previews[selectedPreview].image + ')' }">
               <div class="controls">
@@ -295,10 +4793,153 @@
               </div>
             </div>
           </div>
-        `,props:["extension"],data(){return{selectedPreview:0}},methods:{i18nFormat:u.format,i18nLocalize:u.localize,installOrUninstall(){this.extension.installed},goBack(){this.selectedPreview--,this.selectedPreview<0&&(this.selectedPreview=this.extension.previews.length-1)},goForward(){this.selectedPreview++,this.selectedPreview>=this.extension.previews.length&&(this.selectedPreview=0)},showProfile(t){K.show.user(t)}}})}};var bo={load(e){xo.load(e),mo.load(e)}};var vo={load(e){fo.load(e),bo.load(e)}};var yo={load(e){vo.load(e),eo.load(e)}};m.injectCSS(Gt);{let e=document.createElement("script");e.src="https://unpkg.com/vue@3/dist/vue.global.js",document.head.appendChild(e)}x.patch('a[href="/store"][data-list-item-id$="___nitro"]',e=>{y.ifExists(e.querySelector('[class*="nameAndDecorators-"] [class*="name-"]'),t=>{t.textContent=u.format("APP_NAME")}),y.ifExists(e.querySelector('[class*="premiumTrialAcknowledgedBadge-"]'),t=>{t.remove()}),y.ifExists(e.querySelector('[class*="avatarWithText-"] [class*="avatar-"] svg'),wo)});var ve=null;(async()=>{let e;for(;e=P.findByProperties("divider","hamburger","themed"),!e;)await new Promise(r=>setTimeout(r,100));let t=P.findByProperties("tabBar","maxWidthWithToolbar"),o=P.findByProperties("topPill","headerText");x.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]',r=>{y.ifExists(r.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),i=>{if(i.textContent=u.format("APP_NAME"),ve){let n=function(c,d,f=""){let g=x.parse(`<div id="tab-button-${c}" class="acord--tabs-tab-button ${f} ${t.item} ${o.item} ${o.themed}">${d}</div>`);return a.push(g),g.setSelected=v=>{v?g.classList.add(o.selected,"selected"):g.classList.remove(o.selected,"selected")},g.setSelected(ve.selectedTab===c),g.onclick=()=>{a.forEach(v=>v.setSelected(!1)),g.setSelected(!0),ve.selectedTab=c},g},s=x.parents(i,2).pop();s.appendChild(x.parse(`<div class="${e.divider}"></div>`));let l=x.parse(`
-          <div class="${t.tabBar} ${o.topPill}">
+        `,
+          props: ["extension"],
+          data() {
+            return {
+              selectedPreview: 0
+            };
+          },
+          methods: {
+            i18nFormat: i18n_default.format,
+            i18nLocalize: i18n_default.localize,
+            installOrUninstall() {
+              if (this.extension.installed) {
+              } else {
+              }
+            },
+            goBack() {
+              this.selectedPreview--;
+              if (this.selectedPreview < 0)
+                this.selectedPreview = this.extension.previews.length - 1;
+            },
+            goForward() {
+              this.selectedPreview++;
+              if (this.selectedPreview >= this.extension.previews.length)
+                this.selectedPreview = 0;
+            },
+            showProfile(profileId) {
+              modals_default.show.user(profileId);
+            }
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/components/cards/index.js
+  var cards_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      store_extension_card_default.load(vueApp);
+      installed_extension_card_default.load(vueApp);
+    }
+  };
+
+  // src/ui/home/vue/components/components/index.js
+  var components_default3 = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      config_default.load(vueApp);
+      cards_default.load(vueApp);
+    }
+  };
+
+  // src/ui/home/vue/components/index.js
+  var components_default4 = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      components_default3.load(vueApp);
+      pages_default.load(vueApp);
+    }
+  };
+
+  // src/ui/home/index.js
+  patcher_default.injectCSS(style_default7);
+  {
+    let script = document.createElement("script");
+    script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
+    document.head.appendChild(script);
+  }
+  dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
+    utils_default.ifExists(
+      elm.querySelector('[class*="nameAndDecorators-"] [class*="name-"]'),
+      (nameElm) => {
+        nameElm.textContent = i18n_default.format("APP_NAME");
+      }
+    );
+    utils_default.ifExists(
+      elm.querySelector('[class*="premiumTrialAcknowledgedBadge-"]'),
+      (nitroElm) => {
+        nitroElm.remove();
+      }
+    );
+    utils_default.ifExists(
+      elm.querySelector('[class*="avatarWithText-"] [class*="avatar-"] svg'),
+      fillSVGElmWithAcordLogo
+    );
+  });
+  var internalVueApp = null;
+  (async () => {
+    let headerItemClasses;
+    while (true) {
+      headerItemClasses = webpack_default.findByProperties("divider", "hamburger", "themed");
+      if (headerItemClasses)
+        break;
+      await new Promise((r) => setTimeout(r, 100));
+    }
+    const tabBarClasses = webpack_default.findByProperties("tabBar", "maxWidthWithToolbar");
+    const headerClasses = webpack_default.findByProperties("topPill", "headerText");
+    dom_default.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
+      utils_default.ifExists(
+        elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
+        (titleElm) => {
+          titleElm.textContent = i18n_default.format("APP_NAME");
+          if (internalVueApp) {
+            let buildButton = function(id, text, customClasses = "") {
+              let elm2 = dom_default.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
+              buttons.push(elm2);
+              elm2.setSelected = (s) => {
+                if (s)
+                  elm2.classList.add(headerClasses.selected, "selected");
+                else
+                  elm2.classList.remove(headerClasses.selected, "selected");
+              };
+              elm2.setSelected(internalVueApp.selectedTab === id);
+              elm2.onclick = () => {
+                buttons.forEach((b) => b.setSelected(false));
+                elm2.setSelected(true);
+                internalVueApp.selectedTab = id;
+              };
+              return elm2;
+            };
+            let container = dom_default.parents(titleElm, 2).pop();
+            container.appendChild(
+              dom_default.parse(`<div class="${headerItemClasses.divider}"></div>`)
+            );
+            const buttonsContainer = dom_default.parse(`
+          <div class="${tabBarClasses.tabBar} ${headerClasses.topPill}">
           </div>
-        `),a=[];l.appendChild(n("home",u.format("HOME"))),l.appendChild(n("extensions",u.format("EXTENSIONS"))),l.appendChild(n("settings",u.format("SETTINGS"))),l.appendChild(n("store",u.format("STORE"),"store-tab-button")),s.appendChild(l)}}),y.ifExists(r.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),wo)})})();function wo(e){e.setAttribute("viewBox","0 0 813.5 1493"),e.setAttribute("xmlns","http://www.w3.org/2000/svg"),e.innerHTML=`
+        `);
+            let buttons = [];
+            buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME")));
+            buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
+            buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS")));
+            buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
+            container.appendChild(buttonsContainer);
+          }
+        }
+      );
+      utils_default.ifExists(
+        elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
+        fillSVGElmWithAcordLogo
+      );
+    });
+  })();
+  function fillSVGElmWithAcordLogo(svgElm) {
+    svgElm.setAttribute("viewBox", "0 0 813.5 1493");
+    svgElm.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    svgElm.innerHTML = `
     <defs>
       <style>
         .acord--logo-color {
@@ -323,7 +4964,11 @@
       <path class="acord--logo-color" d="M748.422,632.75a53.875,53.875,0,0,0-53.875,53.875c0,24.939,20.245,46.987,43.25,53.125,4.441,1.185,10.185-39,11-39,0.576,0,27.7,3.51,31,4,5.572,0.828,11.926-13.876,4-20-1.93-1.491-26.621-6.959-29-7-0.62-.011,7.339-41.618,7-43C760.924,631.194,753.044,632.75,748.422,632.75Z" transform="translate(-553.25 -213.5)"/>
       <path class="acord--logo-color" d="M806.906,373.25a53.875,53.875,0,0,0-53.875,53.875c0,24.939,20.245,46.987,43.25,53.125,4.442,1.185,10.185-39,11-39,0.577,0,27.7,3.51,31,4,5.572,0.828,11.926-13.876,4-20-1.93-1.491-26.621-6.959-29-7-0.62-.011,7.339-41.618,7-43C819.409,371.694,811.528,373.25,806.906,373.25Z" transform="translate(-553.25 -213.5)"/>
     </g>
-  `}(async()=>{await T.vue.ready.when();let e=x.parse(`
+  `;
+  }
+  (async () => {
+    await ui_default.vue.ready.when();
+    const baseVueElm = dom_default.parse(`
     <div class="acord--tabs-content-container">
       <div class="tab">
         <keep-alive>
@@ -331,4 +4976,49 @@
         </keep-alive>
       </div>
     </div>
-  `),t=Vue.createApp({data(){return{selectedTab:"home"}},mounted(){ve=this}});T.vue.components.load(t),yo.load(t),t.mount(e),x.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"]',o=>{x.parents(o,4).pop().replaceChildren(e)})})();(async()=>{let e;for(;e=document.querySelector('[class*="wordmark-"] svg'),!e;)await new Promise(t=>setTimeout(t,100));e.innerHTML='<path d="M6.864 10L6.432 8.956H3.048L2.544 10H0.108L3.948 1.564H6.048L9.72 10H6.864ZM4.74 4.78L3.912 6.796H5.58L4.74 4.78ZM15.5045 6.328C15.3445 6.224 15.1925 6.132 15.0485 6.052C14.9045 5.964 14.7565 5.892 14.6045 5.836C14.4525 5.772 14.2925 5.724 14.1245 5.692C13.9645 5.66 13.7845 5.644 13.5845 5.644C13.3125 5.644 13.0805 5.68 12.8885 5.752C12.7045 5.824 12.5565 5.92 12.4445 6.04C12.3325 6.16 12.2485 6.296 12.1925 6.448C12.1445 6.6 12.1205 6.752 12.1205 6.904C12.1205 7.048 12.1525 7.192 12.2165 7.336C12.2805 7.472 12.3725 7.592 12.4925 7.696C12.6205 7.8 12.7725 7.884 12.9485 7.948C13.1245 8.012 13.3285 8.044 13.5605 8.044C13.7285 8.044 13.8845 8.028 14.0285 7.996C14.1805 7.964 14.3285 7.916 14.4725 7.852C14.6245 7.788 14.7805 7.712 14.9405 7.624C15.1085 7.528 15.2965 7.42 15.5045 7.3L16.1285 9.052C15.7685 9.356 15.3445 9.616 14.8565 9.832C14.3685 10.04 13.8405 10.144 13.2725 10.144C12.7365 10.144 12.2485 10.08 11.8085 9.952C11.3765 9.816 11.0045 9.616 10.6925 9.352C10.3885 9.08 10.1525 8.744 9.98447 8.344C9.81647 7.936 9.73247 7.46 9.73247 6.916C9.73247 6.356 9.82447 5.872 10.0085 5.464C10.2005 5.056 10.4565 4.72 10.7765 4.456C11.1045 4.184 11.4885 3.984 11.9285 3.856C12.3685 3.72 12.8405 3.652 13.3445 3.652C14.3205 3.652 15.1845 3.944 15.9365 4.528L15.5045 6.328ZM23.3919 6.856C23.3919 7.432 23.3119 7.928 23.1519 8.344C22.9919 8.76 22.7599 9.104 22.4559 9.376C22.1599 9.64 21.7999 9.836 21.3759 9.964C20.9599 10.084 20.4959 10.144 19.9839 10.144C19.4879 10.144 19.0319 10.08 18.6159 9.952C18.1999 9.816 17.8399 9.612 17.5359 9.34C17.2319 9.068 16.9919 8.728 16.8159 8.32C16.6479 7.904 16.5639 7.416 16.5639 6.856C16.5639 6.272 16.6479 5.772 16.8159 5.356C16.9919 4.94 17.2319 4.6 17.5359 4.336C17.8399 4.072 18.1999 3.88 18.6159 3.76C19.0319 3.64 19.4879 3.58 19.9839 3.58C20.4959 3.58 20.9599 3.648 21.3759 3.784C21.7999 3.912 22.1599 4.112 22.4559 4.384C22.7599 4.648 22.9919 4.988 23.1519 5.404C23.3119 5.812 23.3919 6.296 23.3919 6.856ZM21.1359 6.844C21.1359 6.524 21.0319 6.256 20.8239 6.04C20.6239 5.824 20.3439 5.716 19.9839 5.716C19.6239 5.716 19.3439 5.824 19.1439 6.04C18.9519 6.248 18.8559 6.516 18.8559 6.844C18.8559 7.148 18.9519 7.416 19.1439 7.648C19.3439 7.872 19.6239 7.984 19.9839 7.984C20.3439 7.984 20.6239 7.872 20.8239 7.648C21.0319 7.424 21.1359 7.156 21.1359 6.844ZM28.6948 6.58L28.4788 6.592C28.4708 6.408 28.3908 6.26 28.2388 6.148C28.0868 6.036 27.9228 5.98 27.7468 5.98C27.5868 5.98 27.4068 6.028 27.2068 6.124C27.0148 6.212 26.8428 6.348 26.6908 6.532V10H24.3148V3.784H26.6908V4.396C26.8828 4.212 27.1028 4.04 27.3508 3.88C27.6068 3.72 27.9108 3.64 28.2628 3.64C28.3188 3.64 28.3868 3.644 28.4668 3.652C28.5468 3.66 28.6268 3.672 28.7068 3.688C28.7868 3.704 28.8628 3.728 28.9348 3.76C29.0068 3.784 29.0628 3.816 29.1028 3.856L28.6948 6.58ZM34.3929 10V9.556C34.3209 9.628 34.2209 9.696 34.0929 9.76C33.9649 9.824 33.8249 9.884 33.6729 9.94C33.5209 9.996 33.3689 10.04 33.2169 10.072C33.0729 10.104 32.9449 10.12 32.8329 10.12C32.4249 10.12 32.0329 10.056 31.6569 9.928C31.2809 9.792 30.9489 9.592 30.6609 9.328C30.3809 9.056 30.1569 8.724 29.9889 8.332C29.8209 7.932 29.7369 7.468 29.7369 6.94C29.7369 6.38 29.8169 5.896 29.9769 5.488C30.1449 5.08 30.3689 4.74 30.6489 4.468C30.9369 4.196 31.2729 3.996 31.6569 3.868C32.0409 3.732 32.4489 3.664 32.8809 3.664C32.9689 3.664 33.0809 3.676 33.2169 3.7C33.3609 3.716 33.5049 3.744 33.6489 3.784C33.7929 3.816 33.9289 3.86 34.0569 3.916C34.1929 3.972 34.2969 4.032 34.3689 4.096V0.856H36.7089V10H34.3929ZM34.3689 6.064C34.3049 6.016 34.2249 5.972 34.1289 5.932C34.0329 5.892 33.9329 5.86 33.8289 5.836C33.7249 5.804 33.6209 5.78 33.5169 5.764C33.4129 5.748 33.3209 5.74 33.2409 5.74C33.0809 5.74 32.9249 5.768 32.7729 5.824C32.6289 5.88 32.5009 5.96 32.3889 6.064C32.2769 6.16 32.1889 6.276 32.1249 6.412C32.0609 6.548 32.0289 6.692 32.0289 6.844C32.0289 7.004 32.0609 7.152 32.1249 7.288C32.1889 7.424 32.2769 7.544 32.3889 7.648C32.5009 7.744 32.6289 7.824 32.7729 7.888C32.9249 7.944 33.0809 7.972 33.2409 7.972C33.3209 7.972 33.4129 7.96 33.5169 7.936C33.6209 7.912 33.7249 7.884 33.8289 7.852C33.9329 7.812 34.0329 7.768 34.1289 7.72C34.2249 7.664 34.3049 7.608 34.3689 7.552V6.064Z" fill="currentColor" />',e.setAttribute("viewBox","0 0 55 11")})();Object.defineProperty(window,"acord",{get(){return qt.exposedAPI}});window.global=window;(async()=>(Ie.show(),await Z(),Ie.hide()))();})();
+  `);
+    const vueApp = Vue.createApp({
+      data() {
+        return {
+          selectedTab: "home"
+        };
+      },
+      mounted() {
+        internalVueApp = this;
+      }
+    });
+    ui_default.vue.components.load(vueApp);
+    components_default4.load(vueApp);
+    vueApp.mount(baseVueElm);
+    dom_default.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"]', (elm) => {
+      let containerElm = dom_default.parents(elm, 4).pop();
+      containerElm.replaceChildren(baseVueElm);
+    });
+  })();
+
+  // src/ui/other/index.js
+  (async () => {
+    let svgElm;
+    while (true) {
+      svgElm = document.querySelector('[class*="wordmark-"] svg');
+      if (svgElm)
+        break;
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    svgElm.innerHTML = `<path d="M6.864 10L6.432 8.956H3.048L2.544 10H0.108L3.948 1.564H6.048L9.72 10H6.864ZM4.74 4.78L3.912 6.796H5.58L4.74 4.78ZM15.5045 6.328C15.3445 6.224 15.1925 6.132 15.0485 6.052C14.9045 5.964 14.7565 5.892 14.6045 5.836C14.4525 5.772 14.2925 5.724 14.1245 5.692C13.9645 5.66 13.7845 5.644 13.5845 5.644C13.3125 5.644 13.0805 5.68 12.8885 5.752C12.7045 5.824 12.5565 5.92 12.4445 6.04C12.3325 6.16 12.2485 6.296 12.1925 6.448C12.1445 6.6 12.1205 6.752 12.1205 6.904C12.1205 7.048 12.1525 7.192 12.2165 7.336C12.2805 7.472 12.3725 7.592 12.4925 7.696C12.6205 7.8 12.7725 7.884 12.9485 7.948C13.1245 8.012 13.3285 8.044 13.5605 8.044C13.7285 8.044 13.8845 8.028 14.0285 7.996C14.1805 7.964 14.3285 7.916 14.4725 7.852C14.6245 7.788 14.7805 7.712 14.9405 7.624C15.1085 7.528 15.2965 7.42 15.5045 7.3L16.1285 9.052C15.7685 9.356 15.3445 9.616 14.8565 9.832C14.3685 10.04 13.8405 10.144 13.2725 10.144C12.7365 10.144 12.2485 10.08 11.8085 9.952C11.3765 9.816 11.0045 9.616 10.6925 9.352C10.3885 9.08 10.1525 8.744 9.98447 8.344C9.81647 7.936 9.73247 7.46 9.73247 6.916C9.73247 6.356 9.82447 5.872 10.0085 5.464C10.2005 5.056 10.4565 4.72 10.7765 4.456C11.1045 4.184 11.4885 3.984 11.9285 3.856C12.3685 3.72 12.8405 3.652 13.3445 3.652C14.3205 3.652 15.1845 3.944 15.9365 4.528L15.5045 6.328ZM23.3919 6.856C23.3919 7.432 23.3119 7.928 23.1519 8.344C22.9919 8.76 22.7599 9.104 22.4559 9.376C22.1599 9.64 21.7999 9.836 21.3759 9.964C20.9599 10.084 20.4959 10.144 19.9839 10.144C19.4879 10.144 19.0319 10.08 18.6159 9.952C18.1999 9.816 17.8399 9.612 17.5359 9.34C17.2319 9.068 16.9919 8.728 16.8159 8.32C16.6479 7.904 16.5639 7.416 16.5639 6.856C16.5639 6.272 16.6479 5.772 16.8159 5.356C16.9919 4.94 17.2319 4.6 17.5359 4.336C17.8399 4.072 18.1999 3.88 18.6159 3.76C19.0319 3.64 19.4879 3.58 19.9839 3.58C20.4959 3.58 20.9599 3.648 21.3759 3.784C21.7999 3.912 22.1599 4.112 22.4559 4.384C22.7599 4.648 22.9919 4.988 23.1519 5.404C23.3119 5.812 23.3919 6.296 23.3919 6.856ZM21.1359 6.844C21.1359 6.524 21.0319 6.256 20.8239 6.04C20.6239 5.824 20.3439 5.716 19.9839 5.716C19.6239 5.716 19.3439 5.824 19.1439 6.04C18.9519 6.248 18.8559 6.516 18.8559 6.844C18.8559 7.148 18.9519 7.416 19.1439 7.648C19.3439 7.872 19.6239 7.984 19.9839 7.984C20.3439 7.984 20.6239 7.872 20.8239 7.648C21.0319 7.424 21.1359 7.156 21.1359 6.844ZM28.6948 6.58L28.4788 6.592C28.4708 6.408 28.3908 6.26 28.2388 6.148C28.0868 6.036 27.9228 5.98 27.7468 5.98C27.5868 5.98 27.4068 6.028 27.2068 6.124C27.0148 6.212 26.8428 6.348 26.6908 6.532V10H24.3148V3.784H26.6908V4.396C26.8828 4.212 27.1028 4.04 27.3508 3.88C27.6068 3.72 27.9108 3.64 28.2628 3.64C28.3188 3.64 28.3868 3.644 28.4668 3.652C28.5468 3.66 28.6268 3.672 28.7068 3.688C28.7868 3.704 28.8628 3.728 28.9348 3.76C29.0068 3.784 29.0628 3.816 29.1028 3.856L28.6948 6.58ZM34.3929 10V9.556C34.3209 9.628 34.2209 9.696 34.0929 9.76C33.9649 9.824 33.8249 9.884 33.6729 9.94C33.5209 9.996 33.3689 10.04 33.2169 10.072C33.0729 10.104 32.9449 10.12 32.8329 10.12C32.4249 10.12 32.0329 10.056 31.6569 9.928C31.2809 9.792 30.9489 9.592 30.6609 9.328C30.3809 9.056 30.1569 8.724 29.9889 8.332C29.8209 7.932 29.7369 7.468 29.7369 6.94C29.7369 6.38 29.8169 5.896 29.9769 5.488C30.1449 5.08 30.3689 4.74 30.6489 4.468C30.9369 4.196 31.2729 3.996 31.6569 3.868C32.0409 3.732 32.4489 3.664 32.8809 3.664C32.9689 3.664 33.0809 3.676 33.2169 3.7C33.3609 3.716 33.5049 3.744 33.6489 3.784C33.7929 3.816 33.9289 3.86 34.0569 3.916C34.1929 3.972 34.2969 4.032 34.3689 4.096V0.856H36.7089V10H34.3929ZM34.3689 6.064C34.3049 6.016 34.2249 5.972 34.1289 5.932C34.0329 5.892 33.9329 5.86 33.8289 5.836C33.7249 5.804 33.6209 5.78 33.5169 5.764C33.4129 5.748 33.3209 5.74 33.2409 5.74C33.0809 5.74 32.9249 5.768 32.7729 5.824C32.6289 5.88 32.5009 5.96 32.3889 6.064C32.2769 6.16 32.1889 6.276 32.1249 6.412C32.0609 6.548 32.0289 6.692 32.0289 6.844C32.0289 7.004 32.0609 7.152 32.1249 7.288C32.1889 7.424 32.2769 7.544 32.3889 7.648C32.5009 7.744 32.6289 7.824 32.7729 7.888C32.9249 7.944 33.0809 7.972 33.2409 7.972C33.3209 7.972 33.4129 7.96 33.5169 7.936C33.6209 7.912 33.7249 7.884 33.8289 7.852C33.9329 7.812 34.0329 7.768 34.1289 7.72C34.2249 7.664 34.3049 7.608 34.3689 7.552V6.064Z" fill="currentColor" />`;
+    svgElm.setAttribute("viewBox", "0 0 55 11");
+  })();
+
+  // src/index.js
+  Object.defineProperty(window, "acord", {
+    get() {
+      return api_default.exposedAPI;
+    }
+  });
+  window.global = window;
+  (async () => {
+    loading_animation_default.show();
+    await waitUntilConnectionOpen();
+    loading_animation_default.hide();
+  })();
+})();
