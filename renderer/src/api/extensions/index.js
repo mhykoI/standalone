@@ -20,7 +20,7 @@ import logger from "../utils/logger.js";
  * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, websocket?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
 async function buildPluginAPI(manifest, persistKey) {
-  const devMode = dev.enabled || manifest?.mode === "development";
+  const devMode = manifest?.mode === "development";
   const persist = await storage.createPersistNest(persistKey);
   const out = {
     modules: {
