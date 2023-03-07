@@ -14,11 +14,6 @@ export default {
       `,
       props: ["value", "size", "color"],
       emits: ["click"],
-      data() {
-        return {
-          buttonClasses
-        }
-      },
       methods: {
         onClick(e) {
           this.$emit("click", e);
