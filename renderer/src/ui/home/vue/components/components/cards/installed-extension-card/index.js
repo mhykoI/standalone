@@ -17,7 +17,7 @@ export default {
           <div class="acord--installed-extension-card">
             <div class="status-container">
               <div class="loaded-state" :class="{'active': !!this.configCache}" :acord--tooltip-content="i18nFormat(!!this.configCache ? 'EXTENSION_ACTIVE' : 'EXTENSION_INACTIVE')"></div>
-              <div v-if="extension.manifest.mode == 'development'" class="development-mode-warning" :acord--tooltip-content="i18nFormat('EXTENSION_IN_DEVELOPMENT_MODE')">
+              <div v-if="extension.manifest.mode == 'development'" class="development-mode-warning" :acord--tooltip-content="i18nFormat('EXTENSION_IS_IN_DEVELOPMENT_MODE')">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
                   <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"/>
                 </svg>
