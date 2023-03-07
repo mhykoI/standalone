@@ -1,4 +1,5 @@
 import commonData from '../../data/common.json';
+import { waitUntilConnectionOpen } from '../../other/utils.js';
 import webpack from './webpack.js';
 
 
@@ -42,7 +43,7 @@ let common = {
   },
 };
 mapObject(common, commonData.common);
-{
+function findStores() {
   let paths = [
     "exports.Z",
     "exports.ZP",
@@ -64,5 +65,7 @@ mapObject(common, commonData.common);
     })
   })
 }
+findStores();
+waitUntilConnectionOpen().then(findStores);
 
 export default common;
