@@ -5,12 +5,7 @@ const validPositions = [
   "top-right",
   "top-left",
   "bottom-right",
-  "bottom-left",
-  "top-center",
-  "bottom-center",
-  "center",
-  "left-center",
-  "right-center"
+  "bottom-left"
 ]
 
 function getContainer(position) {

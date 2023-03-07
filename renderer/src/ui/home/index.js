@@ -90,7 +90,7 @@ let internalVueApp = null;
           }
 
           buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
-          buttonsContainer.appendChild(buildButton("installed-extensions", i18n.format("INSTALLED_EXTENSIONS")));
+          buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS")));
           buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
           buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
 

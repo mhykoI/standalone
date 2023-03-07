@@ -140,14 +140,14 @@ class Tooltip {
       case "top": {
         this.layerElement.classList.add(tooltipPositions.top);
         this.layerElement.style.setProperty("left", `${targetRect.left}px`);
-        this.layerElement.style.setProperty("top", `${(targetRect.top - this.layerElement.offsetHeight - 10)}px`);
+        this.layerElement.style.setProperty("top", `${targetRect.top - this.layerElement.offsetHeight - 10}px`);
         this.centerPosition("horizontal");
         break;
       }
       case "bottom": {
         this.layerElement.classList.add(tooltipPositions.bottom);
         this.layerElement.style.setProperty("left", `${targetRect.left}px`);
-        this.layerElement.style.setProperty("top", `${(targetRect.top + this.layerElement.offsetHeight + 10)}px`);
+        this.layerElement.style.setProperty("top", `${targetRect.top + this.layerElement.offsetHeight + 10}px`);
         this.centerPosition("horizontal");
         break;
       }

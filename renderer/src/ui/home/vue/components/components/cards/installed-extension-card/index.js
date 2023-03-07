@@ -5,6 +5,7 @@ import extensions from "../../../../../../../api/extensions/index.js";
 import events from "../../../../../../../api/events/index.js";
 
 import cssText from "./style.scss";
+import utils from "../../../../../../../api/utils/index.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -14,7 +15,7 @@ export default {
       "installed-extension-card",
       {
         template: `
-          <div class="acord--installed-extension-card">
+          <div class="acord--installed-extension-card" @contextmenu="onContextMenu">
             <div class="status-container">
               <div class="loaded-state" :class="{'active': !!this.configCache}" :acord--tooltip-content="i18nFormat(!!this.configCache ? 'EXTENSION_ACTIVE' : 'EXTENSION_INACTIVE')"></div>
               <div v-if="extension.manifest.mode == 'development'" class="development-mode-warning" :acord--tooltip-content="i18nFormat('EXTENSION_IS_IN_DEVELOPMENT_MODE')">
@@ -127,6 +128,18 @@ export default {
           },
           onUninstallExtension() {
             extensions.uninstall(this.id);
+          },
+          onContextMenu(e) {
+            ui.contextMenus.open(e,
+              ui.contextMenus.build.menu([
+                {
+                  label: i18n.format("COPY_ID"),
+                  action: () => {
+                    utils.copyText(this.id);
+                  }
+                }
+              ])
+            )
           }
         },
         props: ["id", "extension"],

@@ -1,4 +1,4 @@
-.acord--installed-extensions-page {
+.acord--extensions-page {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -16,10 +16,14 @@
       gap: 8px;
 
       & > .search {
-        width: 80%;
+        width: 60%;
       }
 
       & > .category {
+        width: 20%;
+      }
+
+      & .install {
         width: 20%;
       }
     }

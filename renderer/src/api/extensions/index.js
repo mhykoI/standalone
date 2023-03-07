@@ -170,7 +170,7 @@ const out = {
 
     let metaResp = await fetch(`${url}/manifest.json`);
     if (metaResp.status !== 200) throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
-    let manifest = JSON.parse(await metaResp.text());
+    let manifest = await metaResp.json();
 
     let readmeResp = await fetch(`${url}/readme.md`);
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
