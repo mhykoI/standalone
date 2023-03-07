@@ -139,6 +139,10 @@
             &:hover {
               background-color: rgba(0, 0, 0, 0.5);
             }
+
+            &.uninstall:hover {
+              color: #f23f42;
+            }
           }
         }
       }

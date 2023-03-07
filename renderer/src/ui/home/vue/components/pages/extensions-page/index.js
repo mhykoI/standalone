@@ -20,7 +20,7 @@ export default {
                 <div class="search">
                   <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')" />
                 </div>
-                <div class="install">
+                <div class="install" :acord--tooltip-content="i18nFormat('IMPORT_EXTENSION')">
                   <discord-input v-model="installUrl" placeholder="https://.../dist" @keyup="onInstallKeyUp" />
                 </div>
                 <div class="category">
