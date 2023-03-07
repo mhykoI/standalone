@@ -28,7 +28,7 @@ export default {
                 </div>
               </div>
               <div class="bottom">
-                <installed-extension-card v-if="developmentExtension" :id="developmentExtension.id" :extension="developmentExtension.extension" />
+                <installed-extension-card v-if="developmentExtension" :id="developmentExtension.id" :extension="developmentExtension.extension" :hide-controls="true" />
                 <installed-extension-card v-for="(extension, id) of filteredExtensions" :id="id" :extension="extension" :key="id" />
               </div>
             </div>
