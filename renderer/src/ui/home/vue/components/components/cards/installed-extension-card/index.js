@@ -90,7 +90,7 @@ export default {
           return {
             expanded: false,
             configCache: null,
-            enabled: extensions.storage.installed.ghost[this.id].config.enabled
+            enabled: !!extensions.storage.installed.ghost[this.id]?.config?.enabled
           };
         },
         methods: {
@@ -111,7 +111,7 @@ export default {
             }
           },
           onToggleExtension() {
-            let enabled = extensions.storage.installed.ghost[this.id].config.enabled;
+            let enabled = !!extensions.storage.installed.ghost[this.id]?.config?.enabled;
             let newState = !enabled;
             extensions.storage.installed.store[this.id].config.enabled = newState;
             this.enabled = newState;

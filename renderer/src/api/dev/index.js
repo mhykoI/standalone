@@ -26,10 +26,10 @@ const extension = {
     if (isLoading) return false;
     isLoading = true;
     try {
-      loaded = await extensions.loader.load("Development", { source, manifest });
       installed = {
         manifest
       };
+      loaded = await extensions.loader.load("Development", { source, manifest });
     } catch (err) {
       logger.error(`Unable to load development extension.`, i18n.localize(manifest.about.name), err);
       isLoading = false;
