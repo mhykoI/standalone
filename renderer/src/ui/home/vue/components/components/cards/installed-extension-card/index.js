@@ -106,6 +106,7 @@ export default {
           onExtensionUnloaded({ id }) {
             if (id === this.id) {
               this.configCache = null;
+              this.expanded = false;
             }
           },
           onToggleExtension() {
