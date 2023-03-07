@@ -10,7 +10,7 @@ await esbuild.build({
   })],
   entryPoints: ['src/index.js'],
   bundle: true,
-  minify: true,
+  minify: false,
   // sourcemap: "inline",
   platform: "browser",
   external: ["electron", "path", "fs"],
