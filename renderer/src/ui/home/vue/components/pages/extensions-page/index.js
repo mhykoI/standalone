@@ -40,12 +40,14 @@ export default {
             searchCategoryText: "all",
             extensions: {},
             developmentExtension: null,
-            installUrl: ""
+            installUrl: "",
+            filteredExtensions: {}
           }
         },
         methods: {
           onStorageUpdate() {
             this.extensions = extensions.storage.installed.ghost || {};
+            this.updateFilteredExtensions();
           },
           i18nFormat: i18n.format,
           onExtensionLoaded({ id }) {
@@ -55,11 +57,13 @@ export default {
                 id: "Development"
               }
             }
+            this.updateFilteredExtensions();
           },
           onExtensionUnloaded({ id }) {
             if (id === "Development") {
               this.developmentExtension = null;
             }
+            this.updateFilteredExtensions();
           },
           async onInstallKeyUp(event) {
             if (event.key === "Enter") {
@@ -73,13 +77,36 @@ export default {
                 ui.notifications.show.error(err.message);
               }
             }
+          },
+          updateFilteredExtensions() {
+            const searchText = this.searchText.toLowerCase();
+            const searchCategoryText = this.searchCategoryText;
+            this.filteredExtensions = Object.fromEntries(
+              Object.entries(this.extensions || {})
+                .filter(([id, extension]) => {
+                  if (searchCategoryText === "all") return true;
+                  return extension.manifest.type === searchCategoryText;
+                })
+                .filter(([id, extension]) => {
+                  if (!searchText) return true;
+                  return i18n.localize(extension.manifest.about.name).toLowerCase().includes(searchText) || i18n.localize(extension.manifest.about.description).toLowerCase().includes(searchText);
+                })
+            );
+          }
+        },
+        watch: {
+          searchText() {
+            this.updateFilteredExtensions();
+          },
+          searchCategoryText() {
+            this.updateFilteredExtensions();
           }
         },
         async mounted() {
           while (typeof extensions.storage.installed?.on !== "function") {
             await new Promise(resolve => setTimeout(resolve, 100));
           }
-          
+
           this.onStorageUpdate();
 
           extensions.storage.installed.on("UPDATE", this.onStorageUpdate);
@@ -95,23 +122,6 @@ export default {
           events.off("ExtensionLoaded", this.onExtensionLoaded);
           events.off("ExtensionUnloaded", this.onExtensionUnloaded);
         },
-        computed: {
-          filteredExtensions() {
-            const searchText = this.searchText.toLowerCase();
-            const searchCategoryText = this.searchCategoryText;
-            return Object.fromEntries(
-              Object.entries(this.extensions || {})
-                .filter(([id, extension]) => {
-                  if (searchCategoryText === "all") return true;
-                  return extension.manifest.type === searchCategoryText;
-                })
-                .filter(([id, extension]) => {
-                  if (!searchText) return true;
-                  return i18n.localize(extension.manifest.about.name).toLowerCase().includes(searchText) || i18n.localize(extension.manifest.about.description).toLowerCase().includes(searchText);
-                })
-            );
-          }
-        }
       }
     );
   }

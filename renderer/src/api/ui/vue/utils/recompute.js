@@ -10,7 +10,7 @@ export function recompute(vm, propName) {
 }
 
 export function recomputable(fn, name) {
-  const reactive = Vue.computed({
+  const reactive = Vue.reactive({
     backdoor: 0
   });
 

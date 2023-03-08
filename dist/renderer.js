@@ -3345,7 +3345,7 @@
     vm.$__recomputables[propName].backdoor++;
   }
   function recomputable(fn, name2) {
-    const reactive = Vue.computed({
+    const reactive = Vue.reactive({
       backdoor: 0
     });
     return function() {
@@ -4159,12 +4159,14 @@
               searchCategoryText: "all",
               extensions: {},
               developmentExtension: null,
-              installUrl: ""
+              installUrl: "",
+              filteredExtensions: {}
             };
           },
           methods: {
             onStorageUpdate() {
               this.extensions = extensions_default.storage.installed.ghost || {};
+              this.updateFilteredExtensions();
             },
             i18nFormat: i18n_default.format,
             onExtensionLoaded({ id }) {
@@ -4174,11 +4176,13 @@
                   id: "Development"
                 };
               }
+              this.updateFilteredExtensions();
             },
             onExtensionUnloaded({ id }) {
               if (id === "Development") {
                 this.developmentExtension = null;
               }
+              this.updateFilteredExtensions();
             },
             async onInstallKeyUp(event) {
               if (event.key === "Enter") {
@@ -4192,6 +4196,29 @@
                   ui_default.notifications.show.error(err.message);
                 }
               }
+            },
+            updateFilteredExtensions() {
+              const searchText = this.searchText.toLowerCase();
+              const searchCategoryText = this.searchCategoryText;
+              this.filteredExtensions = Object.fromEntries(
+                Object.entries(this.extensions || {}).filter(([id, extension2]) => {
+                  if (searchCategoryText === "all")
+                    return true;
+                  return extension2.manifest.type === searchCategoryText;
+                }).filter(([id, extension2]) => {
+                  if (!searchText)
+                    return true;
+                  return i18n_default.localize(extension2.manifest.about.name).toLowerCase().includes(searchText) || i18n_default.localize(extension2.manifest.about.description).toLowerCase().includes(searchText);
+                })
+              );
+            }
+          },
+          watch: {
+            searchText() {
+              this.updateFilteredExtensions();
+            },
+            searchCategoryText() {
+              this.updateFilteredExtensions();
             }
           },
           async mounted() {
@@ -4211,23 +4238,6 @@
             extensions_default.storage.installed.off("DELETE", this.onStorageUpdate);
             events_default.off("ExtensionLoaded", this.onExtensionLoaded);
             events_default.off("ExtensionUnloaded", this.onExtensionUnloaded);
-          },
-          computed: {
-            filteredExtensions() {
-              const searchText = this.searchText.toLowerCase();
-              const searchCategoryText = this.searchCategoryText;
-              return Object.fromEntries(
-                Object.entries(this.extensions || {}).filter(([id, extension2]) => {
-                  if (searchCategoryText === "all")
-                    return true;
-                  return extension2.manifest.type === searchCategoryText;
-                }).filter(([id, extension2]) => {
-                  if (!searchText)
-                    return true;
-                  return i18n_default.localize(extension2.manifest.about.name).toLowerCase().includes(searchText) || i18n_default.localize(extension2.manifest.about.description).toLowerCase().includes(searchText);
-                })
-              );
-            }
           }
         }
       );
@@ -5068,8 +5078,8 @@
     ui_default.vue.components.load(vueApp);
     components_default4.load(vueApp);
     vueApp.mount(baseVueElm);
-    dom_default.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"]', (elm) => {
-      let containerElm = dom_default.parents(elm, 4).pop();
+    dom_default.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"]', (elm) => {
+      let containerElm = dom_default.parents(elm, '[class*="premiumContainer-"]').pop();
       containerElm.replaceChildren(baseVueElm);
     });
   })();
