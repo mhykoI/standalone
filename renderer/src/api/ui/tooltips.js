@@ -121,17 +121,19 @@ class Tooltip {
   }
 
   fixPosition() {
-    if (!this.position || this.position === "auto") {
-      this.calculatePosition(
-        this.canShowAtTop ? "top"
-          : this.canShowAtBottom ? "bottom"
-            : this.canShowAtLeft ? "left"
-              : this.canShowAtRight ? "right"
-                : "top"
-      );
-    } else {
-      this.calculatePosition(this.position);
-    }
+    try {
+      if (!this.position || this.position === "auto") {
+        this.calculatePosition(
+          this.canShowAtTop ? "top"
+            : this.canShowAtBottom ? "bottom"
+              : this.canShowAtLeft ? "left"
+                : this.canShowAtRight ? "right"
+                  : "top"
+        );
+      } else {
+        this.calculatePosition(this.position);
+      }
+    } catch { }
   }
 
   calculatePosition(position) {
