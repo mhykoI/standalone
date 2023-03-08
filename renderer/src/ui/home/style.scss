@@ -20,13 +20,20 @@
   }
 
   &--tabs-tab-button {
+    cursor: pointer;
+
     &.store-tab-button {
       background-color: var(--status-positive-background);
       color: var(--status-positive-text);
 
+      &:hover:not(.selected) {
+        background-color: var(--status-positive-background) !important;
+        color: var(--status-positive-text) !important;
+      }
+
       &.selected {
         color: var(--text-positive);
-        background-color: var(--background-modifier-selected);
+        background-color: transparent;
       }
     }
   }

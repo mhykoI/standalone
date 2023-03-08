@@ -4072,7 +4072,7 @@
 
   // src/ui/home/style.scss
   var style_default7 = `
-[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:var(--background-modifier-selected)}`;
+[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}`;
 
   // src/ui/home/vue/components/pages/home-page/index.js
   var home_page_default = {
