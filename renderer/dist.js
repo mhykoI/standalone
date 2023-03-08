@@ -3988,19 +3988,14 @@
   };
 
   // src/other/current-user-change.js
-  var currentUserId = null;
-  var onCurrentUserChange = (e) => {
-    if (e.user?.id === currentUserId)
-      return;
-    if (!currentUserId) {
-      currentUserId = e.user?.id;
-      return;
-    }
-    events_default.emit("CurrentUserChange", e);
-  };
+  var lastUserId = common_default2?.UserStore?.getCurrentUser()?.id;
   setInterval(() => {
-    if (common_default2?.UserStore?.getCurrentUser) {
-      onCurrentUserChange({ user: common_default2.UserStore.getCurrentUser() });
+    let userId = common_default2?.UserStore?.getCurrentUser()?.id;
+    if (!userId)
+      return;
+    if (userId !== lastUserId) {
+      lastUserId = userId;
+      events_default.emit("CurrentUserChange", { user: common_default2.UserStore.getCurrentUser() });
     }
   }, 1e3);
 

@@ -1,20 +1,12 @@
 import events from "../api/events";
 import common from "../api/modules/common";
 
-let currentUserId = null;
-
-const onCurrentUserChange = (e) => {
-  if (e.user?.id === currentUserId) return;
-  if (!currentUserId) {
-    currentUserId = e.user?.id;
-    return;
-  }
-  events.emit("CurrentUserChange", e);
-};
-
-
+let lastUserId = common?.UserStore?.getCurrentUser()?.id;
 setInterval(() => {
-  if (common?.UserStore?.getCurrentUser) {
-    onCurrentUserChange({ user: common.UserStore.getCurrentUser() });
+  let userId = common?.UserStore?.getCurrentUser()?.id;
+  if (!userId) return;
+  if (userId !== lastUserId) {
+    lastUserId = userId;
+    events.emit("CurrentUserChange", { user: common.UserStore.getCurrentUser() });
   }
 }, 1000);
