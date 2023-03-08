@@ -20,7 +20,8 @@ contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
   },
   isDevToolsOpen() {
     return ipcRenderer.sendSync("IsDevToolsOpen");
-  }
+  },
+  ipcRenderer
 });
 
 patchWindowActions();
