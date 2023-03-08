@@ -2544,6 +2544,7 @@
         this.contentElement.innerHTML = "";
         this.contentElement?.appendChild?.(value);
       }
+      this.fixPosition();
     }
     static getContainer() {
       const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
@@ -2560,6 +2561,10 @@
       this.visible = true;
       const container = Tooltip.getContainer();
       container.appendChild(this.layerElement);
+      this.fixPosition();
+      this.layerElement.classList.add("visible");
+    }
+    fixPosition() {
       if (!this.position || this.position === "auto") {
         this.calculatePosition(
           this.canShowAtTop ? "top" : this.canShowAtBottom ? "bottom" : this.canShowAtLeft ? "left" : this.canShowAtRight ? "right" : "top"
@@ -2567,7 +2572,6 @@
       } else {
         this.calculatePosition(this.position);
       }
-      this.layerElement.classList.add("visible");
     }
     calculatePosition(position) {
       const targetRect = this.target.getBoundingClientRect();

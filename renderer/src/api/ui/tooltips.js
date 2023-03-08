@@ -92,6 +92,7 @@ class Tooltip {
       this.contentElement.innerHTML = "";
       this.contentElement?.appendChild?.(value);
     }
+    this.fixPosition();
   }
 
   static getContainer() {
@@ -114,6 +115,12 @@ class Tooltip {
     const container = Tooltip.getContainer();
     container.appendChild(this.layerElement);
 
+    this.fixPosition();
+
+    this.layerElement.classList.add("visible");
+  }
+
+  fixPosition() {
     if (!this.position || this.position === "auto") {
       this.calculatePosition(
         this.canShowAtTop ? "top"
@@ -125,9 +132,6 @@ class Tooltip {
     } else {
       this.calculatePosition(this.position);
     }
-
-
-    this.layerElement.classList.add("visible");
   }
 
   calculatePosition(position) {
