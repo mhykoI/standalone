@@ -16,7 +16,7 @@
     justify-content: space-between;
     align-items: center;
 
-    background-color: var(--brand-500);
+    background-color: rgba(0, 0, 0, 0.1);
     background-position: center;
     background-size: cover;
 
@@ -45,16 +45,16 @@
     & > .name-container {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       color: var(--header-primary);
       padding: 8px;
+      width: 100%;
 
       & > .name {
-        font-size: 14px;
+        font-size: 10px;
         background-color: rgba(0, 0, 0, 0.5);
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
-        border-radius: 9999px;
         padding: 4px 8px;
+        border-radius: 9999px;
       }
     }
   }
@@ -75,12 +75,12 @@
 
       & > .name-container {
         display: flex;
-        align-items: center;
+        align-items: flex-end;
         gap: 4px;
         width: 100%;
 
         & > .name {
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 500;
           color: var(--header-primary);
         }
@@ -153,6 +153,34 @@
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-end;
+
+        & > .controls {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          .control {
+            display: flex;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            color: whitesmoke;
+            cursor: pointer;
+
+            &.disabled {
+              opacity: 0.5;
+              pointer-events: none;
+            }
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            &.uninstall:hover {
+              color: #f23f42;
+            }
+          }
+        }
       }
     }
   }

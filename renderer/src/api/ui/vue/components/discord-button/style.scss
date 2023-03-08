@@ -17,7 +17,8 @@
 }
 
 .acord--discord-button:disabled,
-.acord--discord-button[aria-disabled="true"] {
+.acord--discord-button[aria-disabled="true"],
+.acord--discord-button.disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }

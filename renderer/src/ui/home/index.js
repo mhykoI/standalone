@@ -5,6 +5,8 @@ import utils from "../../api/utils/index.js";
 import i18n from "../../api/i18n/index.js";
 import ui from "../../api/ui/index.js";
 
+import "../../api/extensions";
+
 import cssText from "./style.scss";
 import vueComponents from "./vue/components/index.js";
 patcher.injectCSS(cssText);
@@ -89,9 +91,9 @@ let internalVueApp = null;
             return elm;
           }
 
-          buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
+          // buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
           buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS")));
-          buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
+          // buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
           buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
 
           container.appendChild(buttonsContainer);
@@ -154,7 +156,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
   const vueApp = Vue.createApp({
     data() {
       return {
-        selectedTab: "home"
+        selectedTab: "extensions"
       };
     },
     mounted() {

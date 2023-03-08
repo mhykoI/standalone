@@ -244,6 +244,8 @@ const out = {
       }
     };
 
+    console.log("Extension updated:", url, { loadedBefore });
+
     if (loadedBefore) {
       await new Promise(resolve => setTimeout(resolve, 1));
       await out.load(url);

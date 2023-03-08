@@ -1741,13 +1741,17 @@
   // src/other/utils.js
   var isConnectionOpen = false;
   function waitUntilConnectionOpen() {
-    return new Promise((resolve) => {
+    return new Promise(async (resolve) => {
       if (isConnectionOpen)
         return resolve(true);
       function onEvent() {
         modules_default.common.FluxDispatcher.unsubscribe("CONNECTION_OPEN", onEvent);
         isConnectionOpen = true;
         resolve(true);
+        console.log("Connection opened");
+      }
+      while (!modules_default?.common?.FluxDispatcher) {
+        await new Promise((r) => setTimeout(r, 100));
       }
       modules_default.common.FluxDispatcher.subscribe("CONNECTION_OPEN", onEvent);
     });
@@ -3131,7 +3135,7 @@
 
   // src/api/ui/vue/components/discord-button/style.scss
   var style_default2 = `
-.acord--discord-button{position:relative;display:flex;justify-content:center;align-items:center;box-sizing:border-box;background:none;border:none;border-radius:3px;font-size:14px;font-weight:500;line-height:16px;padding:2px 16px;user-select:none;transition:background-color .17s ease,color .17s ease;cursor:pointer}.acord--discord-button:disabled,.acord--discord-button[aria-disabled=true]{cursor:not-allowed;opacity:.5}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button-lookFilled.colorBrand{color:var(--white-500);background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorBrand:hover{background-color:var(--brand-experiment-560)}.acord--discord-button-lookFilled.colorBrand:active{background-color:var(--brand-experiment-600)}.acord--discord-button-lookFilled.colorBrand .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrand:disabled,.acord--discord-button-lookFilled.colorBrand[aria-disabled=true]{background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorPrimary{color:var(--white-500);background-color:var(--button-secondary-background)}.acord--discord-button-lookFilled.colorPrimary:hover{background-color:var(--button-secondary-background-hover)}.acord--discord-button-lookFilled.colorPrimary:active{background-color:var(--button-secondary-background-active)}.acord--discord-button-lookFilled.colorPrimary .spinnerItem-3Y5NsU{background-color:var(--primary-100)}.acord--discord-button-lookFilled.colorPrimary:disabled,.acord--discord-button-lookFilled.colorPrimary[aria-disabled=true]{background-color:var(--button-secondary-background-disabled)}.acord--discord-button-lookFilled.colorGreen{color:var(--white-500);background-color:var(--button-positive-background)}.acord--discord-button-lookFilled.colorGreen:hover{background-color:var(--button-positive-background-hover)}.acord--discord-button-lookFilled.colorGreen:active{background-color:var(--button-positive-background-active)}.acord--discord-button-lookFilled.colorGreen .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorGreen:disabled,.acord--discord-button-lookFilled.colorGreen[aria-disabled=true]{background-color:var(--button-positive-background-disabled)}.acord--discord-button-lookFilled.colorRed{color:var(--white-500);background-color:var(--button-danger-background)}.acord--discord-button-lookFilled.colorRed:hover{background-color:var(--button-danger-background-hover)}.acord--discord-button-lookFilled.colorRed:active{background-color:var(--button-danger-background-active)}.acord--discord-button-lookFilled.colorRed .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorRed:disabled,.acord--discord-button-lookFilled.colorRed[aria-disabled=true]{background-color:var(--button-danger-background-disabled)}.acord--discord-button-lookFilled.colorBrandNew{color:var(--white-500);background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorBrandNew:hover{background-color:var(--brand-560)}.acord--discord-button-lookFilled.colorBrandNew:active{background-color:var(--brand-600)}.acord--discord-button-lookFilled.colorBrandNew .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrandNew:disabled,.acord--discord-button-lookFilled.colorBrandNew[aria-disabled=true]{background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorWhite{color:var(--primary-500);background-color:var(--white-500)}.acord--discord-button-lookFilled.colorWhite .spinnerItem-3Y5NsU{background-color:var(--primary-500)}.acord--discord-button-lookFilled.colorWhite:disabled,.acord--discord-button-lookFilled.colorWhite[aria-disabled=true]{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow{color:var(--white-500);background-color:var(--status-warning)}.acord--discord-button-lookFilled.colorYellow .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow:disabled,.acord--discord-button-lookFilled.colorYellow[aria-disabled=true]{background-color:var(--status-warning)}.acord--discord-button-grow{width:auto}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button.sizeTiny{width:52px;height:24px;min-width:52px;min-height:24px}.acord--discord-button.sizeSmall{width:60px;height:32px;min-width:60px;min-height:32px}.acord--discord-button.sizeMedium{width:96px;height:38px;min-width:96px;min-height:38px}.acord--discord-button.sizeLarge{width:130px;height:44px;min-width:130px;min-height:44px}.acord--discord-button.sizeXlarge{width:148px;height:50px;min-width:148px;min-height:50px;font-size:16px;line-height:normal;padding:2px 20px}.acord--discord-button.sizeMin{display:inline;width:auto;height:auto;padding:2px 4px}.acord--discord-button.sizeMax{width:100%;height:100%;min-width:100%;min-height:100%;font-size:16px}`;
+.acord--discord-button{position:relative;display:flex;justify-content:center;align-items:center;box-sizing:border-box;background:none;border:none;border-radius:3px;font-size:14px;font-weight:500;line-height:16px;padding:2px 16px;user-select:none;transition:background-color .17s ease,color .17s ease;cursor:pointer}.acord--discord-button:disabled,.acord--discord-button[aria-disabled=true],.acord--discord-button.disabled{cursor:not-allowed;opacity:.5}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button-lookFilled.colorBrand{color:var(--white-500);background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorBrand:hover{background-color:var(--brand-experiment-560)}.acord--discord-button-lookFilled.colorBrand:active{background-color:var(--brand-experiment-600)}.acord--discord-button-lookFilled.colorBrand .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrand:disabled,.acord--discord-button-lookFilled.colorBrand[aria-disabled=true]{background-color:var(--brand-experiment)}.acord--discord-button-lookFilled.colorPrimary{color:var(--white-500);background-color:var(--button-secondary-background)}.acord--discord-button-lookFilled.colorPrimary:hover{background-color:var(--button-secondary-background-hover)}.acord--discord-button-lookFilled.colorPrimary:active{background-color:var(--button-secondary-background-active)}.acord--discord-button-lookFilled.colorPrimary .spinnerItem-3Y5NsU{background-color:var(--primary-100)}.acord--discord-button-lookFilled.colorPrimary:disabled,.acord--discord-button-lookFilled.colorPrimary[aria-disabled=true]{background-color:var(--button-secondary-background-disabled)}.acord--discord-button-lookFilled.colorGreen{color:var(--white-500);background-color:var(--button-positive-background)}.acord--discord-button-lookFilled.colorGreen:hover{background-color:var(--button-positive-background-hover)}.acord--discord-button-lookFilled.colorGreen:active{background-color:var(--button-positive-background-active)}.acord--discord-button-lookFilled.colorGreen .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorGreen:disabled,.acord--discord-button-lookFilled.colorGreen[aria-disabled=true]{background-color:var(--button-positive-background-disabled)}.acord--discord-button-lookFilled.colorRed{color:var(--white-500);background-color:var(--button-danger-background)}.acord--discord-button-lookFilled.colorRed:hover{background-color:var(--button-danger-background-hover)}.acord--discord-button-lookFilled.colorRed:active{background-color:var(--button-danger-background-active)}.acord--discord-button-lookFilled.colorRed .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorRed:disabled,.acord--discord-button-lookFilled.colorRed[aria-disabled=true]{background-color:var(--button-danger-background-disabled)}.acord--discord-button-lookFilled.colorBrandNew{color:var(--white-500);background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorBrandNew:hover{background-color:var(--brand-560)}.acord--discord-button-lookFilled.colorBrandNew:active{background-color:var(--brand-600)}.acord--discord-button-lookFilled.colorBrandNew .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorBrandNew:disabled,.acord--discord-button-lookFilled.colorBrandNew[aria-disabled=true]{background-color:var(--brand-500)}.acord--discord-button-lookFilled.colorWhite{color:var(--primary-500);background-color:var(--white-500)}.acord--discord-button-lookFilled.colorWhite .spinnerItem-3Y5NsU{background-color:var(--primary-500)}.acord--discord-button-lookFilled.colorWhite:disabled,.acord--discord-button-lookFilled.colorWhite[aria-disabled=true]{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow{color:var(--white-500);background-color:var(--status-warning)}.acord--discord-button-lookFilled.colorYellow .spinnerItem-3Y5NsU{background-color:var(--white-500)}.acord--discord-button-lookFilled.colorYellow:disabled,.acord--discord-button-lookFilled.colorYellow[aria-disabled=true]{background-color:var(--status-warning)}.acord--discord-button-grow{width:auto}.acord--discord-button .acord--discord-button-contents{--button--underline-color: transparent;background-image:linear-gradient(0deg, transparent, transparent 1px, var(--button--underline-color) 0, var(--button--underline-color) 2px, transparent 0)}.acord--discord-button.sizeTiny{width:52px;height:24px;min-width:52px;min-height:24px}.acord--discord-button.sizeSmall{width:60px;height:32px;min-width:60px;min-height:32px}.acord--discord-button.sizeMedium{width:96px;height:38px;min-width:96px;min-height:38px}.acord--discord-button.sizeLarge{width:130px;height:44px;min-width:130px;min-height:44px}.acord--discord-button.sizeXlarge{width:148px;height:50px;min-width:148px;min-height:50px;font-size:16px;line-height:normal;padding:2px 20px}.acord--discord-button.sizeMin{display:inline;width:auto;height:auto;padding:2px 4px}.acord--discord-button.sizeMax{width:100%;height:100%;min-width:100%;min-height:100%;font-size:16px}`;
 
   // src/api/ui/vue/components/discord-button/index.js
   patcher_default.injectCSS(style_default2);
@@ -3140,14 +3144,16 @@
     load(vueApp) {
       vueApp.component("discord-button", {
         template: `
-        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'}\`" @click="onClick">
+        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'} \${disabled ? "disabled" : ""}\`" @click="onClick">
           <div class="acord--discord-button-contents">{{value}}</div>
         </div>
       `,
-        props: ["value", "size", "color"],
+        props: ["value", "size", "color", "disabled"],
         emits: ["click"],
         methods: {
           onClick(e) {
+            if (this.disabled)
+              return;
             this.$emit("click", e);
           }
         }
@@ -3632,6 +3638,7 @@
           lastUpdatedAt: Date.now()
         }
       };
+      console.log("Extension updated:", url, { loadedBefore });
       if (loadedBefore) {
         await new Promise((resolve) => setTimeout(resolve, 1));
         await out2.load(url);
@@ -4144,33 +4151,15 @@
               searchText: "",
               searchCategoryText: "all",
               extensions: {},
-              filteredExtensions: {},
               developmentExtension: null,
               installUrl: ""
             };
           },
           methods: {
             onStorageUpdate() {
-              this.extensions = extensions_default.storage.installed.ghost;
-              this.updateFiltered();
-              this.$forceUpdate();
+              this.extensions = extensions_default.storage.installed.ghost || {};
             },
             i18nFormat: i18n_default.format,
-            updateFiltered() {
-              const searchText = this.searchText.toLowerCase();
-              const searchCategoryText = this.searchCategoryText;
-              this.filteredExtensions = Object.fromEntries(
-                Object.entries(this.extensions).filter(([id, extension2]) => {
-                  if (searchCategoryText === "all")
-                    return true;
-                  return extension2.manifest.type === searchCategoryText;
-                }).filter(([id, extension2]) => {
-                  if (!searchText)
-                    return true;
-                  return i18n_default.localize(extension2.manifest.about.name).toLowerCase().includes(searchText) || i18n_default.localize(extension2.manifest.about.description).toLowerCase().includes(searchText);
-                })
-              );
-            },
             onExtensionLoaded({ id }) {
               if (id === "Development") {
                 this.developmentExtension = {
@@ -4178,42 +4167,31 @@
                   id: "Development"
                 };
               }
-              this.$forceUpdate();
             },
             onExtensionUnloaded({ id }) {
               if (id === "Development") {
                 this.developmentExtension = null;
               }
-              this.$forceUpdate();
             },
             async onInstallKeyUp(event) {
               if (event.key === "Enter") {
                 let installUrl = this.installUrl;
                 this.installUrl = "";
-                ui_default.notifications.show(i18n_default.format("INSTALLING_EXTENSION"));
+                ui_default.notifications.show(i18n_default.format("INSTALLING_EXTENSION", installUrl));
                 try {
                   await extensions_default.install(installUrl);
-                  ui_default.notifications.show.success(i18n_default.format("EXTENSION_INSTALLED"));
+                  ui_default.notifications.show.success(i18n_default.format("EXTENSION_INSTALLED", installUrl));
                 } catch (err) {
                   ui_default.notifications.show.error(err.message);
                 }
               }
             }
           },
-          watch: {
-            searchText() {
-              this.updateFiltered();
-              this.$forceUpdate();
-            },
-            searchCategoryText() {
-              this.updateFiltered();
-              this.$forceUpdate();
+          async mounted() {
+            while (typeof extensions_default.storage.installed?.on !== "function") {
+              await new Promise((resolve) => setTimeout(resolve, 100));
             }
-          },
-          mounted() {
             this.onStorageUpdate();
-            this.updateFiltered();
-            this.$forceUpdate();
             extensions_default.storage.installed.on("UPDATE", this.onStorageUpdate);
             extensions_default.storage.installed.on("SET", this.onStorageUpdate);
             extensions_default.storage.installed.on("DELETE", this.onStorageUpdate);
@@ -4226,6 +4204,23 @@
             extensions_default.storage.installed.off("DELETE", this.onStorageUpdate);
             events_default.off("ExtensionLoaded", this.onExtensionLoaded);
             events_default.off("ExtensionUnloaded", this.onExtensionUnloaded);
+          },
+          computed: {
+            filteredExtensions() {
+              const searchText = this.searchText.toLowerCase();
+              const searchCategoryText = this.searchCategoryText;
+              return Object.fromEntries(
+                Object.entries(this.extensions || {}).filter(([id, extension2]) => {
+                  if (searchCategoryText === "all")
+                    return true;
+                  return extension2.manifest.type === searchCategoryText;
+                }).filter(([id, extension2]) => {
+                  if (!searchText)
+                    return true;
+                  return i18n_default.localize(extension2.manifest.about.name).toLowerCase().includes(searchText) || i18n_default.localize(extension2.manifest.about.description).toLowerCase().includes(searchText);
+                })
+              );
+            }
           }
         }
       );
@@ -4245,7 +4240,12 @@
     }
   };
 
+  // src/ui/home/vue/components/pages/store-page/style.scss
+  var style_default9 = `
+.acord--store-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--store-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-page .container>.top{display:flex;align-items:center;gap:8px}.acord--store-page .container>.top>.search{width:80%}.acord--store-page .container>.top>.category{width:20%}.acord--store-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
+
   // src/ui/home/vue/components/pages/store-page/index.js
+  patcher_default.injectCSS(style_default9);
   var store_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4253,52 +4253,49 @@
         "store-page",
         {
           template: `
-        <div>
-          <store-extension-card v-for="extension in extensions" :extension="extension" :key="extension.name.default" />
+        <div class="acord--store-page">
+          <div class="container">
+            <div class="top">
+              <div class="search">
+                <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')" />
+              </div>
+              <div class="category">
+                <discord-select v-model="searchCategoryText" :options="[{value: 'all', label: i18nFormat('ALL')}, {value: 'plugin', label: i18nFormat('PLUGINS')}, {value: 'theme', label: i18nFormat('THEMES')}]" />
+              </div>
+            </div>
+            <div class="bottom">
+              <store-extension-card v-for="extension in filteredExtensions" :id="extension.meta.url" :extension="extension" :key="extension.meta.url" />
+            </div>
+          </div>
         </div>
         `,
           data() {
             return {
-              extensions: [
-                {
-                  type: "plugin",
-                  url: "",
-                  name: {
-                    default: "Test Plugin",
-                    tr: "Deneme Plugin"
-                  },
-                  description: {
-                    default: "Test Plugin description..",
-                    tr: "Deneme Plugin a\xE7\u0131klamas\u0131.."
-                  },
-                  previews: [
-                    {
-                      name: "Test Plugin Preview",
-                      image: "https://i.imgur.com/TtfjHeP.png"
-                    },
-                    {
-                      name: "Test Plugin Preview 2",
-                      image: "https://i.imgur.com/0Z0Z0Z0.png"
-                    }
-                  ],
-                  authors: [
-                    {
-                      id: "707309693449535599",
-                      name: "Armagan#2448",
-                      image: "https://i.imgur.com/rSLVd23.png"
-                    },
-                    {
-                      id: "707309693449535599",
-                      name: "Armagan#2448",
-                      image: "https://i.imgur.com/rSLVd23.png"
-                    }
-                  ],
-                  version: "1.0.0",
-                  readme: "### Test Plugin readme..",
-                  installed: true
-                }
-              ]
+              extensions: [],
+              searchCategoryText: "all",
+              searchText: ""
             };
+          },
+          methods: {
+            i18nFormat: i18n_default.format
+          },
+          computed: {
+            filteredExtensions() {
+              const searchText = this.searchText.toLowerCase();
+              const searchCategoryText = this.searchCategoryText;
+              return this.extensions.filter((extension2) => {
+                if (searchCategoryText === "all")
+                  return true;
+                return extension2.manifest.type === searchCategoryText;
+              }).filter((extension2) => {
+                if (!searchText)
+                  return true;
+                return i18n_default.localize(extension2.manifest.about.name).toLowerCase().includes(searchText) || i18n_default.localize(extension2.manifest.about.description).toLowerCase().includes(searchText);
+              });
+            }
+          },
+          async mounted() {
+            this.extensions = await (await fetch("https://raw.githubusercontent.com/acord-standalone/verified-extensions/main/index.json", { cache: "no-store" })).json();
           }
         }
       );
@@ -4587,11 +4584,11 @@
   };
 
   // src/ui/home/vue/components/components/config/style.scss
-  var style_default9 = `
+  var style_default10 = `
 .acord--config-item{width:100%;display:flex}.acord--config-row{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:4px}.acord--config-row.horizontal-align-left{justify-content:flex-start}.acord--config-row.horizontal-align-right{justify-content:flex-end}.acord--config-row.horizontal-align-center{justify-content:center}.acord--config-row.justify-space-between{justify-content:space-between}.acord--config-row.justify-space-around{justify-content:space-around}.acord--config-row.vertical-align-top{align-items:flex-start}.acord--config-row.vertical-align-bottom{align-items:flex-end}.acord--config-column{width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px}.acord--config-column.horizontal-align-left{justify-content:flex-start}.acord--config-column.horizontal-align-right{justify-content:flex-end}.acord--config-column.horizontal-align-center{justify-content:center}.acord--config-column.justify-space-between{justify-content:space-between}.acord--config-column.justify-space-around{justify-content:space-around}.acord--config-column.vertical-align-top{align-items:flex-start}.acord--config-column.vertical-align-bottom{align-items:flex-end}.acord--config-column.vertical-align-center{align-items:center}.acord--config-heading{font-size:1.2rem;font-weight:500;color:#f5f5f5}.acord--config-paragraph{font-size:1rem;font-weight:400;color:rgba(245,245,245,.85)}.acord--config-check,.acord--config-button{width:fit-content}`;
 
   // src/ui/home/vue/components/components/config/index.js
-  patcher_default.injectCSS(style_default9);
+  patcher_default.injectCSS(style_default10);
   var config_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4609,11 +4606,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/style.scss
-  var style_default10 = `
+  var style_default11 = `
 .acord--installed-extension-card{width:100%;background-color:#2c2e32;border-radius:8px;display:flex;flex-direction:column;gap:8px;position:relative}.acord--installed-extension-card>.status-container{position:absolute;top:-9px;right:8px;border-radius:9999px;padding:8px;height:24px;display:flex;gap:6px;align-items:center;background-color:#1e1f22}.acord--installed-extension-card>.status-container>.loaded-state{width:14px;height:14px;border-radius:50%;background-color:#82858f}.acord--installed-extension-card>.status-container>.loaded-state.active{background-color:#23a55a;filter:drop-shadow(0px 0px 4px #23a55a)}.acord--installed-extension-card>.status-container>.development-mode-warning{color:#f0b232;filter:drop-shadow(0px 0px 4px #f0b232);display:flex;align-items:center;justify-content:center;border-radius:50%}.acord--installed-extension-card>.top{background-color:#212225;border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--installed-extension-card>.top>.left{display:flex;flex-direction:column;height:100%;gap:4px}.acord--installed-extension-card>.top>.left>.top{display:flex;align-items:flex-end;gap:4px}.acord--installed-extension-card>.top>.left>.top>.name{font-size:1.4rem;font-weight:500;color:#fff}.acord--installed-extension-card>.top>.left>.top>.version{font-size:1rem;font-weight:300;color:rgba(255,255,255,.5)}.acord--installed-extension-card>.top>.left>.bottom{display:flex;flex-direction:column;gap:8px}.acord--installed-extension-card>.top>.left>.bottom>.top{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors{display:flex;gap:2px;font-size:12px;font-weight:300;color:rgba(255,255,255,.45)}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors>.label{font-weight:500;margin-right:2px}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author .hoverable:hover{cursor:pointer;text-decoration:underline}.acord--installed-extension-card>.top>.left>.bottom>.bottom>.description{font-size:16px;color:rgba(255,255,255,.75)}.acord--installed-extension-card>.top>.right{display:flex;height:100%;flex-direction:column;justify-content:space-between;align-items:flex-end}.acord--installed-extension-card>.top>.right>.top{display:flex}.acord--installed-extension-card>.top>.right>.top>.controls{display:flex;align-items:center;gap:8px}.acord--installed-extension-card>.top>.right>.top>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--installed-extension-card>.top>.right>.top>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--installed-extension-card>.top>.right>.top>.controls .control.uninstall:hover{color:#f23f42}.acord--installed-extension-card>.top>.right>.bottom{display:flex}.acord--installed-extension-card>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px}.acord--installed-extension-card>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--installed-extension-card>.bottom{border-radius:8px;width:100%;padding:16px}`;
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/index.js
-  patcher_default.injectCSS(style_default10);
+  patcher_default.injectCSS(style_default11);
   var installed_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4769,11 +4766,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
-  var style_default11 = `
-.acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:center;color:var(--header-primary);padding:8px}.acord--store-extension-card>.preview>.name-container>.name{font-size:14px;background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:9999px;padding:4px 8px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:center;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:16px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}`;
+  var style_default12 = `
+.acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--store-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
 
   // src/ui/home/vue/components/components/cards/store-extension-card/index.js
-  patcher_default.injectCSS(style_default11);
+  patcher_default.injectCSS(style_default12);
   var store_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4782,14 +4779,14 @@
         {
           template: `
           <div class="acord--store-extension-card">
-            <div v-if="extension.previews?.length" class="preview" :style="{ backgroundImage: 'url(' + extension.previews[selectedPreview].image + ')' }">
+            <div v-if="extension.manifest.about.previews?.length" class="preview" :style="{ backgroundImage: 'url(' + extension.manifest.about.previews[selectedPreview].image + ')' }">
               <div class="controls">
-                <div class="go go-back" @click="goBack">
+                <div v-if="extension.manifest.about.previews.length > 1" class="go go-back" @click="goBack">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path d="M11.828 12l2.829 2.828-1.414 1.415L9 12l4.243-4.243 1.414 1.415L11.828 12z" fill="currentColor" />
                   </svg>
                 </div>
-                <div class="go go-forward" @click="goForward">
+                <div v-if="extension.manifest.about.previews.length > 1" class="go go-forward" @click="goForward">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path d="M12.172 12L9.343 9.172l1.414-1.415L15 12l-4.243 4.243-1.414-1.415z" fill="currentColor" />
                   </svg>
@@ -4797,7 +4794,7 @@
               </div>
               <div class="name-container">
                 <div class="name">
-                  {{ extension.previews[selectedPreview].name }}
+                  {{ i18nLocalize(extension.manifest.about.previews[selectedPreview].name) }}
                 </div>
               </div>
             </div>
@@ -4805,44 +4802,69 @@
             <div class="info-container">
               <div class="top">
                 <div class="name-container">
-                  <div class="name">{{ i18nLocalize(extension.name) }}</div>
-                  <div class="version">v{{ extension.version }}</div>
+                  <div class="name">{{ i18nLocalize(extension.manifest.about.name) }}</div>
+                  <div class="version">v{{ extension.manifest.about.version }}</div>
                 </div>
-                <div class="description">{{ i18nLocalize(extension.description) }}</div>
+                <div class="description">{{ i18nLocalize(extension.manifest.about.description) }}</div>
               </div>
               <div class="bottom">
                 <div class="left">
                   <div class="authors">
-                    <div v-for="author in extension.authors" class="author" :key="author.name" @click="showProfile(author.id)">
-                      <div class="image" :style="{ backgroundImage: 'url(' + author.image + ')' }"></div>
+                    <div v-for="author in extension.manifest.about.authors" class="author" :key="author.name" @click="showProfile(author.id)">
+                      <div class="image" :style="{ backgroundImage: 'url(' + getAuthorImage(author) + ')' }"></div>
                       <div class="name">{{ author.name }}</div>
                     </div>
                   </div>
                 </div>
                 <div class="right">
-                  <div class="buttons">
-                    <span @click="installOrUninstall">
-                      <discord-button :value="i18nFormat(extension.installed ? 'UNINSTALL' : 'INSTALL')" />
-                    </span>
+                  <div class="controls">
+                    <div class="control" :class="{'uninstall': installed, 'disabled': installing}" @click="installOrUninstall" :acord--tooltip-content="i18nFormat(installed ? 'REMOVE_EXTENSION' : 'INSTALL_EXTENSION')">
+                      <svg v-if="installed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 18c4.42 0 8-3.58 8-8s-3.58-8-8-8-8 3.58-8 8 3.58 8 8 8zm1-8h3l-4 4-4-4h3V8h2v4z"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         `,
-          props: ["extension"],
+          props: ["extension", "id"],
           data() {
             return {
-              selectedPreview: 0
+              selectedPreview: 0,
+              installed: false,
+              installing: false
             };
           },
           methods: {
             i18nFormat: i18n_default.format,
             i18nLocalize: i18n_default.localize,
-            installOrUninstall() {
-              if (this.extension.installed) {
+            getAuthorImage(author) {
+              if (author.image)
+                return author.image;
+              let user = common_default2.UserStore.getUser(author.id);
+              if (!user)
+                return null;
+              return user?.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128` : `https://cdn.discordapp.com/embed/avatars/${Number(user.discriminator) % 5}.png`;
+            },
+            async installOrUninstall() {
+              this.installing = true;
+              if (this.installed) {
+                await extensions_default.uninstall(this.id);
               } else {
+                ui_default.notifications.show(i18n_default.format("INSTALLING_EXTENSION", this.id));
+                try {
+                  await extensions_default.install(this.id);
+                  ui_default.notifications.show.success(i18n_default.format("EXTENSION_INSTALLED", this.id));
+                } catch (e) {
+                  ui_default.notifications.error(e.message);
+                }
               }
+              this.installing = false;
             },
             goBack() {
               this.selectedPreview--;
@@ -4856,7 +4878,22 @@
             },
             showProfile(profileId) {
               modals_default.show.user(profileId);
+            },
+            onStorageUpdate() {
+              this.installed = !!extensions_default.storage.installed.ghost[this.id];
+              this.$forceUpdate();
             }
+          },
+          mounted() {
+            this.onStorageUpdate();
+            extensions_default.storage.installed.on("UPDATE", this.onStorageUpdate);
+            extensions_default.storage.installed.on("DELETE", this.onStorageUpdate);
+            extensions_default.storage.installed.on("SET", this.onStorageUpdate);
+          },
+          unmounted() {
+            extensions_default.storage.installed.off("UPDATE", this.onStorageUpdate);
+            extensions_default.storage.installed.off("DELETE", this.onStorageUpdate);
+            extensions_default.storage.installed.off("SET", this.onStorageUpdate);
           }
         }
       );
@@ -4958,9 +4995,7 @@
           </div>
         `);
             let buttons = [];
-            buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME")));
             buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
-            buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS")));
             buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             container.appendChild(buttonsContainer);
           }
@@ -5016,7 +5051,7 @@
     const vueApp = Vue.createApp({
       data() {
         return {
-          selectedTab: "home"
+          selectedTab: "extensions"
         };
       },
       mounted() {
@@ -5060,15 +5095,15 @@
     const closeButton = document.querySelector('[class*="winButtonClose-"]');
     const maximizeButton = document.querySelector('[class*="winButtonClose-"] ~ div');
     const minimizeButton = document.querySelector('[class*="winButtonClose-"] ~ div ~ div');
-    closeButton.addEventListener("click", (e) => {
+    closeButton.onclick = (e) => {
       ipcRenderer.send(e.ctrlKey ? "QuitApp" : "HideWindow");
-    });
-    maximizeButton.addEventListener("click", () => {
+    };
+    maximizeButton.onclick = () => {
       ipcRenderer.send("ToggleMaximizeWindow");
-    });
-    minimizeButton.addEventListener("click", () => {
+    };
+    minimizeButton.onclick = () => {
       ipcRenderer.send("ToggleMinimizeWindow");
-    });
+    };
   }
   patchWindowActions();
   events_default.on("MainWindowFullScreenExit", patchWindowActions);

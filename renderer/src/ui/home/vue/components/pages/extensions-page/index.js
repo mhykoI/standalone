@@ -39,33 +39,15 @@ export default {
             searchText: "",
             searchCategoryText: "all",
             extensions: {},
-            filteredExtensions: {},
             developmentExtension: null,
             installUrl: ""
           }
         },
         methods: {
           onStorageUpdate() {
-            this.extensions = extensions.storage.installed.ghost;
-            this.updateFiltered();
-            this.$forceUpdate();
+            this.extensions = extensions.storage.installed.ghost || {};
           },
           i18nFormat: i18n.format,
-          updateFiltered() {
-            const searchText = this.searchText.toLowerCase();
-            const searchCategoryText = this.searchCategoryText;
-            this.filteredExtensions = Object.fromEntries(
-              Object.entries(this.extensions)
-                .filter(([id, extension]) => {
-                  if (searchCategoryText === "all") return true;
-                  return extension.manifest.type === searchCategoryText;
-                })
-                .filter(([id, extension]) => {
-                  if (!searchText) return true;
-                  return i18n.localize(extension.manifest.about.name).toLowerCase().includes(searchText) || i18n.localize(extension.manifest.about.description).toLowerCase().includes(searchText);
-                })
-            );
-          },
           onExtensionLoaded({ id }) {
             if (id === "Development") {
               this.developmentExtension = {
@@ -73,42 +55,33 @@ export default {
                 id: "Development"
               }
             }
-            this.$forceUpdate();
           },
           onExtensionUnloaded({ id }) {
             if (id === "Development") {
               this.developmentExtension = null;
             }
-            this.$forceUpdate();
           },
           async onInstallKeyUp(event) {
             if (event.key === "Enter") {
               let installUrl = this.installUrl;
               this.installUrl = "";
-              ui.notifications.show(i18n.format("INSTALLING_EXTENSION"));
+              ui.notifications.show(i18n.format("INSTALLING_EXTENSION", installUrl));
               try {
                 await extensions.install(installUrl);
-                ui.notifications.show.success(i18n.format("EXTENSION_INSTALLED"));
+                ui.notifications.show.success(i18n.format("EXTENSION_INSTALLED", installUrl));
               } catch (err) {
                 ui.notifications.show.error(err.message);
               }
             }
           }
         },
-        watch: {
-          searchText() {
-            this.updateFiltered();
-            this.$forceUpdate();
-          },
-          searchCategoryText() {
-            this.updateFiltered();
-            this.$forceUpdate();
+        async mounted() {
+          while (typeof extensions.storage.installed?.on !== "function") {
+            await new Promise(resolve => setTimeout(resolve, 100));
           }
-        },
-        mounted() {
+          
           this.onStorageUpdate();
-          this.updateFiltered();
-          this.$forceUpdate();
+
           extensions.storage.installed.on("UPDATE", this.onStorageUpdate);
           extensions.storage.installed.on("SET", this.onStorageUpdate);
           extensions.storage.installed.on("DELETE", this.onStorageUpdate);
@@ -122,6 +95,23 @@ export default {
           events.off("ExtensionLoaded", this.onExtensionLoaded);
           events.off("ExtensionUnloaded", this.onExtensionUnloaded);
         },
+        computed: {
+          filteredExtensions() {
+            const searchText = this.searchText.toLowerCase();
+            const searchCategoryText = this.searchCategoryText;
+            return Object.fromEntries(
+              Object.entries(this.extensions || {})
+                .filter(([id, extension]) => {
+                  if (searchCategoryText === "all") return true;
+                  return extension.manifest.type === searchCategoryText;
+                })
+                .filter(([id, extension]) => {
+                  if (!searchText) return true;
+                  return i18n.localize(extension.manifest.about.name).toLowerCase().includes(searchText) || i18n.localize(extension.manifest.about.description).toLowerCase().includes(searchText);
+                })
+            );
+          }
+        }
       }
     );
   }

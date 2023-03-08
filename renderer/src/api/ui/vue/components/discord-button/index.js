@@ -8,14 +8,15 @@ export default {
   load(vueApp) {
     vueApp.component("discord-button", {
       template: `
-        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'}\`" @click="onClick">
+        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'} \${disabled ? "disabled" : ""}\`" @click="onClick">
           <div class="acord--discord-button-contents">{{value}}</div>
         </div>
       `,
-      props: ["value", "size", "color"],
+      props: ["value", "size", "color", "disabled"],
       emits: ["click"],
       methods: {
         onClick(e) {
+          if (this.disabled) return;
           this.$emit("click", e);
         }
       }
