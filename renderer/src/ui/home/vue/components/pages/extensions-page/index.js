@@ -73,11 +73,13 @@ export default {
                 id: "Development"
               }
             }
+            this.$forceUpdate();
           },
           onExtensionUnloaded({ id }) {
             if (id === "Development") {
               this.developmentExtension = null;
             }
+            this.$forceUpdate();
           },
           async onInstallKeyUp(event) {
             if (event.key === "Enter") {

@@ -4183,11 +4183,13 @@
                   id: "Development"
                 };
               }
+              this.$forceUpdate();
             },
             onExtensionUnloaded({ id }) {
               if (id === "Development") {
                 this.developmentExtension = null;
               }
+              this.$forceUpdate();
             },
             async onInstallKeyUp(event) {
               if (event.key === "Enter") {
@@ -4713,12 +4715,14 @@
               if (id === this.id) {
                 this.configCache = extensions_default.__cache__.config[this.id];
               }
+              this.$forceUpdate();
             },
             onExtensionUnloaded({ id }) {
               if (id === this.id) {
                 this.configCache = null;
                 this.expanded = false;
               }
+              this.$forceUpdate();
             },
             onToggleExtension() {
               let enabled = !!extensions_default.storage.installed.ghost[this.id]?.config?.enabled;

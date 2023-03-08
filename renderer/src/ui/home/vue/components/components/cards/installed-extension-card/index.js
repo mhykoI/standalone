@@ -103,12 +103,14 @@ export default {
             if (id === this.id) {
               this.configCache = extensions.__cache__.config[this.id];
             }
+            this.$forceUpdate();
           },
           onExtensionUnloaded({ id }) {
             if (id === this.id) {
               this.configCache = null;
               this.expanded = false;
             }
+            this.$forceUpdate();
           },
           onToggleExtension() {
             let enabled = !!extensions.storage.installed.ghost[this.id]?.config?.enabled;
