@@ -96,7 +96,8 @@ export default {
                 await extensions.install(this.id);
                 ui.notifications.show.success(i18n.format("EXTENSION_INSTALLED", this.id));
               } catch (e) {
-                ui.notifications.error(e.message);
+                ui.notifications.show.error(e.message);
+                console.error(e);
               }
             }
             this.installing = false;
