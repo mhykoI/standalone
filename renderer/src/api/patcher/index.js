@@ -3,20 +3,17 @@ import * as spitRoast from "../../lib/spitroast/dist/esm";
 const importRegex = /@import url\(([^)]+)\);?/g;
 const urlRegex = /url\(([^)]+)\)?/g;
 const propRegex = /var\(--acord--([^)]+)\)/g;
-const propBoolRegex = /\(([\S\s]+)\)/;
 function propReplacer(css, props = {}) {
   css = css.replace(propRegex, (match, group1) => {
     let splitted = group1.split(",");
-    let key = splitted.shift().trim();
-    let bool = propBoolRegex.exec(key)?.[1];
-    key = key.replace(propBoolRegex, "");
+    let keySplitted = splitted.shift().trim().split("--");
+    let key = keySplitted[0];
 
     let returnValue = "";
     let defaultValue = splitted.join(",").trim();
     let propVal = props[_.camelCase(key)];
-    if (bool) {
-      let boolSplitted = bool.split(" ");
-      returnValue = propVal ? boolSplitted[0] : boolSplitted[1];
+    if (keySplitted.length > 1) {
+      returnValue = propVal ? keySplitted[1] : keySplitted[2];
     } else {
       returnValue = propVal ?? (defaultValue || match);
     }
