@@ -5,7 +5,7 @@ export function patchHeaders() {
     "content-security-policy",
     "access-control-allow-origin"
   ];
-  const ignoreList = ["googlevideo.com"];
+  const ignoreList = ["googlevideo.com", "discord.com/channels"];
   electron.session.defaultSession.webRequest.onHeadersReceived((details, cb) => {
     if (ignoreList.some((x) => details.url.includes(x))) return cb({ cancel: false, responseHeaders: details.responseHeaders });
     Object.keys(details.responseHeaders).forEach((key) => {
