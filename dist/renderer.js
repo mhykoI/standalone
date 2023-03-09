@@ -5106,7 +5106,7 @@
         (titleElm) => {
           titleElm.innerHTML = `
           ${i18n_default.format("APP_NAME")}
-          <div class="acord--connected-status"></div>
+          <div class="acord--connected-status" acord--tooltip-content="${i18n_default.format("NOT_CONNECTED")}"></div>
         `;
           if (internalVueApp) {
             let buildButton = function(id, text, customClasses = "") {
@@ -5152,6 +5152,7 @@
         if (!element)
           return;
         element.classList[connected ? "add" : "remove"]("connected");
+        element.setAttribute("acord--tooltip-content", i18n_default.format(connected ? "CONNECTED" : "NOT_CONNECTED"));
       }
       storage_default.authentication.when().then(updateStatusIcon);
       events_default.on("CurrentUserChange", updateStatusIcon);
