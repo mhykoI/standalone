@@ -3825,13 +3825,16 @@
           );
           let cssText = evaluated();
           let injectedRes = patcher_default.injectCSS(cssText, persist.ghost.settings);
+          const debouncedThemeUpdate = _.debounce(() => {
+            injectedRes(persist.ghost.settings);
+          }, 500);
           const offConfigListener = events_default.on("ExtensionConfigInteraction", (data2) => {
             if (data2.extension !== id)
               return;
             if (!data2.item.id)
               return;
             persist.store.settings[data2.item.id] = data2.data.value;
-            injectedRes(persist.ghost.settings);
+            debouncedThemeUpdate();
           });
           out2.__cache__.loaded.store[id] = { evaluated, unload };
           events_default.emit("ExtensionLoaded", { id });

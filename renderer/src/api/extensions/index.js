@@ -389,12 +389,16 @@ const out = {
         let cssText = evaluated();
         let injectedRes = patcher.injectCSS(cssText, persist.ghost.settings);
 
+        const debouncedThemeUpdate = _.debounce(() => {
+          injectedRes(persist.ghost.settings);
+        }, 500);
+
         const offConfigListener =
           events.on("ExtensionConfigInteraction", (data) => {
             if (data.extension !== id) return;
             if (!data.item.id) return;
             persist.store.settings[data.item.id] = data.data.value;
-            injectedRes(persist.ghost.settings);
+            debouncedThemeUpdate();
           });
         function unload() {
           offConfigListener();
