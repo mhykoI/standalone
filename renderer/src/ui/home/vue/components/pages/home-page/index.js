@@ -1,3 +1,11 @@
+import patcher from "../../../../../../api/patcher/index.js";
+import i18n from "../../../../../../api/i18n/index.js";
+import cssText from "./style.scss";
+import internal from "../../../../../../api/internal/index.js";
+import storage from "../../../../../../api/storage/index.js";
+import events from "../../../../../../api/events/index.js";
+patcher.injectCSS(cssText);
+
 export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
@@ -5,38 +13,41 @@ export default {
       "home-page",
       {
         template: `
-          <div>
-            <div style="width: 300px;">
-              <discord-select v-model="value" :options="options" />
+          <div class="acord--home-page">
+            <div class="container">
+              <div class="banner" />
+              <dev class="description">
+                {{ i18nFormat(isConnected ? "ACCOUNT_IS_CONNECTED" : "ACCOUNT_IS_NOT_CONNECTED") }}
+                <br /><br />
+                <a @click="open">{{i18nFormat("CLICK_HERE_TO_CONNECT")}}</a>
+              </dev>
             </div>
-            <h1>{{ value }}</h1>
-            <br />
-            <discord-check v-model="checked" />
-            <h1>{{ checked }}</h1>
-            <discord-check v-model="checked" />
-            <h1>{{ checked }}</h1>
           </div>
-
         `,
         data() {
           return {
-            value: "1",
-            checked: false,
-            options: [
-              {
-                value: "1",
-                label: "Option 1"
-              },
-              {
-                value: "2",
-                label: "Option 2"
-              },
-              {
-                value: "3",
-                label: "Option 3"
-              }
-            ]
+            isConnected: false,
           }
+        },
+        methods: {
+          i18nFormat: i18n.format,
+          open() {
+            internal.openExternal("https://discord.com/oauth2/authorize?client_id=1083403277980409937&redirect_uri=https%3A%2F%2Fapi.acord.app%2Fstatic%2Fcallback%2Fstep1&response_type=token&scope=identify%20guilds.join");
+          },
+          onAuthenticationSuccess() {
+            this.isConnected = !!storage.authentication.token;
+            this.$forceUpdate();
+          }
+        },
+        mounted() {
+          this.onAuthenticationSuccess();
+          storage.authentication.when().then(this.onAuthenticationSuccess);
+          events.on("AuthenticationSuccess", this.onAuthenticationSuccess);
+          events.on("CurrentUserChange", this.onAuthenticationSuccess);
+        },
+        unmounted() {
+          events.off("AuthenticationSuccess", this.onAuthenticationSuccess);
+          events.off("CurrentUserChange", this.onAuthenticationSuccess);
         }
       }
     );

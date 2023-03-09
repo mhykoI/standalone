@@ -37,4 +37,16 @@
       }
     }
   }
+
+  &--connected-status {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    margin-left: 8px;
+    background: #ed4245;
+
+    &.connected {
+      background: #23a559;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import dom from "../../api/dom/index.js";
 import webpack from "../../api/modules/webpack.js";
 import patcher from "../../api/patcher/index.js";
+import storage from "../../api/storage/index.js";
 import utils from "../../api/utils/index.js";
 import i18n from "../../api/i18n/index.js";
 import ui from "../../api/ui/index.js";
@@ -9,6 +10,7 @@ import "../../api/extensions";
 
 import cssText from "./style.scss";
 import vueComponents from "./vue/components/index.js";
+import events from "../../api/events/index.js";
 patcher.injectCSS(cssText);
 
 {
@@ -55,7 +57,10 @@ let internalVueApp = null;
     utils.ifExists(
       elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
       (titleElm) => {
-        titleElm.textContent = i18n.format("APP_NAME");
+        titleElm.innerHTML = `
+          ${i18n.format("APP_NAME")}
+          <div class="acord--connected-status"></div>
+        `;
 
         if (internalVueApp) {
           let container = dom.parents(titleElm, 2).pop();
@@ -91,9 +96,8 @@ let internalVueApp = null;
             return elm;
           }
 
-          // buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
+          buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
           buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS")));
-          // buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
           buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
 
           container.appendChild(buttonsContainer);
@@ -104,6 +108,24 @@ let internalVueApp = null;
       elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
       fillSVGElmWithAcordLogo
     );
+
+    function updateStatusIcon() {
+      let element = document.querySelector(".acord--connected-status");
+      let connected = !!storage.authentication.token;
+      if (!element) return;
+      element.classList[connected ? "add" : "remove"]("connected");
+    }
+
+    storage.authentication.when().then(updateStatusIcon);
+    events.on("CurrentUserChange", updateStatusIcon);
+    events.on("AuthenticationSuccess", updateStatusIcon);
+    events.on("AuthenticationFailure", updateStatusIcon);
+
+    return () => {
+      events.off("CurrentUserChange", updateStatusIcon);
+      events.off("AuthenticationSuccess", updateStatusIcon);
+      events.off("AuthenticationFailure", updateStatusIcon);
+    }
   });
 })();
 
@@ -156,7 +178,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
   const vueApp = Vue.createApp({
     data() {
       return {
-        selectedTab: "extensions"
+        selectedTab: "home"
       };
     },
     mounted() {

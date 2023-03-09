@@ -1,0 +1,33 @@
+.acord--home-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 16px;
+  width: 100%;
+
+  & > .container {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & > .banner {
+      width: 100%;
+      height: 300px;
+      background-image: url("https://raw.githubusercontent.com/acord-standalone/assets/main/logo/acord-full-name.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    & > .description {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.75);
+
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

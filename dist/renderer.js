@@ -2182,7 +2182,7 @@
     hide
   };
 
-  // src/api/storage/index.js
+  // src/api/storage/createPersistNest.js
   var nests = __toESM(require_cjs(), 1);
 
   // node_modules/idb-keyval/dist/index.js
@@ -2314,25 +2314,76 @@
     }
   }
 
+  // src/api/storage/createPersistNest.js
+  async function createPersistNest(suffix) {
+    let cached = await get(`AcordStore;${suffix}`);
+    if (typeof cached == "string")
+      cached = revive(cached);
+    const nest = nests.make(cached ?? {});
+    const save = () => {
+      try {
+        set(`AcordStore;${suffix}`, deCycled({ ...nest.ghost }));
+      } catch {
+        set(`AcordStore;${suffix}`, deCycled({}));
+      }
+    };
+    nest.on(nests.Events.SET, save);
+    nest.on(nests.Events.UPDATE, save);
+    nest.on(nests.Events.DELETE, save);
+    return nest;
+  }
+
+  // src/api/storage/authentication.js
+  var authStore;
+  var authentication_default = {
+    async when() {
+      if (authStore)
+        return authStore;
+      while (!authStore)
+        await new Promise((r) => setTimeout(r, 100));
+      return authStore;
+    },
+    get is() {
+      return !!authStore;
+    },
+    get token() {
+      let currentUserId = common_default2.UserStore.getCurrentUser()?.id;
+      if (!currentUserId)
+        return null;
+      return authStore?.ghost?.acordTokens?.[currentUserId] ?? null;
+    },
+    get store() {
+      return authStore;
+    }
+  };
+  async function checkTokens() {
+    await Promise.all(
+      Object.entries(authStore.ghost.acordTokens ?? {}).map(async ([id, token]) => {
+        let res = (await fetch(`https://api.acord.app/auth/exchange?acordToken=${token}`)).json();
+        if (res.data.id !== id) {
+          delete authStore.store.acordTokens[id];
+        }
+      })
+    );
+    await new Promise((r) => setTimeout(r, 1));
+    const userId = common_default2.UserStore.getCurrentUser()?.id;
+    const acordToken = authStore.ghost?.acordTokens?.[userId];
+    if (userId && acordToken) {
+      events_default.emit("AuthenticationSuccess", { userId, acordToken });
+    } else {
+      events_default.emit("AuthenticationFailure");
+    }
+  }
+  (async () => {
+    authStore = await createPersistNest("Authentication");
+  })();
+  waitUntilConnectionOpen().then(checkTokens);
+  events_default.on("CurrentUserChange", checkTokens);
+
   // src/api/storage/index.js
   var storage_default = {
-    async createPersistNest(suffix) {
-      let cached = await get(`AcordStore;${suffix}`);
-      if (typeof cached == "string")
-        cached = revive(cached);
-      const nest = nests.make(cached ?? {});
-      const save = () => {
-        try {
-          set(`AcordStore;${suffix}`, deCycled({ ...nest.ghost }));
-        } catch {
-          set(`AcordStore;${suffix}`, deCycled({}));
-        }
-      };
-      nest.on(nests.Events.SET, save);
-      nest.on(nests.Events.UPDATE, save);
-      nest.on(nests.Events.DELETE, save);
-      return nest;
-    }
+    createPersistNest,
+    authentication: authentication_default
   };
 
   // src/api/extensions/i18n.js
@@ -3942,7 +3993,10 @@
   // src/api/internal/index.js
   var internal_default = {
     process: globalThis["<PRELOAD_KEY>"].process,
-    isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen
+    isDevToolsOpen: globalThis["<PRELOAD_KEY>"].isDevToolsOpen,
+    openExternal(url) {
+      globalThis["<PRELOAD_KEY>"].ipcRenderer.send("OpenExternal", url);
+    }
   };
 
   // src/api/index.js
@@ -4085,10 +4139,10 @@
       return;
     await modules_default.native.window.setAlwaysOnTop(0, true);
     await new Promise((r) => setTimeout(r, 250));
-    await modules_default.native.window.setAlwaysOnTop(0, true);
+    await modules_default.native.window.setAlwaysOnTop(0, false);
     const success = await modals_default.show.confirmation(
-      acord.i18n.format("IMPORT_EXTENSION_MODAL_TITLE"),
-      acord.i18n.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
+      i18n_default.format("IMPORT_EXTENSION_MODAL_TITLE"),
+      i18n_default.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
     );
     if (!success)
       return;
@@ -4098,12 +4152,32 @@
       notifications_default.show.error(`${err}`, { timeout: 3e4 });
     }
   });
+  websocket_default.set("AuthenticationCallback", async ({ acordToken, userId } = {}, cb) => {
+    if (!acordToken || !userId)
+      return cb({ ok: false });
+    await modules_default.native.window.setAlwaysOnTop(0, true);
+    await new Promise((r) => setTimeout(r, 250));
+    await modules_default.native.window.setAlwaysOnTop(0, false);
+    if (modules_default.common.UserStore.getCurrentUser()?.id !== userId)
+      return cb({ ok: false, error: "userIdMismatch" });
+    storage_default.authentication.when().then((store) => {
+      store.store.acordTokens[userId] = acordToken;
+      notifications_default.show.success(i18n_default.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
+      events_default.emit("AuthenticationSuccess", { userId, acordToken });
+      return cb({ ok: true });
+    });
+  });
 
   // src/ui/home/style.scss
   var style_default7 = `
-[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}`;
+[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}.acord--connected-status{width:9px;height:9px;border-radius:50%;margin-left:8px;background:#ed4245}.acord--connected-status.connected{background:#23a559}`;
+
+  // src/ui/home/vue/components/pages/home-page/style.scss
+  var style_default8 = `
+.acord--home-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px;width:100%}.acord--home-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--home-page>.container>.banner{width:100%;height:300px;background-image:url("https://raw.githubusercontent.com/acord-standalone/assets/main/logo/acord-full-name.png");background-size:contain;background-repeat:no-repeat;background-position:center}.acord--home-page>.container>.description{font-size:18px;color:rgba(255,255,255,.75)}.acord--home-page>.container>.description a:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/pages/home-page/index.js
+  patcher_default.injectCSS(style_default8);
   var home_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4111,38 +4185,41 @@
         "home-page",
         {
           template: `
-          <div>
-            <div style="width: 300px;">
-              <discord-select v-model="value" :options="options" />
+          <div class="acord--home-page">
+            <div class="container">
+              <div class="banner" />
+              <dev class="description">
+                {{ i18nFormat(isConnected ? "ACCOUNT_IS_CONNECTED" : "ACCOUNT_IS_NOT_CONNECTED") }}
+                <br /><br />
+                <a @click="open">{{i18nFormat("CLICK_HERE_TO_CONNECT")}}</a>
+              </dev>
             </div>
-            <h1>{{ value }}</h1>
-            <br />
-            <discord-check v-model="checked" />
-            <h1>{{ checked }}</h1>
-            <discord-check v-model="checked" />
-            <h1>{{ checked }}</h1>
           </div>
-
         `,
           data() {
             return {
-              value: "1",
-              checked: false,
-              options: [
-                {
-                  value: "1",
-                  label: "Option 1"
-                },
-                {
-                  value: "2",
-                  label: "Option 2"
-                },
-                {
-                  value: "3",
-                  label: "Option 3"
-                }
-              ]
+              isConnected: false
             };
+          },
+          methods: {
+            i18nFormat: i18n_default.format,
+            open() {
+              internal_default.openExternal("https://discord.com/oauth2/authorize?client_id=1083403277980409937&redirect_uri=https%3A%2F%2Fapi.acord.app%2Fstatic%2Fcallback%2Fstep1&response_type=token&scope=identify%20guilds.join");
+            },
+            onAuthenticationSuccess() {
+              this.isConnected = !!storage_default.authentication.token;
+              this.$forceUpdate();
+            }
+          },
+          mounted() {
+            this.onAuthenticationSuccess();
+            storage_default.authentication.when().then(this.onAuthenticationSuccess);
+            events_default.on("AuthenticationSuccess", this.onAuthenticationSuccess);
+            events_default.on("CurrentUserChange", this.onAuthenticationSuccess);
+          },
+          unmounted() {
+            events_default.off("AuthenticationSuccess", this.onAuthenticationSuccess);
+            events_default.off("CurrentUserChange", this.onAuthenticationSuccess);
           }
         }
       );
@@ -4150,11 +4227,11 @@
   };
 
   // src/ui/home/vue/components/pages/extensions-page/style.scss
-  var style_default8 = `
+  var style_default9 = `
 .acord--extensions-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--extensions-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--extensions-page .container>.top{display:flex;align-items:center;gap:8px}.acord--extensions-page .container>.top>.search{width:60%}.acord--extensions-page .container>.top>.category{width:20%}.acord--extensions-page .container>.top .install{width:20%}.acord--extensions-page .container>.bottom{display:flex;flex-direction:column;gap:16px;margin-top:16px}`;
 
   // src/ui/home/vue/components/pages/extensions-page/index.js
-  patcher_default.injectCSS(style_default8);
+  patcher_default.injectCSS(style_default9);
   var extensions_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4287,11 +4364,11 @@
   };
 
   // src/ui/home/vue/components/pages/store-page/style.scss
-  var style_default9 = `
+  var style_default10 = `
 @keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--store-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--store-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-page .container>.top{display:flex;align-items:center;gap:8px}.acord--store-page .container>.top>.search{width:80%}.acord--store-page .container>.top>.category{width:20%}.acord--store-page .container>.top>.refresh{display:flex;align-items:center;justify-content:center;width:min-content;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--store-page .container>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--store-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
 
   // src/ui/home/vue/components/pages/store-page/index.js
-  patcher_default.injectCSS(style_default9);
+  patcher_default.injectCSS(style_default10);
   var store_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4643,11 +4720,11 @@
   };
 
   // src/ui/home/vue/components/components/config/style.scss
-  var style_default10 = `
+  var style_default11 = `
 .acord--config-item{width:100%;display:flex}.acord--config-row{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:4px}.acord--config-row.horizontal-align-left{justify-content:flex-start}.acord--config-row.horizontal-align-right{justify-content:flex-end}.acord--config-row.horizontal-align-center{justify-content:center}.acord--config-row.justify-space-between{justify-content:space-between}.acord--config-row.justify-space-around{justify-content:space-around}.acord--config-row.vertical-align-top{align-items:flex-start}.acord--config-row.vertical-align-bottom{align-items:flex-end}.acord--config-column{width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px}.acord--config-column.horizontal-align-left{justify-content:flex-start}.acord--config-column.horizontal-align-right{justify-content:flex-end}.acord--config-column.horizontal-align-center{justify-content:center}.acord--config-column.justify-space-between{justify-content:space-between}.acord--config-column.justify-space-around{justify-content:space-around}.acord--config-column.vertical-align-top{align-items:flex-start}.acord--config-column.vertical-align-bottom{align-items:flex-end}.acord--config-column.vertical-align-center{align-items:center}.acord--config-heading{font-size:1.2rem;font-weight:500;color:#f5f5f5}.acord--config-paragraph{font-size:1rem;font-weight:400;color:rgba(245,245,245,.85)}.acord--config-check,.acord--config-button{width:fit-content}`;
 
   // src/ui/home/vue/components/components/config/index.js
-  patcher_default.injectCSS(style_default10);
+  patcher_default.injectCSS(style_default11);
   var config_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4665,11 +4742,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/style.scss
-  var style_default11 = `
+  var style_default12 = `
 .acord--installed-extension-card{width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;gap:8px;position:relative}.acord--installed-extension-card>.status-container{position:absolute;top:-9px;right:8px;border-radius:9999px;padding:8px;height:24px;display:flex;gap:6px;align-items:center;background-color:rgba(0,0,0,.25)}.acord--installed-extension-card>.status-container>.loaded-state{width:14px;height:14px;border-radius:50%;background-color:#82858f}.acord--installed-extension-card>.status-container>.loaded-state.active{background-color:#23a55a;filter:drop-shadow(0px 0px 4px #23a55a)}.acord--installed-extension-card>.status-container>.development-mode-warning{color:#f0b232;filter:drop-shadow(0px 0px 4px #f0b232);display:flex;align-items:center;justify-content:center;border-radius:50%}.acord--installed-extension-card>.top{background-color:rgba(0,0,0,.25);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--installed-extension-card>.top>.left{display:flex;flex-direction:column;height:100%;gap:4px}.acord--installed-extension-card>.top>.left>.top{display:flex;align-items:flex-end;gap:4px}.acord--installed-extension-card>.top>.left>.top>.name{font-size:1.4rem;font-weight:500;color:#fff}.acord--installed-extension-card>.top>.left>.top>.version{font-size:1rem;font-weight:300;color:rgba(255,255,255,.5)}.acord--installed-extension-card>.top>.left>.bottom{display:flex;flex-direction:column;gap:8px}.acord--installed-extension-card>.top>.left>.bottom>.top{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors{display:flex;gap:2px;font-size:12px;font-weight:300;color:rgba(255,255,255,.45)}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors>.label{font-weight:500;margin-right:2px}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author .hoverable:hover{cursor:pointer;text-decoration:underline}.acord--installed-extension-card>.top>.left>.bottom>.bottom>.description{font-size:16px;color:rgba(255,255,255,.75)}.acord--installed-extension-card>.top>.right{display:flex;height:100%;flex-direction:column;justify-content:space-between;align-items:flex-end}.acord--installed-extension-card>.top>.right>.top{display:flex}.acord--installed-extension-card>.top>.right>.top>.controls{display:flex;align-items:center;gap:8px}.acord--installed-extension-card>.top>.right>.top>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--installed-extension-card>.top>.right>.top>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--installed-extension-card>.top>.right>.top>.controls .control.uninstall:hover{color:#f23f42}.acord--installed-extension-card>.top>.right>.bottom{display:flex}.acord--installed-extension-card>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px}.acord--installed-extension-card>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--installed-extension-card>.bottom{border-radius:8px;width:100%;padding:16px}`;
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/index.js
-  patcher_default.injectCSS(style_default11);
+  patcher_default.injectCSS(style_default12);
   var installed_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4825,11 +4902,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
-  var style_default12 = `
+  var style_default13 = `
 .acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--store-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
 
   // src/ui/home/vue/components/components/cards/store-extension-card/index.js
-  patcher_default.injectCSS(style_default12);
+  patcher_default.injectCSS(style_default13);
   var store_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5027,7 +5104,10 @@
       utils_default.ifExists(
         elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
         (titleElm) => {
-          titleElm.textContent = i18n_default.format("APP_NAME");
+          titleElm.innerHTML = `
+          ${i18n_default.format("APP_NAME")}
+          <div class="acord--connected-status"></div>
+        `;
           if (internalVueApp) {
             let buildButton = function(id, text, customClasses = "") {
               let elm2 = dom_default.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
@@ -5055,6 +5135,7 @@
           </div>
         `);
             let buttons = [];
+            buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME")));
             buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
             buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             container.appendChild(buttonsContainer);
@@ -5065,6 +5146,22 @@
         elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
         fillSVGElmWithAcordLogo
       );
+      function updateStatusIcon() {
+        let element = document.querySelector(".acord--connected-status");
+        let connected = !!storage_default.authentication.token;
+        if (!element)
+          return;
+        element.classList[connected ? "add" : "remove"]("connected");
+      }
+      storage_default.authentication.when().then(updateStatusIcon);
+      events_default.on("CurrentUserChange", updateStatusIcon);
+      events_default.on("AuthenticationSuccess", updateStatusIcon);
+      events_default.on("AuthenticationFailure", updateStatusIcon);
+      return () => {
+        events_default.off("CurrentUserChange", updateStatusIcon);
+        events_default.off("AuthenticationSuccess", updateStatusIcon);
+        events_default.off("AuthenticationFailure", updateStatusIcon);
+      };
     });
   })();
   function fillSVGElmWithAcordLogo(svgElm) {
@@ -5111,7 +5208,7 @@
     const vueApp = Vue.createApp({
       data() {
         return {
-          selectedTab: "extensions"
+          selectedTab: "home"
         };
       },
       mounted() {

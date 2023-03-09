@@ -3,17 +3,20 @@ import modals from "../api/ui/modals.jsx";
 import notifications from "../api/ui/notifications.js";
 import extensions from "../api/extensions/index.js";
 import websocket from "../api/websocket/index.js";
+import storage from "../api/storage/index.js";
+import i18n from "../api/i18n/index.js";
+import events from "../api/events/index.js";
 
 websocket.set("InstallExtension", async ({ url } = {}) => {
   if (!url) return;
 
   await modules.native.window.setAlwaysOnTop(0, true);
   await new Promise(r => setTimeout(r, 250));
-  await modules.native.window.setAlwaysOnTop(0, true);
+  await modules.native.window.setAlwaysOnTop(0, false);
 
   const success = await modals.show.confirmation(
-    acord.i18n.format("IMPORT_EXTENSION_MODAL_TITLE"),
-    acord.i18n.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
+    i18n.format("IMPORT_EXTENSION_MODAL_TITLE"),
+    i18n.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
   );
 
   if (!success) return;
@@ -23,4 +26,22 @@ websocket.set("InstallExtension", async ({ url } = {}) => {
   } catch (err) {
     notifications.show.error(`${err}`, { timeout: 30000 });
   }
+});
+
+websocket.set("AuthenticationCallback", async ({ acordToken, userId } = {}, cb) => {
+  if (!acordToken || !userId) return cb({ ok: false });
+
+  await modules.native.window.setAlwaysOnTop(0, true);
+  await new Promise(r => setTimeout(r, 250));
+  await modules.native.window.setAlwaysOnTop(0, false);
+
+  if (modules.common.UserStore.getCurrentUser()?.id !== userId) return cb({ ok: false, error: "userIdMismatch" });
+
+  storage.authentication.when().then((store) => {
+    store.store.acordTokens[userId] = acordToken;
+    notifications.show.success(i18n.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
+    events.emit("AuthenticationSuccess", { userId, acordToken });
+    return cb({ ok: true });
+  });
+
 });

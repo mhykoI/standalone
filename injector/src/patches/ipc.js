@@ -1,4 +1,4 @@
-import { ipcMain, BrowserWindow, app, dialog } from "electron";
+import { ipcMain, BrowserWindow, app, dialog, shell } from "electron";
 
 export function patchIPC() {
   ipcMain.on("GetPath", (event, arg) => {
@@ -184,5 +184,9 @@ export function patchIPC() {
         return resolve(bw.id);
       }
     });
+  });
+
+  ipcMain.on("OpenExternal", (event, url) => {
+    shell.openExternal(url);
   });
 }

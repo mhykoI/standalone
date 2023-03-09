@@ -1,6 +1,5 @@
 import { contextBridge, ipcRenderer } from "electron";
 import { patchDevTools } from "./patches/devtools.js";
-import { patchWindowActions } from "./patches/window-actions.js";
 import { patchPreload } from "./patches/preload.js";
 import { patchWebpackChunk } from "./patches/webpack-chunk.js";
 
@@ -24,7 +23,6 @@ contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
   ipcRenderer
 });
 
-patchWindowActions();
 patchWebpackChunk();
 patchDevTools();
 patchPreload();
