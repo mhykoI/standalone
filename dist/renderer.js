@@ -4578,7 +4578,7 @@
         props: ["item", "extension"],
         template: `
         <div v-show="item?.visible ?? true" class="acord--config-input acord--config-item">
-          <discord-input @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="i18nFormat(item.placeholder)" :maxlength="item.maxlength"  :max="item.max" :min="item.min" :step="item.step" />
+          <discord-input @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder ? i18nFormat(item.placeholder) : ''" :maxlength="item.maxlength"  :max="item.max" :min="item.min" :step="item.step" />
         </div>
       `,
         methods: {
@@ -4699,7 +4699,7 @@
         props: ["item", "extension"],
         template: `
         <div v-show="item?.visible ?? true" class="acord--config-textarea acord--config-item">
-          <discord-textarea @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="i18nFormat(item.placeholder)" :maxlength="item.maxlength" :cols="item.cols" :rows="item.rows" :style="{'height': item?.height, 'width': item?.width}" />
+          <discord-textarea @input="onInput" v-model="item.value" :type="item.inputType" :placeholder="item.placeholder ? i18nFormat(item.placeholder) : ''" :maxlength="item.maxlength" :cols="item.cols" :rows="item.rows" :style="{'height': item?.height, 'width': item?.width}" />
         </div>
       `,
         methods: {
