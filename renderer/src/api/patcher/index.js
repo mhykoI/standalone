@@ -1,11 +1,32 @@
 import * as spitRoast from "../../lib/spitroast/dist/esm";
 
+const importRegex = /@import url\([\S\s]+\);?/g;
+const propRegex = /var\(--acord--([\S\s]+)\)/g;
+const propBoolRegex = /\(([\S\s]+)\)/;
 function propReplacer(css, props = {}) {
-  css = css.replace(/var\(--acord--([\S\s]+)\)/g, (match, group1) => {
+  css = css.replace(propRegex, (match, group1) => {
     let splitted = group1.split(",");
     let key = splitted.shift().trim();
+    let bool = propBoolRegex.exec(key)?.[1];
+    key = key.replace(propBoolRegex, "");
+
+    let returnValue = "";
     let defaultValue = splitted.join(",").trim();
-    return props[key] ?? (defaultValue || match);
+    let propVal = props[_.camelCase(key)];
+    if (bool) {
+      let boolSplitted = bool.split(" ");
+      returnValue = propVal ? boolSplitted[0] : boolSplitted[1];
+    } else {
+      returnValue = propVal ?? (defaultValue || match);
+    }
+
+    return returnValue;
+  });
+  css = css.replace(importRegex, (match, group1) => {
+    let splitted = group1.replaceAll('"', "").split("#");
+    if (splitted.length === 1) return match;
+    let key = splitted[1];
+    return props[_.camelCase(key)] ? match : "";
   });
   return css;
 }
