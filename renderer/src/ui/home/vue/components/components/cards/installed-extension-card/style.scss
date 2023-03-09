@@ -1,6 +1,6 @@
 .acord--installed-extension-card {
   width: 100%;
-  background-color: #2c2e32;
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@
     display: flex;
     gap: 6px;
     align-items: center;
-    background-color: #1e1f22;
+    background-color: rgba(0, 0, 0, 0.25);
 
     & > .loaded-state {
       width: 14px;
@@ -42,7 +42,7 @@
   }
 
   & > .top {
-    background-color: #212225;
+    background-color: rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     width: 100%;
     padding: 16px;

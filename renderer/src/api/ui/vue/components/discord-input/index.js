@@ -10,7 +10,7 @@ export default {
       template: `
         <div class="acord--discord-input">
           <div class="acord--discord-inputWrapper">
-            <input :type="type ?? 'text'" class="acord--discord-inputDefault acord--discord-input-inner" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" @keyup="$emit('keyup', $event)" />
+            <input :type="type ?? 'text'" class="acord--discord-inputDefault acord--discord-input-inner" :value="modelValue" :placeholder="placeholder ?? ''" :maxlength="maxlength" :min="min" :step="step" :max="max" :style="style" @input="onInput" @keyup="$emit('keyup', $event)" />
           </div>
         </div>
       `,

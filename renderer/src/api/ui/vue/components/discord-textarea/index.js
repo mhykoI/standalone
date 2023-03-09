@@ -10,7 +10,7 @@ export default {
     vueApp.component("discord-textarea", {
       template: `
         <div class="acord--discord-textarea-inputWrapper acord--discord-textarea">
-          <textarea class="acord--discord-textarea-inputDefault acord--discord-textarea-input acord--discord-textarea-textArea acord--discord-textarea-scrollbarDefault acord--discord-textarea-scrollbar" :value="modelValue" :placeholder="placeholder" :maxlength="maxlength" :cols="cols" :rows="rows" :style="style" @input="onInput"></textarea>
+          <textarea class="acord--discord-textarea-inputDefault acord--discord-textarea-input acord--discord-textarea-textArea acord--discord-textarea-scrollbarDefault acord--discord-textarea-scrollbar" :value="modelValue" :placeholder="placeholder ?? ''" :maxlength="maxlength" :cols="cols" :rows="rows" :style="style" @input="onInput"></textarea>
         </div>
       `,
       props: ["modelValue", "placeholder", "maxlength", "style", "cols", "rows"],

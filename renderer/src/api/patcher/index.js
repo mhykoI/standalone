@@ -1,7 +1,8 @@
 import * as spitRoast from "../../lib/spitroast/dist/esm";
 
-const importRegex = /@import url\([\S\s]+\);?/g;
-const propRegex = /var\(--acord--([\S\s]+)\)/g;
+const importRegex = /@import url\(([^)]+)\);?/g;
+const urlRegex = /url\(([^)]+)\)?/g;
+const propRegex = /var\(--acord--([^)]+)\)/g;
 const propBoolRegex = /\(([\S\s]+)\)/;
 function propReplacer(css, props = {}) {
   css = css.replace(propRegex, (match, group1) => {
@@ -25,8 +26,15 @@ function propReplacer(css, props = {}) {
   css = css.replace(importRegex, (match, group1) => {
     let splitted = group1.replaceAll('"', "").split("#");
     if (splitted.length === 1) return match;
-    let key = splitted[1];
+    let key = splitted.pop();
     return props[_.camelCase(key)] ? match : "";
+  });
+  css = css.replace(urlRegex, (match, group1) => {
+    let splitted = group1.replaceAll('"', "").split("#");
+    if (splitted.length === 1 && !group1.startsWith("#")) return match;
+    let key = splitted.pop();
+    let val = props[_.camelCase(key)];
+    return val ? `url("${val}")` : match;
   });
   return css;
 }
