@@ -9,6 +9,9 @@ export function patchBrowserWindow() {
       const originalPreload = options.webPreferences.preload;
       options.webPreferences.preload = path.join(__dirname, "preload.js");
 
+      // important
+      options.webPreferences.backgroundThrottling = false;
+
       super(options);
 
       this.__ORIGINAL_PRELOAD__ = originalPreload;
