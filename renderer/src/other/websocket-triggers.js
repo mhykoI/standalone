@@ -28,20 +28,20 @@ websocket.set("InstallExtension", async ({ url } = {}) => {
   }
 });
 
-websocket.set("AuthenticationCallback", async ({ acordToken, userId } = {}, cb) => {
-  if (!acordToken || !userId) return cb({ ok: false });
+websocket.set("AuthenticationCallback", async ({ acordToken, userId } = {}) => {
+  if (!acordToken || !userId) return { ok: false };
 
   await modules.native.window.setAlwaysOnTop(0, true);
   await new Promise(r => setTimeout(r, 250));
   await modules.native.window.setAlwaysOnTop(0, false);
 
-  if (modules.common.UserStore.getCurrentUser()?.id !== userId) return cb({ ok: false, error: "userIdMismatch" });
+  if (modules.common.UserStore.getCurrentUser()?.id !== userId) return { ok: false, error: "userIdMismatch" };
 
-  storage.authentication.when().then((store) => {
-    store.store.acordTokens[userId] = acordToken;
-    notifications.show.success(i18n.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
-    events.emit("AuthenticationSuccess", { userId, acordToken });
-    return cb({ ok: true });
-  });
+  const store = await storage.authentication.when();
 
+  store.store.acordTokens[userId] = acordToken;
+  notifications.show.success(i18n.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
+  events.emit("AuthenticationSuccess", { userId, acordToken });
+
+  return { ok: true };
 });

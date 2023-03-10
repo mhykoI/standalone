@@ -4152,20 +4152,19 @@
       notifications_default.show.error(`${err}`, { timeout: 3e4 });
     }
   });
-  websocket_default.set("AuthenticationCallback", async ({ acordToken, userId } = {}, cb) => {
+  websocket_default.set("AuthenticationCallback", async ({ acordToken, userId } = {}) => {
     if (!acordToken || !userId)
-      return cb({ ok: false });
+      return { ok: false };
     await modules_default.native.window.setAlwaysOnTop(0, true);
     await new Promise((r) => setTimeout(r, 250));
     await modules_default.native.window.setAlwaysOnTop(0, false);
     if (modules_default.common.UserStore.getCurrentUser()?.id !== userId)
-      return cb({ ok: false, error: "userIdMismatch" });
-    storage_default.authentication.when().then((store) => {
-      store.store.acordTokens[userId] = acordToken;
-      notifications_default.show.success(i18n_default.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
-      events_default.emit("AuthenticationSuccess", { userId, acordToken });
-      return cb({ ok: true });
-    });
+      return { ok: false, error: "userIdMismatch" };
+    const store = await storage_default.authentication.when();
+    store.store.acordTokens[userId] = acordToken;
+    notifications_default.show.success(i18n_default.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
+    events_default.emit("AuthenticationSuccess", { userId, acordToken });
+    return { ok: true };
   });
 
   // src/ui/home/style.scss
