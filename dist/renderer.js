@@ -2359,7 +2359,7 @@
   async function checkTokens() {
     await Promise.all(
       Object.entries(authStore.ghost.acordTokens ?? {}).map(async ([id, token]) => {
-        let res = (await fetch(`https://api.acord.app/auth/exchange?acordToken=${token}`)).json();
+        let res = await (await fetch(`https://api.acord.app/auth/exchange?acordToken=${token}`)).json();
         if (res.data.id !== id) {
           delete authStore.store.acordTokens[id];
         }
