@@ -216,6 +216,33 @@
         }
       }
     },
+    "constants": {
+      "Permissions": {
+        "__": true,
+        "filter": {
+          "in": "properties",
+          "by": [
+            [
+              "ADD_REACTIONS"
+            ]
+          ]
+        },
+        "path": {
+          "before": [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ],
+          "after": "Permissions"
+        },
+        "map": {
+          "Permissions": [
+            "ADD_REACTIONS"
+          ]
+        }
+      }
+    },
     "FluxDispatcher": {
       "__": true,
       "path": {

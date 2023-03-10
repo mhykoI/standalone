@@ -7,11 +7,11 @@ export default {
       props: ["item", "extension"],
       template: `
         <div v-show="item?.visible ?? true" class="acord--config-paragraph acord--config-item">
-          {{i18nFormat(item.value)}}
+          {{i18nLocalize(item.value)}}
         </div>
       `,
       methods: {
-        i18nFormat: i18n.format,
+        i18nLocalize: i18n.localize,
       }
     });
   }

@@ -1,4 +1,5 @@
 import dom from "../dom/index.js";
+import utils from "../utils/index.js";
 
 function getContainer() {
   const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
