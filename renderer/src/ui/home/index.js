@@ -59,7 +59,7 @@ let internalVueApp = null;
       (titleElm) => {
         titleElm.innerHTML = `
           ${i18n.format("APP_NAME")}
-          <div class="acord--connected-status" acord--tooltip-content="${i18n.format("NOT_CONNECTED")}"></div>
+          <div class="acord--connected-status"></div>
         `;
 
         if (internalVueApp) {
@@ -114,7 +114,6 @@ let internalVueApp = null;
       let connected = !!storage.authentication.token;
       if (!element) return;
       element.classList[connected ? "add" : "remove"]("connected");
-      element.setAttribute("acord--tooltip-content", i18n.format(connected ? "CONNECTED" : "NOT_CONNECTED"));
     }
 
     storage.authentication.when().then(updateStatusIcon);
