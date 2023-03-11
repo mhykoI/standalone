@@ -213,6 +213,12 @@ dom.patch(
   (elm) => {
     let tooltip = create(elm, elm.getAttribute("acord--tooltip-content"), elm.getAttribute("acord--tooltip-position"));
     tooltip.disabled = elm.getAttribute("acord--tooltip-disabled") === "true";
+
+    return () => {
+      if (!elm.hasAttribute("acord--tooltip-ignore-destroy")) {
+        tooltip.destroy();
+      }
+    }
   },
 );
 

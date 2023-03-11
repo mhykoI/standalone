@@ -2758,6 +2758,11 @@
     (elm) => {
       let tooltip = create(elm, elm.getAttribute("acord--tooltip-content"), elm.getAttribute("acord--tooltip-position"));
       tooltip.disabled = elm.getAttribute("acord--tooltip-disabled") === "true";
+      return () => {
+        if (!elm.hasAttribute("acord--tooltip-ignore-destroy")) {
+          tooltip.destroy();
+        }
+      };
     }
   );
   var tooltips_default = { create };
@@ -4271,7 +4276,7 @@
                 <div class="search">
                   <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')" />
                 </div>
-                <div class="install" :acord--tooltip-content="i18nFormat('IMPORT_EXTENSION')">
+                <div class="install" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('IMPORT_EXTENSION')">
                   <discord-input v-model="installUrl" placeholder="https://.../dist" @keyup="onInstallKeyUp" />
                 </div>
                 <div class="category">
@@ -4980,7 +4985,7 @@
                 </div>
                 <div class="right">
                   <div class="controls">
-                    <div class="control" :class="{'uninstall': installed, 'disabled': installing}" @click="installOrUninstall" :acord--tooltip-content="i18nFormat(installed ? 'DELETE_EXTENSION' : 'INSTALL_EXTENSION')">
+                    <div class="control" :class="{'uninstall': installed, 'disabled': installing}" @click="installOrUninstall" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat(installed ? 'DELETE_EXTENSION' : 'INSTALL_EXTENSION')">
                       <svg v-if="installed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
                         <path fill="currentColor" d="M17 6h5v2h-2v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V8H2V6h5V3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3zm1 2H6v12h12V8zm-9 3h2v6H9v-6zm4 0h2v6h-2v-6zM9 4v2h6V4H9z"/>
                       </svg>
