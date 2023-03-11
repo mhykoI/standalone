@@ -71,10 +71,18 @@ websocket.set(
 
     isProcessing = true;
 
-    extension.unload();
+    try {
+      extension.unload();
+    } catch (err) {
+      logger.error(`Unable to unload development extension.`, i18n.localize(manifest.about.name), err);
+    }
     await new Promise((r) => setTimeout(r, 1));
-    let success = await extension.load(source, manifest);
-    if (success) logger.info(`Development extension is loaded! (${i18n.localize(manifest.about.name)})`);
+    try {
+      let success = await extension.load(source, manifest);
+      if (success) logger.info(`Development extension is loaded! (${i18n.localize(manifest.about.name)})`);
+    } catch (err) {
+      logger.error(`Unable to load development extension.`, i18n.localize(manifest.about.name), err);
+    }
     isProcessing = false;
   }
 )

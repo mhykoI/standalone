@@ -4014,11 +4014,19 @@
       if (isProcessing)
         return logger_default.warn(`Development extension was sent while extension was already being processed.`);
       isProcessing = true;
-      extension.unload();
+      try {
+        extension.unload();
+      } catch (err) {
+        logger_default.error(`Unable to unload development extension.`, i18n_default.localize(manifest.about.name), err);
+      }
       await new Promise((r) => setTimeout(r, 1));
-      let success = await extension.load(source2, manifest);
-      if (success)
-        logger_default.info(`Development extension is loaded! (${i18n_default.localize(manifest.about.name)})`);
+      try {
+        let success = await extension.load(source2, manifest);
+        if (success)
+          logger_default.info(`Development extension is loaded! (${i18n_default.localize(manifest.about.name)})`);
+      } catch (err) {
+        logger_default.error(`Unable to load development extension.`, i18n_default.localize(manifest.about.name), err);
+      }
       isProcessing = false;
     }
   );
