@@ -442,6 +442,40 @@
           ]
         }
       },
+      SpotifyActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "strings",
+          by: [
+            [
+              '"SPOTIFY_SET_ACTIVE_DEVICE"',
+              "deviceId",
+              "accountId"
+            ]
+          ]
+        },
+        path: {
+          before: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        map: {
+          getAccessToken: [
+            "SPOTIFY_ACCOUNT_ACCESS_TOKEN_REVOKE",
+            "CONNECTION_ACCESS_TOKEN"
+          ],
+          pause: [
+            "SPOTIFY_PLAYER_PAUSE"
+          ],
+          play: [
+            "SPOTIFY_PLAYER_PLAY"
+          ]
+        }
+      },
       React: {
         __: true,
         path: {
@@ -1195,10 +1229,40 @@
     }
   };
 
+  // src/api/utils/spotify.js
+  async function request(method, path, body) {
+    let accessToken = common_default2.SpotifyStore.getActiveSocketAndDevice()?.socket?.accessToken;
+    let accountId = Object.keys(common_default2.SpotifyStore.__getLocalVars().accounts)?.[0];
+    if (!accessToken || !accountId)
+      throw new Error("No active Spotify account");
+    let req1 = await fetch(
+      `https://api.spotify.com/v1${path.startsWith("/") ? path : `/${path}`}`,
+      {
+        method,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      }
+    );
+    if (req1.status === 401) {
+      await common_default2.SpotifyActions.getAccessToken(accountId);
+      return await request(method, path, body);
+    }
+    if (req1.status === 204)
+      return null;
+    return await req1.json();
+  }
+  var spotify_default = {
+    request
+  };
+
   // src/api/utils/index.js
   var utils_default = {
     logger: logger_default,
     react: react_default,
+    spotify: spotify_default,
     findInTree,
     format(val, ...args) {
       return `${val}`.replaceAll(/{(\d+)}/g, (_2, cap) => {
@@ -2213,16 +2277,16 @@
   var nests = __toESM(require_cjs(), 1);
 
   // node_modules/idb-keyval/dist/index.js
-  function promisifyRequest(request) {
+  function promisifyRequest(request2) {
     return new Promise((resolve, reject) => {
-      request.oncomplete = request.onsuccess = () => resolve(request.result);
-      request.onabort = request.onerror = () => reject(request.error);
+      request2.oncomplete = request2.onsuccess = () => resolve(request2.result);
+      request2.onabort = request2.onerror = () => reject(request2.error);
     });
   }
   function createStore(dbName, storeName) {
-    const request = indexedDB.open(dbName);
-    request.onupgradeneeded = () => request.result.createObjectStore(storeName);
-    const dbp = promisifyRequest(request);
+    const request2 = indexedDB.open(dbName);
+    request2.onupgradeneeded = () => request2.result.createObjectStore(storeName);
+    const dbp = promisifyRequest(request2);
     return (txMode, callback) => dbp.then((db) => callback(db.transaction(storeName, txMode).objectStore(storeName)));
   }
   var defaultGetStoreFunc;
@@ -5348,6 +5412,44 @@
   events_default.on("MainWindowFullScreenExit", patchWindowActions);
   events_default.on("CurrentUserChange", patchWindowActions);
   events_default.on("LocaleChange", patchWindowActions);
+
+  // src/ui/profiles/big.js
+  dom_default.patch(
+    '[class*="userProfileModalInner-"]',
+    async (elm) => {
+      const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
+      if (!user)
+        return;
+      if (user.id !== "707309693449535599")
+        return;
+      try {
+        let oldState = await utils_default.spotify.request("GET", "/me/player");
+        await utils_default.spotify.request(
+          "PUT",
+          "/me/player/play",
+          {
+            uris: ["spotify:track:1ige2Xuzh6Kxv097VGhixQ"],
+            position_ms: 32e3
+          }
+        ).catch(console.log);
+        return () => {
+          if (oldState && oldState.is_playing) {
+            utils_default.spotify.request(
+              "PUT",
+              "/me/player/play",
+              {
+                uris: [oldState.item.uri],
+                position_ms: oldState.progress_ms
+              }
+            ).catch(console.log);
+          } else if (!oldState?.is_playing) {
+            utils_default.spotify.request("PUT", "/me/player/pause").catch(console.log);
+          }
+        };
+      } catch (e) {
+      }
+    }
+  );
 
   // src/index.js
   Object.defineProperty(window, "acord", {

@@ -264,6 +264,40 @@
         ]
       }
     },
+    "SpotifyActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "strings",
+        "by": [
+          [
+            "\"SPOTIFY_SET_ACTIVE_DEVICE\"",
+            "deviceId",
+            "accountId"
+          ]
+        ]
+      },
+      "path": {
+        "before": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "map": {
+        "getAccessToken": [
+          "SPOTIFY_ACCOUNT_ACCESS_TOKEN_REVOKE",
+          "CONNECTION_ACCESS_TOKEN"
+        ],
+        "pause": [
+          "SPOTIFY_PLAYER_PAUSE"
+        ],
+        "play": [
+          "SPOTIFY_PLAYER_PLAY"
+        ]
+      }
+    },
     "React": {
       "__": true,
       "path": {

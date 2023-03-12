@@ -1,10 +1,12 @@
 import findInTree from "./raw/find-in-tree.js";
 import logger from "./logger.js";
 import react from "./react.js";
+import spotify from "./spotify.js";
 
 export default {
   logger,
   react,
+  spotify,
   findInTree,
   format(val, ...args) {
     return `${val}`.replaceAll(/{(\d+)}/g, (_, cap) => {
