@@ -12,9 +12,11 @@ import websocket from "../websocket/index.js";
 import ui from "../ui/index.js";
 import utils from "../utils/index.js";
 import dom from "../dom/index.js";
+import authentication from "../authentication/index.js";
 import shared from "../shared/index.js";
 import { waitUntilConnectionOpen } from "../../other/utils.js";
 import logger from "../utils/logger.js";
+import { showConfirmationModal } from "./ui/confirmation-modal.jsx";
 
 /**
  * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, websocket?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
@@ -96,6 +98,10 @@ async function buildPluginAPI(manifest, persistKey) {
       events: new BasicEventEmitter(),
       subscriptions: []
     },
+    get authentication() {
+      if (manifest?.api?.authentication || devMode) return authentication;
+      return null;
+    },
     get shared() {
       if (manifest?.api?.shared || devMode) return shared;
       return null;
@@ -141,10 +147,6 @@ async function buildPluginAPI(manifest, persistKey) {
   return out;
 }
 
-function showConfirmationModal() {
-
-}
-
 const out = {
   __cache__: {
     initialized: false,
@@ -176,16 +178,16 @@ const out = {
     let readme = readmeResp.status === 200 ? await readmeResp.text() : null;
 
     // TODO: Show modal for user to accept the extension (terms, privacy, etc.)
-    await showConfirmationModal({
-      manifest,
-      readme,
-      config: {
-        autoUpdate: true,
-        enabled: true,
-        order: 0,
-        ...defaultConfig
-      }
-    });
+    // await showConfirmationModal({
+    //   manifest,
+    //   readme,
+    //   config: {
+    //     autoUpdate: true,
+    //     enabled: true,
+    //     order: 0,
+    //     ...defaultConfig
+    //   }
+    // });
 
     let sourceResp = await fetch(`${url}/source.js`, { cache: "no-store" });
     if (sourceResp.status !== 200) throw new Error(`"${url}" extension source is not responded with 200 status code.`);

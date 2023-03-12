@@ -1,0 +1,37 @@
+.acord--modal-root {
+  display: flex;
+  flex-direction: column;
+
+  .acord--modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+
+    .title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #efefef;
+    }
+
+    .close {
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .acord--modal-content {
+    padding: 16px;
+    padding-top: 0px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 450px;
+    gap: 8px;
+  }
+}

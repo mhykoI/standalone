@@ -11,8 +11,9 @@ import websocket from './websocket';
 import dom from './dom';
 import ui from './ui/index.js';
 import shared from './shared/index.js';
+import authentication from './authentication/index.js';
 
-// utils.logger.debug(`PRELOAD_KEY: <PRELOAD_KEY>`);
+// utils.logger.debug(`PRELOAD_KEY: <<PRELOAD_KEY>>`);
 
 function devError(api) {
   return new Error(`The ${api} API can only be accessed when Dev mode is enabled!`);
@@ -21,6 +22,10 @@ function devError(api) {
 export default {
   exposedAPI: {
     dev,
+    get authentication() {
+      if (!dev.enabled) throw devError("Authentication");
+      return authentication;
+    },
     get utils() {
       if (!dev.enabled) throw devError("Utils");
       return utils;
@@ -72,6 +77,7 @@ export default {
   },
   unexposedAPI: {
     dev,
+    authentication,
     modules,
     utils,
     extensions,

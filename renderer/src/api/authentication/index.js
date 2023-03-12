@@ -1,7 +1,7 @@
 import { waitUntilConnectionOpen } from "../../other/utils.js";
 import common from "../modules/common.js";
 import events from "../events/index.js";
-import { createPersistNest } from "./createPersistNest.js";
+import { createPersistNest } from "../storage/createPersistNest.js";
 
 let authStore;
 

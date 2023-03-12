@@ -3,6 +3,7 @@ const path = require("path");
 const cp = require("child_process");
 
 cp.execSync("node ./build.js", { stdio: "inherit", cwd: __dirname });
+cp.execSync("node ./bump-version.js", { stdio: "inherit", cwd: __dirname });
 cp.execSync("node ./asar.js", { stdio: "inherit", cwd: __dirname });
 
 const releaseInput = process.argv[2]?.toLowerCase?.();

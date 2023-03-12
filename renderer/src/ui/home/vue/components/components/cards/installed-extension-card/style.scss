@@ -1,3 +1,17 @@
+@keyframes colorFlashAnimation {
+  0% {
+    color: var(--flash-color-1);
+  }
+
+  50% {
+    color: var(--flash-color-2);
+  }
+
+  100% {
+    color: var(--flash-color-1);
+  }
+}
+
 .acord--installed-extension-card {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
@@ -33,11 +47,21 @@
 
     & > .development-mode-warning {
       color: #f0b232;
-      filter: drop-shadow(0px 0px 4px #f0b232);
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
+    }
+
+    & > .authentication-required {
+      color: #ed4245;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      --flash-color-1: #ed4245;
+      --flash-color-2: #000000;
+      animation: colorFlashAnimation 1s linear infinite normal;
     }
   }
 

@@ -1,6 +1,6 @@
 import events from "../../api/events";
 
-const ipcRenderer = window["<PRELOAD_KEY>"].ipcRenderer;
+const ipcRenderer = window["<<PRELOAD_KEY>>"].ipcRenderer;
 
 export async function patchWindowActions() {
   while (true) {

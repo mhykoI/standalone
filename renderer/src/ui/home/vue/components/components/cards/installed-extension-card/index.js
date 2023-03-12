@@ -6,6 +6,7 @@ import events from "../../../../../../../api/events/index.js";
 
 import cssText from "./style.scss";
 import utils from "../../../../../../../api/utils/index.js";
+import authentication from "../../../../../../../api/authentication/index.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -19,8 +20,13 @@ export default {
             <div class="status-container">
               <div class="loaded-state" :class="{'active': !!this.configCache}" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat(!!this.configCache ? 'EXTENSION_ACTIVE' : 'EXTENSION_INACTIVE')"></div>
               <div v-if="extension.manifest.mode == 'development'" class="development-mode-warning" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('EXTENSION_IS_IN_DEVELOPMENT_MODE')">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
                   <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"/>
+                </svg>
+              </div>
+              <div v-if="extension.manifest?.api?.authentication && !isConnected" class="authentication-required" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('EXTENSION_REQUIRES_AUTHENTICATION')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-9.208V16h2v-3.208a2.5 2.5 0 1 0-2 0z"/>
                 </svg>
               </div>
             </div>
@@ -90,7 +96,8 @@ export default {
           return {
             expanded: false,
             configCache: null,
-            enabled: !!extensions.storage.installed.ghost[this.id]?.config?.enabled
+            enabled: !!extensions.storage.installed.ghost[this.id]?.config?.enabled,
+            isConnected: false
           };
         },
         methods: {
@@ -142,17 +149,25 @@ export default {
                 }
               ])
             )
+          },
+          onAuthenticationUpdate() {
+            this.isConnected = !!authentication.token;
           }
         },
         props: ["id", "extension", "hideControls"],
         mounted() {
           this.configCache = extensions.__cache__.config[this.id];
+          this.onAuthenticationUpdate();
           events.on("ExtensionLoaded", this.onExtensionLoaded);
           events.on("ExtensionUnloaded", this.onExtensionUnloaded);
+          events.on("AuthenticationSuccess", this.onAuthenticationUpdate);
+          events.on("AuthenticationFailure", this.onAuthenticationUpdate);
         },
         unmounted() {
           events.off("ExtensionLoaded", this.onExtensionLoaded);
           events.off("ExtensionUnloaded", this.onExtensionUnloaded);
+          events.off("AuthenticationSuccess", this.onAuthenticationUpdate);
+          events.off("AuthenticationFailure", this.onAuthenticationUpdate);
         }
       }
     );

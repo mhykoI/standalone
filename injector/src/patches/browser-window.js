@@ -22,7 +22,7 @@ export function patchBrowserWindow() {
         const location = path.join(__dirname, "renderer.js");
         if (!fs.existsSync(location)) return;
         let content = fs.readFileSync(location, "utf-8");
-        content = content.replace(/<PRELOAD_KEY>/gm, process.env.ACORD_PRELOAD_KEY);
+        content = content.replace(/<<PRELOAD_KEY>>/gm, process.env.ACORD_PRELOAD_KEY);
         this.webContents.executeJavaScript(content, true);
       });
 

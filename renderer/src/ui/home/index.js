@@ -19,11 +19,25 @@ patcher.injectCSS(cssText);
   document.head.appendChild(script);
 }
 
+const CURRENT_VERSION = "<<CURRENT_VERSION>>";
+let LATEST_VERSION = CURRENT_VERSION;
+
 dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   utils.ifExists(
     elm.querySelector('[class*="nameAndDecorators-"] [class*="name-"]'),
-    (nameElm) => {
+    /** @param {HTMLDivElement} nameElm */(nameElm) => {
+      let parent = nameElm.parentElement;
       nameElm.textContent = i18n.format("APP_NAME");
+      if (CURRENT_VERSION !== LATEST_VERSION) {
+        parent.style.justifyContent = "space-between";
+        parent.appendChild(
+          dom.parse(`
+            <div class="acord--update-required" acord--tooltip-content="${i18n.format("UPDATE_REQUIRED_DESCRIPTION", CURRENT_VERSION, LATEST_VERSION)}">
+              ${i18n.format("UPDATE_REQUIRED")}
+            </div>
+          `)
+        )
+      }
     }
   );
 
@@ -40,8 +54,15 @@ dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   );
 });
 
-let internalVueApp = null;
+async function checkHasUpdate() {
+  const version = await fetch("https://raw.githubusercontent.com/acord-standalone/standalone/main/version").then(r => r.text());
+  LATEST_VERSION = version.trim();
+}
 
+checkHasUpdate();
+setInterval(checkHasUpdate, 1000 * 60 * 60);
+
+let internalVueApp = null;
 (async () => {
   let headerItemClasses;
   while (true) {
