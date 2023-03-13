@@ -1,6 +1,9 @@
-# standalone
+## Acord Standalone
 
-this project mainly inspired by these mods or plugins; betterdiscord, cumcord, ZeresPluginLibrary
+## Mac & Linux
 
-# For latest updates
-https://discord.gg/rrtKWh48v9
+To inject on Mac and Linux, enter the command `npm i && cd ./renderer && npm i && cd .. && cd ./injector && npm i && cd .. && cd ./preload && npm i && cd .. && npm run inject:stable` in Acord's main directory.
+
+## Windows
+
+To inject on Windows, enter the command `npm i && cd .\renderer && npm i && cd .. && cd .\injector && npm i && cd .. && cd .\preload && npm i && cd .. && npm run inject:stable` in Acord's main directory. 
