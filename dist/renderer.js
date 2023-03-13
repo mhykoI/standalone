@@ -4271,8 +4271,8 @@
     await modules_default.native.window.setAlwaysOnTop(0, false);
     if (modules_default.common.UserStore.getCurrentUser()?.id !== userId)
       return { ok: false, error: "userIdMismatch" };
-    const store = await storage_default.authentication.when();
-    store.store.acordTokens[userId] = acordToken;
+    const store = await authentication_default.when();
+    authentication_default.store.acordTokens[userId] = acordToken;
     notifications_default.show.success(i18n_default.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
     events_default.emit("AuthenticationSuccess", { userId, acordToken });
     return { ok: true };
@@ -5195,7 +5195,7 @@
     script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.20";
+  var CURRENT_VERSION = "0.1.21";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
