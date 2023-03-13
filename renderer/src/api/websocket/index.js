@@ -68,7 +68,7 @@ waitUntilConnectionOpen().then(() => {
               eventId,
               {
                 ok: false,
-                error: `${err}`,
+                error: err?.stack ? err.stack : err,
               },
             ])
           );

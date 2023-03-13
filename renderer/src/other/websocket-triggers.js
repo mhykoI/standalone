@@ -39,7 +39,7 @@ websocket.set("AuthenticationCallback", async ({ acordToken, userId } = {}) => {
 
   const store = await authentication.when();
 
-  authentication.store.acordTokens[userId] = acordToken;
+  store.store.acordTokens[userId] = acordToken;
   notifications.show.success(i18n.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
   events.emit("AuthenticationSuccess", { userId, acordToken });
 
