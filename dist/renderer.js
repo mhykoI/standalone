@@ -5195,7 +5195,7 @@
     script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.21";
+  var CURRENT_VERSION = "0.1.22";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
