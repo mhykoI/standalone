@@ -5500,6 +5500,18 @@
     }
   );
   dom_default.patch(
+    '[class*="profilePanel-"] [class*="badgeList-"]',
+    async (elm) => {
+      const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
+      if (!user)
+        return;
+      const badges = await fetchBadgesOfUser(user.id);
+      badges.forEach((badge) => {
+        elm.appendChild(buildBadge(i18n_default.get(badge.display_name), [22, 16], badge.image));
+      });
+    }
+  );
+  dom_default.patch(
     '[class*="userProfileModalInner-"] [class*="badgeList-"]',
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;

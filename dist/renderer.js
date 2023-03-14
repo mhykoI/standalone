@@ -5195,7 +5195,7 @@
     script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.31";
+  var CURRENT_VERSION = "0.1.32";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5489,6 +5489,18 @@
   }
   dom_default.patch(
     '[class*="userPopoutInner-"] [class*="profileBadges-"]',
+    async (elm) => {
+      const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
+      if (!user)
+        return;
+      const badges = await fetchBadgesOfUser(user.id);
+      badges.forEach((badge) => {
+        elm.appendChild(buildBadge(i18n_default.get(badge.display_name), [22, 16], badge.image));
+      });
+    }
+  );
+  dom_default.patch(
+    '[class*="profilePanel-"] [class*="badgeList-"]',
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
       if (!user)

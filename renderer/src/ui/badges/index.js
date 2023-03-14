@@ -54,6 +54,18 @@ dom.patch(
 )
 
 dom.patch(
+  '[class*="profilePanel-"] [class*="badgeList-"]',
+  async (elm) => {
+    const user = utils.react.getProps(elm, i => i?.user)?.user;
+    if (!user) return;
+    const badges = await fetchBadgesOfUser(user.id);
+    badges.forEach(badge => {
+      elm.appendChild(buildBadge(i18n.get(badge.display_name), [22, 16], badge.image));
+    });
+  }
+)
+
+dom.patch(
   '[class*="userProfileModalInner-"] [class*="badgeList-"]',
   async (elm) => {
     const user = utils.react.getProps(elm, i => i?.user)?.user;
