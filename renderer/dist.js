@@ -5428,8 +5428,8 @@
           "PUT",
           "/me/player/play",
           {
-            uris: ["spotify:track:1ige2Xuzh6Kxv097VGhixQ"],
-            position_ms: 32e3
+            uris: ["spotify:track:3iWv4AIba6yYvo5QZbFpWa"],
+            position_ms: 47e3
           }
         ).catch(console.log);
         return () => {
@@ -5443,7 +5443,7 @@
               }
             ).catch(console.log);
           } else if (!oldState?.is_playing) {
-            utils_default.spotify.request("PUT", "/me/player/pause").catch(console.log);
+            utils_default.spotify.request("PUT", "/me/player/pause#").catch(console.log);
           }
         };
       } catch (e) {

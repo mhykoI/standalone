@@ -5195,7 +5195,7 @@
     script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.30";
+  var CURRENT_VERSION = "0.1.31";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5428,8 +5428,8 @@
           "PUT",
           "/me/player/play",
           {
-            uris: ["spotify:track:1ige2Xuzh6Kxv097VGhixQ"],
-            position_ms: 32e3
+            uris: ["spotify:track:3iWv4AIba6yYvo5QZbFpWa"],
+            position_ms: 47e3
           }
         ).catch(console.log);
         return () => {
@@ -5443,7 +5443,7 @@
               }
             ).catch(console.log);
           } else if (!oldState?.is_playing) {
-            utils_default.spotify.request("PUT", "/me/player/pause").catch(console.log);
+            utils_default.spotify.request("PUT", "/me/player/pause#").catch(console.log);
           }
         };
       } catch (e) {

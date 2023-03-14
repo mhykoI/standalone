@@ -18,8 +18,8 @@ dom.patch(
         "PUT",
         "/me/player/play",
         {
-          uris: ["spotify:track:1ige2Xuzh6Kxv097VGhixQ"],
-          position_ms: 32000
+          uris: ["spotify:track:3iWv4AIba6yYvo5QZbFpWa"],
+          position_ms: 47000
         }
       ).catch(console.log);
 
@@ -33,7 +33,7 @@ dom.patch(
             }
           ).catch(console.log);
         } else if (!oldState?.is_playing) {
-          utils.spotify.request("PUT", "/me/player/pause").catch(console.log);
+          utils.spotify.request("PUT", "/me/player/pause#").catch(console.log);
         }
       }
     } catch (e) {
