@@ -16,11 +16,13 @@
 
   &--tooltip-layer {
     opacity: 0;
-    transition: 50ms linear opacity;
+    transition: 50ms linear opacity, 50ms linear transform;
     position: absolute;
     pointer-events: none;
+    transform: scale(0.95);
 
     &.visible {
+      transform: scale(1);
       opacity: 1;
       pointer-events: all;
     }
