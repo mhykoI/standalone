@@ -5275,7 +5275,7 @@
     script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.56";
+  var CURRENT_VERSION = "0.1.57";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5444,6 +5444,7 @@
     vueApp.mount(baseVueElm);
     dom_default.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="heroHeader-"]', (elm) => {
       let containerElm = dom_default.parents(elm, '[class*="premiumContainer-"]').pop();
+      console.log(elm, containerElm);
       if (!containerElm)
         return;
       containerElm.replaceChildren(baseVueElm);

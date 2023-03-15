@@ -214,6 +214,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
   dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="heroHeader-"]', (elm) => {
     /** @type {HTMLDivElement} */
     let containerElm = dom.parents(elm, '[class*="premiumContainer-"]').pop();
+    console.log(elm, containerElm);
     if (!containerElm) return;
     containerElm.replaceChildren(baseVueElm);
   });
