@@ -4,14 +4,14 @@ import utils from "../../api/utils/index.js";
 
 
 async function fetchProfileMusicOfUser(userId) {
-  if (!authentication.token) return [];
+  if (!authentication.token) return;
   let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
     method: "GET",
     headers: {
       "x-acord-token": authentication.token
     },
   });
-  if (!profileReq.ok) return [];
+  if (!profileReq.ok) return;
   let profile = await profileReq.json();
   return profile?.data?.features?.find(i => i.type === "profile_music")?.data;
 }

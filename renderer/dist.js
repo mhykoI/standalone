@@ -5581,7 +5581,7 @@
   // src/ui/other/colored-name.js
   async function fetchNameColorsOfUser(userId) {
     if (!authentication_default.token)
-      return [];
+      return;
     let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
       method: "GET",
       headers: {
@@ -5589,7 +5589,7 @@
       }
     });
     if (!profileReq.ok)
-      return [];
+      return;
     let profile = await profileReq.json();
     return profile?.data?.features?.find((i) => i.type === "colored_name")?.data;
   }
@@ -5625,7 +5625,7 @@
   // src/ui/profiles/big.js
   async function fetchProfileMusicOfUser(userId) {
     if (!authentication_default.token)
-      return [];
+      return;
     let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
       method: "GET",
       headers: {
@@ -5633,7 +5633,7 @@
       }
     });
     if (!profileReq.ok)
-      return [];
+      return;
     let profile = await profileReq.json();
     return profile?.data?.features?.find((i) => i.type === "profile_music")?.data;
   }
