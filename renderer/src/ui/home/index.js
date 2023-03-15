@@ -211,7 +211,7 @@ function fillSVGElmWithAcordLogo(svgElm) {
   vueComponents.load(vueApp);
   vueApp.mount(baseVueElm);
 
-  dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"]', (elm) => {
+  dom.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="heroHeader-"]', (elm) => {
     /** @type {HTMLDivElement} */
     let containerElm = dom.parents(elm, '[class*="premiumContainer-"]').pop();
     if (!containerElm) return;
