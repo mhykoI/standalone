@@ -2627,7 +2627,7 @@
 
   // src/api/ui/styles.scss
   var styles_default = `
-.acord--layer-container{--top-offset: 0px;width:100vw;height:calc(100vh - var(--top-offset));z-index:9999999;pointer-events:none;position:absolute;top:var(--top-offset);left:0px}.acord--layer-container *{z-index:99999999999999}.acord--tooltip-layer{opacity:0;transition:50ms linear opacity,50ms linear transform;position:absolute;pointer-events:none;transform:scale(0.95)}.acord--tooltip-layer.visible{transform:scale(1);opacity:1;pointer-events:all}.acord--toasts-container{display:flex;align-items:center;justify-content:flex-end;flex-direction:column;width:100vw;height:calc(100vh - var(--top-offset));position:absolute;top:0;left:0;pointer-events:none;padding-bottom:32px}.acord--toasts-container .acord--toast{transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;display:flex;align-items:center;pointer-events:none;border-radius:4px;padding:8px;box-shadow:0px 2px 8px rgba(0,0,0,.25);opacity:1;gap:8px;font-size:14px;margin:4px}.acord--toasts-container .acord--toast svg{width:16px;height:16px}.acord--toasts-container .acord--toast.clickable{cursor:pointer;pointer-events:all}.acord--toasts-container .acord--toast.closing{opacity:0;transform:translate(0, -50px)}.acord--toasts-container .acord--toast.hidden{opacity:0;transform:translate(0, 50px)}.acord--toasts-container .acord--toast.style-info{background-color:#4a8fe1;color:#f5f5f5}.acord--toasts-container .acord--toast.style-warning{background-color:#faa81a;color:#000}.acord--toasts-container .acord--toast.style-error{background-color:#ed4245;color:#000}.acord--toasts-container .acord--toast.style-success{background-color:#3ba55d;color:#f5f5f5}.acord--toasts-container .acord--toast.style-default{background-color:#000;color:#f5f5f5}.acord--notification-layer{width:100vw;height:calc(100vh - var(--top-offset));display:flex;position:absolute;top:0;left:0;pointer-events:none;flex-direction:column}.acord--notification-layer .acord--notification{display:flex;flex-direction:column;pointer-events:all;transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;margin:4px;backdrop-filter:blur(16px) brightness(0.75);-webkit-app-region:no-drag;--animation-size: 50px;max-width:350px}.acord--notification-layer .acord--notification.hidden,.acord--notification-layer .acord--notification.closing{opacity:0}.acord--notification-layer .acord--notification>.container{display:flex;align-items:center;justify-content:space-between;padding:8px;color:#fff;min-width:250px}.acord--notification-layer .acord--notification>.container>.close{width:24px;height:24px;color:#fff;opacity:.5;cursor:pointer;margin-left:8px;z-index:999999999}.acord--notification-layer .acord--notification>.container>.close.hidden{display:none}.acord--notification-layer .acord--notification>.progress-container{width:100%;height:5px}.acord--notification-layer .acord--notification>.progress-container>.progress{width:0%;height:5px;transition:width var(--duration) linear;background-color:var(--bar-color)}.acord--notification-layer .acord--notification>.progress-container>.progress.progressing{width:100%}.acord--notification-layer .acord--notification.style-info{--bar-color: #4a8fe1}.acord--notification-layer .acord--notification.style-warning{--bar-color: #faa81a}.acord--notification-layer .acord--notification.style-error{--bar-color: #ed4245}.acord--notification-layer .acord--notification.style-success{--bar-color: #3ba55d}.acord--notification-layer .acord--notification.style-default{--bar-color: whitesmoke}.acord--notification-layer.top-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.top-right .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-right .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.top-left{justify-content:flex-end;align-items:flex-start}.acord--notification-layer.top-left .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-left .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.bottom-right .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.bottom-left{justify-content:flex-start;align-items:flex-start}.acord--notification-layer.bottom-left .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-left .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}`;
+.acord--layer-container{--top-offset: 0px;width:100vw;height:calc(100vh - var(--top-offset));z-index:9999999;pointer-events:none;position:absolute;top:var(--top-offset);left:0px}.acord--layer-container *{z-index:99999999999999}.acord--tooltip-layer{opacity:0;transition:50ms linear opacity,50ms linear transform;position:absolute;pointer-events:none;transform:scale(0.95)}.acord--tooltip-layer.visible{transform:scale(1);opacity:1;pointer-events:all}.acord--toasts-container{display:flex;align-items:center;justify-content:flex-end;flex-direction:column;width:100vw;height:calc(100vh - var(--top-offset));position:absolute;top:0;left:0;pointer-events:none;padding-bottom:32px}.acord--toasts-container .acord--toast{transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;display:flex;align-items:center;pointer-events:none;border-radius:4px;padding:8px;box-shadow:0px 2px 8px rgba(0,0,0,.25);opacity:1;gap:8px;font-size:14px;margin:4px}.acord--toasts-container .acord--toast svg{width:16px;height:16px}.acord--toasts-container .acord--toast.clickable{cursor:pointer;pointer-events:all}.acord--toasts-container .acord--toast.closing{opacity:0;transform:translate(0, -50px)}.acord--toasts-container .acord--toast.hidden{opacity:0;transform:translate(0, 50px)}.acord--toasts-container .acord--toast.style-info{background-color:#4a8fe1;color:#f5f5f5}.acord--toasts-container .acord--toast.style-warning{background-color:#faa81a;color:#000}.acord--toasts-container .acord--toast.style-error{background-color:#ed4245;color:#000}.acord--toasts-container .acord--toast.style-success{background-color:#3ba55d;color:#f5f5f5}.acord--toasts-container .acord--toast.style-default{background-color:#000;color:#f5f5f5}.acord--notification-layer{width:100vw;height:calc(100vh - var(--top-offset));display:flex;position:absolute;top:0;left:0;pointer-events:none;flex-direction:column}.acord--notification-layer .acord--notification{display:flex;flex-direction:column;pointer-events:all;transition:transform 250ms ease-in-out,opacity 250ms ease-in-out;margin:4px;backdrop-filter:blur(16px) brightness(0.75);-webkit-app-region:no-drag;--animation-size: 50px;max-width:350px}.acord--notification-layer .acord--notification.hidden,.acord--notification-layer .acord--notification.closing{opacity:0}.acord--notification-layer .acord--notification>.container{display:flex;align-items:center;justify-content:space-between;padding:8px;color:#fff;min-width:250px}.acord--notification-layer .acord--notification>.container>.close{width:24px;height:24px;color:#fff;opacity:.5;cursor:pointer;margin-left:8px;z-index:999999999}.acord--notification-layer .acord--notification>.container>.close.hidden{display:none}.acord--notification-layer .acord--notification>.progress-container{width:100%;height:5px}.acord--notification-layer .acord--notification>.progress-container>.progress{width:0%;height:5px;transition:width var(--duration) linear;background-color:var(--bar-color)}.acord--notification-layer .acord--notification>.progress-container>.progress.progressing{width:100%}.acord--notification-layer .acord--notification.style-info{--bar-color: #4a8fe1}.acord--notification-layer .acord--notification.style-warning{--bar-color: #faa81a}.acord--notification-layer .acord--notification.style-error{--bar-color: #ed4245}.acord--notification-layer .acord--notification.style-success{--bar-color: #3ba55d}.acord--notification-layer .acord--notification.style-default{--bar-color: whitesmoke}.acord--notification-layer.top-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.top-right .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-right .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.top-left{justify-content:flex-end;align-items:flex-start}.acord--notification-layer.top-left .acord--notification.hidden{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.top-left .acord--notification.closing{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right{justify-content:flex-start;align-items:flex-end}.acord--notification-layer.bottom-right .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-right .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}.acord--notification-layer.bottom-left{justify-content:flex-start;align-items:flex-start}.acord--notification-layer.bottom-left .acord--notification.hidden{transform:translate(0, var(--animation-size))}.acord--notification-layer.bottom-left .acord--notification.closing{transform:translate(0, calc(var(--animation-size) * -1))}.acord--modal-layer{display:flex;align-items:center;justify-content:center}.acord--modal-layer .acord--backdrop{background-color:rgba(0,0,0,.5);position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:1002;pointer-events:none;transition:opacity 200ms ease-in-out}.acord--modal-layer .acord--backdrop.hidden{opacity:0;pointer-events:none}.acord--modal-layer .acord--inner-layer{position:absolute;top:0;left:0;width:100vw;height:100vh;z-index:1003;pointer-events:all;opacity:1;transition:opacity 50ms ease-in-out}.acord--modal-layer .acord--inner-layer.hidden{opacity:0;pointer-events:none}.acord--modal-layer .acord--modal-root{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);z-index:1004;pointer-events:all;transition:opacity 200ms ease-in-out,transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);opacity:1;transform:scale(1)}.acord--modal-layer .acord--modal-root.hidden{transform:scale(0.8);opacity:0;pointer-events:none}`;
 
   // src/api/ui/tooltips.js
   var tooltipClasses = webpack_default.findByProperties("tooltipContentAllowOverflow", "tooltip");
@@ -3173,16 +3173,91 @@
     Tooltip: common_default2.components.Tooltip
   };
 
-  // src/api/ui/modals.jsx
-  var { React: React4, FluxDispatcher, components, modals, UserStore } = common_default2;
+  // src/api/ui/modals/show.js
+  function getContainer2() {
+    const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
+    let topContainer = appElm.querySelector(".acord--modal-layer");
+    if (!topContainer) {
+      topContainer = dom_default.parse(`<div class="acord--layer-container acord--modal-layer"></div>`);
+      appElm.appendChild(topContainer);
+    }
+    return topContainer;
+  }
+  var modals = /* @__PURE__ */ new Set();
+  function show3(content) {
+    let layerContainer = getContainer2();
+    let layerElement = dom_default.parse(`<div class="acord--inner-layer"></div>`);
+    let closed = false;
+    let onCloseCbs = [];
+    async function close() {
+      if (closed)
+        return;
+      closed = true;
+      requestAnimationFrame(() => {
+        content.classList.add("hidden");
+        setTimeout(() => layerElement.remove?.(), 200);
+        if (!document.querySelector(".acord--modal-root:not(.hidden)")) {
+          utils_default.ifExists(
+            layerContainer.querySelector(`.acord--backdrop`),
+            (el) => {
+              el.classList.add("hidden");
+              setTimeout(() => el.remove(), 200);
+            }
+          );
+        }
+        onCloseCbs.forEach((f) => f());
+      });
+      modals.delete(layerElement);
+      setTimeout(() => {
+        if (modals.size)
+          [...modals.values()].at(-1)?.classList.remove("hidden");
+      }, 200);
+    }
+    layerElement.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("acord--inner-layer"))
+        return;
+      close();
+    });
+    content = typeof content == "function" ? content({
+      close,
+      onClose(cb) {
+        onCloseCbs.push(cb);
+      }
+    }) : content;
+    content = typeof content == "string" ? dom_default.parse(content) : content;
+    content.classList.add("acord--modal-root", "hidden");
+    layerElement.replaceChildren(content);
+    layerContainer.appendChild(layerElement);
+    if (!layerContainer.querySelector(`.acord--backdrop`)) {
+      let backdropElement = dom_default.parse(`<div class="acord--backdrop hidden"></div>`);
+      layerContainer.prepend(backdropElement);
+      requestAnimationFrame(() => backdropElement.classList.remove("hidden"));
+    }
+    requestAnimationFrame(() => {
+      content.classList.remove("hidden");
+    });
+    modals.forEach((elm) => {
+      elm.classList.add("hidden");
+    });
+    modals.add(layerElement);
+    return {
+      close,
+      onClose(cb) {
+        onCloseCbs.push(cb);
+      }
+    };
+  }
+
+  // src/api/ui/modals/index.jsx
+  var { React: React4, FluxDispatcher, components, modals: modals2, UserStore } = common_default2;
   var modals_default = {
-    show: {
+    show: Object.assign(show3, {
       confirmation(title, content, { confirm = null, cancel = null, danger = false, key = void 0, timeout = 6e4 * 5 } = {}) {
         return new Promise((resolve) => {
           if (!Array.isArray(content))
             content = [content];
           content = content.map((i) => typeof i === "string" ? React4.createElement(components.Markdown, null, i) : i);
-          const modalKey = modals.actions.open((props) => {
+          const modalKey = modals2.actions.open((props) => {
             let interacted2 = false;
             return /* @__PURE__ */ React4.createElement(ErrorBoundary, { onError: () => {
               resolve(false);
@@ -3195,19 +3270,19 @@
                 cancelText: cancel,
                 onCancel: () => {
                   resolve(false);
-                  modals.actions.close(modalKey);
+                  modals2.actions.close(modalKey);
                   interacted2 = true;
                 },
                 onConfirm: () => {
                   resolve(true);
-                  modals.actions.close(modalKey);
+                  modals2.actions.close(modalKey);
                   interacted2 = true;
                 },
                 ...props,
                 onClose: () => {
                   props.onClose();
                   resolve(false);
-                  modals.actions.close(modalKey);
+                  modals2.actions.close(modalKey);
                 }
               },
               /* @__PURE__ */ React4.createElement(ErrorBoundary, { onError: () => {
@@ -3219,7 +3294,7 @@
             setTimeout(() => {
               if (!interacted) {
                 resolve(false);
-                modals.actions.close(modalKey);
+                modals2.actions.close(modalKey);
               }
             }, timeout);
           }
@@ -3234,14 +3309,14 @@
       alert(title, content, { confirm = null, key = void 0, timeout = 6e4 * 5 } = {}) {
         return this.confirmation(title, content, { confirm, cancel: null, key, timeout });
       }
-    },
+    }),
     close(key) {
-      return modals.actions.close(key);
+      return modals2.actions.close(key);
     }
   };
 
   // src/api/ui/toasts.js
-  function getContainer2() {
+  function getContainer3() {
     const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
     let topContainer = appElm.querySelector(".acord--toasts-container");
     if (!topContainer) {
@@ -3257,20 +3332,25 @@
     error: `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"fill="currentColor" /></svg>`,
     success: `<svg viewBox="0 0 24 24" width="24" height="24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-.997-6l7.07-7.071-1.414-1.414-5.656 5.657-2.829-2.829-1.414 1.414L11.003 16z" fill="currentColor" /></svg>`
   };
-  function show3(content, {
+  function show4(content, {
     style = "default",
     timeout = 3500,
     onClick = null,
     hideIcon = false
   } = {}) {
-    const container = getContainer2();
+    const container = getContainer3();
     const toastElm = dom_default.parse(`
     <div class="acord--toast style-${style} hidden">
       ${hideIcon ? "" : icons[style] || ""}
       <div class="content"></div>
     </div>
   `);
-    toastElm.querySelector(".content").innerHTML = content;
+    let contentElm = toastElm.querySelector(".content");
+    if (typeof content == "string") {
+      contentElm.innerHTML = content;
+    } else {
+      contentElm.appendChild(content);
+    }
     let closed = false;
     function close() {
       if (closed)
@@ -3305,11 +3385,11 @@
     };
   }
   var toasts_default = {
-    show: Object.assign(show3, {
-      info: (html, obj = {}) => show3(html, { ...obj, style: "info" }),
-      error: (html, obj = {}) => show3(html, { ...obj, style: "error" }),
-      warning: (html, obj = {}) => show3(html, { ...obj, style: "warning" }),
-      success: (html, obj = {}) => show3(html, { ...obj, style: "success" })
+    show: Object.assign(show4, {
+      info: (html, obj = {}) => show4(html, { ...obj, style: "info" }),
+      error: (html, obj = {}) => show4(html, { ...obj, style: "error" }),
+      warning: (html, obj = {}) => show4(html, { ...obj, style: "warning" }),
+      success: (html, obj = {}) => show4(html, { ...obj, style: "success" })
     })
   };
 

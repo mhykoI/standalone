@@ -1,10 +1,12 @@
-import ErrorBoundary from "../../lib/components/ErrorBoundary.jsx";
-import common from "../modules/common.js";
-import i18n from "../i18n/index.js"
+import ErrorBoundary from "../../../lib/components/ErrorBoundary.jsx";
+import common from "../../modules/common.js";
+import i18n from "../../i18n/index.js";
+import { show } from "./show.js";
 const { React, FluxDispatcher, components, modals, UserStore } = common;
 
+
 export default {
-  show: {
+  show: Object.assign(show, {
     confirmation(title, content, { confirm = null, cancel = null, danger = false, key = undefined, timeout = 60000 * 5 } = {}) {
       return new Promise((resolve) => {
         if (!Array.isArray(content)) content = [content];
@@ -46,7 +48,7 @@ export default {
     alert(title, content, { confirm = null, key = undefined, timeout = 60000 * 5 } = {}) {
       return this.confirmation(title, content, { confirm, cancel: null, key, timeout });
     }
-  },
+  }),
   close(key) {
     return modals.actions.close(key);
   }

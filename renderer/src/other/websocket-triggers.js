@@ -1,5 +1,5 @@
 import modules from "../api/modules/index.js";
-import modals from "../api/ui/modals.jsx";
+import modals from "../api/ui/modals/index.jsx";
 import notifications from "../api/ui/notifications.js";
 import extensions from "../api/extensions/index.js";
 import websocket from "../api/websocket/index.js";

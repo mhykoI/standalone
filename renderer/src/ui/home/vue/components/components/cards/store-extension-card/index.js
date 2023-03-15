@@ -1,4 +1,4 @@
-import modals from "../../../../../../../api/ui/modals.jsx";
+import modals from "../../../../../../../api/ui/modals/index.jsx";
 import i18n from "../../../../../../../api/i18n/index.js";
 import patcher from "../../../../../../../api/patcher/index.js";
 import extensions from "../../../../../../../api/extensions/index.js";

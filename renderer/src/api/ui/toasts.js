@@ -40,7 +40,12 @@ function show(
     </div>
   `);
 
-  toastElm.querySelector(".content").innerHTML = content;
+  let contentElm = toastElm.querySelector(".content");
+  if (typeof content == "string") {
+    contentElm.innerHTML = content;
+  } else {
+    contentElm.appendChild(content);
+  }
 
   let closed = false;
   function close() {
