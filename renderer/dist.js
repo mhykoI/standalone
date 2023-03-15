@@ -5493,45 +5493,7 @@
   events_default.on("CurrentUserChange", patchWindowActions);
   events_default.on("LocaleChange", patchWindowActions);
 
-  // src/ui/profiles/big.js
-  dom_default.patch(
-    '[class*="userProfileModalInner-"]',
-    async (elm) => {
-      const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
-      if (!user)
-        return;
-      if (user.id !== "707309693449535599")
-        return;
-      try {
-        let oldState = await utils_default.spotify.request("GET", "/me/player");
-        await utils_default.spotify.request(
-          "PUT",
-          "/me/player/play",
-          {
-            uris: ["spotify:track:3iWv4AIba6yYvo5QZbFpWa"],
-            position_ms: 47e3
-          }
-        ).catch(console.log);
-        return () => {
-          if (oldState && oldState.is_playing) {
-            utils_default.spotify.request(
-              "PUT",
-              "/me/player/play",
-              {
-                uris: [oldState.item.uri],
-                position_ms: oldState.progress_ms
-              }
-            ).catch(console.log);
-          } else if (!oldState?.is_playing) {
-            utils_default.spotify.request("PUT", "/me/player/pause#").catch(console.log);
-          }
-        };
-      } catch (e) {
-      }
-    }
-  );
-
-  // src/ui/badges/index.js
+  // src/ui/other/badges.js
   function buildBadge(displayName, sizes, image) {
     let elm = dom_default.parse(`
     <div style="display: flex; align-items: center; justify-content: center; width: ${sizes[0]}px; height: ${sizes[0]}px; cursor: pointer;">
@@ -5613,6 +5575,129 @@
       badges.forEach((badge) => {
         elm.appendChild(buildBadge(i18n_default.get(badge.display_name), [22, 16], badge.image));
       });
+    }
+  );
+
+  // src/ui/other/colored-name.js
+  async function fetchNameColorsOfUser(userId) {
+    if (!authentication_default.token)
+      return [];
+    let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
+      method: "GET",
+      headers: {
+        "x-acord-token": authentication_default.token
+      }
+    });
+    if (!profileReq.ok)
+      return [];
+    let profile = await profileReq.json();
+    return profile?.data?.features?.find((i) => i.type === "colored_name")?.data;
+  }
+  dom_default.patch(
+    '[class*="username-"][class*="desaturateUserColors-"], [class*="container-"] > [class*="nameTag-"] > [class*="username"], [class*="userText-"] > [class*="nameTag-"] > [class*="username-"], [class*="userText-"] > [class*="nickname-"], [class*="nameAndDecorators-"] > [class*="name-"] > [class*="overflow-"], [class*="listItemContents-"] [class*="discordTag-"] [class*="username-"], [id*="message-username-"] [class*="username-"], .mention',
+    /** @param {HTMLDivElement} elm */
+    async (elm) => {
+      if (elm.getAttribute("style"))
+        return;
+      let userId = elm.classList.contains("mention") ? utils_default.react.getProps(elm, (i) => i?.userId)?.userId : utils_default.react.getProps(elm, (i) => i?.user)?.user?.id || utils_default.react.getProps(elm, (i) => i?.message)?.message?.author?.id;
+      if (!userId)
+        return;
+      const data = await fetchNameColorsOfUser(userId);
+      if (!data)
+        return;
+      if (elm.classList.contains("mention"))
+        data.points = data.points.map((i) => ({ ...i, color: `${i.color}4d` }));
+      elm.setAttribute(
+        "style",
+        data.points.length === 1 ? `background-color: ${data.points[0].color};` : `background-image: ${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")});`
+      );
+      elm.classList.add(`acord--gradient-${elm.classList.contains("mention") ? "mention" : "name"}`);
+    }
+  );
+
+  // src/ui/other/style.scss
+  var style_default15 = `
+.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}`;
+
+  // src/ui/other/index.js
+  patcher_default.injectCSS(style_default15);
+
+  // src/ui/profiles/big.js
+  async function fetchProfileMusicOfUser(userId) {
+    if (!authentication_default.token)
+      return [];
+    let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
+      method: "GET",
+      headers: {
+        "x-acord-token": authentication_default.token
+      }
+    });
+    if (!profileReq.ok)
+      return [];
+    let profile = await profileReq.json();
+    return profile?.data?.features?.find((i) => i.type === "profile_music")?.data;
+  }
+  dom_default.patch(
+    '[class*="userProfileModalInner-"]',
+    async (elm) => {
+      const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
+      if (!user)
+        return;
+      const data = await fetchProfileMusicOfUser(user.id);
+      if (!data)
+        return;
+      try {
+        let oldState = await utils_default.spotify.request("GET", "/me/player");
+        let volumeChanged = false;
+        if (data.volume_percent) {
+          let targetVolume = Math.min(data.volume_percent, oldState.device.volume_percent);
+          if (targetVolume !== oldState.device.volume_percent) {
+            volumeChanged = true;
+            await utils_default.spotify.request(
+              "PUT",
+              "/me/player/volume",
+              {
+                volume_percent: targetVolume
+              }
+            );
+          }
+        }
+        await utils_default.spotify.request(
+          "PUT",
+          "/me/player/play",
+          {
+            uris: [data.uri],
+            position_ms: data.position_ms
+          }
+        ).catch(console.log);
+        return async () => {
+          if (volumeChanged) {
+            await utils_default.spotify.request(
+              "PUT",
+              "/me/player/volume",
+              {
+                volume_percent: oldState.device.volume_percent
+              }
+            );
+          }
+          if (oldState) {
+            utils_default.spotify.request(
+              "PUT",
+              "/me/player/play",
+              {
+                uris: [oldState.item.uri],
+                position_ms: oldState.progress_ms
+              }
+            ).catch(console.log);
+            if (!oldState.is_playing)
+              setTimeout(() => {
+                utils_default.spotify.request("PUT", "/me/player/pause#").catch(console.log);
+              }, 20);
+          }
+        };
+      } catch (e) {
+        console.log(e);
+      }
     }
   );
 
