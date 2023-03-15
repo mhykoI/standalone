@@ -15,7 +15,7 @@ patcher.injectCSS(cssText);
 
 {
   let script = document.createElement("script");
-  script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
+  script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
   document.head.appendChild(script);
 }
 
