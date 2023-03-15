@@ -2451,7 +2451,7 @@
     await Promise.all(
       Object.entries(authStore.ghost.acordTokens ?? {}).map(async ([id, token]) => {
         let res = await (await fetch(`https://api.acord.app/auth/exchange?acordToken=${token}`)).json();
-        if (res.data.id !== id) {
+        if (res?.data?.id !== id) {
           delete authStore.store.acordTokens[id];
         }
       })
@@ -5275,7 +5275,7 @@
     script.src = "https://unpkg.com/vue@3/dist/vue.global.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.55";
+  var CURRENT_VERSION = "0.1.56";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
