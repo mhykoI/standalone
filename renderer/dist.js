@@ -2637,6 +2637,18 @@
     left: tooltipClasses.tooltipLeft,
     right: tooltipClasses.tooltipRight
   };
+  var tooltips = /* @__PURE__ */ new Set();
+  function removeUnusedTooltips() {
+    tooltips.forEach((t) => {
+      if (!t.target.isConnected && !t.target.hasAttribute("acord--tooltip-ignore-destroy")) {
+        t.destroy();
+      }
+    });
+  }
+  events_default.on("DocumentTitleChange", () => {
+    setTimeout(removeUnusedTooltips, 1e3);
+    removeUnusedTooltips();
+  });
   var Tooltip = class {
     /**
      * @param {HTMLDivElement} target 
@@ -2699,8 +2711,11 @@
         this.target.removeEventListener("mouseenter", onMouseEnter);
         this.target.removeEventListener("mouseleave", onMouseLeave);
         this.hide();
+        tooltips.delete(this);
         unPatchObserver();
       };
+      this.target.tooltip = this;
+      tooltips.add(this);
     }
     get content() {
       return this.contentElement.firstElementChild;

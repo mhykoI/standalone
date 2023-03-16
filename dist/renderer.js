@@ -2637,6 +2637,18 @@
     left: tooltipClasses.tooltipLeft,
     right: tooltipClasses.tooltipRight
   };
+  var tooltips = /* @__PURE__ */ new Set();
+  function removeUnusedTooltips() {
+    tooltips.forEach((t) => {
+      if (!t.target.isConnected && !t.target.hasAttribute("acord--tooltip-ignore-destroy")) {
+        t.destroy();
+      }
+    });
+  }
+  events_default.on("DocumentTitleChange", () => {
+    setTimeout(removeUnusedTooltips, 1e3);
+    removeUnusedTooltips();
+  });
   var Tooltip = class {
     /**
      * @param {HTMLDivElement} target 
@@ -2699,8 +2711,11 @@
         this.target.removeEventListener("mouseenter", onMouseEnter);
         this.target.removeEventListener("mouseleave", onMouseLeave);
         this.hide();
+        tooltips.delete(this);
         unPatchObserver();
       };
+      this.target.tooltip = this;
+      tooltips.add(this);
     }
     get content() {
       return this.contentElement.firstElementChild;
@@ -5275,7 +5290,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.60";
+  var CURRENT_VERSION = "0.1.64";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

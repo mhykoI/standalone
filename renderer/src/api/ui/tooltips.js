@@ -11,6 +11,21 @@ const tooltipPositions = {
   right: tooltipClasses.tooltipRight,
 }
 
+const tooltips = new Set();
+
+function removeUnusedTooltips() {
+  tooltips.forEach(t => {
+    if (!t.target.isConnected && !t.target.hasAttribute("acord--tooltip-ignore-destroy")) {
+      t.destroy();
+    }
+  });
+}
+
+events.on("DocumentTitleChange", () => {
+  setTimeout(removeUnusedTooltips, 1000);
+  removeUnusedTooltips();
+});
+
 class Tooltip {
   /**
    * @param {HTMLDivElement} target 
@@ -77,8 +92,12 @@ class Tooltip {
       this.target.removeEventListener("mouseenter", onMouseEnter);
       this.target.removeEventListener("mouseleave", onMouseLeave);
       this.hide();
+      tooltips.delete(this);
       unPatchObserver();
     };
+
+    this.target.tooltip = this;
+    tooltips.add(this);
   }
 
   get content() {
