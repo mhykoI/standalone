@@ -5290,7 +5290,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.64";
+  var CURRENT_VERSION = "0.1.71";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5678,14 +5678,9 @@
             );
           }
         }
-        await utils_default.spotify.request(
-          "PUT",
-          "/me/player/play",
-          {
-            uris: [data.uri],
-            position_ms: data.position_ms
-          }
-        ).catch(console.log);
+        await utils_default.spotify.request("POST", "/me/player/queue?uri=" + data.uri);
+        await utils_default.spotify.request("POST", "/me/player/next");
+        await utils_default.spotify.request("PUT", "/me/player/seek?position_ms=" + data.position_ms);
         return async () => {
           if (volumeChanged) {
             await utils_default.spotify.request(
@@ -5697,18 +5692,12 @@
             );
           }
           if (oldState) {
-            utils_default.spotify.request(
-              "PUT",
-              "/me/player/play",
-              {
-                uris: [oldState.item.uri],
-                position_ms: oldState.progress_ms
-              }
-            ).catch(console.log);
-            if (!oldState.is_playing)
-              setTimeout(() => {
-                utils_default.spotify.request("PUT", "/me/player/pause#").catch(console.log);
-              }, 20);
+            await utils_default.spotify.request("POST", "/me/player/queue?uri=" + oldState.item.uri);
+            await utils_default.spotify.request("POST", "/me/player/next");
+            await utils_default.spotify.request("PUT", "/me/player/seek?position_ms=" + oldState.progress_ms);
+            if (!oldState.is_playing) {
+              await utils_default.spotify.request("PUT", "/me/player/pause#").catch(console.log);
+            }
           }
         };
       } catch (e) {
