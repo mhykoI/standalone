@@ -5290,11 +5290,11 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.71";
+  var CURRENT_VERSION = "0.1.74";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
-      elm.querySelector('[class*="nameAndDecorators-"] [class*="name-"]'),
+      elm.querySelector(".name-2m3Cms"),
       /** @param {HTMLDivElement} nameElm */
       (nameElm) => {
         let parent = nameElm.parentElement;
@@ -5318,7 +5318,7 @@
       }
     );
     utils_default.ifExists(
-      elm.querySelector('[class*="avatarWithText-"] [class*="avatar-"] svg'),
+      elm.querySelector("svg.linkButtonIcon-7rsZcu"),
       fillSVGElmWithAcordLogo
     );
   });
@@ -5339,9 +5339,9 @@
     }
     const tabBarClasses = webpack_default.findByProperties("tabBar", "maxWidthWithToolbar");
     const headerClasses = webpack_default.findByProperties("topPill", "headerText");
-    dom_default.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
+    dom_default.patch(".applicationStore-2nk7Lo > .homeWrapperNormal-bu1BS6.homeWrapper-L4ors0", (elm) => {
       utils_default.ifExists(
-        elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
+        elm.querySelector(".defaultColor-1EVLSt.defaultColor-1GKx81.title-17SveM"),
         (titleElm) => {
           titleElm.innerHTML = `
           ${i18n_default.format("APP_NAME")}
@@ -5382,7 +5382,7 @@
         }
       );
       utils_default.ifExists(
-        elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
+        elm.querySelector(".iconWrapper-2awDjA > svg.icon-2xnN2Y"),
         fillSVGElmWithAcordLogo
       );
       function updateStatusIcon() {
@@ -5546,7 +5546,7 @@
     return badges;
   }
   dom_default.patch(
-    '[class*="userPopoutInner-"] [class*="profileBadges-"]',
+    ".userPopoutInner-1hXSeY .profileBadges-31rDHI",
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
       if (!user)
@@ -5558,7 +5558,7 @@
     }
   );
   dom_default.patch(
-    '[class*="profilePanel-"] [class*="badgeList-"]',
+    ".userPanelInner-1UAR7g .badgeList-1EecKl",
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
       if (!user)
@@ -5570,7 +5570,7 @@
     }
   );
   dom_default.patch(
-    '[class*="userProfileModalInner-"] [class*="badgeList-"]',
+    ".userProfileModalInner-3fh3QA .badgeList-2pMvZX",
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
       if (!user)
@@ -5582,7 +5582,7 @@
     }
   );
   dom_default.patch(
-    '[class*="accountProfileCard-"] [class*="badgeList-"]',
+    ".accountProfileCard-lbN7n- .badgeList-b3Ajmk",
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
       if (!user)
@@ -5610,7 +5610,7 @@
     return profile?.data?.features?.find((i) => i.type === "colored_name")?.data;
   }
   dom_default.patch(
-    '[class*="username-"][class*="desaturateUserColors-"], [class*="container-"] > [class*="nameTag-"] > [class*="username"], [class*="userText-"] > [class*="nameTag-"] > [class*="username-"], [class*="userText-"] > [class*="nickname-"], [class*="nameAndDecorators-"] > [class*="name-"] > [class*="overflow-"], [class*="listItemContents-"] [class*="discordTag-"] [class*="username-"], [id*="message-username-"] [class*="username-"], .mention',
+    ".username-h_Y3Us.desaturateUserColors-1O-G89, .username-3_PJ5r.desaturateUserColors-1O-G89, .username-3JLfHz.username-28Thtk, .username-3JLfHz.userTagUsernameBase-3Nfr5j, .defaultColor-1EVLSt.defaultColor-1GKx81.nickname-2rimyL, .name-2m3Cms > .overflow-1wOqNV, .username-3JLfHz.username-Qpc78p, .mention",
     /** @param {HTMLDivElement} elm */
     async (elm) => {
       if (elm.getAttribute("style"))
@@ -5654,7 +5654,7 @@
     return profile?.data?.features?.find((i) => i.type === "profile_music")?.data;
   }
   dom_default.patch(
-    '[class*="userProfileModalInner-"]',
+    ".userProfileModalInner-3fh3QA",
     async (elm) => {
       const user = utils_default.react.getProps(elm, (i) => i?.user)?.user;
       if (!user)

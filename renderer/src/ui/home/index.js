@@ -24,7 +24,7 @@ let LATEST_VERSION = CURRENT_VERSION;
 
 dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   utils.ifExists(
-    elm.querySelector('[class*="nameAndDecorators-"] [class*="name-"]'),
+    elm.querySelector('.name-2m3Cms'),
     /** @param {HTMLDivElement} nameElm */(nameElm) => {
       let parent = nameElm.parentElement;
       nameElm.textContent = i18n.format("APP_NAME");
@@ -49,7 +49,7 @@ dom.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
   );
 
   utils.ifExists(
-    elm.querySelector('[class*="avatarWithText-"] [class*="avatar-"] svg'),
+    elm.querySelector('svg.linkButtonIcon-7rsZcu'),
     fillSVGElmWithAcordLogo
   );
 });
@@ -73,10 +73,10 @@ let internalVueApp = null;
 
   const tabBarClasses = webpack.findByProperties("tabBar", "maxWidthWithToolbar");
   const headerClasses = webpack.findByProperties("topPill", "headerText");
-  dom.patch('[class*="applicationStore-"] [class*="homeWrapperNormal-"]', (elm) => {
+  dom.patch('.applicationStore-2nk7Lo > .homeWrapperNormal-bu1BS6.homeWrapper-L4ors0', (elm) => {
 
     utils.ifExists(
-      elm.querySelector('[class*="headerBar-"] [class*="titleWrapper-"] [class*="title-"]'),
+      elm.querySelector('.defaultColor-1EVLSt.defaultColor-1GKx81.title-17SveM'),
       (titleElm) => {
         titleElm.innerHTML = `
           ${i18n.format("APP_NAME")}
@@ -126,7 +126,7 @@ let internalVueApp = null;
       }
     );
     utils.ifExists(
-      elm.querySelector('[class*="headerBar-"] [class*="iconWrapper-"] [class*="icon-"]'),
+      elm.querySelector('.iconWrapper-2awDjA > svg.icon-2xnN2Y'),
       fillSVGElmWithAcordLogo
     );
 

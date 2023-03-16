@@ -42,7 +42,7 @@ async function fetchBadgesOfUser(userId) {
 }
 
 dom.patch(
-  '[class*="userPopoutInner-"] [class*="profileBadges-"]',
+  '.userPopoutInner-1hXSeY .profileBadges-31rDHI',
   async (elm) => {
     const user = utils.react.getProps(elm, i => i?.user)?.user;
     if (!user) return;
@@ -54,7 +54,7 @@ dom.patch(
 )
 
 dom.patch(
-  '[class*="profilePanel-"] [class*="badgeList-"]',
+  '.userPanelInner-1UAR7g .badgeList-1EecKl',
   async (elm) => {
     const user = utils.react.getProps(elm, i => i?.user)?.user;
     if (!user) return;
@@ -66,7 +66,7 @@ dom.patch(
 )
 
 dom.patch(
-  '[class*="userProfileModalInner-"] [class*="badgeList-"]',
+  '.userProfileModalInner-3fh3QA .badgeList-2pMvZX',
   async (elm) => {
     const user = utils.react.getProps(elm, i => i?.user)?.user;
     if (!user) return;
@@ -78,7 +78,7 @@ dom.patch(
 )
 
 dom.patch(
-  '[class*="accountProfileCard-"] [class*="badgeList-"]',
+  '.accountProfileCard-lbN7n- .badgeList-b3Ajmk',
   async (elm) => {
     const user = utils.react.getProps(elm, i => i?.user)?.user;
     if (!user) return;
