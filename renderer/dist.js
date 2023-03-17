@@ -5509,6 +5509,34 @@
   events_default.on("CurrentUserChange", patchWindowActions);
   events_default.on("LocaleChange", patchWindowActions);
 
+  // src/ui/other/utils/fetch-features.js
+  var cache = /* @__PURE__ */ new Map();
+  async function fetchFeatures(userId) {
+    if (!authentication_default.token)
+      return [];
+    if (cache.has(userId))
+      return cache.get(userId).data;
+    let req = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
+      method: "GET",
+      headers: {
+        "x-acord-token": authentication_default.token
+      }
+    });
+    if (!req.ok) {
+      cache.set(userId, { at: Date.now(), data: [] });
+      return [];
+    }
+    let data = await req.json();
+    cache.set(userId, { at: Date.now(), data: data.data.features });
+    return data.data.features;
+  }
+  setInterval(() => {
+    for (let [userId, { at }] of cache) {
+      if (Date.now() - at > 6e4)
+        cache.delete(userId);
+    }
+  }, 6e4);
+
   // src/ui/other/badges.js
   function buildBadge(displayName, sizes, image) {
     let elm = dom_default.parse(`
@@ -5523,20 +5551,9 @@
     return elm;
   }
   async function fetchBadgesOfUser(userId) {
-    if (!authentication_default.token)
-      return [];
-    let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
-      method: "GET",
-      headers: {
-        "x-acord-token": authentication_default.token
-      }
-    });
-    if (!profileReq.ok)
-      return [];
-    let profile = await profileReq.json();
     let badges = (await Promise.all(
-      profile.data.features.filter((i) => i.type === "badge").map(async (i) => {
-        let req = await fetch(`https://api.acord.app/badges/${i.feature_id}`);
+      (await fetchFeatures(userId)).filter((i) => i.type === "badge").map(async (i) => {
+        let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
         if (!req.ok)
           return null;
         let json = await req.json();
@@ -5596,18 +5613,7 @@
 
   // src/ui/other/colored-name.js
   async function fetchNameColorsOfUser(userId) {
-    if (!authentication_default.token)
-      return;
-    let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
-      method: "GET",
-      headers: {
-        "x-acord-token": authentication_default.token
-      }
-    });
-    if (!profileReq.ok)
-      return;
-    let profile = await profileReq.json();
-    return profile?.data?.features?.find((i) => i.type === "colored_name")?.data;
+    return (await fetchFeatures(userId))?.find((i) => i.type === "colored_name")?.data;
   }
   dom_default.patch(
     ".username-h_Y3Us.desaturateUserColors-1O-G89, .username-3_PJ5r.desaturateUserColors-1O-G89, .username-3JLfHz.username-28Thtk, .username-3JLfHz.userTagUsernameBase-3Nfr5j, .defaultColor-1EVLSt.defaultColor-1GKx81.nickname-2rimyL, .name-2m3Cms > .overflow-1wOqNV, .username-3JLfHz.username-Qpc78p, .mention",
@@ -5631,27 +5637,9 @@
     }
   );
 
-  // src/ui/other/style.scss
-  var style_default15 = `
-.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}`;
-
-  // src/ui/other/index.js
-  patcher_default.injectCSS(style_default15);
-
-  // src/ui/profiles/big.js
+  // src/ui/other/big-profile.js
   async function fetchProfileMusicOfUser(userId) {
-    if (!authentication_default.token)
-      return;
-    let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
-      method: "GET",
-      headers: {
-        "x-acord-token": authentication_default.token
-      }
-    });
-    if (!profileReq.ok)
-      return;
-    let profile = await profileReq.json();
-    return profile?.data?.features?.find((i) => i.type === "profile_music")?.data;
+    return (await fetchFeatures(userId))?.find((i) => i.type === "profile_music")?.data;
   }
   dom_default.patch(
     ".userProfileModalInner-3fh3QA",
@@ -5705,6 +5693,44 @@
       }
     }
   );
+
+  // src/ui/other/hats.js
+  async function fetchHatOfUser(userId) {
+    let hat = (await fetchFeatures(userId)).find((i) => i.type === "hat");
+    if (!hat)
+      return null;
+    let req = await fetch(`https://api.acord.app/feature/hat/${hat.feature_id}`);
+    return (await req.json()).data;
+  }
+  dom_default.patch(
+    ".channel-1Shao0 .avatar-1HDIsL, .message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg, .topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1, .userPopoutOuter-3AVBmJ .wrapper-3Un6-K, .member-48YF_l .wrapper-3Un6-K, .userPanelOuter-xc-WYi .wrapper-3Un6-K, .voiceUser-3nRK-K .userAvatar-3Hwf1F, .panels-3wFtMD .wrapper-3Un6-K, .callContainer-HtHELf .avatarWrapper-24Rbpj, .panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ",
+    async (elm) => {
+      let userId;
+      if (elm.classList.contains("contents-2MsGLg")) {
+        userId = utils_default.react.getProps(elm, (i) => i?.message)?.message?.author?.id;
+      } else {
+        userId = utils_default.react.getProps(elm, (i) => i?.user)?.user?.id;
+        if (!userId) {
+          let src = utils_default.react.getProps(elm, (i) => i?.src)?.src;
+          if (src)
+            userId = src.split("/")?.[4];
+        }
+      }
+      if (!userId)
+        return;
+      let hat = await fetchHatOfUser(userId);
+      if (!hat)
+        return;
+      elm.style.setProperty("--hat-image", `url('${hat.image}')`);
+    }
+  );
+
+  // src/ui/other/style.scss
+  var style_default15 = `
+.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before{content:"";width:160px;height:160px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);position:absolute;pointer-events:none}.member-48YF_l .wrapper-3Un6-K::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userPanelOuter-xc-WYi .wrapper-3Un6-K::before{content:"";width:160px;height:160px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);position:absolute;pointer-events:none}.voiceUser-3nRK-K .userAvatar-3Hwf1F::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.panels-3wFtMD .wrapper-3Un6-K::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before{content:"";width:48px;height:48px;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);z-index:99;position:absolute;pointer-events:none}`;
+
+  // src/ui/other/index.js
+  patcher_default.injectCSS(style_default15);
 
   // src/index.js
   Object.defineProperty(window, "acord", {

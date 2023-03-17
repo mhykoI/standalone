@@ -1,18 +1,9 @@
-import authentication from "../../api/authentication/index.js";
 import dom from "../../api/dom/index.js";
 import utils from "../../api/utils/index.js";
+import fetchFeatures from "./utils/fetch-features.js";
 
 async function fetchNameColorsOfUser(userId) {
-  if (!authentication.token) return;
-  let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
-    method: "GET",
-    headers: {
-      "x-acord-token": authentication.token
-    },
-  });
-  if (!profileReq.ok) return;
-  let profile = await profileReq.json();
-  return profile?.data?.features?.find(i => i.type === "colored_name")?.data;
+  return (await fetchFeatures(userId))?.find(i => i.type === "colored_name")?.data;
 }
 
 

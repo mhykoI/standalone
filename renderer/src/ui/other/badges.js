@@ -4,6 +4,7 @@ import i18n from "../../api/i18n/index.js";
 import authentication from "../../api/authentication/index.js";
 import utils from "../../api/utils/index.js";
 import ui from "../../api/ui/index.js";
+import fetchFeatures from "./utils/fetch-features.js";
 
 function buildBadge(displayName, sizes, image) {
   let elm = dom.parse(`
@@ -21,18 +22,9 @@ function buildBadge(displayName, sizes, image) {
 }
 
 async function fetchBadgesOfUser(userId) {
-  if (!authentication.token) return [];
-  let profileReq = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
-    method: "GET",
-    headers: {
-      "x-acord-token": authentication.token
-    },
-  });
-  if (!profileReq.ok) return [];
-  let profile = await profileReq.json();
   let badges = (await Promise.all(
-    profile.data.features.filter(i => i.type === "badge").map(async i => {
-      let req = await fetch(`https://api.acord.app/badges/${i.feature_id}`);
+    (await fetchFeatures(userId)).filter(i => i.type === "badge").map(async i => {
+      let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
       if (!req.ok) return null;
       let json = await req.json();
       return json.data;

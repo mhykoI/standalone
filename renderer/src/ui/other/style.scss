@@ -10,3 +10,123 @@
 [class*="userText-"] > [class*="nickname-"] {
   width: fit-content;
 }
+
+.channel-1Shao0 .avatar-1HDIsL::before {
+  content: "";
+  width: 64px;
+  height: 64px;
+  background: var(--hat-image) center/cover;
+  z-index: 99;
+  position: absolute;
+  pointer-events: none;
+}
+
+.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before {
+  content: "";
+  width: 80px;
+  height: 80px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-76px, -18px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1::before {
+  content: "";
+  width: 240px;
+  height: 240px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-60px, -60px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before {
+  content: "";
+  width: 160px;
+  height: 160px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-40px, -40px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.member-48YF_l .wrapper-3Un6-K::before {
+  content: "";
+  width: 64px;
+  height: 64px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-16px, -16px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.userPanelOuter-xc-WYi .wrapper-3Un6-K::before {
+  content: "";
+  width: 160px;
+  height: 160px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-40px, -40px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.voiceUser-3nRK-K .userAvatar-3Hwf1F::before {
+  content: "";
+  width: 48px;
+  height: 48px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-12px, -12px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.panels-3wFtMD .wrapper-3Un6-K::before {
+  content: "";
+  width: 64px;
+  height: 64px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-16px, -16px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before {
+  content: "";
+  width: 160px;
+  height: 160px;
+  background: var(--hat-image) center/cover;
+  transform: translate(-40px, -40px);
+  z-index: 99;
+  position: absolute;
+  pointer-events: none;
+}
+
+.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="40px"]::before {
+  content: "";
+  width: 80px;
+  height: 80px;
+  background: var(--hat-image) center/cover;
+  transform: translate(-20px, -20px);
+  z-index: 99;
+  position: absolute;
+  pointer-events: none;
+}
+
+.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before {
+  content: "";
+  width: 48px;
+  height: 48px;
+  background: var(--hat-image) center/cover;
+  transform: translate(-12px, -12px);
+  z-index: 99;
+  position: absolute;
+  pointer-events: none;
+}

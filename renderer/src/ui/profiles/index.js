@@ -1,2 +1,0 @@
-import "./big";
-import "./small";
