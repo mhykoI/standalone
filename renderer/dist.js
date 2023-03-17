@@ -5707,11 +5707,11 @@
     async (elm) => {
       let userId;
       if (elm.classList.contains("contents-2MsGLg")) {
-        userId = utils_default.react.getProps(elm, (i) => i?.message)?.message?.author?.id;
+        userId = utils_default.react.getProps(elm, (i) => i?.message, 16)?.message?.author?.id;
       } else {
-        userId = utils_default.react.getProps(elm, (i) => i?.user)?.user?.id;
+        userId = utils_default.react.getProps(elm, (i) => i?.user, 16)?.user?.id;
         if (!userId) {
-          let src = utils_default.react.getProps(elm, (i) => i?.src)?.src;
+          let src = utils_default.react.getProps(elm, (i) => i?.src, 16)?.src;
           if (src)
             userId = src.split("/")?.[4];
         }

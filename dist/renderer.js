@@ -5290,7 +5290,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.80";
+  var CURRENT_VERSION = "0.1.81";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5707,11 +5707,11 @@
     async (elm) => {
       let userId;
       if (elm.classList.contains("contents-2MsGLg")) {
-        userId = utils_default.react.getProps(elm, (i) => i?.message)?.message?.author?.id;
+        userId = utils_default.react.getProps(elm, (i) => i?.message, 16)?.message?.author?.id;
       } else {
-        userId = utils_default.react.getProps(elm, (i) => i?.user)?.user?.id;
+        userId = utils_default.react.getProps(elm, (i) => i?.user, 16)?.user?.id;
         if (!userId) {
-          let src = utils_default.react.getProps(elm, (i) => i?.src)?.src;
+          let src = utils_default.react.getProps(elm, (i) => i?.src, 16)?.src;
           if (src)
             userId = src.split("/")?.[4];
         }
