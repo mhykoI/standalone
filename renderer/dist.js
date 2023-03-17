@@ -5705,17 +5705,15 @@
   dom_default.patch(
     ".channel-1Shao0 .avatar-1HDIsL, .message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg, .topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1, .userPopoutOuter-3AVBmJ .wrapper-3Un6-K, .member-48YF_l .wrapper-3Un6-K, .userPanelOuter-xc-WYi .wrapper-3Un6-K, .voiceUser-3nRK-K .userAvatar-3Hwf1F, .panels-3wFtMD .wrapper-3Un6-K, .callContainer-HtHELf .avatarWrapper-24Rbpj, .panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ",
     async (elm) => {
+      console.log(1);
       let userId;
-      if (elm.classList.contains("contents-2MsGLg")) {
-        userId = utils_default.react.getProps(elm, (i) => i?.message, 16)?.message?.author?.id;
-      } else {
-        userId = utils_default.react.getProps(elm, (i) => i?.user, 16)?.user?.id;
-        if (!userId) {
-          let src = utils_default.react.getProps(elm, (i) => i?.src, 16)?.src;
-          if (src)
-            userId = src.split("/")?.[4];
-        }
-      }
+      let src = utils_default.react.getProps(elm, (i) => i?.src, 1e3)?.src;
+      if (src)
+        userId = src.split("/")?.[4];
+      if (!userId)
+        userId = utils_default.react.getProps(elm, (i) => i?.user?.id, 1e3)?.user?.id;
+      if (!userId)
+        userId = utils_default.react.getProps(elm, (i) => i?.message?.author?.id, 1e3)?.message?.author?.id;
       if (!userId)
         return;
       let hat = await fetchHatOfUser(userId);
