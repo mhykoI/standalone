@@ -4379,7 +4379,7 @@
 
   // src/ui/home/vue/components/pages/home-page/style.scss
   var style_default9 = `
-.acord--home-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px;width:100%}.acord--home-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--home-page>.container>.banner{width:100%;height:300px;background-image:url("https://raw.githubusercontent.com/acord-standalone/assets/main/logo/acord-full-name.png");background-size:contain;background-repeat:no-repeat;background-position:center}.acord--home-page>.container>.description{font-size:18px;color:rgba(255,255,255,.75)}.acord--home-page>.container>.description a:hover{text-decoration:underline}`;
+.acord--home-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px;width:100%}.acord--home-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--home-page>.container>.banner{width:100%;height:150px;background-image:url("https://raw.githubusercontent.com/acord-standalone/assets/main/logo/acord-full-name.png");background-size:contain;background-repeat:no-repeat;background-position:center}.acord--home-page>.container>.content{font-size:18px;width:100%;display:flex;align-items:center;justify-content:center}.acord--home-page>.container>.content .auth-card{border-radius:4px;padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;contain:content;background-color:rgba(0,0,0,.2);box-shadow:var(--elevation-medium);gap:16px}.acord--home-page>.container>.content .auth-card .title{font-size:24px;font-weight:600;color:#f5f5f5}.acord--home-page>.container>.content .auth-card .input-container{display:flex;align-items:center;justify-content:center;gap:8px;width:100%}.acord--home-page>.container>.content .auth-card .input-container.disabled{opacity:.5;pointer-events:none}.acord--home-page>.container>.content .auth-card .input-container .action{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--home-page>.container>.content .auth-card .input-container .action.disabled{opacity:.5;pointer-events:none}`;
 
   // src/ui/home/vue/components/pages/home-page/index.js
   patcher_default.injectCSS(style_default9);
@@ -4393,23 +4393,66 @@
           <div class="acord--home-page">
             <div class="container">
               <div class="banner" />
-              <dev class="description">
-                {{ i18nFormat(isConnected ? "ACCOUNT_IS_CONNECTED" : "ACCOUNT_IS_NOT_CONNECTED") }}
-                <br /><br />
-                <a @click="open">{{i18nFormat("CLICK_HERE_TO_CONNECT")}}</a>
-              </dev>
+              <div class="content">
+                <div class="auth-card">
+                  <div class="title">
+                    {{i18nFormat("ENTER_ACORD_TOKEN")}}
+                  </div>
+                  <div class="input-container" :class="{'disabled': authenticating}">
+                    <discord-input v-model="acordToken" />
+                    <div class="action" @click="authenticate" :class="{'disabled': !acordToken.trim() }" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('AUTHENTICATION_CONNECT_ACCOUNT')">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.811 5.741L17 12h3a8 8 0 1 0-2.46 5.772l.998 1.795A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2zm0 5a3 3 0 0 1 3 3v1h1v5H8v-5h1v-1a3 3 0 0 1 3-3zm2 6h-4v1h4v-1zm-2-4a1 1 0 0 0-.993.883L11 10v1h2v-1a1 1 0 0 0-.883-.993L12 9z"/>
+                      </svg>
+                    </div>
+                    <div class="action" @click="open" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('AUTHENTICATION_OPEN_CONNECT_LINK')">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h6zm11-3v8h-2V6.413l-7.793 7.794-1.414-1.414L17.585 5H13V3h8z"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         `,
           data() {
             return {
-              isConnected: false
+              isConnected: false,
+              acordToken: "",
+              authenticating: false
             };
           },
           methods: {
             i18nFormat: i18n_default.format,
             open() {
               internal_default.openExternal("https://discord.com/oauth2/authorize?client_id=1083403277980409937&redirect_uri=https%3A%2F%2Fapi.acord.app%2Fstatic%2Fcallback%2Fstep1&response_type=token&scope=identify%20guilds.join");
+            },
+            async authenticate() {
+              if (this.authenticating)
+                return;
+              this.authenticating = true;
+              let res = await (await fetch(`https://api.acord.app/auth/exchange?acordToken=${this.acordToken}`)).json();
+              if (!res?.data?.id) {
+                ui_default.notifications.show.error(i18n_default.format("AUTHENTICATION_INVALID_TOKEN"));
+                this.authenticating = false;
+                this.acordToken = "";
+                return;
+              }
+              let currentUserId = common_default2.UserStore.getCurrentUser().id;
+              if (res?.data?.id !== currentUserId) {
+                ui_default.notifications.show.error(i18n_default.format("AUTHENTICATION_USER_MISMATCH"));
+                this.authenticating = false;
+                this.acordToken = "";
+                return;
+              }
+              const store = await authentication_default.when();
+              store.store.acordTokens[currentUserId] = this.acordToken;
+              ui_default.notifications.show.success(i18n_default.format("AUTHENTICATION_SUCCESS", common_default2.UserStore.getCurrentUser().tag));
+              events_default.emit("AuthenticationSuccess", { userId: currentUserId, acordToken: this.acordToken });
+              this.authenticating = false;
+              this.acordToken = "";
+              this.$forceUpdate();
             },
             onAuthenticationSuccess() {
               this.isConnected = !!storage_default.authentication.token;
@@ -4570,7 +4613,7 @@
 
   // src/ui/home/vue/components/pages/store-page/style.scss
   var style_default11 = `
-@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--store-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--store-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-page .container>.top{display:flex;align-items:center;gap:8px}.acord--store-page .container>.top>.search{width:80%}.acord--store-page .container>.top>.category{width:20%}.acord--store-page .container>.top>.refresh{display:flex;align-items:center;justify-content:center;width:min-content;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--store-page .container>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--store-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
+@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--store-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--store-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-page .container>.top{display:flex;align-items:center;gap:8px}.acord--store-page .container>.top>.search{width:80%}.acord--store-page .container>.top>.category{width:20%}.acord--store-page .container>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--store-page .container>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--store-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
 
   // src/ui/home/vue/components/pages/store-page/index.js
   patcher_default.injectCSS(style_default11);
@@ -5290,7 +5333,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.94";
+  var CURRENT_VERSION = "0.1.101";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
