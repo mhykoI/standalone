@@ -2531,98 +2531,54 @@
   // src/api/extensions/index.js
   var nests2 = __toESM(require_cjs(), 1);
 
-  // src/api/websocket/index.js
-  var sockets = /* @__PURE__ */ new Set();
+  // src/api/http/index.js
   var handlers = /* @__PURE__ */ new Map();
-  waitUntilConnectionOpen().then(() => {
-    patcher_default.instead(
-      "handleConnection",
-      common_default2.WebSocket,
-      (args, orig) => {
-        const ws = args[0];
-        if (ws.upgradeReq().url !== "/acord")
-          return orig(...args);
-        sockets.add(ws);
-        ws.on("message", async (msg) => {
-          let json;
-          try {
-            json = JSON.parse(msg);
-            if (!Array.isArray(json) || json.length < 1 || json.length > 3)
-              throw "Array expected as message.";
-            if (typeof json[0] != "string")
-              throw "Array[0] needs to be string.";
-            if (typeof json[1] != "string")
-              throw "Array[1] needs to be string.";
-          } catch (err) {
-            ws.send(
-              JSON.stringify([
-                null,
-                {
-                  ok: false,
-                  error: `${err}`
-                }
-              ])
-            );
-          }
-          const [eventId, eventName, eventData] = json;
-          const handler = handlers.get(eventName);
-          if (!handler)
-            return ws.send(
-              JSON.stringify([
-                eventId,
-                {
-                  ok: false,
-                  error: `Unable to find handler.`
-                }
-              ])
-            );
-          try {
-            let response = await handler(eventData);
-            ws.send(
-              JSON.stringify([
-                eventId,
-                {
-                  ok: true,
-                  data: response
-                }
-              ])
-            );
-          } catch (err) {
-            ws.send(
-              JSON.stringify([
-                eventId,
-                {
-                  ok: false,
-                  error: err?.stack ? err.stack : err
-                }
-              ])
-            );
-          }
-        });
-        ws.on("close", () => sockets.delete(ws));
+  window["<<PRELOAD_KEY>>"].http.setHandler(async ({ url, method, body, headers }) => {
+    if (url == "/handler") {
+      if (method == "POST") {
+        if (!body)
+          return { status: 400, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ok: false, error: "Missing body" }) };
+        if (!body.name)
+          return { status: 400, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ok: false, error: "Missing name" }) };
+        if (!handlers.has(body.name))
+          return { status: 404, headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ok: false, error: "Unable to find handler" }) };
+        try {
+          let result = await handlers.get(body.name)(body.data);
+          return { status: 200, body: JSON.stringify({ ok: true, data: result }), headers: { "Content-Type": "application/json" } };
+        } catch (e) {
+          logger_default.error(e);
+          return { status: 500, body: JSON.stringify({ ok: false, error: e.message }), headers: { "Content-Type": "application/json" } };
+        }
+      } else {
+        return { status: 405 };
       }
-    );
+    } else if (url == "/ping") {
+      return { status: 200, body: JSON.stringify({ ok: true, data: "pong" }), headers: { "Content-Type": "application/json" } };
+    }
   });
-  function set2(eventName, callback) {
-    if (typeof eventName != "string")
-      throw new Error("EventName needs to be a string.");
+  function set2(reqName, callback) {
+    if (typeof reqName != "string")
+      throw new Error("RequestName needs to be a string.");
     if (typeof callback != "function")
       throw new Error("Callback needs to be a function.");
-    if (handlers.has(eventName))
-      throw new Error("EventName already in use.");
-    handlers.set(eventName, callback);
+    if (handlers.has(reqName))
+      throw new Error("RequestName already in use.");
+    handlers.set(reqName, callback);
     return () => {
-      handlers.delete(eventName);
+      handlers.delete(reqName);
     };
   }
-  function trigger(eventName, ...args) {
-    if (!socketEvents.has(eventName))
+  function trigger(reqName, ...args) {
+    if (!socketEvents.has(reqName))
       throw new Error("Unable to find handler!");
-    return socketEvents.get(eventName)(...args);
+    return socketEvents.get(reqName)(...args);
   }
-  var websocket_default = {
+  var http_default = {
     set: set2,
-    trigger
+    trigger,
+    get port() {
+      return window["<<PRELOAD_KEY>>"].http.getPort();
+    }
   };
 
   // src/api/ui/styles.scss
@@ -3800,9 +3756,9 @@
           return storage_default;
         return null;
       },
-      get websocket() {
-        if (manifest?.api?.websocket || devMode)
-          return websocket_default;
+      get http() {
+        if (manifest?.api?.http || devMode)
+          return http_default;
         return null;
       },
       get ui() {
@@ -4163,7 +4119,7 @@
   };
   var dev_default = out3;
   var isProcessing = false;
-  websocket_default.set(
+  http_default.set(
     "UpdateDevelopmentExtension",
     async ({ source: source2, manifest } = {}) => {
       if (!devModeEnabled)
@@ -4266,10 +4222,10 @@
           throw devError("Internal");
         return internal_default;
       },
-      get websocket() {
+      get http() {
         if (!dev_default.enabled)
-          throw devError("Websocket");
-        return websocket_default;
+          throw devError("http");
+        return http_default;
       }
     },
     unexposedAPI: {
@@ -4283,7 +4239,7 @@
       events: events_default,
       patcher: patcher_default,
       internal: internal_default,
-      websocket: websocket_default,
+      http: http_default,
       shared: shared_default,
       ui: ui_default,
       dom: dom_default
@@ -4338,40 +4294,6 @@
       events_default.emit("LocaleChange", { locale: lastLocale });
     }
   }, 1e3);
-
-  // src/other/websocket-triggers.js
-  websocket_default.set("InstallExtension", async ({ url } = {}) => {
-    if (!url)
-      return;
-    await modules_default.native.window.setAlwaysOnTop(0, true);
-    await new Promise((r) => setTimeout(r, 250));
-    await modules_default.native.window.setAlwaysOnTop(0, false);
-    const success = await modals_default.show.confirmation(
-      i18n_default.format("IMPORT_EXTENSION_MODAL_TITLE"),
-      i18n_default.format("IMPORT_EXTENSION_MODAL_DESCRIPTION", url)
-    );
-    if (!success)
-      return;
-    try {
-      await extensions_default.load(url);
-    } catch (err) {
-      notifications_default.show.error(`${err}`, { timeout: 3e4 });
-    }
-  });
-  websocket_default.set("AuthenticationCallback", async ({ acordToken, userId } = {}) => {
-    if (!acordToken || !userId)
-      return { ok: false };
-    await modules_default.native.window.setAlwaysOnTop(0, true);
-    await new Promise((r) => setTimeout(r, 250));
-    await modules_default.native.window.setAlwaysOnTop(0, false);
-    if (modules_default.common.UserStore.getCurrentUser()?.id !== userId)
-      return { ok: false, error: "userIdMismatch" };
-    const store = await authentication_default.when();
-    store.store.acordTokens[userId] = acordToken;
-    notifications_default.show.success(i18n_default.format("AUTHENTICATION_CALLBACK_SUCCESS", userId));
-    events_default.emit("AuthenticationSuccess", { userId, acordToken });
-    return { ok: true };
-  });
 
   // src/ui/home/style.scss
   var style_default8 = `

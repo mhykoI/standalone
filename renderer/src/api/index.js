@@ -7,7 +7,7 @@ import storage from './storage';
 import events from './events';
 import patcher from './patcher';
 import internal from './internal';
-import websocket from './websocket';
+import http from './http';
 import dom from './dom';
 import ui from './ui/index.js';
 import shared from './shared/index.js';
@@ -70,9 +70,9 @@ export default {
       if (!dev.enabled) throw devError("Internal");
       return internal;
     },
-    get websocket() {
-      if (!dev.enabled) throw devError("Websocket");
-      return websocket;
+    get http() {
+      if (!dev.enabled) throw devError("http");
+      return http;
     }
   },
   unexposedAPI: {
@@ -86,7 +86,7 @@ export default {
     events,
     patcher,
     internal,
-    websocket,
+    http,
     shared,
     ui,
     dom

@@ -3,6 +3,9 @@ import { patchDevTools } from "./patches/devtools.js";
 import { patchPreload } from "./patches/preload.js";
 import { patchWebpackChunk } from "./patches/webpack-chunk.js";
 
+import http from "./http";
+
+
 contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
   require,
   process: {
@@ -20,7 +23,11 @@ contextBridge.exposeInMainWorld(process.env.ACORD_PRELOAD_KEY, {
   isDevToolsOpen() {
     return ipcRenderer.sendSync("IsDevToolsOpen");
   },
-  ipcRenderer
+  ipcRenderer,
+  http: {
+    getPort: http.getPort,
+    setHandler: http.setHandler
+  }
 });
 
 patchWebpackChunk();
@@ -32,3 +39,5 @@ setInterval(() => {
     DiscordNative.processUtils.purgeMemory();
   } catch { };
 }, 60000);
+
+

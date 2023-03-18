@@ -8,7 +8,7 @@ import * as nests from "nests";
 import events from "../events/index.js";
 import patcher from "../patcher/index.js";
 import findInTree from "../utils/raw/find-in-tree.js";
-import websocket from "../websocket/index.js";
+import http from "../http/index.js";
 import ui from "../ui/index.js";
 import utils from "../utils/index.js";
 import dom from "../dom/index.js";
@@ -19,7 +19,7 @@ import logger from "../utils/logger.js";
 import { showConfirmationModal } from "./ui/confirmation-modal.jsx";
 
 /**
- * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, websocket?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
+ * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, http?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
 async function buildPluginAPI(manifest, persistKey) {
   const devMode = manifest?.mode === "development";
@@ -122,8 +122,8 @@ async function buildPluginAPI(manifest, persistKey) {
       if (manifest?.api?.storage || devMode) return storage;
       return null;
     },
-    get websocket() {
-      if (manifest?.api?.websocket || devMode) return websocket;
+    get http() {
+      if (manifest?.api?.http || devMode) return http;
       return null;
     },
     get ui() {

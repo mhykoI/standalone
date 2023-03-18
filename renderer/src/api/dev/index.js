@@ -1,7 +1,7 @@
 import extensions from "../extensions/index.js";
 import logger from "../utils/logger.js";
 import i18n from "../i18n/index.js";
-import websocket from "../websocket/index.js";
+import http from "../http/index.js";
 
 let devModeEnabled = false;
 
@@ -57,7 +57,7 @@ const out = {
 export default out;
 
 let isProcessing = false;
-websocket.set(
+http.set(
   "UpdateDevelopmentExtension",
   async ({ source, manifest } = {}) => {
     if (!devModeEnabled)
