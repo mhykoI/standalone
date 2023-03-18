@@ -5333,7 +5333,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.101";
+  var CURRENT_VERSION = "0.1.102";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5667,9 +5667,10 @@
       let userId = elm.classList.contains("mention") ? utils_default.react.getProps(elm, (i) => i?.userId)?.userId : utils_default.react.getProps(elm, (i) => i?.user)?.user?.id || utils_default.react.getProps(elm, (i) => i?.message)?.message?.author?.id;
       if (!userId)
         return;
-      const data = await fetchNameColorsOfUser(userId);
+      let data = await fetchNameColorsOfUser(userId);
       if (!data)
         return;
+      data = JSON.parse(JSON.stringify(data));
       if (elm.classList.contains("mention"))
         data.points = data.points.map((i) => ({ ...i, color: `${i.color}4d` }));
       elm.setAttribute(

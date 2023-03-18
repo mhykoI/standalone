@@ -13,8 +13,9 @@ dom.patch(
     if (elm.getAttribute("style")) return;
     let userId = elm.classList.contains("mention") ? (utils.react.getProps(elm, i => i?.userId)?.userId) : (utils.react.getProps(elm, i => i?.user)?.user?.id || utils.react.getProps(elm, i => i?.message)?.message?.author?.id);
     if (!userId) return;
-    const data = await fetchNameColorsOfUser(userId);
+    let data = await fetchNameColorsOfUser(userId);
     if (!data) return;
+    data = JSON.parse(JSON.stringify(data));
 
     if (elm.classList.contains("mention")) data.points = data.points.map(i => ({ ...i, color: `${i.color}4d` }));
 
