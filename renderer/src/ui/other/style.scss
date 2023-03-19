@@ -87,7 +87,18 @@
   pointer-events: none;
 }
 
-.panels-3wFtMD .wrapper-3Un6-K::before {
+.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before {
+  content: "";
+  width: 48px;
+  height: 48px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-12px, -12px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.panels-3wFtMD .wrapper-3Un6-K[style*="32px"]::before {
   content: "";
   width: 64px;
   height: 64px;

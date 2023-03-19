@@ -298,6 +298,35 @@
         ]
       }
     },
+    "UserProfileActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "strings",
+        "by": [
+          [
+            "USER_AGREEMENTS",
+            "user cannot be undefined"
+          ]
+        ]
+      },
+      "path": {
+        "before": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "map": {
+        "fetchProfile": [
+          ".apply("
+        ],
+        "getUser": [
+          "\"USER_UPDATE\""
+        ]
+      }
+    },
     "React": {
       "__": true,
       "path": {
