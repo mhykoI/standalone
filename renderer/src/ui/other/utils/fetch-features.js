@@ -10,12 +10,12 @@ export default async function fetchFeatures(userId) {
     headers: {
       "x-acord-token": authentication.token
     },
-  });
+  }).catch((e) => e);
   if (!req.ok) {
     cache.set(userId, { at: Date.now(), data: [] });
     return [];
   }
-  let data = await req.json();
+  let data = await req.json().catch((e) => e);
   cache.set(userId, { at: Date.now(), data: data.data.features });
   return data.data.features;
 }
