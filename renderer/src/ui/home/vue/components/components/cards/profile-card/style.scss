@@ -1,0 +1,107 @@
+.acord--profile-card {
+  filter: drop-shadow(var(--elevation-medium));
+  width: 100%;
+
+  & > .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --h: 160px;
+    height: var(--h);
+    width: 400px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    box-shadow: var(--elevation-medium);
+
+    & > .left,
+    & > .right {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--h);
+    }
+
+    & > .left {
+      position: relative;
+      width: 100%;
+
+      & > .badges {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        display: flex;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 6px;
+        gap: 6px;
+
+        .badge {
+          width: 16px;
+          height: 16px;
+        }
+      }
+
+      & > .spotify-action {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        background-color: rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--header-primary);
+        cursor: pointer;
+
+        &.disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+      }
+
+      .name-container {
+        padding: 0 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .name {
+          font-size: 28px;
+          color: var(--header-primary);
+          font-weight: 600;
+          text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
+          -webkit-background-clip: text !important;
+          -webkit-text-fill-color: transparent !important;
+        }
+      }
+    }
+
+    & > .right {
+      padding: 0 16px;
+      & > .avatar {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 50%;
+        width: 128px;
+        height: 128px;
+        min-width: 128px;
+        min-height: 128px;
+
+        &::before {
+          content: "";
+          width: 256px;
+          height: 256px;
+          z-index: 99;
+          background: var(--hat-image) center/cover;
+          transform: translate(-64px, -64px);
+          position: absolute;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+}
