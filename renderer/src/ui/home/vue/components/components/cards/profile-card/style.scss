@@ -73,8 +73,11 @@
           color: var(--header-primary);
           font-weight: 600;
           text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
-          -webkit-background-clip: text !important;
-          -webkit-text-fill-color: transparent !important;
+          
+          &.colored {
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+          }
         }
       }
     }

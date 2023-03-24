@@ -27,7 +27,7 @@ export default {
                   </svg>
                 </div>
                 <div class="name-container">
-                  <div class="name" :style="nameColorData ? \`\${nameColorData.points.length === 1 ? \`background-color: \${nameColorData.points[0].color};\` : \`background-image: \${nameColorData.type}-gradient(\${nameColorData.angle}, \${nameColorData.points.map(i => \`\${i.color}\${i.percentage ? \` \${i.percentage}%\` : ''}\`).join(', ')}\`}\` : ''">{{name}}</div>
+                  <div class="name" :class="{'colored': nameColorData}" :style="nameColorData ? \`\${nameColorData.points.length === 1 ? \`background-color: \${nameColorData.points[0].color};\` : \`background-image: \${nameColorData.type}-gradient(\${nameColorData.angle}, \${nameColorData.points.map(i => \`\${i.color}\${i.percentage ? \` \${i.percentage}%\` : ''}\`).join(', ')}\`}\` : ''">{{name}}</div>
                 </div>
               </div>
               <div class="right">
