@@ -4639,7 +4639,7 @@
 
   // src/ui/home/vue/components/pages/inventory-page/style.scss
   var style_default12 = `
-@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page .container{width:100%;max-width:1024px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page .container>.left{width:100%;height:100%}.acord--inventory-page .container>.left>.top{display:flex;gap:8px}.acord--inventory-page .container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page .container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page .container>.right{width:400px;height:100%}`;
+@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page>.container>.left{width:100%;height:100%;display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.left>.top{display:flex;gap:8px}.acord--inventory-page>.container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page>.container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page>.container>.left>.bottom{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:16px}.acord--inventory-page>.container>.right{width:400px;height:100%;display:flex;justify-content:center}@media screen and (max-width: 1255px){.acord--inventory-page>.container{flex-direction:column-reverse}.acord--inventory-page>.container>.right{width:100%}}`;
 
   // src/ui/home/vue/components/pages/inventory-page/index.js
   patcher_default.injectCSS(style_default12);
@@ -4662,7 +4662,10 @@
                       d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z" />
                   </svg>
                 </div>
-                </dev>
+              </div>
+              <div class="bottom">
+                <component v-for="feature in features" :feature="feature" :is="\`inventory-\${feature.type.replaceAll('_', '-')}-feature-card\`" :key="feature.id">
+                </component>
               </div>
             </div>
             <div class="right">
@@ -4683,12 +4686,14 @@
                 hatData: null,
                 avatarUrl: ""
               },
+              features: [],
               searchText: "",
               fetching: false
             };
           },
           async mounted() {
             this.fetchPreview();
+            this.fetchFeatures();
           },
           methods: {
             i18nFormat: i18n_default.format,
@@ -4721,6 +4726,15 @@
                 })
               )).filter((i) => i);
               this.fetching = false;
+            },
+            async fetchFeatures() {
+              let req = await fetch(`https://api.acord.app/user/@me/profile/inventory?include_disabled=true&durations=true`, {
+                method: "GET",
+                headers: {
+                  "x-acord-token": authentication_default.token
+                }
+              });
+              this.features = (await req.json())?.data?.features || [];
             }
           }
         }
@@ -5206,21 +5220,101 @@
     }
   };
 
-  // src/ui/home/vue/components/components/cards/inventory-feature-card/style.scss
+  // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/style.scss
   var style_default15 = `
 `;
 
-  // src/ui/home/vue/components/components/cards/inventory-feature-card/index.js
+  // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/index.js
   patcher_default.injectCSS(style_default15);
-  var inventory_feature_card_default = {
+  var inventory_colored_name_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "inventory-feature-card",
+        "inventory-colored-name-feature-card",
         {
           template: `
-          <div class="acord--inventory-feature-card">
-            
+          <div class="acord--inventory-colored-name-feature-card">
+            <div class="content" :class="{'enabled': feature.enabled}">
+              
+            </div>
+          </div>
+        `,
+          props: ["feature"],
+          data() {
+            return {};
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/style.scss
+  var style_default16 = `
+.acord--inventory-hat-feature-card{width:100%;height:100%}.acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid rgba(0,0,0,0);transition:border 100ms ease-in-out}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content>.top{display:flex;align-items:center;justify-content:center;width:100%;padding:16px}.acord--inventory-hat-feature-card>.content>.top .preview{width:50px;height:50px}`;
+
+  // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/index.js
+  patcher_default.injectCSS(style_default16);
+  var inventory_hat_feature_card_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "inventory-hat-feature-card",
+        {
+          template: `
+          <div class="acord--inventory-hat-feature-card">
+            <div class="content" :class="{'enabled': feature.enabled}">
+              <div class="top">
+                <img class="preview" :src="fetched?.image" />
+              </div>
+              <div class="bottom">
+
+              </div>
+            </div>
+          </div>
+        `,
+          props: ["feature"],
+          data() {
+            return {
+              fetched: null
+            };
+          },
+          methods: {
+            async fetch() {
+              this.fetched = (await (await fetch(`https://api.acord.app/feature/hat/${this.feature.feature_id}`)).json()).data;
+            }
+          },
+          watch: {
+            feature() {
+              this.fetch();
+            },
+            toggleEnabled() {
+            }
+          },
+          mounted() {
+            this.fetch();
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
+  var style_default17 = `
+`;
+
+  // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/index.js
+  patcher_default.injectCSS(style_default17);
+  var inventory_profile_music_feature_card_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "inventory-profile-music-feature-card",
+        {
+          template: `
+          <div class="acord--inventory-profile-music-feature-card">
+            <div class="content" :class="{'enabled': feature.enabled}">
+              
+            </div>
           </div>
         `,
           props: ["feature"],
@@ -5233,8 +5327,8 @@
   };
 
   // src/ui/home/vue/components/components/cards/profile-card/style.scss
-  var style_default16 = `
-.acord--profile-card{filter:drop-shadow(var(--elevation-medium));width:100%}.acord--profile-card>.container{display:flex;align-items:center;justify-content:center;--h: 160px;height:var(--h);width:400px;background-color:rgba(0,0,0,.1);border-radius:4px;box-shadow:var(--elevation-medium)}.acord--profile-card>.container>.left,.acord--profile-card>.container>.right{position:relative;display:flex;align-items:center;justify-content:center;height:var(--h)}.acord--profile-card>.container>.left{position:relative;width:100%}.acord--profile-card>.container>.left>.badges{position:absolute;top:8px;left:8px;display:flex;background-color:rgba(0,0,0,.1);border-radius:8px;padding:6px;gap:6px}.acord--profile-card>.container>.left>.badges .badge{width:16px;height:16px}.acord--profile-card>.container>.left>.spotify-action{position:absolute;bottom:8px;left:8px;background-color:rgba(0,0,0,.1);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer}.acord--profile-card>.container>.left>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--profile-card>.container>.left .name-container{padding:0 16px;display:flex;align-items:center;justify-content:center}.acord--profile-card>.container>.left .name-container .name{font-size:28px;color:var(--header-primary);font-weight:600;text-shadow:0px 0px 4px rgba(0,0,0,.4)}.acord--profile-card>.container>.left .name-container .name.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--profile-card>.container>.right{padding:0 16px}.acord--profile-card>.container>.right>.avatar{background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:50%;width:128px;height:128px;min-width:128px;min-height:128px}.acord--profile-card>.container>.right>.avatar::before{content:"";width:256px;height:256px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-64px, -64px);position:absolute;pointer-events:none}`;
+  var style_default18 = `
+.acord--profile-card{filter:drop-shadow(var(--elevation-medium));width:auto}.acord--profile-card>.container{display:flex;align-items:center;justify-content:center;--h: 160px;height:var(--h);width:400px;background-color:rgba(0,0,0,.1);border-radius:4px;box-shadow:var(--elevation-medium)}.acord--profile-card>.container>.left,.acord--profile-card>.container>.right{position:relative;display:flex;align-items:center;justify-content:center;height:var(--h)}.acord--profile-card>.container>.left{position:relative;width:100%}.acord--profile-card>.container>.left>.badges{position:absolute;top:8px;left:8px;display:flex;background-color:rgba(0,0,0,.1);border-radius:8px;padding:6px;gap:6px}.acord--profile-card>.container>.left>.badges .badge{width:16px;height:16px}.acord--profile-card>.container>.left>.spotify-action{position:absolute;bottom:8px;left:8px;background-color:rgba(0,0,0,.1);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--profile-card>.container>.left>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--profile-card>.container>.left .name-container{padding:0 16px;display:flex;align-items:center;justify-content:center}.acord--profile-card>.container>.left .name-container .name{font-size:28px;color:var(--header-primary);font-weight:600;text-shadow:0px 0px 4px rgba(0,0,0,.4)}.acord--profile-card>.container>.left .name-container .name.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--profile-card>.container>.right{padding:0 16px}.acord--profile-card>.container>.right>.avatar{background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:50%;width:128px;height:128px;min-width:128px;min-height:128px}.acord--profile-card>.container>.right>.avatar::before{content:"";width:256px;height:256px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-64px, -64px);position:absolute;pointer-events:none}`;
 
   // src/ui/other/utils/spotify.js
   async function playSpotifyData(data) {
@@ -5284,7 +5378,7 @@
   }
 
   // src/ui/home/vue/components/components/cards/profile-card/index.js
-  patcher_default.injectCSS(style_default16);
+  patcher_default.injectCSS(style_default18);
   var profile_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5355,11 +5449,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
-  var style_default17 = `
+  var style_default19 = `
 .acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--store-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
 
   // src/ui/home/vue/components/components/cards/store-extension-card/index.js
-  patcher_default.injectCSS(style_default17);
+  patcher_default.injectCSS(style_default19);
   var store_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5495,9 +5589,11 @@
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       profile_card_default.load(vueApp);
-      inventory_feature_card_default.load(vueApp);
       store_extension_card_default.load(vueApp);
       installed_extension_card_default.load(vueApp);
+      inventory_colored_name_feature_card_default.load(vueApp);
+      inventory_hat_feature_card_default.load(vueApp);
+      inventory_profile_music_feature_card_default.load(vueApp);
     }
   };
 
@@ -5526,7 +5622,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.156";
+  var CURRENT_VERSION = "0.1.173";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -5921,11 +6017,11 @@
   );
 
   // src/ui/other/style.scss
-  var style_default18 = `
+  var style_default20 = `
 .acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before{content:"";width:160px;height:160px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);position:absolute;pointer-events:none}.member-48YF_l .wrapper-3Un6-K::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userPanelOuter-xc-WYi .wrapper-3Un6-K::before{content:"";width:160px;height:160px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);position:absolute;pointer-events:none}.voiceUser-3nRK-K .userAvatar-3Hwf1F::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.panels-3wFtMD .wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before{content:"";width:48px;height:48px;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);z-index:99;position:absolute;pointer-events:none}`;
 
   // src/ui/other/index.js
-  patcher_default.injectCSS(style_default18);
+  patcher_default.injectCSS(style_default20);
 
   // src/index.js
   Object.defineProperty(window, "acord", {

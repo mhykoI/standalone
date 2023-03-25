@@ -24,7 +24,10 @@ export default {
                       d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z" />
                   </svg>
                 </div>
-                </dev>
+              </div>
+              <div class="bottom">
+                <component v-for="feature in features" :feature="feature" :is="\`inventory-\${feature.type.replaceAll('_', '-')}-feature-card\`" :key="feature.id">
+                </component>
               </div>
             </div>
             <div class="right">
@@ -45,12 +48,14 @@ export default {
               hatData: null,
               avatarUrl: ""
             },
+            features: [],
             searchText: "",
             fetching: false
           }
         },
         async mounted() {
           this.fetchPreview();
+          this.fetchFeatures();
         },
         methods: {
           i18nFormat: i18n.format,
@@ -82,8 +87,17 @@ export default {
               })
             )).filter(i => i);
             this.fetching = false;
+          },
+          async fetchFeatures() {
+            let req = await fetch(`https://api.acord.app/user/@me/profile/inventory?include_disabled=true&durations=true`, {
+              method: "GET",
+              headers: {
+                "x-acord-token": authentication.token
+              }
+            });
+            this.features = (await req.json())?.data?.features || [];
           }
-        }
+        },
       }
     );
   }

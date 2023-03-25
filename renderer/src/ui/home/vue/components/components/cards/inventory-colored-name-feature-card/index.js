@@ -7,16 +7,20 @@ export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
     vueApp.component(
-      "inventory-feature-card",
+      "inventory-colored-name-feature-card",
       {
         template: `
-          <div class="acord--inventory-feature-card">
-            
+          <div class="acord--inventory-colored-name-feature-card">
+            <div class="content" :class="{'enabled': feature.enabled}">
+              
+            </div>
           </div>
         `,
         props: ["feature"],
         data() {
-          return {}
+          return {
+            
+          }
         }
       }
     );
