@@ -199,7 +199,7 @@ export function find(req, filter, config = {}) {
 };
 
 
-function finderFindFunction(entries, strings) {
+export function findFunctionNameByStrings(entries, strings = []) {
   return (entries.find(n => {
     let funcString = typeof n[1] == "function" ? (n[1]?.__original__?.toString?.() || n[1]?.toString?.() || "") : (() => { try { return JSON.stringify(n[1]) } catch (err) { return n[1].toString() } })();
     let renderFuncString = n[1]?.render?.__original__?.toString?.() || n[1]?.render?.toString?.() || "";
@@ -258,7 +258,7 @@ export function finderMap(__original__, map) {
       get() {
         if (__mapped__[key]) return __original__[__mapped__[key]];
 
-        let foundFunc = finderFindFunction(Object.entries(__original__ || {}), map[key] || []);
+        let foundFunc = findFunctionNameByStrings(Object.entries(__original__ || {}), map[key] || []);
         if (!foundFunc?.length) return;
 
         __mapped__[key] = foundFunc[0];

@@ -2,6 +2,7 @@ import findInTree from "./raw/find-in-tree.js";
 import logger from "./logger.js";
 import react from "./react.js";
 import spotify from "./spotify.js";
+import { findFunctionNameByStrings } from "../modules/raw/complex-finder.js";
 
 export default {
   logger,
@@ -65,5 +66,8 @@ export default {
     return str
       .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
       .replace(/-/g, '\\x2d');
+  },
+  modules: {
+    findFunctionNameByStrings
   }
 }

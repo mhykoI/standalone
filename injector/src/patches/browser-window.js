@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 
 export function patchBrowserWindow() {
+
   class BrowserWindow extends electron.BrowserWindow {
     constructor(options) {
       if (!options || !options.webPreferences || !options.webPreferences.preload || !options.title) return super(options);
