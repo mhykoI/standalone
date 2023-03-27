@@ -16,7 +16,7 @@ export default {
             <div class="container">
               <div class="left">
                 <div v-if="badges.length" class="badges">
-                  <img v-for="badge in badges" :key="badge.id" class="badge" :src="badge.image"></img>
+                  <img v-for="badge in badges" :key="badge.id" class="badge" :src="badge.image" />
                 </div>
                 <div @click="spotifyAction" v-if="musicData" class="spotify-action" :class="{'disabled': spotifyLoading}">
                   <svg v-if="!spotifyPlaying" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">

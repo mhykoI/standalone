@@ -8,15 +8,17 @@ export default {
   /** @param {import("vue").App} vueApp */
   load(vueApp) {
     vueApp.component(
-      "inventory-hat-feature-card",
+      "inventory-badge-feature-card",
       {
         template: `
-          <div class="acord--inventory-hat-feature-card">
+          <div class="acord--inventory-badge-feature-card">
             <div class="content" :class="{'enabled': feature.enabled, 'selected': selected}">
-              <div class="template" :style="\`--hat-image: url('\${fetched?.image}');\`"></div>
+              <div class="template">
+                <img :src="fetched?.image" />
+              </div>
               <div class="top">
                 <div class="name">
-                  {{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.name ?? 'LOADING'))}}
+                  {{i18nFormat('INVENTORY_BADGE_FEATURE', i18nFormat(fetched?.name ?? 'LOADING'))}}
                 </div>
               </div>
               <div class="bottom">
@@ -33,7 +35,7 @@ export default {
         },
         methods: {
           async fetch() {
-            this.fetched = (await (await fetch(`https://api.acord.app/feature/hat/${this.feature.feature_id}`)).json()).data;
+            this.fetched = (await (await fetch(`https://api.acord.app/feature/badge/${this.feature.feature_id}`)).json()).data;
           },
           i18nFormat: i18n.format,
         },

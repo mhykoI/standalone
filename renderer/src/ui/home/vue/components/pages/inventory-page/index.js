@@ -26,8 +26,10 @@ export default {
                 </div>
               </div>
               <div class="bottom">
-                <component v-for="feature in features" :feature="feature" :is="\`inventory-\${feature.type.replaceAll('_', '-')}-feature-card\`" :key="feature.id">
-                </component>
+                <span v-for="feature, idx in features" @click="selectedFeature = idx">
+                  <component :feature="feature" :selected="selectedFeature === idx" :is="\`inventory-\${feature.type.replaceAll('_', '-')}-feature-card\`" :key="idx">
+                  </component>
+                </span>
               </div>
             </div>
             <div class="right">
@@ -50,7 +52,8 @@ export default {
             },
             features: [],
             searchText: "",
-            fetching: false
+            fetching: false,
+            selectedFeature: null
           }
         },
         async mounted() {
