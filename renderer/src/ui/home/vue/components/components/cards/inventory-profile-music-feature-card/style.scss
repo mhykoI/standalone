@@ -1,0 +1,75 @@
+.acord--inventory-profile-music-feature-card {
+  & > .content {
+    display: flex;
+    width: 175px;
+    height: 225px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: var(--elevation-medium);
+    border: 4px solid #949ba4;
+    transition: border 100ms ease-in-out, background-color 100ms ease-in-out;
+    position: relative;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px;
+
+    margin-right: calc(64px / 2);
+    margin-top: calc(64px / 2);
+
+    & > .template {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      right: calc(64px / 2 * -1);
+      top: calc(64px / 2 * -1);
+      background-color: #949ba4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      & > .spotify-action {
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--header-primary);
+        cursor: pointer;
+        transition: all 100ms ease-in-ou;
+
+        &.disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+      }
+    }
+
+    &.enabled {
+      border: 4px solid #5662f6;
+      & > .template {
+        background-color: #5662f6;
+      }
+    }
+
+    // &.selected {
+    //   border: 4px solid #5662f6;
+    //   & > .template {
+    //     background-color: #5662f6;
+    //   }
+    // }
+
+    & > .top {
+      & > .name {
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--header-primary);
+        opacity: 0.95;
+        width: calc(100% - 32px);
+        word-break: break-word;
+      }
+    }
+  }
+}

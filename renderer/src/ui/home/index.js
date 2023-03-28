@@ -120,6 +120,7 @@ let internalVueApp = null;
           buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
           buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS")));
           buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
+          buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY")));
 
           container.appendChild(buttonsContainer);
         }
