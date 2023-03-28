@@ -6,12 +6,13 @@ export function patchBrowserWindow() {
 
   class BrowserWindow extends electron.BrowserWindow {
     constructor(options) {
+      if (!options) options = {};
+      if (!options.webPreferences) options.webPreferences = {};
+      options.webPreferences.backgroundThrottling = false;
+
       if (!options || !options.webPreferences || !options.webPreferences.preload || !options.title) return super(options);
       const originalPreload = options.webPreferences.preload;
       options.webPreferences.preload = path.join(__dirname, "preload.js");
-
-      // important
-      options.webPreferences.backgroundThrottling = false;
 
       super(options);
 

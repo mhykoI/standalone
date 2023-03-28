@@ -1344,6 +1344,9 @@
     },
     escapeRegex(str) {
       return str.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+    },
+    modules: {
+      findFunctionNameByStrings
     }
   };
 
@@ -1540,7 +1543,7 @@
     if (all)
       return found2;
   }
-  function finderFindFunction(entries, strings) {
+  function findFunctionNameByStrings(entries, strings = []) {
     return entries.find((n) => {
       let funcString = typeof n[1] == "function" ? n[1]?.__original__?.toString?.() || n[1]?.toString?.() || "" : (() => {
         try {
@@ -1601,7 +1604,7 @@
         get() {
           if (__mapped__[key])
             return __original__[__mapped__[key]];
-          let foundFunc = finderFindFunction(Object.entries(__original__ || {}), map[key] || []);
+          let foundFunc = findFunctionNameByStrings(Object.entries(__original__ || {}), map[key] || []);
           if (!foundFunc?.length)
             return;
           __mapped__[key] = foundFunc[0];
