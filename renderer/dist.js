@@ -4639,7 +4639,7 @@
 
   // src/ui/home/vue/components/pages/inventory-page/style.scss
   var style_default12 = `
-@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page>.container{width:100%;max-width:1255px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page>.container>.left{width:100%;height:100%;display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.left>.top{display:flex;gap:8px}.acord--inventory-page>.container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page>.container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page>.container>.left>.bottom{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:16px}.acord--inventory-page>.container>.right{width:400px;height:100%;display:flex;justify-content:center}@media screen and (max-width: 1255px){.acord--inventory-page>.container{flex-direction:column-reverse}.acord--inventory-page>.container>.right{width:100%}}`;
+@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page>.container{width:100%;max-width:1255px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page>.container>.left{width:100%;height:100%;display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.left>.top{display:flex;gap:8px}.acord--inventory-page>.container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page>.container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page>.container>.left>.bottom{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-around;gap:16px}.acord--inventory-page>.container>.right{width:400px;height:100%;display:flex;justify-content:center}@media screen and (max-width: 1255px){.acord--inventory-page>.container{flex-direction:column-reverse}.acord--inventory-page>.container>.right{width:100%}}`;
 
   // src/ui/home/vue/components/pages/inventory-page/index.js
   patcher_default.injectCSS(style_default12);
@@ -4656,7 +4656,7 @@
               <div class="top">
                 <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')"></discord-input>
                 <div class="refresh" :class="{'loading': fetching}" :acord--tooltip-content="i18nFormat('REFRESH')"
-                  @click="fetchPreview">
+                  @click="fetchAll">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                     <path fill="currentColor"
                       d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z" />
@@ -4664,8 +4664,8 @@
                 </div>
               </div>
               <div class="bottom">
-                <span v-for="feature, idx in features" @click="selectedFeature = idx">
-                  <component :feature="feature" :selected="selectedFeature === idx" :is="\`inventory-\${feature.type.replaceAll('_', '-')}-feature-card\`" :key="idx">
+                <span v-for="feature, idx in features" @click="selectedFeature = feature._id">
+                  <component :feature="feature" :selected="selectedFeature === feature._id" :is="\`inventory-\${feature.type.replaceAll('_', '-')}-feature-card\`" :key="feature._id">
                   </component>
                 </span>
               </div>
@@ -4697,9 +4697,32 @@
           async mounted() {
             this.fetchPreview();
             this.fetchFeatures();
+            events_default.on("InventoryFeatureUpdate", this.onInventoryFeatureUpdate);
+          },
+          async unmounted() {
+            events_default.off("InventoryFeatureUpdate", this.onInventoryFeatureUpdate);
           },
           methods: {
             i18nFormat: i18n_default.format,
+            fetchAll() {
+              this.fetchPreview();
+              this.fetchFeatures();
+            },
+            onInventoryFeatureUpdate(feature) {
+              let idx = this.features.findIndex((i) => i._id === feature._id);
+              if (idx === -1)
+                return;
+              if (feature.type === "hat" && feature.enabled) {
+                this.features.forEach((i) => {
+                  if (i.type === "hat")
+                    i.enabled = false;
+                });
+              }
+              ;
+              this.features.splice(idx, 1, feature);
+              this.processFeatures();
+              this.$forceUpdate();
+            },
             async fetchPreview() {
               if (this.fetching)
                 return;
@@ -4707,28 +4730,28 @@
               let user = common_default2.UserStore.getCurrentUser();
               this.profileCardData.name = user.username;
               this.profileCardData.avatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : null;
-              let req = await fetch(`https://api.acord.app/user/@me/profile/inventory`, {
-                method: "GET",
-                headers: {
-                  "x-acord-token": authentication_default.token
-                }
-              });
-              let features = (await req.json())?.data?.features || [];
-              this.profileCardData.nameColorData = features?.find((i) => i.type === "colored_name")?.data;
-              this.profileCardData.musicData = features?.find((i) => i.type === "profile_music")?.data;
-              let hatFeature = features?.find((i) => i.type === "hat");
-              if (hatFeature)
+              await this.fetchFeatures();
+              this.fetching = false;
+              this.processFeatures();
+            },
+            async processFeatures() {
+              this.profileCardData.nameColorData = this.features?.find((i) => i.type === "colored_name" && i.enabled)?.data;
+              this.profileCardData.musicData = this.features?.find((i) => i.type === "profile_music" && i.enabled)?.data;
+              let hatFeature = this.features?.find((i) => i.type === "hat" && i.enabled);
+              if (hatFeature) {
                 this.profileCardData.hatData = (await (await fetch(`https://api.acord.app/feature/hat/${hatFeature.feature_id}`)).json()).data;
+              } else {
+                this.profileCardData.hatData = null;
+              }
               this.profileCardData.badges = (await Promise.all(
-                features.filter((i) => i.type === "badge").map(async (i) => {
-                  let req2 = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
-                  if (!req2.ok)
+                this.features.filter((i) => i.type === "badge" && i.enabled).map(async (i) => {
+                  let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
+                  if (!req.ok)
                     return null;
-                  let json = await req2.json();
+                  let json = await req.json();
                   return json.data;
                 })
               )).filter((i) => i);
-              this.fetching = false;
             },
             async fetchFeatures() {
               let req = await fetch(`https://api.acord.app/user/@me/profile/inventory?include_disabled=true&durations=true`, {
@@ -4737,7 +4760,9 @@
                   "x-acord-token": authentication_default.token
                 }
               });
-              this.features = (await req.json())?.data?.features || [];
+              let features = (await req.json())?.data?.features || [];
+              this.features = features.filter((i) => i.feature_id !== 1).map((i) => ({ ...i, _id: `${i.type},${i.id},${i.feature_id}` }));
+              this.processFeatures();
             }
           }
         }
@@ -5225,7 +5250,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/style.scss
   var style_default15 = `
-.acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #969ad5}.acord--inventory-badge-feature-card>.content.enabled>.template{background-color:#969ad5}.acord--inventory-badge-feature-card>.content.selected{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.selected>.template{background-color:#5662f6}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:16px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-all}`;
+.acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/index.js
   patcher_default.injectCSS(style_default15);
@@ -5243,11 +5268,27 @@
               </div>
               <div class="top">
                 <div class="name">
-                  {{i18nFormat('INVENTORY_BADGE_FEATURE', i18nFormat(fetched?.name ?? 'LOADING'))}}
+                  {{i18nFormat('INVENTORY_BADGE_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}
+                </div>
+                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
+                  <div class="line">
+                    <div class="control" @click="toggleEnabled">
+                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                      </svg>
+                    </div>
+                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
+                  </div>
                 </div>
               </div>
               <div class="bottom">
-
+                <div></div>
+                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
+                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
+                </div>
               </div>
             </div>
           </div>
@@ -5255,20 +5296,41 @@
           props: ["feature", "selected"],
           data() {
             return {
-              fetched: null
+              fetched: null,
+              settingsVisible: false,
+              settingsLoading: false
             };
           },
           methods: {
             async fetch() {
               this.fetched = (await (await fetch(`https://api.acord.app/feature/badge/${this.feature.feature_id}`)).json()).data;
             },
-            i18nFormat: i18n_default.format
+            i18nFormat: i18n_default.format,
+            async toggleEnabled() {
+              if (this.settingsLoading)
+                return;
+              this.settingsLoading = true;
+              let newState = !this.feature.enabled;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}?role_connection_id=${this.feature.role_connection_id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    enabled: newState
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
+            }
           },
           watch: {
             feature() {
               this.fetch();
-            },
-            toggleEnabled() {
             }
           },
           mounted() {
@@ -5281,7 +5343,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/style.scss
   var style_default16 = `
-.acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #969ad5}.acord--inventory-colored-name-feature-card>.content.enabled>.template{background-color:#969ad5}.acord--inventory-colored-name-feature-card>.content.selected{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.selected>.template{background-color:#5662f6}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:16px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-all}`;
+.acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/index.js
   patcher_default.injectCSS(style_default16);
@@ -5312,14 +5374,12 @@
           data() {
             return {};
           },
-          watch: {
-            toggleEnabled() {
-            }
-          },
           mounted() {
           },
           methods: {
-            i18nFormat: i18n_default.format
+            i18nFormat: i18n_default.format,
+            toggleEnabled() {
+            }
           }
         }
       );
@@ -5328,7 +5388,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/style.scss
   var style_default17 = `
-.acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #969ad5}.acord--inventory-hat-feature-card>.content.enabled>.template{background-color:#969ad5}.acord--inventory-hat-feature-card>.content.selected{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.selected>.template{background-color:#5662f6}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:16px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-all}`;
+.acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/index.js
   patcher_default.injectCSS(style_default17);
@@ -5344,11 +5404,27 @@
               <div class="template" :style="\`--hat-image: url('\${fetched?.image}');\`"></div>
               <div class="top">
                 <div class="name">
-                  {{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.name ?? 'LOADING'))}}
+                  {{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}
+                </div>
+                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
+                  <div class="line">
+                    <div class="control" @click="toggleEnabled">
+                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                      </svg>
+                    </div>
+                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
+                  </div>
                 </div>
               </div>
               <div class="bottom">
-
+                <div></div>
+                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
+                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
+                </div>
               </div>
             </div>
           </div>
@@ -5356,20 +5432,42 @@
           props: ["feature", "selected"],
           data() {
             return {
-              fetched: null
+              fetched: null,
+              settingsVisible: false,
+              settingsLoading: false
             };
           },
           methods: {
             async fetch() {
               this.fetched = (await (await fetch(`https://api.acord.app/feature/hat/${this.feature.feature_id}`)).json()).data;
             },
-            i18nFormat: i18n_default.format
+            i18nFormat: i18n_default.format,
+            async toggleEnabled() {
+              if (this.settingsLoading)
+                return;
+              this.settingsLoading = true;
+              let newState = !this.feature.enabled;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    enabled: newState
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
+              console.log(this.feature);
+            }
           },
           watch: {
             feature() {
               this.fetch();
-            },
-            toggleEnabled() {
             }
           },
           mounted() {
@@ -5382,7 +5480,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
   var style_default18 = `
-.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #969ad5}.acord--inventory-profile-music-feature-card>.content.enabled>.template{background-color:#969ad5}.acord--inventory-profile-music-feature-card>.content.selected{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.selected>.template{background-color:#5662f6}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:16px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-all}`;
+.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word}`;
 
   // src/ui/other/utils/spotify.js
   async function playSpotifyData(data) {

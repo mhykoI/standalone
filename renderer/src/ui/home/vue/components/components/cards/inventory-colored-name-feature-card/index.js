@@ -31,16 +31,14 @@ export default {
         data() {
           return {}
         },
-        watch: {
-          toggleEnabled() {
-
-          }
-        },
         mounted() {
 
         },
         methods: {
           i18nFormat: i18n.format,
+          toggleEnabled() {
+
+          }
         }
       }
     );
