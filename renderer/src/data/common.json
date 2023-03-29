@@ -243,6 +243,27 @@
         }
       }
     },
+    "moment": {
+      "__": true,
+      "path": {
+        "after": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ]
+      },
+      "filter": {
+        "export": false,
+        "in": "properties",
+        "by": [
+          [
+            "defaultFormat",
+            "defaultFormatUtc"
+          ]
+        ]
+      }
+    },
     "FluxDispatcher": {
       "__": true,
       "path": {

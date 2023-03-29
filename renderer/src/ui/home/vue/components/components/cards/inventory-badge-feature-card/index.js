@@ -4,6 +4,7 @@ import i18n from "../../../../../../../api/i18n/index.js";
 import cssText from "./style.scss";
 import authentication from "../../../../../../../api/authentication/index.js";
 import events from "../../../../../../../api/events/index.js";
+import common from "../../../../../../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -42,6 +43,7 @@ export default {
                   {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
                 </div>
               </div>
+              <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -51,10 +53,12 @@ export default {
             fetched: null,
             settingsVisible: false,
             settingsLoading: false,
+            durationText: ""
           }
         },
         methods: {
           async fetch() {
+            if (this.feature.durations) this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
             this.fetched = (await (await fetch(`https://api.acord.app/feature/badge/${this.feature.feature_id}`)).json()).data;
           },
           i18nFormat: i18n.format,
@@ -75,7 +79,6 @@ export default {
                 })
               }
             )
-            // this.feature.enabled = newState;
             this.settingsLoading = false;
             events.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
           }

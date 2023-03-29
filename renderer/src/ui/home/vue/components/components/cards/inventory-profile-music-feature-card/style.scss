@@ -47,19 +47,31 @@
       }
     }
 
-    &.enabled {
-      border: 4px solid #5662f6;
-      & > .template {
-        background-color: #5662f6;
-      }
+    & > .duration {
+      position: absolute;
+      width: fit-content;
+      width: calc(100% - 32px);
+      height: 20px;
+      left: 16px;
+      bottom: calc(20px / 2 * -1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 300;
+      font-size: 12px;
+      background-color: #949ba4;
+      color: black;
     }
 
-    // &.selected {
-    //   border: 4px solid #5662f6;
-    //   & > .template {
-    //     background-color: #5662f6;
-    //   }
-    // }
+    &.enabled {
+      border: 4px solid #5662f6;
+      & > .template,
+      & > .duration {
+        background-color: #5662f6;
+        color: whitesmoke;
+      }
+    }
 
     & > .top {
       & > .name {

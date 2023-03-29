@@ -3,6 +3,7 @@ import i18n from "../../../../../../../api/i18n/index.js";
 
 import cssText from "./style.scss";
 import { playSpotifyData } from "../../../../../../other/utils/spotify.js";
+import common from "../../../../../../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -32,6 +33,7 @@ export default {
               <div class="bottom">
 
               </div>
+              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -40,7 +42,16 @@ export default {
           return {
             spotifyPlaying: false,
             spotifyLoading: false,
-            _pauseSpotify: null
+            _pauseSpotify: null,
+            durationText: ""
+          }
+        },
+        mounted() {
+          this.updateDuration();
+        },
+        watch: {
+          feature() {
+            this.updateDuration();
           }
         },
         methods: {
@@ -66,6 +77,9 @@ export default {
               this.spotifyPlaying = false;
             }
             this.spotifyLoading = false;
+          },
+          updateDuration() {
+            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
           }
         }
       }
