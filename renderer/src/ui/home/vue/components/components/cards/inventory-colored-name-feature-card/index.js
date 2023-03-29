@@ -2,6 +2,7 @@ import patcher from "../../../../../../../api/patcher/index.js";
 import i18n from "../../../../../../../api/i18n/index.js";
 
 import cssText from "./style.scss";
+import common from "../../../../../../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -24,20 +25,31 @@ export default {
               <div class="bottom">
 
               </div>
+              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
         props: ["feature", "selected"],
         data() {
-          return {}
+          return {
+            durationText: ""
+          }
         },
         mounted() {
-
+          this.updateDuration();
+        },
+        watch: {
+          feature() {
+            this.updateDuration();
+          }
         },
         methods: {
           i18nFormat: i18n.format,
           toggleEnabled() {
 
+          },
+          updateDuration() {
+            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
           }
         }
       }

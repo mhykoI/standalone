@@ -90,7 +90,7 @@ export default {
             this.fetching = true;
             let user = common.UserStore.getCurrentUser();
             this.profileCardData.name = user.username;
-            this.profileCardData.avatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : null;
+            this.profileCardData.avatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
             await this.fetchFeatures();
             this.fetching = false;
             this.processFeatures();

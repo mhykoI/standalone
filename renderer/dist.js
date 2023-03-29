@@ -421,6 +421,27 @@
           }
         }
       },
+      moment: {
+        __: true,
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        },
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "defaultFormat",
+              "defaultFormatUtc"
+            ]
+          ]
+        }
+      },
       FluxDispatcher: {
         __: true,
         path: {
@@ -1734,6 +1755,7 @@
     for (const key in inp) {
       if (inp?.[key]?.__ === true) {
         Object.defineProperty(temp, key, {
+          configurable: true,
           get() {
             if (temp.__cache__[key])
               return temp.__cache__[key];
@@ -1795,7 +1817,10 @@
     });
   }
   findStores();
-  waitUntilConnectionOpen().then(findStores);
+  waitUntilConnectionOpen().then(() => {
+    findStores();
+    mapObject(common, common_default.common);
+  });
   var common_default2 = common;
 
   // src/api/modules/index.js
@@ -4329,7 +4354,7 @@
 
   // src/ui/home/style.scss
   var style_default8 = `
-[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}@keyframes updateAnimation{0%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}50%{filter:brightness(1.1) drop-shadow(0px 0px 2px #5865f2)}100%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}.acord--connected-status{width:9px;height:9px;border-radius:50%;margin-left:8px;background:#ed4245}.acord--connected-status.connected{background:#23a559}.acord--update-required{background-color:#5865f2;padding:4px 8px;border-radius:9999px;font-size:9px;font-weight:500;color:#fff;animation:updateAnimation 1s infinite normal;z-index:99;margin:4px}`;
+[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}@keyframes updateAnimation{0%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}50%{filter:brightness(1.1) drop-shadow(0px 0px 2px #5865f2)}100%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}.acord--tabs-tab-button.disabled{pointer-events:none;opacity:.5}.acord--connected-status{width:9px;height:9px;border-radius:50%;margin-left:8px;background:#ed4245}.acord--connected-status.connected{background:#23a559}.acord--update-required{background-color:#5865f2;padding:4px 8px;border-radius:9999px;font-size:9px;font-weight:500;color:#fff;animation:updateAnimation 1s infinite normal;z-index:99;margin:4px}`;
 
   // src/ui/home/vue/components/pages/home-page/style.scss
   var style_default9 = `
@@ -4732,7 +4757,7 @@
               this.fetching = true;
               let user = common_default2.UserStore.getCurrentUser();
               this.profileCardData.name = user.username;
-              this.profileCardData.avatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : null;
+              this.profileCardData.avatarUrl = user.avatar ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` : `https://cdn.discordapp.com/embed/avatars/${user.discriminator % 5}.png`;
               await this.fetchFeatures();
               this.fetching = false;
               this.processFeatures();
@@ -5253,7 +5278,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/style.scss
   var style_default15 = `
-.acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
+.acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template,.acord--inventory-badge-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/index.js
   patcher_default.injectCSS(style_default15);
@@ -5293,6 +5318,7 @@
                   {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
                 </div>
               </div>
+              <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -5301,11 +5327,14 @@
             return {
               fetched: null,
               settingsVisible: false,
-              settingsLoading: false
+              settingsLoading: false,
+              durationText: ""
             };
           },
           methods: {
             async fetch() {
+              if (this.feature.durations)
+                this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
               this.fetched = (await (await fetch(`https://api.acord.app/feature/badge/${this.feature.feature_id}`)).json()).data;
             },
             i18nFormat: i18n_default.format,
@@ -5346,7 +5375,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/style.scss
   var style_default16 = `
-.acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
+.acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template,.acord--inventory-colored-name-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/index.js
   patcher_default.injectCSS(style_default16);
@@ -5370,18 +5399,30 @@
               <div class="bottom">
 
               </div>
+              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
           props: ["feature", "selected"],
           data() {
-            return {};
+            return {
+              durationText: ""
+            };
           },
           mounted() {
+            this.updateDuration();
+          },
+          watch: {
+            feature() {
+              this.updateDuration();
+            }
           },
           methods: {
             i18nFormat: i18n_default.format,
             toggleEnabled() {
+            },
+            updateDuration() {
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
             }
           }
         }
@@ -5391,7 +5432,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/style.scss
   var style_default17 = `
-.acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
+.acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template,.acord--inventory-hat-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/index.js
   patcher_default.injectCSS(style_default17);
@@ -5429,6 +5470,7 @@
                   {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
                 </div>
               </div>
+              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -5437,11 +5479,13 @@
             return {
               fetched: null,
               settingsVisible: false,
-              settingsLoading: false
+              settingsLoading: false,
+              durationText: ""
             };
           },
           methods: {
             async fetch() {
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
               this.fetched = (await (await fetch(`https://api.acord.app/feature/hat/${this.feature.feature_id}`)).json()).data;
             },
             i18nFormat: i18n_default.format,
@@ -5465,7 +5509,6 @@
               );
               this.settingsLoading = false;
               events_default.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
-              console.log(this.feature);
             }
           },
           watch: {
@@ -5483,7 +5526,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
   var style_default18 = `
-.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template{background-color:#5662f6}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word}`;
+.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word}`;
 
   // src/ui/other/utils/spotify.js
   async function playSpotifyData(data) {
@@ -5561,6 +5604,7 @@
               <div class="bottom">
 
               </div>
+              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -5569,8 +5613,17 @@
             return {
               spotifyPlaying: false,
               spotifyLoading: false,
-              _pauseSpotify: null
+              _pauseSpotify: null,
+              durationText: ""
             };
+          },
+          mounted() {
+            this.updateDuration();
+          },
+          watch: {
+            feature() {
+              this.updateDuration();
+            }
           },
           methods: {
             i18nFormat: i18n_default.format,
@@ -5595,6 +5648,9 @@
                 this.spotifyPlaying = false;
               }
               this.spotifyLoading = false;
+            },
+            updateDuration() {
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
             }
           }
         }
@@ -5939,7 +5995,7 @@
             buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME")));
             buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
             buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
-            buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY")));
+            buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button"));
             container.appendChild(buttonsContainer);
           }
         }
@@ -5948,21 +6004,30 @@
         elm.querySelector(".iconWrapper-2awDjA > svg.icon-2xnN2Y"),
         fillSVGElmWithAcordLogo
       );
-      function updateStatusIcon() {
-        let element = document.querySelector(".acord--connected-status");
+      function updateAuthRelatedStuff() {
         let connected = !!storage_default.authentication.token;
-        if (!element)
-          return;
-        element.classList[connected ? "add" : "remove"]("connected");
+        utils_default.ifExists(
+          document.querySelector(".acord--connected-status"),
+          (element) => {
+            element.classList[connected ? "add" : "remove"]("connected");
+          }
+        );
+        utils_default.ifExists(
+          document.querySelector(".inventory-tab-button"),
+          (element) => {
+            element.classList[connected ? "remove" : "add"]("disabled");
+          }
+        );
       }
-      storage_default.authentication.when().then(updateStatusIcon);
-      events_default.on("CurrentUserChange", updateStatusIcon);
-      events_default.on("AuthenticationSuccess", updateStatusIcon);
-      events_default.on("AuthenticationFailure", updateStatusIcon);
+      storage_default.authentication.when().then(updateAuthRelatedStuff);
+      events_default.on("CurrentUserChange", updateAuthRelatedStuff);
+      events_default.on("AuthenticationSuccess", updateAuthRelatedStuff);
+      events_default.on("AuthenticationFailure", updateAuthRelatedStuff);
+      updateAuthRelatedStuff();
       return () => {
-        events_default.off("CurrentUserChange", updateStatusIcon);
-        events_default.off("AuthenticationSuccess", updateStatusIcon);
-        events_default.off("AuthenticationFailure", updateStatusIcon);
+        events_default.off("CurrentUserChange", updateAuthRelatedStuff);
+        events_default.off("AuthenticationSuccess", updateAuthRelatedStuff);
+        events_default.off("AuthenticationFailure", updateAuthRelatedStuff);
       };
     });
   })();

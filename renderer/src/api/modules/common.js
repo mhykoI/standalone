@@ -8,6 +8,7 @@ function mapObject(temp, inp) {
   for (const key in inp) {
     if (inp?.[key]?.__ === true) {
       Object.defineProperty(temp, key, {
+        configurable: true,
         get() {
           if (temp.__cache__[key]) return temp.__cache__[key];
           return temp.__cache__[key] = webpack.findByFinder(inp[key]);
@@ -66,6 +67,9 @@ function findStores() {
   })
 }
 findStores();
-waitUntilConnectionOpen().then(findStores);
+waitUntilConnectionOpen().then(() => {
+  findStores();
+  mapObject(common, commonData.common);
+});
 
 export default common;

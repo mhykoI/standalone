@@ -120,7 +120,7 @@ let internalVueApp = null;
           buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
           buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS")));
           buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
-          buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY")));
+          buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button"));
 
           container.appendChild(buttonsContainer);
         }
@@ -131,22 +131,32 @@ let internalVueApp = null;
       fillSVGElmWithAcordLogo
     );
 
-    function updateStatusIcon() {
-      let element = document.querySelector(".acord--connected-status");
+    function updateAuthRelatedStuff() {
       let connected = !!storage.authentication.token;
-      if (!element) return;
-      element.classList[connected ? "add" : "remove"]("connected");
+      utils.ifExists(
+        document.querySelector(".acord--connected-status"),
+        (element) => {
+          element.classList[connected ? "add" : "remove"]("connected");
+        }
+      );
+      utils.ifExists(
+        document.querySelector(".inventory-tab-button"),
+        (element) => {
+          element.classList[connected ? "remove" : "add"]("disabled");
+        }
+      )
     }
 
-    storage.authentication.when().then(updateStatusIcon);
-    events.on("CurrentUserChange", updateStatusIcon);
-    events.on("AuthenticationSuccess", updateStatusIcon);
-    events.on("AuthenticationFailure", updateStatusIcon);
+    storage.authentication.when().then(updateAuthRelatedStuff);
+    events.on("CurrentUserChange", updateAuthRelatedStuff);
+    events.on("AuthenticationSuccess", updateAuthRelatedStuff);
+    events.on("AuthenticationFailure", updateAuthRelatedStuff);
+    updateAuthRelatedStuff();
 
     return () => {
-      events.off("CurrentUserChange", updateStatusIcon);
-      events.off("AuthenticationSuccess", updateStatusIcon);
-      events.off("AuthenticationFailure", updateStatusIcon);
+      events.off("CurrentUserChange", updateAuthRelatedStuff);
+      events.off("AuthenticationSuccess", updateAuthRelatedStuff);
+      events.off("AuthenticationFailure", updateAuthRelatedStuff);
     }
   });
 })();
