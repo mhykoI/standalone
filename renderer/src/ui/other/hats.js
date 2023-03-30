@@ -10,7 +10,7 @@ async function fetchHatOfUser(userId) {
 }
 
 dom.patch(
-  '.channel-1Shao0 .avatar-1HDIsL, .message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg, .topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1, .userPopoutOuter-3AVBmJ .wrapper-3Un6-K, .member-48YF_l .wrapper-3Un6-K, .userPanelOuter-xc-WYi .wrapper-3Un6-K, .voiceUser-3nRK-K .userAvatar-3Hwf1F, .panels-3wFtMD .wrapper-3Un6-K, .callContainer-HtHELf .avatarWrapper-24Rbpj, .panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ, .tileChild-2k7Wqh',
+  '.channel-1Shao0 .avatar-1HDIsL, .message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg, .topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1, .userPopoutOuter-3AVBmJ .wrapper-3Un6-K, .member-48YF_l .wrapper-3Un6-K, .userPanelOuter-xc-WYi .wrapper-3Un6-K, .voiceUser-3nRK-K .userAvatar-3Hwf1F, .panels-3wFtMD .wrapper-3Un6-K, .callContainer-HtHELf .avatarWrapper-24Rbpj, .panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ, .tileChild-2k7Wqh, .layout-1qmrhw .wrapper-3Un6-K, .mainChannelInfo-3I-_7Y .wrapper-3mYmFS.icon-kZI9Yh, .callContainer-HtHELf .wrapper-3mYmFS.clickable-3mbTtV, .userMenuItem-2pMhk- .wrapper-3Un6-K',
   async (elm) => {
     let userId;
     let src = utils.react.getProps(elm, i => i?.src, 1000)?.src;

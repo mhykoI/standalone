@@ -1365,6 +1365,9 @@
     },
     escapeRegex(str) {
       return str.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+    },
+    modules: {
+      findFunctionNameByStrings
     }
   };
 
@@ -1561,7 +1564,7 @@
     if (all)
       return found2;
   }
-  function finderFindFunction(entries, strings) {
+  function findFunctionNameByStrings(entries, strings = []) {
     return entries.find((n) => {
       let funcString = typeof n[1] == "function" ? n[1]?.__original__?.toString?.() || n[1]?.toString?.() || "" : (() => {
         try {
@@ -1622,7 +1625,7 @@
         get() {
           if (__mapped__[key])
             return __original__[__mapped__[key]];
-          let foundFunc = finderFindFunction(Object.entries(__original__ || {}), map[key] || []);
+          let foundFunc = findFunctionNameByStrings(Object.entries(__original__ || {}), map[key] || []);
           if (!foundFunc?.length)
             return;
           __mapped__[key] = foundFunc[0];
@@ -5905,7 +5908,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.244";
+  var CURRENT_VERSION = "0.1.253";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -6289,12 +6292,14 @@
     return (await req.json()).data;
   }
   dom_default.patch(
-    ".channel-1Shao0 .avatar-1HDIsL, .message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg, .topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1, .userPopoutOuter-3AVBmJ .wrapper-3Un6-K, .member-48YF_l .wrapper-3Un6-K, .userPanelOuter-xc-WYi .wrapper-3Un6-K, .voiceUser-3nRK-K .userAvatar-3Hwf1F, .panels-3wFtMD .wrapper-3Un6-K, .callContainer-HtHELf .avatarWrapper-24Rbpj, .panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ",
+    ".channel-1Shao0 .avatar-1HDIsL, .message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg, .topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1, .userPopoutOuter-3AVBmJ .wrapper-3Un6-K, .member-48YF_l .wrapper-3Un6-K, .userPanelOuter-xc-WYi .wrapper-3Un6-K, .voiceUser-3nRK-K .userAvatar-3Hwf1F, .panels-3wFtMD .wrapper-3Un6-K, .callContainer-HtHELf .avatarWrapper-24Rbpj, .panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ, .tileChild-2k7Wqh, .layout-1qmrhw .wrapper-3Un6-K, .mainChannelInfo-3I-_7Y .wrapper-3mYmFS.icon-kZI9Yh, .callContainer-HtHELf .wrapper-3mYmFS.clickable-3mbTtV, .userMenuItem-2pMhk- .wrapper-3Un6-K",
     async (elm) => {
       let userId;
       let src = utils_default.react.getProps(elm, (i) => i?.src, 1e3)?.src;
       if (src)
         userId = src.split("/")?.[4];
+      if (!userId)
+        userId = utils_default.react.getProps(elm, (i) => i?.participant?.id, 1e3)?.participant?.id;
       if (!userId)
         userId = utils_default.react.getProps(elm, (i) => i?.user?.id, 1e3)?.user?.id;
       if (!userId)
@@ -6310,7 +6315,7 @@
 
   // src/ui/other/style.scss
   var style_default21 = `
-.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before{content:"";width:160px;height:160px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);position:absolute;pointer-events:none}.member-48YF_l .wrapper-3Un6-K::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userPanelOuter-xc-WYi .wrapper-3Un6-K::before{content:"";width:160px;height:160px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);position:absolute;pointer-events:none}.voiceUser-3nRK-K .userAvatar-3Hwf1F::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.panels-3wFtMD .wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before{content:"";width:48px;height:48px;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);z-index:99;position:absolute;pointer-events:none}`;
+.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.member-48YF_l .wrapper-3Un6-K::before,.layout-1qmrhw .wrapper-3Un6-K::before,.panels-3wFtMD .wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.voiceUser-3nRK-K .userAvatar-3Hwf1F::before,.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before,.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before,.userMenuItem-2pMhk- .wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before,.mainChannelInfo-3I-_7Y .wrapper-3mYmFS.icon-kZI9Yh::before,.userPanelOuter-xc-WYi .wrapper-3Un6-K::before,.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before,.callContainer-HtHELf .wrapper-3mYmFS.clickable-3mbTtV::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}`;
 
   // src/ui/other/index.js
   patcher_default.injectCSS(style_default21);

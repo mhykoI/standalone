@@ -43,61 +43,8 @@
   pointer-events: none;
 }
 
-.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before {
-  content: "";
-  width: 160px;
-  height: 160px;
-  z-index: 99;
-  background: var(--hat-image) center/cover;
-  transform: translate(-40px, -40px);
-  position: absolute;
-  pointer-events: none;
-}
-
-.member-48YF_l .wrapper-3Un6-K::before {
-  content: "";
-  width: 64px;
-  height: 64px;
-  z-index: 99;
-  background: var(--hat-image) center/cover;
-  transform: translate(-16px, -16px);
-  position: absolute;
-  pointer-events: none;
-}
-
-.userPanelOuter-xc-WYi .wrapper-3Un6-K::before {
-  content: "";
-  width: 160px;
-  height: 160px;
-  z-index: 99;
-  background: var(--hat-image) center/cover;
-  transform: translate(-40px, -40px);
-  position: absolute;
-  pointer-events: none;
-}
-
-.voiceUser-3nRK-K .userAvatar-3Hwf1F::before {
-  content: "";
-  width: 48px;
-  height: 48px;
-  z-index: 99;
-  background: var(--hat-image) center/cover;
-  transform: translate(-12px, -12px);
-  position: absolute;
-  pointer-events: none;
-}
-
-.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before {
-  content: "";
-  width: 48px;
-  height: 48px;
-  z-index: 99;
-  background: var(--hat-image) center/cover;
-  transform: translate(-12px, -12px);
-  position: absolute;
-  pointer-events: none;
-}
-
+.member-48YF_l .wrapper-3Un6-K::before,
+.layout-1qmrhw .wrapper-3Un6-K::before,
 .panels-3wFtMD .wrapper-3Un6-K[style*="32px"]::before {
   content: "";
   width: 64px;
@@ -109,7 +56,25 @@
   pointer-events: none;
 }
 
-.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before {
+.voiceUser-3nRK-K .userAvatar-3Hwf1F::before,
+.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before,
+.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before,
+.userMenuItem-2pMhk- .wrapper-3Un6-K[style*="24px"]::before {
+  content: "";
+  width: 48px;
+  height: 48px;
+  z-index: 99;
+  background: var(--hat-image) center/cover;
+  transform: translate(-12px, -12px);
+  position: absolute;
+  pointer-events: none;
+}
+
+.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before,
+.mainChannelInfo-3I-_7Y .wrapper-3mYmFS.icon-kZI9Yh::before,
+.userPanelOuter-xc-WYi .wrapper-3Un6-K::before,
+.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before,
+.callContainer-HtHELf .wrapper-3mYmFS.clickable-3mbTtV::before {
   content: "";
   width: 160px;
   height: 160px;
@@ -126,17 +91,6 @@
   height: 80px;
   background: var(--hat-image) center/cover;
   transform: translate(-20px, -20px);
-  z-index: 99;
-  position: absolute;
-  pointer-events: none;
-}
-
-.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before {
-  content: "";
-  width: 48px;
-  height: 48px;
-  background: var(--hat-image) center/cover;
-  transform: translate(-12px, -12px);
   z-index: 99;
   position: absolute;
   pointer-events: none;
