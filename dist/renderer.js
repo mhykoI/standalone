@@ -5422,7 +5422,7 @@
             toggleEnabled() {
             },
             updateDuration() {
-              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
             }
           }
         }
@@ -5908,7 +5908,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.253";
+  var CURRENT_VERSION = "0.1.254";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
