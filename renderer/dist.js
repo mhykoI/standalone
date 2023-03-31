@@ -5422,7 +5422,7 @@
             toggleEnabled() {
             },
             updateDuration() {
-              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
             }
           }
         }

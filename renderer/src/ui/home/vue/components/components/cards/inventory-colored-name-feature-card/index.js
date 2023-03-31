@@ -49,7 +49,7 @@ export default {
 
           },
           updateDuration() {
-            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
+            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n.locale).humanize();
           }
         }
       }

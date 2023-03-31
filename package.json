@@ -6,7 +6,8 @@
     "build": "node ./scripts/build.js && node ./scripts/bump-version.js && node ./scripts/asar.js",
     "inject:stable": "node ./scripts/inject.js stable",
     "inject:ptb": "node ./scripts/inject.js ptb",
-    "inject:canary": "node ./scripts/inject.js canary"
+    "inject:canary": "node ./scripts/inject.js canary",
+    "setup": "cd ./renderer && npm install && cd ../preload && npm install && cd ../injector && npm install && cd .."
   },
   "dependencies": {
     "semver": "^7.3.8"
