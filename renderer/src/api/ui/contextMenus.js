@@ -32,14 +32,22 @@ let Actions = null;
 
   Components = await (async () => {
     const out = {};
-    const componentMap = {
-      separator: "Separator",
-      checkbox: "CheckboxItem",
-      radio: "RadioItem",
-      control: "ControlItem",
-      groupstart: "Group",
-      customitem: "Item"
-    };
+    // const componentMap = {
+    //   separator: "Separator",
+    //   checkbox: "CheckboxItem",
+    //   radio: "RadioItem",
+    //   control: "ControlItem",
+    //   groupstart: "Group",
+    //   customitem: "Item"
+    // };
+    const componentTypes = [
+      "Separator",
+      "CheckboxItem",
+      "RadioItem",
+      "ControlItem",
+      "Group",
+      "Item"
+    ]
 
     try {
       let moduleId;
@@ -51,15 +59,19 @@ let Actions = null;
 
       const contextMenuModule = webpack.find((_, idx) => idx == moduleId).exports;
 
-      const moduleString = webpack.require.m[moduleId].toString();
-      const rawMatches = moduleString.matchAll(/if\(\w+\.type===(?:\w+\.)?(\w+)\).+?type:"(.+?)"/gs);
+      // const moduleString = webpack.require.m[moduleId].toString();
+      // const rawMatches = moduleString.matchAll(/if\(\w+\.type===(?:\w+\.)?(\w+)\).+?type:"(.+?)"/gs);
 
-      out.Menu = Object.values(contextMenuModule).find(v => v.toString().includes(".isUsingKeyboardNavigation"));
+      out.Menu = contextMenuModule.Menu;
 
-      [...rawMatches].forEach(([, functionName, type]) => {
-        let moduleKey = moduleString.match(new RegExp(new RegExp(`(\\w+):\\(\\)\\=\\>${functionName}`)))?.[1]
-        out[componentMap[type]] = contextMenuModule[moduleKey];
+      componentTypes.forEach((value) => {
+        out[value] = contextMenuModule[`Menu${value}`];
       });
+
+      // [...rawMatches].forEach(([, functionName, type]) => {
+      //   // let moduleKey = moduleString.match(new RegExp(new RegExp(`(\\w+):\\(\\)\\=\\>${functionName}`)))?.[1]
+      //   out[componentMap[type]] = contextMenuModule[moduleKey];
+      // });
 
       isReady = Object.keys(out).length > 1;
     } catch (err) {

@@ -2980,14 +2980,14 @@
     })();
     Components = await (async () => {
       const out4 = {};
-      const componentMap = {
-        separator: "Separator",
-        checkbox: "CheckboxItem",
-        radio: "RadioItem",
-        control: "ControlItem",
-        groupstart: "Group",
-        customitem: "Item"
-      };
+      const componentTypes = [
+        "Separator",
+        "CheckboxItem",
+        "RadioItem",
+        "ControlItem",
+        "Group",
+        "Item"
+      ];
       try {
         let moduleId;
         while (true) {
@@ -2997,12 +2997,9 @@
           await new Promise((r) => setTimeout(r, 100));
         }
         const contextMenuModule = webpack_default.find((_2, idx) => idx == moduleId).exports;
-        const moduleString = webpack_default.require.m[moduleId].toString();
-        const rawMatches = moduleString.matchAll(/if\(\w+\.type===(?:\w+\.)?(\w+)\).+?type:"(.+?)"/gs);
-        out4.Menu = Object.values(contextMenuModule).find((v) => v.toString().includes(".isUsingKeyboardNavigation"));
-        [...rawMatches].forEach(([, functionName, type]) => {
-          let moduleKey = moduleString.match(new RegExp(new RegExp(`(\\w+):\\(\\)\\=\\>${functionName}`)))?.[1];
-          out4[componentMap[type]] = contextMenuModule[moduleKey];
+        out4.Menu = contextMenuModule.Menu;
+        componentTypes.forEach((value) => {
+          out4[value] = contextMenuModule[`Menu${value}`];
         });
         isReady = Object.keys(out4).length > 1;
       } catch (err) {
@@ -5908,7 +5905,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.255";
+  var CURRENT_VERSION = "0.1.257";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
