@@ -298,10 +298,11 @@
           __: true,
           filter: {
             export: false,
-            in: "properties",
+            in: "strings",
             by: [
               [
-                "BorderColors"
+                "ButtonBorderColors",
+                "Button"
               ]
             ]
           },
@@ -313,12 +314,6 @@
               "exports"
             ],
             after: "Button"
-          },
-          map: {
-            Button: [
-              ".FILLED",
-              ".onMouseLeave"
-            ]
           }
         },
         ConfirmationModal: {
@@ -5905,7 +5900,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.257";
+  var CURRENT_VERSION = "0.1.258";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

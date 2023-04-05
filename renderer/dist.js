@@ -298,10 +298,11 @@
           __: true,
           filter: {
             export: false,
-            in: "properties",
+            in: "strings",
             by: [
               [
-                "BorderColors"
+                "ButtonBorderColors",
+                "Button"
               ]
             ]
           },
@@ -313,12 +314,6 @@
               "exports"
             ],
             after: "Button"
-          },
-          map: {
-            Button: [
-              ".FILLED",
-              ".onMouseLeave"
-            ]
           }
         },
         ConfirmationModal: {
