@@ -11,7 +11,7 @@ async function fetchProfileMusicOfUser(userId) {
 
 
 dom.patch(
-  '.userProfileModalInner-3fh3QA',
+  '.userProfileModalInner-3dx9L9',
   async (elm) => {
     const user = utils.react.getProps(elm, i => i?.user)?.user;
     if (!user) return;

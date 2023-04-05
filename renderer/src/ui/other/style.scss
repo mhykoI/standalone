@@ -32,7 +32,7 @@
   pointer-events: none;
 }
 
-.topSection-1Khgkv .wrapper-3Un6-K.avatar-1YsFQ1::before {
+.wrapper-3Un6-K[style*="120px"]::before {
   content: "";
   width: 240px;
   height: 240px;
@@ -43,9 +43,7 @@
   pointer-events: none;
 }
 
-.member-48YF_l .wrapper-3Un6-K::before,
-.layout-1qmrhw .wrapper-3Un6-K::before,
-.panels-3wFtMD .wrapper-3Un6-K[style*="32px"]::before {
+.wrapper-3Un6-K[style*="32px"]::before {
   content: "";
   width: 64px;
   height: 64px;
@@ -56,10 +54,9 @@
   pointer-events: none;
 }
 
-.voiceUser-3nRK-K .userAvatar-3Hwf1F::before,
-.panels-3wFtMD .wrapper-3Un6-K[style*="24px"]::before,
-.panels-3wFtMD .container-1zzFcN .avatar-2EVtgZ::before,
-.userMenuItem-2pMhk- .wrapper-3Un6-K[style*="24px"]::before {
+.userAvatar-3Hwf1F::before,
+.avatar-2EVtgZ::before,
+.wrapper-3Un6-K[style*="24px"]::before {
   content: "";
   width: 48px;
   height: 48px;
@@ -70,11 +67,8 @@
   pointer-events: none;
 }
 
-.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="80px"]::before,
-.mainChannelInfo-3I-_7Y .wrapper-3mYmFS.icon-kZI9Yh::before,
-.userPanelOuter-xc-WYi .wrapper-3Un6-K::before,
-.userPopoutOuter-3AVBmJ .wrapper-3Un6-K::before,
-.callContainer-HtHELf .wrapper-3mYmFS.clickable-3mbTtV::before {
+.avatarWrapper-24Rbpj[style*="80px"]::before,
+.wrapper-3Un6-K[style*="80px"]::before {
   content: "";
   width: 160px;
   height: 160px;
@@ -85,7 +79,7 @@
   pointer-events: none;
 }
 
-.callContainer-HtHELf .avatarWrapper-24Rbpj[style*="40px"]::before {
+.avatarWrapper-24Rbpj[style*="40px"]::before {
   content: "";
   width: 80px;
   height: 80px;

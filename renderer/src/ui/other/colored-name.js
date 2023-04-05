@@ -8,7 +8,7 @@ async function fetchNameColorsOfUser(userId) {
 
 
 dom.patch(
-  '.username-h_Y3Us.desaturateUserColors-1O-G89, .username-3_PJ5r.desaturateUserColors-1O-G89, .username-3JLfHz.username-28Thtk, .username-3JLfHz.userTagUsernameBase-3Nfr5j, .defaultColor-1EVLSt.defaultColor-1GKx81.nickname-2rimyL, .name-2m3Cms > .overflow-1wOqNV, .username-3JLfHz.username-Qpc78p, .mention',
+  '.username-3JLfHz, .username-h_Y3Us, .name-2m3Cms > .overflow-1wOqNV, .username-3_PJ5r, .mention',
   /** @param {HTMLDivElement} elm */ async (elm) => {
     if (elm.getAttribute("style")) return;
     let userId = elm.classList.contains("mention") ? (utils.react.getProps(elm, i => i?.userId)?.userId) : (utils.react.getProps(elm, i => i?.user)?.user?.id || utils.react.getProps(elm, i => i?.message)?.message?.author?.id);
