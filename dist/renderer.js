@@ -5900,7 +5900,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.260";
+  var CURRENT_VERSION = "0.1.261";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -6077,7 +6077,7 @@
     ui_default.vue.components.load(vueApp);
     components_default4.load(vueApp);
     vueApp.mount(baseVueElm);
-    dom_default.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="heroHeader-"]', (elm) => {
+    dom_default.patch('[class*="applicationStore-"] [class*="scrollerBase-"] [class*="subscriptionsRedirectContainer-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="trialOfferWrapper-"], [class*="applicationStore-"] [class*="scrollerBase-"] [class*="premiumCards-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="hero-"], [class*="applicationStore-"] [class*="premiumContainer-"] [class*="heroHeader-"], [class*="applicationStore-"] .container-3D-8Ly.isFullScreen-SUfMwH', (elm) => {
       let containerElm = dom_default.parents(elm, '[class*="premiumContainer-"]').pop();
       console.log(elm, containerElm);
       if (!containerElm)
