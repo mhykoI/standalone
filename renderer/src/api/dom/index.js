@@ -14,6 +14,7 @@ const formatRegexes = {
   codeblockMulti: /\`\`\`(\w+)\n((?:(?!\`\`\`)[\s\S])*)\`\`\`/g
 }
 
+let initialized = false;
 
 export default {
   parse(html) {
@@ -158,18 +159,19 @@ export default {
   resolve(htmlOrElm) {
     if (htmlOrElm instanceof Element) return htmlOrElm;
     return this.parse(htmlOrElm);
-  }
-}
-
-{
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      events.emit("DomMutation", mutation);
+  },
+  init() {
+    if (initialized) return;
+    initialized = true;
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        events.emit("DomMutation", mutation);
+      });
     });
-  });
-  observer.observe(document, {
-    attributes: true,
-    childList: true,
-    subtree: true
-  });
+    observer.observe(document, {
+      attributes: true,
+      childList: true,
+      subtree: true
+    });
+  }
 }

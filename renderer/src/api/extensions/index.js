@@ -18,6 +18,8 @@ import { waitUntilConnectionOpen } from "../../other/utils.js";
 import logger from "../utils/logger.js";
 import { showConfirmationModal } from "./ui/confirmation-modal.jsx";
 
+let initialized = false;
+
 /**
  * @param {{ mode?: "development" | "production", api: { patcher?: string | boolean, storage?: string | boolean, i18n?: string | boolean, events?: string | boolean, utils?: string | boolean, dom?: string | boolean, http?: string | boolean, ui?: string | boolean, dev?: string | boolean, modules: { node: { name: string, reason: string }[], common: { name: string, reason: string }[], custom: { reason: string, name: string, lazy: boolean, finder: { filter: { export: boolean, in: "properties" | "strings" | "prototypes", by: [string[], string[]?] }, path: { before: string | string[], after: string | string[] }, map: { [k: string]: string[] } } }[] } }, about: { name: string | { [k: string]: string }, description: string | { [k: string]: string }, slug: string } }} manifest 
  */
@@ -417,12 +419,18 @@ const out = {
       delete out.__cache__.config[id];
       events.emit("ExtensionUnloaded", { id });
     }
+  },
+  _init() {
+    if (initialized) return;
+    initialized = true;
+
+    waitUntilConnectionOpen().then(async () => {
+      await utils.sleep(100);
+      out.loadAll();
+    });
   }
 };
 
-waitUntilConnectionOpen().then(async () => {
-  await utils.sleep(100);
-  out.loadAll();
-});
+
 
 export default out;

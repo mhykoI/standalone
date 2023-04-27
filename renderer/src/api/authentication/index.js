@@ -4,6 +4,8 @@ import events from "../events/index.js";
 import { createPersistNest } from "../storage/createPersistNest.js";
 
 let authStore;
+let initialized = false;
+
 
 export default {
   async when() {
@@ -21,6 +23,13 @@ export default {
   },
   get store() {
     return authStore;
+  },
+  async init() {
+    if (initialized) return;
+    initialized = true;
+    authStore = await createPersistNest("Authentication");
+    waitUntilConnectionOpen().then(checkTokens);
+    events.on("CurrentUserChange", checkTokens);
   }
 };
 
@@ -43,9 +52,3 @@ async function checkTokens() {
   }
 }
 
-(async () => {
-  authStore = await createPersistNest("Authentication");
-})();
-
-waitUntilConnectionOpen().then(checkTokens);
-events.on("CurrentUserChange", checkTokens);

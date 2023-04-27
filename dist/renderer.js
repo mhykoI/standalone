@@ -1856,6 +1856,9 @@
     },
     format(key, ...args) {
       return utils_default.format(out.get(key), ...args);
+    },
+    init() {
+      check();
     }
   };
   async function check() {
@@ -1878,7 +1881,6 @@
       ;
     }
   }
-  check();
   var i18n_default = out;
 
   // src/other/utils.js
@@ -1978,6 +1980,7 @@
     codeblockSingle: /\`\`\`([^*]+)\`\`\`/g,
     codeblockMulti: /\`\`\`(\w+)\n((?:(?!\`\`\`)[\s\S])*)\`\`\`/g
   };
+  var initialized = false;
   var dom_default = {
     parse(html) {
       const div = document.createElement("div");
@@ -2106,20 +2109,23 @@
       if (htmlOrElm instanceof Element)
         return htmlOrElm;
       return this.parse(htmlOrElm);
+    },
+    init() {
+      if (initialized)
+        return;
+      initialized = true;
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          events_default.emit("DomMutation", mutation);
+        });
+      });
+      observer.observe(document, {
+        attributes: true,
+        childList: true,
+        subtree: true
+      });
     }
   };
-  {
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        events_default.emit("DomMutation", mutation);
-      });
-    });
-    observer.observe(document, {
-      attributes: true,
-      childList: true,
-      subtree: true
-    });
-  }
 
   // src/lib/spitroast/dist/esm/shared.js
   var patchTypes = ["a", "b", "i"];
@@ -2478,6 +2484,7 @@
 
   // src/api/authentication/index.js
   var authStore;
+  var initialized2 = false;
   var authentication_default = {
     async when() {
       if (authStore)
@@ -2497,6 +2504,14 @@
     },
     get store() {
       return authStore;
+    },
+    async init() {
+      if (initialized2)
+        return;
+      initialized2 = true;
+      authStore = await createPersistNest("Authentication");
+      waitUntilConnectionOpen().then(checkTokens);
+      events_default.on("CurrentUserChange", checkTokens);
     }
   };
   async function checkTokens() {
@@ -2517,11 +2532,6 @@
       events_default.emit("AuthenticationFailure");
     }
   }
-  (async () => {
-    authStore = await createPersistNest("Authentication");
-  })();
-  waitUntilConnectionOpen().then(checkTokens);
-  events_default.on("CurrentUserChange", checkTokens);
 
   // src/api/storage/index.js
   var storage_default = {
@@ -3687,6 +3697,7 @@
   patcher_default.injectCSS(style_default7);
 
   // src/api/extensions/index.js
+  var initialized3 = false;
   async function buildPluginAPI(manifest, persistKey) {
     const devMode = manifest?.mode === "development";
     const persist = await storage_default.createPersistNest(persistKey);
@@ -4101,12 +4112,17 @@
         delete out2.__cache__.config[id];
         events_default.emit("ExtensionUnloaded", { id });
       }
+    },
+    _init() {
+      if (initialized3)
+        return;
+      initialized3 = true;
+      waitUntilConnectionOpen().then(async () => {
+        await utils_default.sleep(100);
+        out2.loadAll();
+      });
     }
   };
-  waitUntilConnectionOpen().then(async () => {
-    await utils_default.sleep(100);
-    out2.loadAll();
-  });
   var extensions_default = out2;
 
   // src/api/dev/index.js
@@ -5900,7 +5916,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.261";
+  var CURRENT_VERSION = "0.1.270";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -6313,15 +6329,33 @@
   patcher_default.injectCSS(style_default21);
 
   // src/index.js
-  Object.defineProperty(window, "acord", {
-    get() {
-      return api_default.exposedAPI;
-    }
-  });
-  window.global = window;
   (async () => {
     loading_animation_default.show();
+    api_default.unexposedAPI.i18n.init();
     await waitUntilConnectionOpen();
+    await utils_default.sleep(1);
+    {
+      let currentUser = common_default2.UserStore.getCurrentUser();
+      let req = await fetch("https://raw.githubusercontent.com/acord-standalone/assets/main/data/blocked-users.json");
+      let blockedUsers = await req.json();
+      let blockReason = blockedUsers[currentUser.id];
+      if (blockReason) {
+        ui_default.modals.show.confirmation("You have been blocked from using Acord", blockReason, { danger: true, confirm: "OK" });
+        ui_default.notifications.show.error("<strong>You have been blocked from using Acord</strong><br>" + blockReason, { closable: false, timeout: 6e4 * 5 });
+        loading_animation_default.hide();
+        return;
+      }
+    }
+    api_default.unexposedAPI.authentication.init();
+    api_default.unexposedAPI.dom.init();
+    Object.defineProperty(window, "acord", {
+      get() {
+        return api_default.exposedAPI;
+      }
+    });
+    window.global = window;
+    await utils_default.sleep(100);
+    api_default.unexposedAPI.extensions._init();
     loading_animation_default.hide();
   })();
 })();

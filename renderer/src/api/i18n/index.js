@@ -4,7 +4,7 @@ import utils from "../utils/index.js";
 const BASE_URL = "https://raw.githubusercontent.com/acord-standalone/assets/main/i18n";
 const noStore = { cache: "no-store" };
 
-
+let initialized = false;
 const out = {
   __cache__: {
     localeIds: [],
@@ -35,6 +35,9 @@ const out = {
   },
   format(key, ...args) {
     return utils.format(out.get(key), ...args);
+  },
+  init() {
+    check();
   }
 }
 
@@ -58,5 +61,5 @@ async function check() {
   }
 }
 
-check();
+
 export default out;
