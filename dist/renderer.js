@@ -1370,6 +1370,8 @@
   function wrapFilter(filter) {
     return (...args) => {
       try {
+        if (args[0]?.constructor?.name === "Window")
+          return false;
         if (args[0]?.document && args[0]?.window)
           return false;
         if (args[0]?.default?.remove && args[0]?.default?.set && args[0]?.default?.clear && args[0]?.default?.get && !args[0]?.default?.sort)
@@ -5916,7 +5918,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.270";
+  var CURRENT_VERSION = "0.1.274";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

@@ -1370,6 +1370,8 @@
   function wrapFilter(filter) {
     return (...args) => {
       try {
+        if (args[0]?.constructor?.name === "Window")
+          return false;
         if (args[0]?.document && args[0]?.window)
           return false;
         if (args[0]?.default?.remove && args[0]?.default?.set && args[0]?.default?.clear && args[0]?.default?.get && !args[0]?.default?.sort)
