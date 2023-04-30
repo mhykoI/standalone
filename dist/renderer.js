@@ -2688,6 +2688,7 @@
       this.content = content;
       this.target = target;
       this.position = position;
+      this.destroyCallbacks = [];
       this.visible = false;
       this.disabled = false;
       this.paused = false;
@@ -2728,6 +2729,7 @@
         }
       );
       this.destroy = () => {
+        this.destroyCallbacks.forEach((cb) => cb());
         this.target.removeEventListener("mouseenter", onMouseEnter);
         this.target.removeEventListener("mouseleave", onMouseLeave);
         this.hide();
@@ -2737,6 +2739,9 @@
       this.target.tooltip = this;
       tooltips.add(this);
     }
+    onDestroy(callback) {
+      this.destroyCallbacks.push(callback);
+    }
     get content() {
       return this.contentElement.firstElementChild;
     }
@@ -2744,8 +2749,7 @@
       if (typeof value === "string") {
         this.contentElement.innerHTML = value;
       } else {
-        this.contentElement.innerHTML = "";
-        this.contentElement?.appendChild?.(value);
+        this.contentElement?.replaceChildren?.(value);
       }
       this.fixPosition();
     }
@@ -5918,7 +5922,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.274";
+  var CURRENT_VERSION = "0.1.275";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
