@@ -2365,11 +2365,17 @@
       return promisifyRequest(store.transaction);
     });
   }
+  function clear(customStore = defaultGetStore()) {
+    return customStore("readwrite", (store) => {
+      store.clear();
+      return promisifyRequest(store.transaction);
+    });
+  }
 
   // src/lib/json-decycled/index.js
   function deCycler(val, config) {
     config = typeof config === "number" ? { deep: config } : config || {};
-    config.deep = config.deep || 10;
+    config.deep = config.deep || 2048;
     return decycleWalker([], [], val, config);
   }
   function deCycled(val, config) {
@@ -4591,25 +4597,81 @@
     }
   };
 
+  // src/ui/home/vue/components/pages/settings-page/style.scss
+  var style_default11 = `
+.acord--settings-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--settings-page>.container{width:100%;max-width:720px;display:flex;flex-direction:column;gap:16px}.acord--settings-page>.container .line{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}.acord--settings-page>.container .line>.info{display:flex;flex-direction:column}.acord--settings-page>.container .line>.info .title{font-size:20px;font-weight:600;color:#f5f5f5}.acord--settings-page>.container .line>.info .description{font-size:16px;font-weight:400;color:#f5f5f5;opacity:.75}.acord--settings-page>.container .line>.control{display:flex}.acord--settings-page .icon-button{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--settings-page .icon-button:hover{background-color:rgba(0,0,0,.5)}.acord--settings-page .icon-button.danger:hover{color:#f23f42}`;
+
   // src/ui/home/vue/components/pages/settings-page/index.js
+  patcher_default.injectCSS(style_default11);
   var settings_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
         "settings-page",
         {
-          template: "<div>Settings Page</div>"
+          template: `
+          <div class="acord--settings-page">
+            <div class="container">
+              <div class="line">
+                <div class="info">
+                  <div class="title">{{i18nFormat('RELAUNCH')}}</div>
+                  <div class="description">{{i18nFormat('RELAUNCH_DESCRIPTION')}}</div>
+                </div>
+                <div class="control">
+                  <div class="icon-button" @click="relaunch" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('RELAUNCH')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                      <path fill="currentColor" d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              <div class="line">
+                <div class="info">
+                  <div class="title">{{i18nFormat('RESET_ACORD_DATA')}}</div>
+                  <div class="description">{{i18nFormat('RESET_ACORD_DATA_DESCRIPTION')}}</div>
+                </div>
+                <div class="control">
+                  <div class="icon-button danger" @click="resetAcord" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('RESET_ACORD_DATA')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                      <path fill="currentColor" d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+          methods: {
+            i18nFormat: i18n_default.format,
+            async resetAcord() {
+              let success = await ui_default.modals.show.confirmation(
+                i18n_default.format("RESET_ACORD_DATA"),
+                i18n_default.format("RESET_ACORD_DATA_DESCRIPTION"),
+                {
+                  danger: true,
+                  cancel: true
+                }
+              );
+              if (success) {
+                await clear();
+                modules_default.native.remoteApp.relaunch();
+              }
+            },
+            relaunch() {
+              modules_default.native.remoteApp.relaunch();
+            }
+          }
         }
       );
     }
   };
 
   // src/ui/home/vue/components/pages/store-page/style.scss
-  var style_default11 = `
+  var style_default12 = `
 @keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--store-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--store-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-page .container>.top{display:flex;align-items:center;gap:8px}.acord--store-page .container>.top>.search{width:80%}.acord--store-page .container>.top>.category{width:20%}.acord--store-page .container>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--store-page .container>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--store-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
 
   // src/ui/home/vue/components/pages/store-page/index.js
-  patcher_default.injectCSS(style_default11);
+  patcher_default.injectCSS(style_default12);
   var store_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -4680,11 +4742,11 @@
   };
 
   // src/ui/home/vue/components/pages/inventory-page/style.scss
-  var style_default12 = `
+  var style_default13 = `
 @keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page>.container{width:100%;max-width:1255px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page>.container>.left{width:100%;height:100%;display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.left>.top{display:flex;gap:8px}.acord--inventory-page>.container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page>.container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page>.container>.left>.bottom{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-around;gap:16px}.acord--inventory-page>.container>.right{width:400px;height:100%;display:flex;justify-content:center}@media screen and (max-width: 1255px){.acord--inventory-page>.container{flex-direction:column-reverse}.acord--inventory-page>.container>.right{width:100%}}`;
 
   // src/ui/home/vue/components/pages/inventory-page/index.js
-  patcher_default.injectCSS(style_default12);
+  patcher_default.injectCSS(style_default13);
   var inventory_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5095,11 +5157,11 @@
   };
 
   // src/ui/home/vue/components/components/config/style.scss
-  var style_default13 = `
+  var style_default14 = `
 .acord--config-item{width:100%;display:flex}.acord--config-row{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:4px}.acord--config-row.horizontal-align-left{justify-content:flex-start}.acord--config-row.horizontal-align-right{justify-content:flex-end}.acord--config-row.horizontal-align-center{justify-content:center}.acord--config-row.justify-space-between{justify-content:space-between}.acord--config-row.justify-space-around{justify-content:space-around}.acord--config-row.vertical-align-top{align-items:flex-start}.acord--config-row.vertical-align-bottom{align-items:flex-end}.acord--config-column{width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px}.acord--config-column.horizontal-align-left{justify-content:flex-start}.acord--config-column.horizontal-align-right{justify-content:flex-end}.acord--config-column.horizontal-align-center{justify-content:center}.acord--config-column.justify-space-between{justify-content:space-between}.acord--config-column.justify-space-around{justify-content:space-around}.acord--config-column.vertical-align-top{align-items:flex-start}.acord--config-column.vertical-align-bottom{align-items:flex-end}.acord--config-column.vertical-align-center{align-items:center}.acord--config-heading{font-size:1.2rem;font-weight:500;color:#f5f5f5}.acord--config-paragraph{font-size:1rem;font-weight:400;color:rgba(245,245,245,.85)}.acord--config-check,.acord--config-button{width:fit-content}`;
 
   // src/ui/home/vue/components/components/config/index.js
-  patcher_default.injectCSS(style_default13);
+  patcher_default.injectCSS(style_default14);
   var config_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5117,11 +5179,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/style.scss
-  var style_default14 = `
+  var style_default15 = `
 @keyframes colorFlashAnimation{0%{color:var(--flash-color-1)}50%{color:var(--flash-color-2)}100%{color:var(--flash-color-1)}}.acord--installed-extension-card{width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;gap:8px;position:relative}.acord--installed-extension-card>.status-container{position:absolute;top:-9px;right:8px;border-radius:9999px;padding:8px;height:24px;display:flex;gap:6px;align-items:center;background-color:rgba(0,0,0,.25)}.acord--installed-extension-card>.status-container>.loaded-state{width:14px;height:14px;border-radius:50%;background-color:#82858f}.acord--installed-extension-card>.status-container>.loaded-state.active{background-color:#23a55a;filter:drop-shadow(0px 0px 4px #23a55a)}.acord--installed-extension-card>.status-container>.development-mode-warning{color:#f0b232;display:flex;align-items:center;justify-content:center;border-radius:50%}.acord--installed-extension-card>.status-container>.authentication-required{color:#ed4245;display:flex;align-items:center;justify-content:center;border-radius:50%;--flash-color-1: #ed4245;--flash-color-2: #000000;animation:colorFlashAnimation 1s linear infinite normal}.acord--installed-extension-card>.top{background-color:rgba(0,0,0,.25);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--installed-extension-card>.top>.left{display:flex;flex-direction:column;height:100%;gap:4px}.acord--installed-extension-card>.top>.left>.top{display:flex;align-items:flex-end;gap:4px}.acord--installed-extension-card>.top>.left>.top>.name{font-size:1.4rem;font-weight:500;color:#fff}.acord--installed-extension-card>.top>.left>.top>.version{font-size:1rem;font-weight:300;color:rgba(255,255,255,.5)}.acord--installed-extension-card>.top>.left>.bottom{display:flex;flex-direction:column;gap:8px}.acord--installed-extension-card>.top>.left>.bottom>.top{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors{display:flex;gap:2px;font-size:12px;font-weight:300;color:rgba(255,255,255,.45)}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors>.label{font-weight:500;margin-right:2px}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author .hoverable:hover{cursor:pointer;text-decoration:underline}.acord--installed-extension-card>.top>.left>.bottom>.bottom>.description{font-size:16px;color:rgba(255,255,255,.75)}.acord--installed-extension-card>.top>.right{display:flex;height:100%;flex-direction:column;justify-content:space-between;align-items:flex-end}.acord--installed-extension-card>.top>.right>.top{display:flex}.acord--installed-extension-card>.top>.right>.top>.controls{display:flex;align-items:center;gap:8px}.acord--installed-extension-card>.top>.right>.top>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--installed-extension-card>.top>.right>.top>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--installed-extension-card>.top>.right>.top>.controls .control.uninstall:hover{color:#f23f42}.acord--installed-extension-card>.top>.right>.bottom{display:flex}.acord--installed-extension-card>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px}.acord--installed-extension-card>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--installed-extension-card>.bottom{border-radius:8px;width:100%;padding:16px}`;
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/index.js
-  patcher_default.injectCSS(style_default14);
+  patcher_default.injectCSS(style_default15);
   var installed_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5247,8 +5309,9 @@
               } catch {
               }
             },
-            onUpdateExtension() {
-              extensions_default.update(this.id);
+            async onUpdateExtension() {
+              let success = await extensions_default.update(this.id);
+              success ? ui_default.toasts.show.success(i18n_default.format("EXTENSION_UPDATED")) : ui_default.toasts.show.error(i18n_default.format("NO_UPDATE_AVAILABLE"));
             },
             onUninstallExtension() {
               extensions_default.uninstall(this.id);
@@ -5291,11 +5354,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/style.scss
-  var style_default15 = `
+  var style_default16 = `
 .acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template,.acord--inventory-badge-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/index.js
-  patcher_default.injectCSS(style_default15);
+  patcher_default.injectCSS(style_default16);
   var inventory_badge_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5388,11 +5451,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/style.scss
-  var style_default16 = `
+  var style_default17 = `
 .acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template,.acord--inventory-colored-name-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/index.js
-  patcher_default.injectCSS(style_default16);
+  patcher_default.injectCSS(style_default17);
   var inventory_colored_name_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5445,11 +5508,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/style.scss
-  var style_default17 = `
+  var style_default18 = `
 .acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template,.acord--inventory-hat-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/index.js
-  patcher_default.injectCSS(style_default17);
+  patcher_default.injectCSS(style_default18);
   var inventory_hat_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5539,7 +5602,7 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
-  var style_default18 = `
+  var style_default19 = `
 .acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word}`;
 
   // src/ui/other/utils/spotify.js
@@ -5590,7 +5653,7 @@
   }
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/index.js
-  patcher_default.injectCSS(style_default18);
+  patcher_default.injectCSS(style_default19);
   var inventory_profile_music_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5673,11 +5736,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/profile-card/style.scss
-  var style_default19 = `
+  var style_default20 = `
 .acord--profile-card{filter:drop-shadow(var(--elevation-medium));width:auto}.acord--profile-card>.container{display:flex;align-items:center;justify-content:center;--h: 160px;height:var(--h);width:400px;background-color:rgba(0,0,0,.1);border-radius:4px;box-shadow:var(--elevation-medium)}.acord--profile-card>.container>.left,.acord--profile-card>.container>.right{position:relative;display:flex;align-items:center;justify-content:center;height:var(--h)}.acord--profile-card>.container>.left{position:relative;width:100%}.acord--profile-card>.container>.left>.badges{position:absolute;top:8px;left:8px;display:flex;background-color:rgba(0,0,0,.1);border-radius:8px;padding:6px;gap:6px}.acord--profile-card>.container>.left>.badges .badge{width:16px;height:16px}.acord--profile-card>.container>.left>.spotify-action{position:absolute;bottom:8px;left:8px;background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--profile-card>.container>.left>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--profile-card>.container>.left .name-container{padding:0 16px;display:flex;align-items:center;justify-content:center}.acord--profile-card>.container>.left .name-container .name{font-size:28px;color:var(--header-primary);font-weight:600;text-shadow:0px 2px 4px rgba(0,0,0,.4)}.acord--profile-card>.container>.left .name-container .name.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--profile-card>.container>.right{padding:0 16px}.acord--profile-card>.container>.right>.avatar{background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:50%;width:128px;height:128px;min-width:128px;min-height:128px}.acord--profile-card>.container>.right>.avatar::before{content:"";width:256px;height:256px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-64px, -64px);position:absolute;pointer-events:none}`;
 
   // src/ui/home/vue/components/components/cards/profile-card/index.js
-  patcher_default.injectCSS(style_default19);
+  patcher_default.injectCSS(style_default20);
   var profile_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5748,11 +5811,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
-  var style_default20 = `
+  var style_default21 = `
 .acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--store-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
 
   // src/ui/home/vue/components/components/cards/store-extension-card/index.js
-  patcher_default.injectCSS(style_default20);
+  patcher_default.injectCSS(style_default21);
   var store_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6010,6 +6073,7 @@
             buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
             buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button"));
+            buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS")));
             container.appendChild(buttonsContainer);
           }
         }
@@ -6328,11 +6392,11 @@
   );
 
   // src/ui/other/style.scss
-  var style_default21 = `
+  var style_default22 = `
 .acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="120px"]::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userAvatar-3Hwf1F::before,.avatar-2EVtgZ::before,.wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="80px"]::before,.wrapper-3Un6-K[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}`;
 
   // src/ui/other/index.js
-  patcher_default.injectCSS(style_default21);
+  patcher_default.injectCSS(style_default22);
 
   // src/index.js
   (async () => {

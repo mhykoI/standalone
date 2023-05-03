@@ -132,8 +132,9 @@ export default {
               }
             } catch { }
           },
-          onUpdateExtension() {
-            extensions.update(this.id);
+          async onUpdateExtension() {
+            let success = await extensions.update(this.id);
+            success ? ui.toasts.show.success(i18n.format('EXTENSION_UPDATED')) : ui.toasts.show.error(i18n.format('NO_UPDATE_AVAILABLE'));
           },
           onUninstallExtension() {
             extensions.uninstall(this.id);

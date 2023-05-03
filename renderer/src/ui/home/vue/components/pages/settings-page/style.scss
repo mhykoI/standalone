@@ -1,0 +1,61 @@
+.acord--settings-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 16px;
+
+  & > .container {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .line {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+
+      & > .info {
+        display: flex;
+        flex-direction: column;
+
+        .title {
+          font-size: 20px;
+          font-weight: 600;
+          color: whitesmoke;
+        }
+
+        .description {
+          font-size: 16px;
+          font-weight: 400;
+          color: whitesmoke;
+          opacity: 0.75;
+        }
+      }
+
+      & > .control {
+        display: flex;
+      }
+    }
+  }
+
+  .icon-button {
+    display: flex;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: whitesmoke;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &.danger:hover {
+      color: #f23f42;
+    }
+  }
+}
