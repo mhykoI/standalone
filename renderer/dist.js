@@ -437,6 +437,27 @@
           ]
         }
       },
+      RelationshipActions: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "removeRelationship",
+              "addRelationship"
+            ]
+          ]
+        },
+        path: {
+          before: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
       FluxDispatcher: {
         __: true,
         path: {
