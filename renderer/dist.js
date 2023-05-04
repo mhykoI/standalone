@@ -1061,6 +1061,27 @@
           ]
         }
       },
+      GuildActions2: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "leaveGuild",
+              "bulkAddMemberRoles"
+            ]
+          ]
+        },
+        path: {
+          after: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
       InviteActions: {
         __: true,
         filter: {
