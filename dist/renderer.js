@@ -1432,11 +1432,11 @@
     };
   }
   function checkModuleStrings(m, strings = [], hasNot) {
-    const check2 = (s1, s2) => {
+    const check3 = (s1, s2) => {
       return hasNot ? s1.toString().indexOf(s2.toString()) == -1 : s1.toString().indexOf(s2.toString()) > -1;
     };
     return strings.every((j) => {
-      return check2(m?.toString?.() || "", j) || check2(m?.__original__?.toString?.() || "", j) || check2(m?.type?.toString?.() || "", j) || check2(m?.type?.__original__?.toString?.() || "", j) || Object.entries(["function", "object"].includes(typeof m?.prototype) ? typeof m?.prototype : {}).filter((i) => i[0]?.includes?.("render")).some((i) => check2(i[1]?.toString?.() || "", j));
+      return check3(m?.toString?.() || "", j) || check3(m?.__original__?.toString?.() || "", j) || check3(m?.type?.toString?.() || "", j) || check3(m?.type?.__original__?.toString?.() || "", j) || Object.entries(["function", "object"].includes(typeof m?.prototype) ? typeof m?.prototype : {}).filter((i) => i[0]?.includes?.("render")).some((i) => check3(i[1]?.toString?.() || "", j));
     });
   }
   function checkModuleProps(m, properties = [], hasNot) {
@@ -2593,51 +2593,51 @@
   async function buildExtensionI18N(cfg) {
     if (!cfg?.i18n)
       return null;
-    let out4 = {
+    let out5 = {
       __cache__: {
         localeIds: [],
         localizations: {}
       },
       format(key, ...args) {
-        return utils_default.format(out4.get(key), ...args);
+        return utils_default.format(out5.get(key), ...args);
       },
       get(key) {
-        return out4.__cache__.localizations[i18n_default.locale]?.[key] || out4.__cache__.localizations.default?.[key] || key;
+        return out5.__cache__.localizations[i18n_default.locale]?.[key] || out5.__cache__.localizations.default?.[key] || key;
       },
       messages: new Proxy({}, {
         get(_2, prop) {
-          return out4.get(prop);
+          return out5.get(prop);
         }
       })
     };
-    async function check2() {
+    async function check3() {
       const locale = i18n_default.locale;
       if (typeof cfg.i18n === "string") {
         const BASE_URL2 = cfg.i18n.endsWith("/") ? cfg.i18n.slice(0, -1) : cfg.i18n;
-        if (!out4.__cache__.localeIds.length) {
+        if (!out5.__cache__.localeIds.length) {
           try {
-            out4.__cache__.localeIds = await (await fetch(`${BASE_URL2}/locales.json`, noStore)).json();
+            out5.__cache__.localeIds = await (await fetch(`${BASE_URL2}/locales.json`, noStore)).json();
           } catch {
           }
           try {
-            out4.__cache__.localizations.default = await (await fetch(`${BASE_URL2}/default.json`, noStore)).json();
+            out5.__cache__.localizations.default = await (await fetch(`${BASE_URL2}/default.json`, noStore)).json();
           } catch {
           }
         }
-        if (out4.__cache__.localeIds.includes(locale) && !out4.__cache__.localizations?.[locale]) {
+        if (out5.__cache__.localeIds.includes(locale) && !out5.__cache__.localizations?.[locale]) {
           try {
-            out4.__cache__.localizations[locale] = await (await fetch(`${BASE_URL2}/${locale}.json`, noStore)).json();
+            out5.__cache__.localizations[locale] = await (await fetch(`${BASE_URL2}/${locale}.json`, noStore)).json();
           } catch {
           }
           ;
         }
       } else {
-        out4.__cache__.localeIds = Object.keys(cfg.i18n);
-        out4.__cache__.localizations = cfg.i18n;
+        out5.__cache__.localeIds = Object.keys(cfg.i18n);
+        out5.__cache__.localizations = cfg.i18n;
       }
     }
-    await check2();
-    return out4;
+    await check3();
+    return out5;
   }
 
   // src/api/extensions/index.js
@@ -3030,15 +3030,15 @@
           break;
         await new Promise((r) => setTimeout(r, 100));
       }
-      const out4 = finderMap(ogModule, {
+      const out5 = finderMap(ogModule, {
         close: ["CONTEXT_MENU_CLOSE"],
         open: ["renderLazy"]
       });
-      isReady = !!out4.close && !!out4.open;
-      return out4;
+      isReady = !!out5.close && !!out5.open;
+      return out5;
     })();
     Components = await (async () => {
-      const out4 = {};
+      const out5 = {};
       const componentTypes = [
         "Separator",
         "CheckboxItem",
@@ -3056,16 +3056,16 @@
           await new Promise((r) => setTimeout(r, 100));
         }
         const contextMenuModule = webpack_default.find((_2, idx) => idx == moduleId).exports;
-        out4.Menu = contextMenuModule.Menu;
+        out5.Menu = contextMenuModule.Menu;
         componentTypes.forEach((value) => {
-          out4[value] = contextMenuModule[`Menu${value}`];
+          out5[value] = contextMenuModule[`Menu${value}`];
         });
-        isReady = Object.keys(out4).length > 1;
+        isReady = Object.keys(out5).length > 1;
       } catch (err) {
         isReady = false;
         logger_default.error("Failed to load context menu components", err);
       }
-      return out4;
+      return out5;
     })();
     MenuPatcher.initialize();
   })();
@@ -3755,7 +3755,7 @@
   async function buildPluginAPI(manifest, persistKey) {
     const devMode = manifest?.mode === "development";
     const persist = await storage_default.createPersistNest(persistKey);
-    const out4 = {
+    const out5 = {
       modules: {
         __cache__: {
           common: {},
@@ -3765,10 +3765,10 @@
         },
         require(name2) {
           if (!devMode) {
-            if (typeof out4.modules.__cache__.node[name2] !== "undefined")
-              return out4.modules.__cache__.node[name2];
+            if (typeof out5.modules.__cache__.node[name2] !== "undefined")
+              return out5.modules.__cache__.node[name2];
             if (manifest?.api?.modules?.node?.some?.((i) => i.name === name2))
-              return out4.modules.__cache__.node[name2] = modules_default.require(name2);
+              return out5.modules.__cache__.node[name2] = modules_default.require(name2);
           } else {
             return modules_default.require(name2);
           }
@@ -3777,10 +3777,10 @@
         common: new Proxy({}, {
           get(_2, prop) {
             if (!devMode) {
-              if (typeof out4.modules.__cache__.common[prop] !== "undefined")
-                return out4.modules.__cache__.common[prop];
+              if (typeof out5.modules.__cache__.common[prop] !== "undefined")
+                return out5.modules.__cache__.common[prop];
               if (manifest?.api?.modules?.common?.some?.((i) => i.name === prop))
-                return out4.modules.__cache__.common[prop] = modules_default.common[prop];
+                return out5.modules.__cache__.common[prop] = modules_default.common[prop];
             } else {
               return modules_default.common[prop];
             }
@@ -3789,42 +3789,42 @@
         }),
         custom: new Proxy({}, {
           get(_2, prop) {
-            if (typeof out4.modules.__cache__.custom[prop] !== "undefined")
-              return out4.modules.__cache__.custom[prop];
+            if (typeof out5.modules.__cache__.custom[prop] !== "undefined")
+              return out5.modules.__cache__.custom[prop];
             let data = manifest?.api?.modules?.custom?.find?.((i) => i.name === prop);
             if (!data?.finder)
               return null;
             if (data.lazy) {
               let prom = new Promise(async (resolve, reject) => {
                 let r = await modules_default.webpack.lazyFindByFinder(data.finder);
-                out4.modules.__cache__.customLazy[prop] = r;
+                out5.modules.__cache__.customLazy[prop] = r;
                 resolve(r);
               });
-              out4.modules.__cache__.custom[prop] = {
+              out5.modules.__cache__.custom[prop] = {
                 get() {
                   return prom;
                 },
                 get value() {
-                  return out4.modules.__cache__.customLazy[prop];
+                  return out5.modules.__cache__.customLazy[prop];
                 }
               };
             } else {
               let value = modules_default.webpack.findByFinder(data.finder);
               try {
                 if (typeof value?.value !== "undefined") {
-                  out4.modules.__cache__.custom[prop] = value ? Object.assign(value, { value, get() {
+                  out5.modules.__cache__.custom[prop] = value ? Object.assign(value, { value, get() {
                     return value;
                   } }) : null;
                 } else {
-                  out4.modules.__cache__.custom[prop] = value;
+                  out5.modules.__cache__.custom[prop] = value;
                 }
               } catch {
-                out4.modules.__cache__.custom[prop] = value ? { value, get() {
+                out5.modules.__cache__.custom[prop] = value ? { value, get() {
                   return value;
                 } } : null;
               }
             }
-            return out4.modules.__cache__.custom[prop];
+            return out5.modules.__cache__.custom[prop];
           }
         }),
         get native() {
@@ -3896,7 +3896,7 @@
         return null;
       }
     };
-    return out4;
+    return out5;
   }
   var out2 = {
     __cache__: {
@@ -4274,6 +4274,88 @@
     }
   };
 
+  // src/api/hotkeys/index.js
+  var keyObjMap = {
+    "ctrl": { ctrlKey: true },
+    "shift": { shiftKey: true },
+    "alt": { altKey: true },
+    "meta": { metaKey: true },
+    "cmd": { metaKey: true },
+    "win": { metaKey: true }
+  };
+  function parse(keyCombo) {
+    keyCombo = keyCombo.toLowerCase();
+    return keyCombo.split("+").map((key) => {
+      return keyObjMap[key] || { key };
+    }).reduce((all, curr) => {
+      return Object.assign(all, curr);
+    }, {});
+  }
+  function check2(keyCombo, e) {
+    let keyObj = parse(keyCombo);
+    e.key = e.key.toLowerCase();
+    return Object.keys(keyObj).every((key) => {
+      return e[key] === keyObj[key];
+    });
+  }
+  function format(e) {
+    let keyCombo = [];
+    if (e.ctrlKey)
+      keyCombo.push("ctrl");
+    if (e.shiftKey)
+      keyCombo.push("shift");
+    if (e.altKey)
+      keyCombo.push("alt");
+    if (e.metaKey)
+      keyCombo.push("meta");
+    if (e.key)
+      keyCombo.push(e.key.toLowerCase());
+    return keyCombo.join("+");
+  }
+  var out4 = {
+    __cache__: {
+      /** @type {Map<string, Set<Function>>} */
+      listeners: /* @__PURE__ */ new Map(),
+      initialized: false
+    },
+    register(keyCombo, callback) {
+      if (!out4.__cache__.listeners.has(keyCombo)) {
+        out4.__cache__.listeners.set(keyCombo, /* @__PURE__ */ new Set());
+      }
+      let map = out4.__cache__.listeners.get(keyCombo);
+      map.add(callback);
+      return () => {
+        map.delete(callback);
+      };
+    },
+    init() {
+      if (out4.__cache__.initialized)
+        return;
+      out4.__cache__.initialized = true;
+      window.addEventListener("keydown", (e) => {
+        out4.__cache__.listeners.forEach((callbacks, keyCombo) => {
+          if (check2(keyCombo, e))
+            callbacks.forEach((callback) => {
+              callback(
+                {
+                  keyCombo,
+                  key: e.key.toLowerCase(),
+                  ctrlKey: e.ctrlKey,
+                  shiftKey: e.shiftKey,
+                  altKey: e.altKey,
+                  metaKey: e.metaKey
+                }
+              );
+            });
+        });
+      });
+    },
+    parse,
+    check: check2,
+    format
+  };
+  var hotkeys_default = out4;
+
   // src/api/index.js
   function devError(api2) {
     return new Error(`The ${api2} API can only be accessed when Dev mode is enabled!`);
@@ -4345,6 +4427,11 @@
         if (!dev_default.enabled)
           throw devError("http");
         return http_default;
+      },
+      get hotkeys() {
+        if (!dev_default.enabled)
+          throw devError("Hotkeys");
+        return hotkeys_default;
       }
     },
     unexposedAPI: {
@@ -4361,7 +4448,8 @@
       http: http_default,
       shared: shared_default,
       ui: ui_default,
-      dom: dom_default
+      dom: dom_default,
+      hotkeys: hotkeys_default
     }
   };
 
@@ -6027,7 +6115,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.286";
+  var CURRENT_VERSION = "0.1.287";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

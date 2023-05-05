@@ -12,6 +12,7 @@ import dom from './dom';
 import ui from './ui/index.js';
 import shared from './shared/index.js';
 import authentication from './authentication/index.js';
+import hotkeys from './hotkeys/index.js';
 
 // utils.logger.debug(`PRELOAD_KEY: <<PRELOAD_KEY>>`);
 
@@ -73,6 +74,10 @@ export default {
     get http() {
       if (!dev.enabled) throw devError("http");
       return http;
+    },
+    get hotkeys() {
+      if (!dev.enabled) throw devError("Hotkeys");
+      return hotkeys;
     }
   },
   unexposedAPI: {
@@ -89,6 +94,7 @@ export default {
     http,
     shared,
     ui,
-    dom
+    dom,
+    hotkeys
   }
 }
