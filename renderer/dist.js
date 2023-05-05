@@ -6548,6 +6548,7 @@
     }
     api_default.unexposedAPI.authentication.init();
     api_default.unexposedAPI.dom.init();
+    api_default.unexposedAPI.hotkeys.init();
     Object.defineProperty(window, "acord", {
       get() {
         return api_default.exposedAPI;

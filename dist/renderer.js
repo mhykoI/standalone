@@ -6115,7 +6115,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.287";
+  var CURRENT_VERSION = "0.1.288";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -6548,6 +6548,7 @@
     }
     api_default.unexposedAPI.authentication.init();
     api_default.unexposedAPI.dom.init();
+    api_default.unexposedAPI.hotkeys.init();
     Object.defineProperty(window, "acord", {
       get() {
         return api_default.exposedAPI;

@@ -21,6 +21,7 @@ import api from "./api";
   }
   api.unexposedAPI.authentication.init();
   api.unexposedAPI.dom.init();
+  api.unexposedAPI.hotkeys.init();
   Object.defineProperty(window, "acord", {
     get() {
       return api.exposedAPI;
