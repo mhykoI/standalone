@@ -57,5 +57,10 @@
     &.danger:hover {
       color: #f23f42;
     }
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
   }
 }
