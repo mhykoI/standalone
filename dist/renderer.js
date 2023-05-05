@@ -4289,7 +4289,7 @@
       return keyObjMap[key] || { key };
     }).reduce((all, curr) => {
       return Object.assign(all, curr);
-    }, {});
+    }, { ctrlKey: false, shiftKey: false, altKey: false, metaKey: false, key: "" });
   }
   function check2(keyCombo, e) {
     let keyObj = parse(keyCombo);
@@ -4332,7 +4332,7 @@
       if (out4.__cache__.initialized)
         return;
       out4.__cache__.initialized = true;
-      window.addEventListener("keydown", (e) => {
+      document.addEventListener("keydown", (e) => {
         out4.__cache__.listeners.forEach((callbacks, keyCombo) => {
           if (check2(keyCombo, e))
             callbacks.forEach((callback) => {
@@ -6115,7 +6115,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.288";
+  var CURRENT_VERSION = "0.1.289";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

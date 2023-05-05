@@ -4289,7 +4289,7 @@
       return keyObjMap[key] || { key };
     }).reduce((all, curr) => {
       return Object.assign(all, curr);
-    }, {});
+    }, { ctrlKey: false, shiftKey: false, altKey: false, metaKey: false, key: "" });
   }
   function check2(keyCombo, e) {
     let keyObj = parse(keyCombo);
@@ -4332,7 +4332,7 @@
       if (out4.__cache__.initialized)
         return;
       out4.__cache__.initialized = true;
-      window.addEventListener("keydown", (e) => {
+      document.addEventListener("keydown", (e) => {
         out4.__cache__.listeners.forEach((callbacks, keyCombo) => {
           if (check2(keyCombo, e))
             callbacks.forEach((callback) => {

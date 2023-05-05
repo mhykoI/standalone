@@ -14,7 +14,7 @@ function parse(keyCombo) {
     return keyObjMap[key] || { key };
   }).reduce((all, curr) => {
     return Object.assign(all, curr)
-  }, {})
+  }, { ctrlKey: false, shiftKey: false, altKey: false, metaKey: false, key: "" })
 }
 
 function check(keyCombo, e) {
@@ -56,7 +56,7 @@ const out = {
     if (out.__cache__.initialized) return;
     out.__cache__.initialized = true;
 
-    window.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", (e) => {
       out.__cache__.listeners.forEach((callbacks, keyCombo) => {
         if (check(keyCombo, e)) callbacks.forEach((callback) => {
           callback(
