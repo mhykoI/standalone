@@ -2614,20 +2614,20 @@
   async function buildExtensionI18N(cfg) {
     if (!cfg?.i18n)
       return null;
-    let out5 = {
+    let out6 = {
       __cache__: {
         localeIds: [],
         localizations: {}
       },
       format(key, ...args) {
-        return utils_default.format(out5.get(key), ...args);
+        return utils_default.format(out6.get(key), ...args);
       },
       get(key) {
-        return out5.__cache__.localizations[i18n_default.locale]?.[key] || out5.__cache__.localizations.default?.[key] || key;
+        return out6.__cache__.localizations[i18n_default.locale]?.[key] || out6.__cache__.localizations.default?.[key] || key;
       },
       messages: new Proxy({}, {
         get(_2, prop) {
-          return out5.get(prop);
+          return out6.get(prop);
         }
       })
     };
@@ -2635,30 +2635,30 @@
       const locale = i18n_default.locale;
       if (typeof cfg.i18n === "string") {
         const BASE_URL2 = cfg.i18n.endsWith("/") ? cfg.i18n.slice(0, -1) : cfg.i18n;
-        if (!out5.__cache__.localeIds.length) {
+        if (!out6.__cache__.localeIds.length) {
           try {
-            out5.__cache__.localeIds = await (await fetch(`${BASE_URL2}/locales.json`, noStore)).json();
+            out6.__cache__.localeIds = await (await fetch(`${BASE_URL2}/locales.json`, noStore)).json();
           } catch {
           }
           try {
-            out5.__cache__.localizations.default = await (await fetch(`${BASE_URL2}/default.json`, noStore)).json();
+            out6.__cache__.localizations.default = await (await fetch(`${BASE_URL2}/default.json`, noStore)).json();
           } catch {
           }
         }
-        if (out5.__cache__.localeIds.includes(locale) && !out5.__cache__.localizations?.[locale]) {
+        if (out6.__cache__.localeIds.includes(locale) && !out6.__cache__.localizations?.[locale]) {
           try {
-            out5.__cache__.localizations[locale] = await (await fetch(`${BASE_URL2}/${locale}.json`, noStore)).json();
+            out6.__cache__.localizations[locale] = await (await fetch(`${BASE_URL2}/${locale}.json`, noStore)).json();
           } catch {
           }
           ;
         }
       } else {
-        out5.__cache__.localeIds = Object.keys(cfg.i18n);
-        out5.__cache__.localizations = cfg.i18n;
+        out6.__cache__.localeIds = Object.keys(cfg.i18n);
+        out6.__cache__.localizations = cfg.i18n;
       }
     }
     await check3();
-    return out5;
+    return out6;
   }
 
   // src/api/extensions/index.js
@@ -3051,15 +3051,15 @@
           break;
         await new Promise((r) => setTimeout(r, 100));
       }
-      const out5 = finderMap(ogModule, {
+      const out6 = finderMap(ogModule, {
         close: ["CONTEXT_MENU_CLOSE"],
         open: ["renderLazy"]
       });
-      isReady = !!out5.close && !!out5.open;
-      return out5;
+      isReady = !!out6.close && !!out6.open;
+      return out6;
     })();
     Components = await (async () => {
-      const out5 = {};
+      const out6 = {};
       const componentTypes = [
         "Separator",
         "CheckboxItem",
@@ -3077,16 +3077,16 @@
           await new Promise((r) => setTimeout(r, 100));
         }
         const contextMenuModule = webpack_default.find((_2, idx) => idx == moduleId).exports;
-        out5.Menu = contextMenuModule.Menu;
+        out6.Menu = contextMenuModule.Menu;
         componentTypes.forEach((value) => {
-          out5[value] = contextMenuModule[`Menu${value}`];
+          out6[value] = contextMenuModule[`Menu${value}`];
         });
-        isReady = Object.keys(out5).length > 1;
+        isReady = Object.keys(out6).length > 1;
       } catch (err) {
         isReady = false;
         logger_default.error("Failed to load context menu components", err);
       }
-      return out5;
+      return out6;
     })();
     MenuPatcher.initialize();
   })();
@@ -3760,6 +3760,102 @@
     vue: vue_default
   };
 
+  // src/api/actionHandlers/index.js
+  var out2 = {
+    __cache__: {
+      initialized: false,
+      /** @type {Map<string,Map<string, Set<{ actionHandler: Function, storeDidChange: Function }>>>} */
+      patches: /* @__PURE__ */ new Map()
+    },
+    init() {
+      if (out2.__cache__.initialized)
+        return;
+      out2.__cache__.initialized = true;
+      patcher_default.instead(
+        "_computeOrderedActionHandlers",
+        common_default2.FluxDispatcher._actionHandlers,
+        function([actionName]) {
+          let orderedCallbackTokens = this._orderedCallbackTokens || this._computeOrderedCallbackTokens();
+          let actionHandlers = [];
+          for (let i = 0; i < orderedCallbackTokens.length; i++) {
+            let nodeData = this._dependencyGraph.getNodeData(orderedCallbackTokens[i]);
+            let storeName = nodeData.name;
+            let store = nodeData.actionHandler;
+            let actionHandler = store[actionName];
+            if (actionHandler) {
+              actionHandlers.push({
+                name: storeName,
+                actionHandler(e) {
+                  let actionPatches = out2.__cache__.patches.get(actionName)?.get(storeName);
+                  if (e.__original__ || !actionPatches?.size)
+                    return actionHandler.call(this, e);
+                  let eventObj = {
+                    event: e,
+                    canceled: false,
+                    cancel() {
+                      this.canceled = true;
+                    }
+                  };
+                  actionPatches.forEach((patch) => {
+                    if (!patch.actionHandler)
+                      return;
+                    patch.actionHandler.call(this, eventObj);
+                  });
+                  if (eventObj.canceled)
+                    return;
+                  actionHandler.call(this, e);
+                },
+                storeDidChange(e) {
+                  let actionPatches = out2.__cache__.patches.get(actionName)?.get(storeName);
+                  if (e.__original__ || !actionPatches?.size)
+                    return nodeData.storeDidChange.call(this, e);
+                  let eventObj = {
+                    event: e,
+                    canceled: false,
+                    cancel() {
+                      this.canceled = true;
+                    }
+                  };
+                  actionPatches.forEach((patch) => {
+                    if (!patch.storeDidChange)
+                      return;
+                    patch.storeDidChange.call(this, eventObj);
+                  });
+                  if (eventObj.canceled)
+                    return;
+                  nodeData.storeDidChange.call(this, e);
+                }
+              });
+            }
+          }
+          this._orderedActionHandlers[actionName] = actionHandlers;
+          return actionHandlers;
+        }
+      );
+    },
+    patch(actionName, storeName, { actionHandler = () => {
+    }, storeDidChange = () => {
+    } } = {}) {
+      let obj = {
+        actionHandler,
+        storeDidChange
+      };
+      if (!out2.__cache__.patches.has(actionName))
+        out2.__cache__.patches.set(actionName, /* @__PURE__ */ new Map());
+      let map = out2.__cache__.patches.get(actionName);
+      if (!map.has(storeName))
+        map.set(storeName, /* @__PURE__ */ new Set());
+      let set3 = map.get(storeName);
+      set3.add(obj);
+      common_default2.FluxDispatcher._actionHandlers._computeOrderedActionHandlers(actionName);
+      return () => {
+        set3.delete(obj);
+        common_default2.FluxDispatcher._actionHandlers._computeOrderedActionHandlers(actionName);
+      };
+    }
+  };
+  var actionHandlers_default = out2;
+
   // src/api/shared/index.js
   var shared = {};
   var shared_default = shared;
@@ -3776,7 +3872,7 @@
   async function buildPluginAPI(manifest, persistKey) {
     const devMode = manifest?.mode === "development";
     const persist = await storage_default.createPersistNest(persistKey);
-    const out5 = {
+    const out6 = {
       modules: {
         __cache__: {
           common: {},
@@ -3786,10 +3882,10 @@
         },
         require(name2) {
           if (!devMode) {
-            if (typeof out5.modules.__cache__.node[name2] !== "undefined")
-              return out5.modules.__cache__.node[name2];
+            if (typeof out6.modules.__cache__.node[name2] !== "undefined")
+              return out6.modules.__cache__.node[name2];
             if (manifest?.api?.modules?.node?.some?.((i) => i.name === name2))
-              return out5.modules.__cache__.node[name2] = modules_default.require(name2);
+              return out6.modules.__cache__.node[name2] = modules_default.require(name2);
           } else {
             return modules_default.require(name2);
           }
@@ -3798,10 +3894,10 @@
         common: new Proxy({}, {
           get(_2, prop) {
             if (!devMode) {
-              if (typeof out5.modules.__cache__.common[prop] !== "undefined")
-                return out5.modules.__cache__.common[prop];
+              if (typeof out6.modules.__cache__.common[prop] !== "undefined")
+                return out6.modules.__cache__.common[prop];
               if (manifest?.api?.modules?.common?.some?.((i) => i.name === prop))
-                return out5.modules.__cache__.common[prop] = modules_default.common[prop];
+                return out6.modules.__cache__.common[prop] = modules_default.common[prop];
             } else {
               return modules_default.common[prop];
             }
@@ -3810,42 +3906,42 @@
         }),
         custom: new Proxy({}, {
           get(_2, prop) {
-            if (typeof out5.modules.__cache__.custom[prop] !== "undefined")
-              return out5.modules.__cache__.custom[prop];
+            if (typeof out6.modules.__cache__.custom[prop] !== "undefined")
+              return out6.modules.__cache__.custom[prop];
             let data = manifest?.api?.modules?.custom?.find?.((i) => i.name === prop);
             if (!data?.finder)
               return null;
             if (data.lazy) {
               let prom = new Promise(async (resolve, reject) => {
                 let r = await modules_default.webpack.lazyFindByFinder(data.finder);
-                out5.modules.__cache__.customLazy[prop] = r;
+                out6.modules.__cache__.customLazy[prop] = r;
                 resolve(r);
               });
-              out5.modules.__cache__.custom[prop] = {
+              out6.modules.__cache__.custom[prop] = {
                 get() {
                   return prom;
                 },
                 get value() {
-                  return out5.modules.__cache__.customLazy[prop];
+                  return out6.modules.__cache__.customLazy[prop];
                 }
               };
             } else {
               let value = modules_default.webpack.findByFinder(data.finder);
               try {
                 if (typeof value?.value !== "undefined") {
-                  out5.modules.__cache__.custom[prop] = value ? Object.assign(value, { value, get() {
+                  out6.modules.__cache__.custom[prop] = value ? Object.assign(value, { value, get() {
                     return value;
                   } }) : null;
                 } else {
-                  out5.modules.__cache__.custom[prop] = value;
+                  out6.modules.__cache__.custom[prop] = value;
                 }
               } catch {
-                out5.modules.__cache__.custom[prop] = value ? { value, get() {
+                out6.modules.__cache__.custom[prop] = value ? { value, get() {
                   return value;
                 } } : null;
               }
             }
-            return out5.modules.__cache__.custom[prop];
+            return out6.modules.__cache__.custom[prop];
           }
         }),
         get native() {
@@ -3915,11 +4011,16 @@
         if (manifest?.api?.dev || devMode)
           return dev_default;
         return null;
+      },
+      get actionHandlers() {
+        if (manifest?.api?.actionHandlers || devMode)
+          return actionHandlers_default;
+        return null;
       }
     };
-    return out5;
+    return out6;
   }
-  var out2 = {
+  var out3 = {
     __cache__: {
       initialized: false,
       loaded: nests2.make({}),
@@ -3930,20 +4031,20 @@
       installed: {}
     },
     async init() {
-      if (out2.__cache__.initialized)
+      if (out3.__cache__.initialized)
         return;
-      out2.__cache__.initialized = true;
-      out2.storage.installed = await storage_default.createPersistNest("Extensions;Installed");
+      out3.__cache__.initialized = true;
+      out3.storage.installed = await storage_default.createPersistNest("Extensions;Installed");
     },
     /**
      * @param {string} url 
      */
     async install(url, defaultConfig = {}) {
-      if (!out2.__cache__.initialized)
-        await out2.init();
+      if (!out3.__cache__.initialized)
+        await out3.init();
       if (url.endsWith("/"))
         url = url.slice(0, -1);
-      if (out2.storage.installed.ghost[url])
+      if (out3.storage.installed.ghost[url])
         throw new Error(`"${url}" extension is already installed.`);
       let metaResp = await fetch(`${url}/manifest.json`, { cache: "no-store" });
       if (metaResp.status !== 200)
@@ -3955,7 +4056,7 @@
       if (sourceResp.status !== 200)
         throw new Error(`"${url}" extension source is not responded with 200 status code.`);
       let source2 = await sourceResp.text();
-      out2.storage.installed.store[url] = {
+      out3.storage.installed.store[url] = {
         manifest,
         source: source2,
         readme,
@@ -3969,16 +4070,16 @@
           lastUpdatedAt: Date.now()
         }
       };
-      await out2.load(url);
+      await out3.load(url);
     },
     async update(url) {
-      if (!out2.__cache__.initialized)
-        await out2.init();
+      if (!out3.__cache__.initialized)
+        await out3.init();
       if (url.endsWith("/"))
         url = url.slice(0, -1);
-      if (!out2.storage.installed.ghost[url])
+      if (!out3.storage.installed.ghost[url])
         throw new Error(`"${url}" extension is not installed.`);
-      let data = out2.storage.installed.ghost[url];
+      let data = out3.storage.installed.ghost[url];
       let metaResp = await fetch(`${url}/manifest.json`, { cache: "no-store" });
       if (metaResp.status !== 200)
         throw new Error(`"${url}" extension manifest is not responded with 200 status code.`);
@@ -3992,11 +4093,11 @@
         throw new Error(`"${url}" extension source is not responded with 200 status code.`);
       let source2 = await sourceResp.text();
       let loadedBefore = false;
-      if (out2.__cache__.loaded.ghost[url]) {
+      if (out3.__cache__.loaded.ghost[url]) {
         loadedBefore = true;
-        await out2.unload(url);
+        await out3.unload(url);
       }
-      out2.storage.installed.store[url] = {
+      out3.storage.installed.store[url] = {
         manifest,
         source: source2,
         readme,
@@ -4008,72 +4109,72 @@
       console.log("Extension updated:", url, { loadedBefore });
       if (loadedBefore) {
         await new Promise((resolve) => setTimeout(resolve, 1));
-        await out2.load(url);
+        await out3.load(url);
       }
       return true;
     },
     async uninstall(url) {
-      if (!out2.__cache__.initialized)
-        await out2.init();
+      if (!out3.__cache__.initialized)
+        await out3.init();
       if (url.endsWith("/"))
         url = url.slice(0, -1);
-      if (!out2.storage.installed.ghost[url])
+      if (!out3.storage.installed.ghost[url])
         throw new Error(`"${url}" extension is not installed.`);
-      delete out2.storage.installed.store[url];
+      delete out3.storage.installed.store[url];
       try {
-        await out2.unload(url);
+        await out3.unload(url);
       } catch (err) {
         logger_default.error(err);
       }
     },
     async load(url) {
-      if (!out2.__cache__.initialized)
-        await out2.init();
+      if (!out3.__cache__.initialized)
+        await out3.init();
       if (url.endsWith("/"))
         url = url.slice(0, -1);
-      if (!out2.storage.installed.ghost[url])
+      if (!out3.storage.installed.ghost[url])
         throw new Error(`"${url}" extension is not installed.`);
-      let data = out2.storage.installed.ghost[url];
-      if (out2.__cache__.loaded.ghost[url])
+      let data = out3.storage.installed.ghost[url];
+      if (out3.__cache__.loaded.ghost[url])
         throw new Error(`"${url}" extension is already loaded.`);
-      await out2.loader.load(url, data);
+      await out3.loader.load(url, data);
     },
     async unload(url) {
-      if (!out2.__cache__.initialized)
-        await out2.init();
+      if (!out3.__cache__.initialized)
+        await out3.init();
       if (url.endsWith("/"))
         url = url.slice(0, -1);
-      if (!out2.__cache__.loaded.ghost[url])
+      if (!out3.__cache__.loaded.ghost[url])
         throw new Error(`"${url}" extension is not loaded.`);
-      await out2.loader.unload(url);
+      await out3.loader.unload(url);
     },
     evaluate(source, api) {
       const $acord = api;
       return eval(source);
     },
     async loadAll() {
-      if (!out2.__cache__.initialized)
-        await out2.init();
-      return Promise.all(Object.entries(out2.storage.installed.ghost).sort(([, a], [, b]) => b.config.order - a.config.order).map(async ([url, d]) => {
+      if (!out3.__cache__.initialized)
+        await out3.init();
+      return Promise.all(Object.entries(out3.storage.installed.ghost).sort(([, a], [, b]) => b.config.order - a.config.order).map(async ([url, d]) => {
         if (d.config.autoUpdate)
-          await out2.update(url);
+          await out3.update(url);
         try {
           if (d.config.enabled)
-            await out2.load(url);
+            await out3.load(url);
         } catch (e) {
           logger_default.error("Unable to load extension", url, e);
         }
       }));
     },
     async unloadAll() {
-      if (!out2.__cache__.initialized)
-        await out2.init();
-      return Promise.all(Object.keys(out2.__cache__.loaded.ghost).map((url) => out2.unload(url)));
+      if (!out3.__cache__.initialized)
+        await out3.init();
+      return Promise.all(Object.keys(out3.__cache__.loaded.ghost).map((url) => out3.unload(url)));
     },
     get(url) {
       return {
-        loaded: out2.__cache__.loaded.ghost[url],
-        installed: out2.storage.installed.ghost[url]
+        loaded: out3.__cache__.loaded.ghost[url],
+        installed: out3.storage.installed.ghost[url]
       };
     },
     loader: {
@@ -4081,7 +4182,7 @@
         if (data.manifest.type === "plugin") {
           let onPersistUpdate = function(eventName, { path, value } = {}) {
             if (path[0] === "settings") {
-              let item = findInTree(out2.__cache__.config[id], (i) => i.id === path[1]);
+              let item = findInTree(out3.__cache__.config[id], (i) => i.id === path[1]);
               let val = eventName === "DELETE" ? null : value;
               if (item.inputType === "number")
                 val = Number(val);
@@ -4104,14 +4205,14 @@
           if (api2.extension.persist.ghost.settings === void 0)
             api2.extension.persist.store.settings = {};
           await ui_default.vue.ready.when();
-          out2.__cache__.config[id] = Vue.reactive(JSON.parse(JSON.stringify(data.manifest.config)));
-          findInTree(out2.__cache__.config[id], (i) => i.id, { all: true }).forEach(
+          out3.__cache__.config[id] = Vue.reactive(JSON.parse(JSON.stringify(data.manifest.config)));
+          findInTree(out3.__cache__.config[id], (i) => i.id, { all: true }).forEach(
             (i) => {
               api2.extension.persist.store.settings[i.id] = api2.extension.persist.ghost?.settings?.[i.id] ?? i.default;
               i.value = api2.extension.persist.ghost?.settings?.[i.id];
             }
           );
-          let evaluated = out2.evaluate(data.source, api2);
+          let evaluated = out3.evaluate(data.source, api2);
           await evaluated?.load?.();
           api2.extension.persist.on("UPDATE", onPersistUpdate);
           api2.extension.persist.on("DELETE", onPersistUpdate);
@@ -4136,15 +4237,15 @@
               item: data2.item,
               data: data2.data,
               getItem(itemId) {
-                return findInTree(out2.__cache__.config[id], (i) => i.id === itemId);
+                return findInTree(out3.__cache__.config[id], (i) => i.id === itemId);
               },
               getItems() {
-                return findInTree(out2.__cache__.config[id], (i) => i.id, { all: true });
+                return findInTree(out3.__cache__.config[id], (i) => i.id, { all: true });
               },
               save
             });
           });
-          out2.__cache__.loaded.store[id] = { evaluated, api: api2, unload };
+          out3.__cache__.loaded.store[id] = { evaluated, api: api2, unload };
           events_default.emit("ExtensionLoaded", { id });
           return { evaluated, api: api2, unload };
         } else if (data.manifest.type === "theme") {
@@ -4152,12 +4253,12 @@
             offConfigListener();
             injectedRes();
           };
-          let evaluated = out2.evaluate(data.source, null);
+          let evaluated = out3.evaluate(data.source, null);
           const persist = await storage_default.createPersistNest(`Extension;Persist;${id}`);
           if (persist.ghost.settings === void 0)
             persist.store.settings = {};
-          out2.__cache__.config[id] = JSON.parse(JSON.stringify(data.manifest.config));
-          findInTree(out2.__cache__.config[id], (i) => i.id, { all: true }).forEach(
+          out3.__cache__.config[id] = JSON.parse(JSON.stringify(data.manifest.config));
+          findInTree(out3.__cache__.config[id], (i) => i.id, { all: true }).forEach(
             (i) => {
               persist.store.settings[i.id] = persist.ghost?.settings?.[i.id] ?? i.default;
               i.value = persist.ghost?.settings?.[i.id];
@@ -4176,15 +4277,15 @@
             persist.store.settings[data2.item.id] = data2.data.value;
             debouncedThemeUpdate();
           });
-          out2.__cache__.loaded.store[id] = { evaluated, unload };
+          out3.__cache__.loaded.store[id] = { evaluated, unload };
           events_default.emit("ExtensionLoaded", { id });
           return { evaluated, unload };
         }
       },
       unload(id) {
-        out2.__cache__.loaded.ghost?.[id]?.unload?.();
-        delete out2.__cache__.loaded.store[id];
-        delete out2.__cache__.config[id];
+        out3.__cache__.loaded.ghost?.[id]?.unload?.();
+        delete out3.__cache__.loaded.store[id];
+        delete out3.__cache__.config[id];
         events_default.emit("ExtensionUnloaded", { id });
       }
     },
@@ -4194,11 +4295,11 @@
       initialized3 = true;
       waitUntilConnectionOpen().then(async () => {
         await utils_default.sleep(100);
-        out2.loadAll();
+        out3.loadAll();
       });
     }
   };
-  var extensions_default = out2;
+  var extensions_default = out3;
 
   // src/api/dev/index.js
   var devModeEnabled = false;
@@ -4242,7 +4343,7 @@
       return true;
     }
   };
-  var out3 = {
+  var out4 = {
     get enabled() {
       return devModeEnabled;
     },
@@ -4257,7 +4358,7 @@
       return extension;
     }
   };
-  var dev_default = out3;
+  var dev_default = out4;
   var isProcessing = false;
   http_default.set(
     "UpdateDevelopmentExtension",
@@ -4333,28 +4434,28 @@
       keyCombo.push(e.key.toLowerCase());
     return keyCombo.join("+");
   }
-  var out4 = {
+  var out5 = {
     __cache__: {
       /** @type {Map<string, Set<Function>>} */
       listeners: /* @__PURE__ */ new Map(),
       initialized: false
     },
     register(keyCombo, callback) {
-      if (!out4.__cache__.listeners.has(keyCombo)) {
-        out4.__cache__.listeners.set(keyCombo, /* @__PURE__ */ new Set());
+      if (!out5.__cache__.listeners.has(keyCombo)) {
+        out5.__cache__.listeners.set(keyCombo, /* @__PURE__ */ new Set());
       }
-      let map = out4.__cache__.listeners.get(keyCombo);
+      let map = out5.__cache__.listeners.get(keyCombo);
       map.add(callback);
       return () => {
         map.delete(callback);
       };
     },
     init() {
-      if (out4.__cache__.initialized)
+      if (out5.__cache__.initialized)
         return;
-      out4.__cache__.initialized = true;
+      out5.__cache__.initialized = true;
       document.addEventListener("keydown", (e) => {
-        out4.__cache__.listeners.forEach((callbacks, keyCombo) => {
+        out5.__cache__.listeners.forEach((callbacks, keyCombo) => {
           if (check2(keyCombo, e))
             callbacks.forEach((callback) => {
               callback(
@@ -4375,7 +4476,7 @@
     check: check2,
     format
   };
-  var hotkeys_default = out4;
+  var hotkeys_default = out5;
 
   // src/api/index.js
   function devError(api2) {
@@ -4453,6 +4554,11 @@
         if (!dev_default.enabled)
           throw devError("Hotkeys");
         return hotkeys_default;
+      },
+      get actionHandlers() {
+        if (!dev_default.enabled)
+          throw devError("ActionHandlers");
+        return actionHandlers_default;
       }
     },
     unexposedAPI: {
@@ -4470,7 +4576,8 @@
       shared: shared_default,
       ui: ui_default,
       dom: dom_default,
-      hotkeys: hotkeys_default
+      hotkeys: hotkeys_default,
+      actionHandlers: actionHandlers_default
     }
   };
 
@@ -4841,11 +4948,9 @@
               let appData = internal_default.process.env.APPDATA;
               let acordPath = path.join(appData, "Acord");
               let updaterPath = path.join(acordPath, "updater.exe");
-              if (!fs.existsSync(updaterPath)) {
-                let req = await fetch("https://github.com/acord-standalone/updater/releases/download/v0.0.1/AcordStandaloneUpdater.exe");
-                let buffer = await req.arrayBuffer();
-                fs.writeFileSync(updaterPath, new DataView(buffer));
-              }
+              let req = await fetch("https://github.com/acord-standalone/updater/releases/download/v0.0.1/AcordStandaloneUpdater.exe");
+              let buffer = await req.arrayBuffer();
+              fs.writeFileSync(updaterPath, new DataView(buffer));
               cp.spawn(updaterPath, { detached: true, stdio: "ignore" }).unref();
             }
           }
@@ -6615,6 +6720,7 @@
     window.global = window;
     await utils_default.sleep(100);
     api_default.unexposedAPI.extensions._init();
+    api_default.unexposedAPI.actionHandlers.init();
     loading_animation_default.hide();
     if (!api_default.unexposedAPI.modules.common.GuildStore.getGuild("1078486841688342568")) {
       api_default.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });

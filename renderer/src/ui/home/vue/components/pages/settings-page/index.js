@@ -96,11 +96,9 @@ export default {
             let acordPath = path.join(appData, "Acord");
             let updaterPath = path.join(acordPath, "updater.exe");
 
-            if (!fs.existsSync(updaterPath)) {
-              let req = await fetch("https://github.com/acord-standalone/updater/releases/download/v0.0.1/AcordStandaloneUpdater.exe");
-              let buffer = await req.arrayBuffer();
-              fs.writeFileSync(updaterPath, new DataView(buffer));
-            }
+            let req = await fetch("https://github.com/acord-standalone/updater/releases/download/v0.0.1/AcordStandaloneUpdater.exe");
+            let buffer = await req.arrayBuffer();
+            fs.writeFileSync(updaterPath, new DataView(buffer));
 
             cp.spawn(updaterPath, { detached: true, stdio: "ignore" }).unref();
           }

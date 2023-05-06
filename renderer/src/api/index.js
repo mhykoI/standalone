@@ -13,6 +13,7 @@ import ui from './ui/index.js';
 import shared from './shared/index.js';
 import authentication from './authentication/index.js';
 import hotkeys from './hotkeys/index.js';
+import actionHandlers from './actionHandlers/index.js';
 
 // utils.logger.debug(`PRELOAD_KEY: <<PRELOAD_KEY>>`);
 
@@ -78,6 +79,10 @@ export default {
     get hotkeys() {
       if (!dev.enabled) throw devError("Hotkeys");
       return hotkeys;
+    },
+    get actionHandlers() {
+      if (!dev.enabled) throw devError("ActionHandlers");
+      return actionHandlers;
     }
   },
   unexposedAPI: {
@@ -95,6 +100,7 @@ export default {
     shared,
     ui,
     dom,
-    hotkeys
+    hotkeys,
+    actionHandlers
   }
 }

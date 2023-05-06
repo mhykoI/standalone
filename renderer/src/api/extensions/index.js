@@ -12,6 +12,7 @@ import http from "../http/index.js";
 import ui from "../ui/index.js";
 import utils from "../utils/index.js";
 import dom from "../dom/index.js";
+import actionHandlers from "../actionHandlers/index.js";
 import authentication from "../authentication/index.js";
 import shared from "../shared/index.js";
 import { waitUntilConnectionOpen } from "../../other/utils.js";
@@ -142,6 +143,10 @@ async function buildPluginAPI(manifest, persistKey) {
     },
     get dev() {
       if (manifest?.api?.dev || devMode) return dev;
+      return null;
+    },
+    get actionHandlers() {
+      if (manifest?.api?.actionHandlers || devMode) return actionHandlers;
       return null;
     }
   };
