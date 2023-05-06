@@ -458,6 +458,27 @@
           ]
         }
       },
+      SyntaxParser: {
+        __: true,
+        filter: {
+          export: false,
+          in: "properties",
+          by: [
+            [
+              "SyntaxError",
+              "parse"
+            ]
+          ]
+        },
+        path: {
+          before: [
+            "exports.Z",
+            "exports.ZP",
+            "exports.default",
+            "exports"
+          ]
+        }
+      },
       FluxDispatcher: {
         __: true,
         path: {
