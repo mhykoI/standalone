@@ -58,7 +58,7 @@ export default {
         },
         methods: {
           async fetch() {
-            if (this.feature.durations) this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
+            if (this.feature.durations) this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n.locale).humanize();
             this.fetched = (await (await fetch(`https://api.acord.app/feature/badge/${this.feature.feature_id}`)).json()).data;
           },
           i18nFormat: i18n.format,

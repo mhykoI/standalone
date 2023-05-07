@@ -4,6 +4,8 @@ import i18n from "../../../../../../../api/i18n/index.js";
 import cssText from "./style.scss";
 import { playSpotifyData } from "../../../../../../other/utils/spotify.js";
 import common from "../../../../../../../api/modules/common.js";
+import authentication from "../../../../../../../api/authentication/index.js";
+import events from "../../../../../../../api/events/index.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -29,9 +31,32 @@ export default {
                 <div class="name">
                   {{i18nFormat('INVENTORY_PROFILE_MUSIC_FEATURE')}}
                 </div>
+                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
+                  <div class="line">
+                    <div class="control" @click="toggleEnabled">
+                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                      </svg>
+                    </div>
+                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
+                  </div>
+                  <div class="line column">
+                    <div class="small-label">{{i18nFormat('SPOTIFY_TRACK_LINK')}}:</div>
+                    <input v-model="trackLinkInputText" type="text" class="info-input" :class="{'error': trackLinkInputError}" placeholder="https://open.spotify.com/track/1234" />
+                  </div>
+                  <div class="line column">
+                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION')}}:</div>
+                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="0" />
+                  </div>
+                </div>
               </div>
               <div class="bottom">
-
+                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
+                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
+                </div>
               </div>
               <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
@@ -43,15 +68,88 @@ export default {
             spotifyPlaying: false,
             spotifyLoading: false,
             _pauseSpotify: null,
-            durationText: ""
+            durationText: "",
+            settingsVisible: false,
+            settingsLoading: false,
+            trackLinkInputText: "",
+            trackLinkInputError: false,
+            trackPositionInputText: 0,
+            trackPositionInputError: false
           }
         },
         mounted() {
           this.updateDuration();
+          let id = this.feature.data.uri.split(":").pop().trim();
+          if (id) {
+            this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+          }
         },
         watch: {
           feature() {
             this.updateDuration();
+            let id = this.feature.data.uri.split(":").pop().trim();
+            if (id) {
+              this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+            }
+          },
+          trackLinkInputText(val) {
+            this.trackLinkInputError = !val.startsWith("https://open.spotify.com/track/");
+            if (!this.trackLinkInputError) {
+              let id = val.split("?")[0].split("/").pop().trim();
+              this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+              (async () => {
+                if (!this.settingsLoading) {
+                  this.settingsLoading = true;
+                  await fetch(
+                    `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                    {
+                      method: "PATCH",
+                      headers: {
+                        "x-acord-token": authentication.token,
+                        "content-type": "application/json"
+                      },
+                      body: JSON.stringify({
+                        uri: `spotify:track:${id}`
+                      })
+                    }
+                  )
+                  this.settingsLoading = false;
+                  events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, uri: `spotify:track:${id}` } });
+                }
+              })();
+            }
+          },
+          trackPositionInputText(val) {
+            if (!val) {
+              this.trackPositionInputText = 0;
+              return;
+            }
+            let num = parseFloat(this.trackPositionInputText);
+            if (isNaN(num) || num < 0) {
+              this.trackPositionInputError = true;
+              return;
+            }
+            this.trackPositionInputError = false;
+            (async () => {
+              if (!this.settingsLoading) {
+                this.settingsLoading = true;
+                await fetch(
+                  `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                  {
+                    method: "PATCH",
+                    headers: {
+                      "x-acord-token": authentication.token,
+                      "content-type": "application/json"
+                    },
+                    body: JSON.stringify({
+                      position_ms: num * 1000
+                    })
+                  }
+                )
+                this.settingsLoading = false;
+                events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, position_ms: num * 1000 } });
+              }
+            })();
           }
         },
         methods: {
@@ -79,7 +177,27 @@ export default {
             this.spotifyLoading = false;
           },
           updateDuration() {
-            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
+            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n.locale).humanize();
+          },
+          async toggleEnabled() {
+            if (this.settingsLoading) return;
+            this.settingsLoading = true;
+            let newState = !this.feature.enabled;
+            await fetch(
+              `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+              {
+                method: "PATCH",
+                headers: {
+                  "x-acord-token": authentication.token,
+                  "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                  enabled: newState
+                })
+              }
+            )
+            this.settingsLoading = false;
+            events.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
           }
         }
       }

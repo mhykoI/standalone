@@ -5704,7 +5704,7 @@
           methods: {
             async fetch() {
               if (this.feature.durations)
-                this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
+                this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
               this.fetched = (await (await fetch(`https://api.acord.app/feature/badge/${this.feature.feature_id}`)).json()).data;
             },
             i18nFormat: i18n_default.format,
@@ -5855,7 +5855,7 @@
           },
           methods: {
             async fetch() {
-              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
               this.fetched = (await (await fetch(`https://api.acord.app/feature/hat/${this.feature.feature_id}`)).json()).data;
             },
             i18nFormat: i18n_default.format,
@@ -5896,7 +5896,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
   var style_default19 = `
-.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word}`;
+.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top{padding:16px;height:175px;overflow:auto}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-profile-music-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-profile-music-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:6px;color:#f5f5f5;opacity:.95}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line.column{flex-direction:column;align-items:flex-start;gap:2px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.small-label{font-size:10px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input{border:none;border-bottom:1px solid #f5f5f5;background-color:rgba(0,0,0,.2);padding:2px;border-radius:4px;font-size:14px;color:#f5f5f5;width:100%}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input.error{border:1px solid #f23f43}.acord--inventory-profile-music-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:flex-end;padding-right:16px;padding-bottom:16px}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/other/utils/spotify.js
   async function playSpotifyData(data) {
@@ -5970,9 +5970,32 @@
                 <div class="name">
                   {{i18nFormat('INVENTORY_PROFILE_MUSIC_FEATURE')}}
                 </div>
+                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
+                  <div class="line">
+                    <div class="control" @click="toggleEnabled">
+                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                      </svg>
+                    </div>
+                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
+                  </div>
+                  <div class="line column">
+                    <div class="small-label">{{i18nFormat('SPOTIFY_TRACK_LINK')}}:</div>
+                    <input v-model="trackLinkInputText" type="text" class="info-input" :class="{'error': trackLinkInputError}" placeholder="https://open.spotify.com/track/1234" />
+                  </div>
+                  <div class="line column">
+                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION')}}:</div>
+                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="0" />
+                  </div>
+                </div>
               </div>
               <div class="bottom">
-
+                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
+                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
+                </div>
               </div>
               <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
@@ -5984,15 +6007,88 @@
               spotifyPlaying: false,
               spotifyLoading: false,
               _pauseSpotify: null,
-              durationText: ""
+              durationText: "",
+              settingsVisible: false,
+              settingsLoading: false,
+              trackLinkInputText: "",
+              trackLinkInputError: false,
+              trackPositionInputText: 0,
+              trackPositionInputError: false
             };
           },
           mounted() {
             this.updateDuration();
+            let id = this.feature.data.uri.split(":").pop().trim();
+            if (id) {
+              this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+            }
           },
           watch: {
             feature() {
               this.updateDuration();
+              let id = this.feature.data.uri.split(":").pop().trim();
+              if (id) {
+                this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+              }
+            },
+            trackLinkInputText(val) {
+              this.trackLinkInputError = !val.startsWith("https://open.spotify.com/track/");
+              if (!this.trackLinkInputError) {
+                let id = val.split("?")[0].split("/").pop().trim();
+                this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+                (async () => {
+                  if (!this.settingsLoading) {
+                    this.settingsLoading = true;
+                    await fetch(
+                      `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                      {
+                        method: "PATCH",
+                        headers: {
+                          "x-acord-token": authentication_default.token,
+                          "content-type": "application/json"
+                        },
+                        body: JSON.stringify({
+                          uri: `spotify:track:${id}`
+                        })
+                      }
+                    );
+                    this.settingsLoading = false;
+                    events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, uri: `spotify:track:${id}` } });
+                  }
+                })();
+              }
+            },
+            trackPositionInputText(val) {
+              if (!val) {
+                this.trackPositionInputText = 0;
+                return;
+              }
+              let num = parseFloat(this.trackPositionInputText);
+              if (isNaN(num) || num < 0) {
+                this.trackPositionInputError = true;
+                return;
+              }
+              this.trackPositionInputError = false;
+              (async () => {
+                if (!this.settingsLoading) {
+                  this.settingsLoading = true;
+                  await fetch(
+                    `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                    {
+                      method: "PATCH",
+                      headers: {
+                        "x-acord-token": authentication_default.token,
+                        "content-type": "application/json"
+                      },
+                      body: JSON.stringify({
+                        position_ms: num * 1e3
+                      })
+                    }
+                  );
+                  this.settingsLoading = false;
+                  events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, position_ms: num * 1e3 } });
+                }
+              })();
             }
           },
           methods: {
@@ -6020,7 +6116,28 @@
               this.spotifyLoading = false;
             },
             updateDuration() {
-              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n_default.locale).humanize();
+              this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
+            },
+            async toggleEnabled() {
+              if (this.settingsLoading)
+                return;
+              this.settingsLoading = true;
+              let newState = !this.feature.enabled;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    enabled: newState
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
             }
           }
         }

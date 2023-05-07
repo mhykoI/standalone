@@ -56,7 +56,7 @@ export default {
         },
         methods: {
           async fetch() {
-            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.start).locale(i18n.locale).humanize();
+            this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n.locale).humanize();
             this.fetched = (await (await fetch(`https://api.acord.app/feature/hat/${this.feature.feature_id}`)).json()).data;
           },
           i18nFormat: i18n.format,
