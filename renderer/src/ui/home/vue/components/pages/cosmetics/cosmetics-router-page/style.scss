@@ -1,0 +1,56 @@
+.acord--cosmetics-router-page {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, hsl(258, 50%, 50%), hsl(290, 50%, 50%));
+  padding: 32px 16px;
+  gap: 16px;
+
+  & > .nav {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+
+    & > .title {
+      font-size: 24px;
+      font-weight: 600;
+      color: whitesmoke;
+    }
+
+    & > .cart-button {
+      padding: 8px;
+      display: flex;
+      border-radius: 4px;
+      background-color: rgba(245, 245, 245, 0.25);
+      cursor: pointer;
+      position: relative;
+
+      .count {
+        display: flex;
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background-color: #f04747;
+        color: whitesmoke;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+        font-size: 14px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      svg {
+        width: 24px;
+        height: 24px;
+        color: whitesmoke;
+      }
+    }
+  }
+}

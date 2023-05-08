@@ -97,7 +97,7 @@ let internalVueApp = null;
 
           let buttons = [];
 
-          function buildButton(id, text, customClasses = "") {
+          function buildButton(id, text, customClasses = "", noPadding = false) {
             let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
 
             buttons.push(elm);
@@ -113,15 +113,17 @@ let internalVueApp = null;
               buttons.forEach((b) => b.setSelected(false));
               elm.setSelected(true);
               internalVueApp.selectedTab = id;
+              internalVueApp.noPadding = noPadding;
             }
             return elm;
           }
 
-          buttonsContainer.appendChild(buildButton("home", i18n.format("HOME")));
-          buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS")));
-          buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button"));
-          buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS")));
-          buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button"));
+          buttonsContainer.appendChild(buildButton("home", i18n.format("HOME"), "", false));
+          buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS"), "", false));
+          buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS"), "", false));
+          buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button", false));
+          buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false));
+          buttonsContainer.appendChild(buildButton("cosmetics-router", i18n.format("COSMETICS"), "cosmetics-tab-button", true));
 
           container.appendChild(buttonsContainer);
         }
@@ -211,8 +213,18 @@ function fillSVGElmWithAcordLogo(svgElm) {
   const vueApp = Vue.createApp({
     data() {
       return {
-        selectedTab: "home"
+        selectedTab: "home",
+        noPadding: false
       };
+    },
+    watch: {
+      noPadding(val) {
+        if (val) {
+          baseVueElm.classList.add("no-padding");
+        } else {
+          baseVueElm.classList.remove("no-padding");
+        }
+      }
     },
     mounted() {
       internalVueApp = this;

@@ -28,6 +28,10 @@
     justify-content: center;
     width: 100%;
 
+    &.no-padding {
+      padding: 0;
+    }
+
     & > .tab {
       width: 100%;
     }
@@ -48,6 +52,17 @@
       &.selected {
         color: var(--text-positive);
         background-color: transparent;
+      }
+    }
+
+    &.cosmetics-tab-button {
+      background-image: linear-gradient(to right, #4900fa, #d100fc) !important;
+      color: whitesmoke;
+
+      &.selected,
+      &:hover {
+        color: whitesmoke;
+        background-image: linear-gradient(to right, hsl(258, 100%, 60%), hsl(290, 100%, 60%)) !important;
       }
     }
 

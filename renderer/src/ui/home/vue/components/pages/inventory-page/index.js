@@ -123,7 +123,7 @@ export default {
               }
             });
             let features = (await req.json())?.data?.features || [];
-            this.features = features.filter(i => i.feature_id !== 1).map(i => ({ ...i, _id: `${i.type},${i.id},${i.feature_id}` }));
+            this.features = features.filter(i => !i.hidden_in_inventory).map(i => ({ ...i, _id: `${i.type},${i.id},${i.feature_id}` }));
             this.processFeatures();
           }
         }
