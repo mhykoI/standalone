@@ -6395,7 +6395,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.327";
+  var CURRENT_VERSION = "0.1.328";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -6481,9 +6481,9 @@
             let buttons = [];
             buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME")));
             buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
-            buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button"));
             buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS")));
+            buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             container.appendChild(buttonsContainer);
           }
         }

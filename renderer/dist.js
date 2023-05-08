@@ -6481,9 +6481,9 @@
             let buttons = [];
             buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME")));
             buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS")));
-            buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button"));
             buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS")));
+            buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button"));
             container.appendChild(buttonsContainer);
           }
         }
