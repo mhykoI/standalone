@@ -4,7 +4,7 @@ let reactive;
 
 ui.vue.ready.when().then(() => {
   reactive = Vue.reactive({
-    cartItems: [],
+    cartItems: []
   })
 });
 

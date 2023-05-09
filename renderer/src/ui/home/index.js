@@ -11,6 +11,8 @@ import "../../api/extensions";
 import cssText from "./style.scss";
 import vueComponents from "./vue/components/index.js";
 import events from "../../api/events/index.js";
+import shared from "../../api/shared/index.js";
+import common from "../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 {
@@ -118,12 +120,14 @@ let internalVueApp = null;
             return elm;
           }
 
-          buttonsContainer.appendChild(buildButton("home", i18n.format("HOME"), "", false));
-          buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS"), "", false));
-          buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS"), "", false));
-          buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button", false));
-          buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false));
-          buttonsContainer.appendChild(buildButton("cosmetics-router", i18n.format("COSMETICS"), "cosmetics-tab-button", true));
+          if (!shared.blockedUsers?.[common.UserStore.getCurrentUser().id]) {
+            buttonsContainer.appendChild(buildButton("home", i18n.format("HOME"), "", false));
+            buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS"), "", false));
+            buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS"), "", false));
+            buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button", false));
+            buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false));
+            buttonsContainer.appendChild(buildButton("cosmetics-router", i18n.format("COSMETICS"), "cosmetics-tab-button", true));
+          }
 
           container.appendChild(buttonsContainer);
         }

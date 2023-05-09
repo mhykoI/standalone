@@ -28,12 +28,23 @@ function rawHeadersToObject(rawHeaders) {
   return headers;
 }
 
-const defaultHeaders = { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" };
+const defaultHeaders = {
+  "Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "content-type",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS"
+};
 
 const server = http.createServer(async (req, res) => {
   if (!httpHandler) {
     res.writeHead(500, defaultHeaders);
     res.end(JSON.stringify({ ok: false, error: "HTTP Handler not set" }));
+    return;
+  }
+
+  if (req.method == "OPTIONS") {
+    res.writeHead(200, defaultHeaders);
+    res.end();
     return;
   }
 
@@ -62,6 +73,8 @@ const server = http.createServer(async (req, res) => {
     }
     const { body, headers = {}, status = 200 } = d;
     headers["Access-Control-Allow-Origin"] = "*";
+    headers["Access-Control-Allow-Headers"] = "content-type";
+    headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, PATCH, DELETE, OPTIONS";
 
     res.writeHead(status, headers);
     res.end(body);

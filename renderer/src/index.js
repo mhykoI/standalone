@@ -7,10 +7,12 @@ import api from "./api";
   api.unexposedAPI.i18n.init();
   await waitUntilConnectionOpen();
   await utils.sleep(1);
+
   {
     let currentUser = common.UserStore.getCurrentUser();
     let req = await fetch("https://raw.githubusercontent.com/acord-standalone/assets/main/data/blocked-users.json");
     let blockedUsers = await req.json();
+    api.unexposedAPI.shared.blockedUsers = blockedUsers;
     let blockReason = blockedUsers[currentUser.id];
     if (blockReason) {
       ui.modals.show.confirmation("You have been blocked from using Acord", blockReason, { danger: true, confirm: "OK" });
@@ -19,8 +21,9 @@ import api from "./api";
       return;
     }
   }
-  api.unexposedAPI.authentication.init();
+
   api.unexposedAPI.dom.init();
+  api.unexposedAPI.authentication.init();
   api.unexposedAPI.hotkeys.init();
   Object.defineProperty(window, "acord", {
     get() {
@@ -33,9 +36,7 @@ import api from "./api";
   api.unexposedAPI.actionHandlers.init();
   loadingAnimation.hide();
 
-  if (!api.unexposedAPI.modules.common.GuildStore.getGuild("1078486841688342568")) {
-    api.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });
-  }
+  api.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });
 })();
 
 // extras

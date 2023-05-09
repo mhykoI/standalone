@@ -36,8 +36,8 @@ const out = {
   format(key, ...args) {
     return utils.format(out.get(key), ...args);
   },
-  init() {
-    check();
+  async init() {
+    await check();
   }
 }
 
