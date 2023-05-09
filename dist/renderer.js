@@ -5517,7 +5517,7 @@
             paymentOk() {
               this.paymentPageUrl = "";
               this.inCheckout = false;
-              reactive.cartItems = [];
+              reactive.cartItems.splice(0, reactive.cartItems.length);
               events_default.emit("CosmeticsSubPageChange", { name: "landing" });
             },
             goBack() {
@@ -7011,7 +7011,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.414";
+  var CURRENT_VERSION = "0.1.415";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

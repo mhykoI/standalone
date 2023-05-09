@@ -5517,7 +5517,7 @@
             paymentOk() {
               this.paymentPageUrl = "";
               this.inCheckout = false;
-              reactive.cartItems = [];
+              reactive.cartItems.splice(0, reactive.cartItems.length);
               events_default.emit("CosmeticsSubPageChange", { name: "landing" });
             },
             goBack() {
