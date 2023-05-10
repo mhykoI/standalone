@@ -5653,8 +5653,8 @@
             i18nFormat: i18n_default.format,
             async fetchItems() {
               let data = await (await fetch("https://api.acord.app/store/featured", { cache: "no-store" })).json();
-              this.mainFeaturedItems = data.data.main;
-              this.otherFeaturedItems = data.data.other;
+              this.mainFeaturedItems = data.data.main.sort((a, b) => b.view_order - a.view_order);
+              this.otherFeaturedItems = data.data.other.sort((a, b) => b.view_order - a.view_order);
             }
           }
         }
@@ -7011,7 +7011,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.416";
+  var CURRENT_VERSION = "0.1.417";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

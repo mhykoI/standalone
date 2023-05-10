@@ -5653,8 +5653,8 @@
             i18nFormat: i18n_default.format,
             async fetchItems() {
               let data = await (await fetch("https://api.acord.app/store/featured", { cache: "no-store" })).json();
-              this.mainFeaturedItems = data.data.main;
-              this.otherFeaturedItems = data.data.other;
+              this.mainFeaturedItems = data.data.main.sort((a, b) => b.view_order - a.view_order);
+              this.otherFeaturedItems = data.data.other.sort((a, b) => b.view_order - a.view_order);
             }
           }
         }
