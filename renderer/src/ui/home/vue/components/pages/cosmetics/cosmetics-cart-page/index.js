@@ -43,7 +43,7 @@ export default {
               </div>
               <div class="total">
                 <div class="line">
-                  <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺
+                  <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺ ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                 </div>
                 <strong class="line">
                   {{i18nFormat("COSMETICS_KDV_INCLUDED")}}
@@ -93,7 +93,7 @@ export default {
                 <div class="price-line">
                   <div class="label">{{i18nFormat("COSMETICS_TOTAL")}}:</div>
                   <div class="price">
-                    {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺
+                    {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺ ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                   </div>
                 </div>
                 <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}">
@@ -149,11 +149,16 @@ export default {
             this.inCheckout = true;
           },
           async onCheckoutSubmit(e) {
+            e.preventDefault();
+            let usdTotal = this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0);
+            if (usdTotal < 1 && this.buyerData.buyer_country !== "Turkey") {
+              ui.notifications.show.error(i18n.format("COSMETICS_MINIMUM_USD"));
+              return;
+            }
             if (this.paymentPageUrl) {
               internal.openExternal(this.paymentPageUrl);
               return;
             }
-            e.preventDefault();
             if (this.paymentLoading) return;
             this.paymentLoading = true;
             let req = await fetch(
