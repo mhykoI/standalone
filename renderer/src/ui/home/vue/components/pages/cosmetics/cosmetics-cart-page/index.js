@@ -142,8 +142,9 @@ export default {
           paymentOk() {
             this.paymentPageUrl = "";
             this.inCheckout = false;
-            reactive.cartItems.splice(0, reactive.cartItems.length);
+            this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
             events.emit("CosmeticsSubPageChange", { name: "landing" });
+            this.fetchOldPayments();
           },
           goBack() {
             if (this.inCheckout) {
@@ -201,7 +202,7 @@ export default {
             this.paymentPageUrl = res.data.payment_page_url;
             this.paymentLoading = false;
             internal.openExternal(this.paymentPageUrl);
-            this.reactive.cartItems.splice(0, reactive.cartItems.length);
+            this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
             this.buyerData = {
               buyer_name: '',
               buyer_surname: '',
@@ -215,7 +216,7 @@ export default {
             this.inCheckout = false;
             setTimeout(() => {
               this.fetchOldPayments();
-            }, 3000);
+            }, 1000);
           }
         }
       }
