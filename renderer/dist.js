@@ -5474,7 +5474,7 @@
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_COUNTRY")}}:</div>
-                  <select v-model="buyerData.buyer_country" required tabindex="8" >
+                  <select v-model="buyerData.buyer_country" required tabindex="8"  @change="onCountryChange">
                     <option value="" disabled selected>{{i18nFormat("SELECT")}}</option>
                     <option v-for="country in countries" :key="country" :value="country">{{country}}</option>
                   </select>
@@ -5482,7 +5482,7 @@
                 <div class="price-line">
                   <div class="label">{{i18nFormat("COSMETICS_TOTAL")}}:</div>
                   <div class="price">
-                    {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}\u20BA ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
+                    {{(buyerData.buyer_country === "Turkey" || !buyerData.buyer_country) ? reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2) : (reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0) + ((buyerData.buyer_country === "Turkey" || !buyerData.buyer_country) ? 0 : 0.5)).toFixed(2)}}{{(buyerData.buyer_country === "Turkey" || !buyerData.buyer_country) ? "\u20BA" : "$"}}
                   </div>
                 </div>
                 <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}" tabindex="9">
@@ -5550,10 +5550,15 @@
               }).then((res) => res.json());
               this.oldPayments = list?.data.reverse() ?? [];
             },
+            async onCountryChange() {
+              if (this.buyerData.buyer_country !== "Turkey") {
+                ui_default.notifications.show.error(i18n_default.format("EXTRA_COMMISSION"), { timeout: 8e3 });
+              }
+            },
             async onCheckoutSubmit(e) {
               e.preventDefault();
               let usdTotal = this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0);
-              if (usdTotal < 1 && this.buyerData.buyer_country !== "Turkey") {
+              if (usdTotal < 0.5 && this.buyerData.buyer_country !== "Turkey") {
                 ui_default.notifications.show.error(i18n_default.format("COSMETICS_MINIMUM_USD"));
                 return;
               }
