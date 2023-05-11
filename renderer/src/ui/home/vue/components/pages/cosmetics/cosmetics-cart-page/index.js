@@ -57,35 +57,35 @@ export default {
               <form @submit="onCheckoutSubmit" class="checkout-form">
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_NAME")}}:</div>
-                  <input v-model="buyerData.buyer_name" type="text" required />
+                  <input v-model="buyerData.buyer_name" type="text" required tabindex="1"/>
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_SURNAME")}}:</div>
-                  <input v-model="buyerData.buyer_surname" type="text" required />
+                  <input v-model="buyerData.buyer_surname" type="text" required tabindex="2" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_MAIL")}}:</div>
-                  <input v-model="buyerData.buyer_mail" type="email" required />
+                  <input v-model="buyerData.buyer_mail" type="email" required tabindex="3" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_GSM_NO")}}:</div>
-                  <input v-model="buyerData.buyer_gsm_no" type="tel" required />
+                  <input v-model="buyerData.buyer_gsm_no" type="tel" required tabindex="4" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_ADDRESS")}}:</div>
-                  <input v-model="buyerData.buyer_address" type="text" required />
+                  <input v-model="buyerData.buyer_address" type="text" required tabindex="5" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_CITY")}}:</div>
-                  <input v-model="buyerData.buyer_city" type="text" required />
+                  <input v-model="buyerData.buyer_city" type="text" required tabindex="6" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_DISTRICT")}}:</div>
-                  <input v-model="buyerData.buyer_district" type="text" required />
+                  <input v-model="buyerData.buyer_district" type="text" required tabindex="7" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_COUNTRY")}}:</div>
-                  <select v-model="buyerData.buyer_country" required>
+                  <select v-model="buyerData.buyer_country" required tabindex="8" >
                     <option value="" disabled selected>{{i18nFormat("SELECT")}}</option>
                     <option v-for="country in countries" :key="country" :value="country">{{country}}</option>
                   </select>
@@ -96,7 +96,7 @@ export default {
                     {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺ ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                   </div>
                 </div>
-                <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}">
+                <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}" tabindex="9">
                   {{i18nFormat(paymentLoading ? "LOADING" : "COSMETICS_CHECKOUT")}}
                 </button>
               </form>
