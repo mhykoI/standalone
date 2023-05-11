@@ -3,6 +3,7 @@ import i18n from "../../../../../../../api/i18n/index.js";
 import cssText from "./style.scss";
 import cosmeticsData from "../cosmetics-data.js";
 import authentication from "../../../../../../../api/authentication/index.js";
+import events from "../../../../../../../api/events/index.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -32,10 +33,18 @@ export default {
               </div>
             </div>
             <div class="other-featured-items">
-              <div class="item" v-for="item in otherFeaturedItems" :key="item.id" :style="\`background-image: url('\${item.image[0]}');\`">
-                <div class="name">{{item.name}}</div>
-                <div class="price-card">
-                  <cosmetics-price-card :item="item" :small="true" />
+              <cosmetics-item-card v-for="item in otherFeaturedItems" :item="item" :key="item.id" />
+            </div>
+            <div class="other-page-buttons">
+              <div class="title">
+                {{i18nFormat('COSMETICS_OTHER')}}
+              </div>
+              <div class="buttons">
+                <div class="button items" @click="gotoItemsPage('items')" style="background-image: url('https://media.discordapp.net/attachments/756836048251650079/1106226686527275068/Items.png');">
+                  <div class="title">{{i18nFormat('COSMETICS_ITEMS')}}</div>
+                </div>
+                <div class="button packs" @click="gotoItemsPage('packs')" style="background-image: url('https://media.discordapp.net/attachments/756836048251650079/1106267998722994196/Packs.png');">
+                  <div class="title">{{i18nFormat('COSMETICS_PACKS')}}</div>
                 </div>
               </div>
             </div>
@@ -78,8 +87,11 @@ export default {
           i18nFormat: i18n.format,
           async fetchItems() {
             let data = await (await fetch("https://api.acord.app/store/featured", { cache: "no-store" })).json();
-            this.mainFeaturedItems = data.data.main.sort((a,b) => b.view_order - a.view_order);
-            this.otherFeaturedItems = data.data.other.sort((a,b) => b.view_order - a.view_order);
+            this.mainFeaturedItems = data.data.main.sort((a, b) => b.view_order - a.view_order);
+            this.otherFeaturedItems = data.data.other.sort((a, b) => b.view_order - a.view_order);
+          },
+          gotoItemsPage(type) {
+            events.emit("CosmeticsSubPageChange", { name: "items", data: { type }, hideNav: true });
           }
         }
       }

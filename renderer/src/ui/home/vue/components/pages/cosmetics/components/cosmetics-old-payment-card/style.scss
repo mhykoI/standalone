@@ -1,0 +1,77 @@
+.acord--cosmetics-old-payment-card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+
+  & > .top {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+    gap: 8px;
+
+    & > .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & > .left {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        .line {
+          font-size: 14px;
+          color: whitesmoke;
+          font-weight: 500;
+        }
+      }
+
+      & > .right {
+        display: flex;
+        cursor: pointer;
+        svg {
+          width: 24px;
+          height: 24px;
+          color: whitesmoke;
+        }
+      }
+    }
+
+    & > .bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      & > .left {
+        cursor: pointer;
+        display: flex;
+        svg {
+          width: 20px;
+          height: 20px;
+          color: whitesmoke;
+        }
+      }
+
+      & > .right {
+        font-size: 16px;
+        color: whitesmoke;
+        font-weight: 500;
+      }
+    }
+  }
+
+  & > .bottom {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .item {
+      font-size: 14px;
+      color: whitesmoke;
+    }
+  }
+}

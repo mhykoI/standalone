@@ -5176,7 +5176,7 @@
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-cart-page/style.scss
   var style_default14 = `
-.acord--cosmetics-cart-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-cart-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-cart-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-cart-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-cart-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-cart-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-cart-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content{display:flex;gap:16px}.acord--cosmetics-cart-page>.container>.items-content>.items{display:flex;flex-direction:column;width:100%}.acord--cosmetics-cart-page>.container>.items-content>.items .item{display:flex;width:100%;padding:16px;border-bottom:1px solid rgba(245,245,245,.25);align-items:center;justify-content:space-between}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left{align-items:center;display:flex;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .image{width:100px;height:75px;background-position:center;background-size:contain;background-repeat:no-repeat;border-radius:4px;background-color:rgba(0,0,0,.15)}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .name{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.right{display:flex}.acord--cosmetics-cart-page>.container>.items-content>.total{width:240px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.items-content>.total .line{font-size:18px;color:#f5f5f5;border-bottom:1px solid rgba(245,245,245,.25);padding:8px}.acord--cosmetics-cart-page>.container>.items-content>.total .line.total-price{font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total .checkout-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.25);margin-top:32px;text-align:center}.acord--cosmetics-cart-page>.container>.items-content>.total .checkout-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.items-content>.total .checkout-button.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.checkout-content{display:flex;align-items:flex-start;justify-content:center}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form{width:350px}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line>.label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select{padding:4px 8px;border-radius:4px;background-color:rgba(0,0,0,.25);color:#f5f5f5;font-size:14px;border:none;outline:none;box-shadow:0 0 8px rgba(0,0,0,.25);width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input option,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select option{color:#000}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .price{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:32px;text-align:center;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button.disabled{opacity:.5;pointer-events:none}`;
+.acord--cosmetics-cart-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-cart-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-cart-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-cart-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-cart-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-cart-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-cart-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content{display:flex;gap:16px}.acord--cosmetics-cart-page>.container>.items-content>.items{display:flex;flex-direction:column;width:100%}.acord--cosmetics-cart-page>.container>.items-content>.items .item{display:flex;width:100%;padding:16px;border-bottom:1px solid rgba(245,245,245,.25);align-items:center;justify-content:space-between}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left{align-items:center;display:flex;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .image{width:100px;height:75px;background-position:center;background-size:contain;background-repeat:no-repeat;border-radius:4px;background-color:rgba(0,0,0,.15)}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .name{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.right{display:flex}.acord--cosmetics-cart-page>.container>.items-content>.total{width:240px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line{font-size:18px;color:#f5f5f5;border-bottom:1px solid rgba(245,245,245,.25);padding:8px}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line.total-price{font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.25);margin-top:32px;text-align:center}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments{margin-top:16px;display:flex;flex-direction:column;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.title{font-size:16px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.items{display:flex;flex-direction:column;gap:8px;margin-top:8px}.acord--cosmetics-cart-page>.container>.checkout-content{display:flex;align-items:flex-start;justify-content:center}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form{width:350px}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line>.label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select{padding:4px 8px;border-radius:4px;background-color:rgba(0,0,0,.25);color:#f5f5f5;font-size:14px;border:none;outline:none;box-shadow:0 0 8px rgba(0,0,0,.25);width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input option,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select option{color:#000}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .price{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:32px;text-align:center;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button.disabled{opacity:.5;pointer-events:none}`;
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-data.js
   var reactive2;
@@ -5425,14 +5425,20 @@
                 </div>
               </div>
               <div class="total">
-                <div class="line">
+                <div class="info-line">
                   <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}\u20BA ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                 </div>
-                <strong class="line">
+                <strong class="info-line">
                   {{i18nFormat("COSMETICS_KDV_INCLUDED")}}
                 </strong>
                 <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length}">
                   {{i18nFormat("COSMETICS_CHECKOUT")}}
+                </div>
+                <div class="old-payments">
+                  <div class="title">{{i18nFormat("COSMETICS_OLD_PAYMENTS")}}</div>
+                  <div class="items">
+                    <cosmetics-old-payment-card v-for="item in oldPayments" :item="item" :key="item.id" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -5440,35 +5446,35 @@
               <form @submit="onCheckoutSubmit" class="checkout-form">
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_NAME")}}:</div>
-                  <input v-model="buyerData.buyer_name" type="text" required />
+                  <input v-model="buyerData.buyer_name" type="text" required tabindex="1"/>
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_SURNAME")}}:</div>
-                  <input v-model="buyerData.buyer_surname" type="text" required />
+                  <input v-model="buyerData.buyer_surname" type="text" required tabindex="2" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_MAIL")}}:</div>
-                  <input v-model="buyerData.buyer_mail" type="email" required />
+                  <input v-model="buyerData.buyer_mail" type="email" required tabindex="3" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_GSM_NO")}}:</div>
-                  <input v-model="buyerData.buyer_gsm_no" type="tel" required />
+                  <input v-model="buyerData.buyer_gsm_no" type="tel" required tabindex="4" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_ADDRESS")}}:</div>
-                  <input v-model="buyerData.buyer_address" type="text" required />
+                  <input v-model="buyerData.buyer_address" type="text" required tabindex="5" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_CITY")}}:</div>
-                  <input v-model="buyerData.buyer_city" type="text" required />
+                  <input v-model="buyerData.buyer_city" type="text" required tabindex="6" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_DISTRICT")}}:</div>
-                  <input v-model="buyerData.buyer_district" type="text" required />
+                  <input v-model="buyerData.buyer_district" type="text" required tabindex="7" />
                 </div>
                 <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_COUNTRY")}}:</div>
-                  <select v-model="buyerData.buyer_country" required>
+                  <select v-model="buyerData.buyer_country" required tabindex="8" >
                     <option value="" disabled selected>{{i18nFormat("SELECT")}}</option>
                     <option v-for="country in countries" :key="country" :value="country">{{country}}</option>
                   </select>
@@ -5479,7 +5485,7 @@
                     {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}\u20BA ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                   </div>
                 </div>
-                <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}">
+                <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}" tabindex="9">
                   {{i18nFormat(paymentLoading ? "LOADING" : "COSMETICS_CHECKOUT")}}
                 </button>
               </form>
@@ -5490,6 +5496,7 @@
           data() {
             return {
               reactive: cosmetics_data_default.reactive,
+              oldPayments: [],
               inCheckout: false,
               paymentLoading: false,
               buyerData: {
@@ -5507,6 +5514,7 @@
             };
           },
           mounted() {
+            this.fetchOldPayments();
             events_default.on("CosmeticsPaymentOk", this.paymentOk);
           },
           unmounted() {
@@ -5531,6 +5539,15 @@
               if (this.inCheckout)
                 return;
               this.inCheckout = true;
+            },
+            async fetchOldPayments() {
+              const list = await fetch("https://api.acord.app/store/payment/list", {
+                method: "GET",
+                headers: {
+                  "x-acord-token": authentication_default.token
+                }
+              }).then((res) => res.json());
+              this.oldPayments = list?.data ?? [];
             },
             async onCheckoutSubmit(e) {
               e.preventDefault();
@@ -5570,6 +5587,19 @@
               this.paymentPageUrl = res.data.payment_page_url;
               this.paymentLoading = false;
               internal_default.openExternal(this.paymentPageUrl);
+              reactive.cartItems.splice(0, reactive.cartItems.length);
+              this.buyerData = {
+                buyer_name: "",
+                buyer_surname: "",
+                buyer_mail: "",
+                buyer_gsm_no: "",
+                buyer_address: "",
+                buyer_city: "",
+                buyer_country: "",
+                buyer_district: ""
+              };
+              this.inCheckout = false;
+              this.fetchOldPayments();
             }
           }
         }
@@ -5579,7 +5609,7 @@
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-landing-page/style.scss
   var style_default15 = `
-.acord--cosmetics-landing-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-landing-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--cosmetics-landing-page>.container>.featured-container{width:100%;height:400px;border-radius:8px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.featured-container .name{position:absolute;top:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.featured-container .page{position:absolute;bottom:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:14px;font-weight:600;color:#f5f5f5;opacity:.75}.acord--cosmetics-landing-page>.container>.featured-container .control{position:absolute;display:flex;cursor:pointer;background-color:rgba(0,0,0,.5);border-radius:50%;padding:8px}.acord--cosmetics-landing-page>.container>.featured-container .control:hover{background-color:rgba(0,0,0,.75)}.acord--cosmetics-landing-page>.container>.featured-container .control svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.featured-container .control.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-landing-page>.container>.featured-container .previous{top:50%;left:16px;transform:translateY(-50%)}.acord--cosmetics-landing-page>.container>.featured-container .next{top:50%;right:16px;transform:translateY(-50%)}.acord--cosmetics-landing-page>.container>.featured-container .price-card{display:flex;position:absolute;bottom:16px;right:16px}.acord--cosmetics-landing-page>.container>.other-featured-items{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}.acord--cosmetics-landing-page>.container>.other-featured-items .item{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.other-featured-items .item .name{position:absolute;top:8px;left:8px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.other-featured-items .item .price-card{display:flex;position:absolute;bottom:8px;right:8px}`;
+.acord--cosmetics-landing-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-landing-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--cosmetics-landing-page>.container>.featured-container{width:100%;height:400px;border-radius:8px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.featured-container .name{position:absolute;top:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.featured-container .page{position:absolute;bottom:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:14px;font-weight:600;color:#f5f5f5;opacity:.75}.acord--cosmetics-landing-page>.container>.featured-container .control{position:absolute;display:flex;cursor:pointer;background-color:rgba(0,0,0,.5);border-radius:50%;padding:8px}.acord--cosmetics-landing-page>.container>.featured-container .control:hover{background-color:rgba(0,0,0,.75)}.acord--cosmetics-landing-page>.container>.featured-container .control svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.featured-container .control.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-landing-page>.container>.featured-container .previous{top:50%;left:16px;transform:translateY(-50%)}.acord--cosmetics-landing-page>.container>.featured-container .next{top:50%;right:16px;transform:translateY(-50%)}.acord--cosmetics-landing-page>.container>.featured-container .price-card{display:flex;position:absolute;bottom:16px;right:16px}.acord--cosmetics-landing-page>.container>.other-featured-items{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}.acord--cosmetics-landing-page>.container>.other-featured-items .item{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.other-featured-items .item .name{position:absolute;top:8px;left:8px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.other-featured-items .item .price-card{display:flex;position:absolute;bottom:8px;right:8px}.acord--cosmetics-landing-page>.container>.other-page-buttons{display:flex;flex-direction:column;gap:16px;margin-top:16px}.acord--cosmetics-landing-page>.container>.other-page-buttons>.title{width:100%;display:flex;justify-content:center;align-items:center;font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.other-page-buttons>.buttons{display:flex;gap:16px;width:100%}.acord--cosmetics-landing-page>.container>.other-page-buttons>.buttons .button{width:100%;height:250px;cursor:pointer;border-radius:8px;background-position:center;background-size:cover;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.other-page-buttons>.buttons .button>.title{position:absolute;top:32px;left:32px;border-radius:8px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:20px;font-weight:600;color:#f5f5f5}`;
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-landing-page/index.js
   patcher_default.injectCSS(style_default15);
@@ -5610,10 +5640,18 @@
               </div>
             </div>
             <div class="other-featured-items">
-              <div class="item" v-for="item in otherFeaturedItems" :key="item.id" :style="\`background-image: url('\${item.image[0]}');\`">
-                <div class="name">{{item.name}}</div>
-                <div class="price-card">
-                  <cosmetics-price-card :item="item" :small="true" />
+              <cosmetics-item-card v-for="item in otherFeaturedItems" :item="item" :key="item.id" />
+            </div>
+            <div class="other-page-buttons">
+              <div class="title">
+                {{i18nFormat('COSMETICS_OTHER')}}
+              </div>
+              <div class="buttons">
+                <div class="button items" @click="gotoItemsPage('items')" style="background-image: url('https://media.discordapp.net/attachments/756836048251650079/1106226686527275068/Items.png');">
+                  <div class="title">{{i18nFormat('COSMETICS_ITEMS')}}</div>
+                </div>
+                <div class="button packs" @click="gotoItemsPage('packs')" style="background-image: url('https://media.discordapp.net/attachments/756836048251650079/1106267998722994196/Packs.png');">
+                  <div class="title">{{i18nFormat('COSMETICS_PACKS')}}</div>
                 </div>
               </div>
             </div>
@@ -5660,6 +5698,9 @@
               let data = await (await fetch("https://api.acord.app/store/featured", { cache: "no-store" })).json();
               this.mainFeaturedItems = data.data.main.sort((a, b) => b.view_order - a.view_order);
               this.otherFeaturedItems = data.data.other.sort((a, b) => b.view_order - a.view_order);
+            },
+            gotoItemsPage(type) {
+              events_default.emit("CosmeticsSubPageChange", { name: "items", data: { type }, hideNav: true });
             }
           }
         }
@@ -5669,7 +5710,7 @@
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-router-page/style.scss
   var style_default16 = `
-.acord--cosmetics-router-page{display:flex;align-items:center;justify-content:flex-start;flex-direction:column;width:100%;min-height:100vh;background-image:linear-gradient(to bottom, hsl(258deg, 50%, 50%), hsl(290deg, 50%, 50%));padding:32px 16px;gap:16px}.acord--cosmetics-router-page>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-router-page>.nav>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-router-page>.nav>.cart-button{padding:8px;display:flex;border-radius:4px;background-color:rgba(245,245,245,.25);cursor:pointer;position:relative}.acord--cosmetics-router-page>.nav>.cart-button .count{display:flex;position:absolute;top:-4px;right:-4px;background-color:#f04747;color:#f5f5f5;border-radius:50%;width:16px;height:16px;font-size:14px;align-items:center;justify-content:center}.acord--cosmetics-router-page>.nav>.cart-button svg{width:24px;height:24px;color:#f5f5f5}`;
+.acord--cosmetics-router-page{display:flex;align-items:center;justify-content:flex-start;flex-direction:column;width:100%;min-height:100vh;background-image:linear-gradient(to bottom, hsl(258deg, 50%, 50%), hsl(290deg, 50%, 50%));padding:32px 16px;gap:16px}.acord--cosmetics-router-page>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-router-page>.nav>.title{font-size:32px;font-weight:600;color:#f5f5f5}`;
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-router-page/index.js
   patcher_default.injectCSS(style_default16);
@@ -5683,12 +5724,7 @@
         <div class="acord--cosmetics-router-page">
           <div v-if="!page.hideNav" class="nav">
             <div class="title">{{i18nFormat("ACORD_COSMETICS_SHOP")}}</div>
-            <div class="cart-button" @click="page = { name: 'cart', data: {}, hideNav: true }">
-              <div v-if="reactive.cartItems.length" class="count">{{reactive.cartItems.length}}</div>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12.0049 2C15.3186 2 18.0049 4.68629 18.0049 8V9H22.0049V11H20.8379L20.0813 20.083C20.0381 20.6013 19.6048 21 19.0847 21H4.92502C4.40493 21 3.97166 20.6013 3.92847 20.083L3.17088 11H2.00488V9H6.00488V8C6.00488 4.68629 8.69117 2 12.0049 2ZM18.8309 11H5.17788L5.84488 19H18.1639L18.8309 11ZM13.0049 13V17H11.0049V13H13.0049ZM9.00488 13V17H7.00488V13H9.00488ZM17.0049 13V17H15.0049V13H17.0049ZM12.0049 4C9.86269 4 8.1138 5.68397 8.00978 7.80036L8.00488 8V9H16.0049V8C16.0049 5.8578 14.3209 4.10892 12.2045 4.0049L12.0049 4Z"></path>
-              </svg>
-            </div>
+            <cosmetics-cart-button />
           </div>
           <keep-alive>
             <component :is="\`cosmetics-\${page.name}-page\`" :page-data="page.data" />
@@ -5708,6 +5744,7 @@
             i18nFormat: i18n_default.format,
             onCosmeticsSubPageChange({ name: name2, data = {}, hideNav = false } = {}) {
               this.page = { name: name2, data, hideNav };
+              this.$el.scrollIntoView();
             }
           },
           unmounted() {
@@ -5718,12 +5755,149 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-price-card/style.scss
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-cart-button/style.scss
   var style_default17 = `
+.acord--cosmetics-cart-button{padding:8px;display:flex;border-radius:4px;background-color:rgba(245,245,245,.25);cursor:pointer;position:relative}.acord--cosmetics-cart-button .count{display:flex;position:absolute;top:-4px;right:-4px;background-color:#f04747;color:#f5f5f5;border-radius:50%;width:16px;height:16px;font-size:14px;align-items:center;justify-content:center}.acord--cosmetics-cart-button svg{width:24px;height:24px;color:#f5f5f5}`;
+
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-cart-button/index.js
+  patcher_default.injectCSS(style_default17);
+  var cosmetics_cart_button_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "cosmetics-cart-button",
+        {
+          template: `
+        <div class="acord--cosmetics-cart-button" @click="go">
+          <div v-if="reactive.cartItems.length" class="count">{{reactive.cartItems.length}}</div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12.0049 2C15.3186 2 18.0049 4.68629 18.0049 8V9H22.0049V11H20.8379L20.0813 20.083C20.0381 20.6013 19.6048 21 19.0847 21H4.92502C4.40493 21 3.97166 20.6013 3.92847 20.083L3.17088 11H2.00488V9H6.00488V8C6.00488 4.68629 8.69117 2 12.0049 2ZM18.8309 11H5.17788L5.84488 19H18.1639L18.8309 11ZM13.0049 13V17H11.0049V13H13.0049ZM9.00488 13V17H7.00488V13H9.00488ZM17.0049 13V17H15.0049V13H17.0049ZM12.0049 4C9.86269 4 8.1138 5.68397 8.00978 7.80036L8.00488 8V9H16.0049V8C16.0049 5.8578 14.3209 4.10892 12.2045 4.0049L12.0049 4Z"></path>
+          </svg>
+        </div>
+        `,
+          data() {
+            return {
+              reactive: cosmetics_data_default.reactive
+            };
+          },
+          methods: {
+            go() {
+              events_default.emit("CosmeticsSubPageChange", { name: "cart", data: {}, hideNav: true });
+            }
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-item-card/style.scss
+  var style_default18 = `
+.acord--cosmetics-item-card{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-item-card .name{position:absolute;top:8px;left:8px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-item-card .price-card{display:flex;position:absolute;bottom:8px;right:8px}`;
+
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-item-card/index.js
+  patcher_default.injectCSS(style_default18);
+  var cosmetics_item_card_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "cosmetics-item-card",
+        {
+          template: `
+          <div class="acord--cosmetics-item-card" :style="\`background-image: url('\${item.image[0]}');\`">
+            <div class="name">{{item.name}}</div>
+            <div class="price-card">
+              <cosmetics-price-card :item="item" :small="true" />
+            </div>
+          </div>
+        `,
+          props: ["item"]
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-old-payment-card/style.scss
+  var style_default19 = `
+.acord--cosmetics-old-payment-card{display:flex;flex-direction:column;background-color:rgba(0,0,0,.1);border-radius:4px}.acord--cosmetics-old-payment-card>.top{display:flex;flex-direction:column;background-color:rgba(0,0,0,.1);padding:8px;border-radius:4px;gap:8px}.acord--cosmetics-old-payment-card>.top>.top{display:flex;align-items:center;justify-content:space-between}.acord--cosmetics-old-payment-card>.top>.top>.left{display:flex;flex-direction:column;gap:2px}.acord--cosmetics-old-payment-card>.top>.top>.left .line{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-old-payment-card>.top>.top>.right{display:flex;cursor:pointer}.acord--cosmetics-old-payment-card>.top>.top>.right svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-old-payment-card>.top>.bottom{display:flex;align-items:center;justify-content:space-between}.acord--cosmetics-old-payment-card>.top>.bottom>.left{cursor:pointer;display:flex}.acord--cosmetics-old-payment-card>.top>.bottom>.left svg{width:20px;height:20px;color:#f5f5f5}.acord--cosmetics-old-payment-card>.top>.bottom>.right{font-size:16px;color:#f5f5f5;font-weight:500}.acord--cosmetics-old-payment-card>.bottom{padding:8px;display:flex;flex-direction:column;gap:2px}.acord--cosmetics-old-payment-card>.bottom .item{font-size:14px;color:#f5f5f5}`;
+
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-old-payment-card/index.js
+  patcher_default.injectCSS(style_default19);
+  var cosmetics_old_payment_card_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "cosmetics-old-payment-card",
+        {
+          template: `
+        <div class="acord--cosmetics-old-payment-card">
+          <div class="top">
+            <div class="top">
+              <div class="left">
+                <div class="line">{{i18nFormat("COSMETICS_NUM_PACKS", item.packs.length)}}</div>
+                <div class="line">{{i18nFormat("COSMETICS_NUM_ITEMS", item.items.length)}}</div>
+              </div>
+              <div class="right">
+                <div v-if="!item.fulfilled" @click="onOldPaymentAction(item)" class="action" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('COSMETICS_GOTO_PAYMENT')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM12 11H8V13H12V16L16 12L12 8V11Z"></path>
+                  </svg>
+                </div>
+                <div v-else class="action" @click="onOldPaymentAction(item)" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('COSMETICS_PAYMENT_DONE')">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M11.602 13.7599L13.014 15.1719L21.4795 6.7063L22.8938 8.12051L13.014 18.0003L6.65 11.6363L8.06421 10.2221L10.189 12.3469L11.6025 13.7594L11.602 13.7599ZM11.6037 10.9322L16.5563 5.97949L17.9666 7.38977L13.014 12.3424L11.6037 10.9322ZM8.77698 16.5873L7.36396 18.0003L1 11.6363L2.41421 10.2221L3.82723 11.6352L3.82604 11.6363L8.77698 16.5873Z"></path>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="bottom">
+              <div class="left">
+                <div class="expand" @click="expanded = !expanded">
+                  <svg v-if="!expanded" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M11.9997 13.1714L16.9495 8.22168L18.3637 9.63589L11.9997 15.9999L5.63574 9.63589L7.04996 8.22168L11.9997 13.1714Z"></path>
+                  </svg>
+                  <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M11.9997 10.8284L7.04996 15.7782L5.63574 14.364L11.9997 8L18.3637 14.364L16.9495 15.7782L11.9997 10.8284Z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div class="right">
+                {{item.total_price ?? i18nFormat("UNKNOWN")}}{{item.total_price ? (item.currency === "try" ? "\u20BA" : "$") : ""}}
+              </div>
+            </div>
+          </div>
+          <div class="bottom" v-if="expanded">
+            <div class="item" v-for="i in item.packs">
+              {{i.name}}
+            </div>
+            <div class="item" v-for="i in item.items">
+              {{i.name}}
+            </div>
+          </div>
+        </div>
+        `,
+          props: ["item"],
+          data() {
+            return {
+              expanded: false
+            };
+          },
+          methods: {
+            i18nFormat: i18n_default.format,
+            onOldPaymentAction(item) {
+              internal_default.openExternal(item.payment_page_url);
+            }
+          }
+        }
+      );
+    }
+  };
+
+  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-price-card/style.scss
+  var style_default20 = `
 .acord--cosmetics-price-card{display:flex;align-items:center;gap:4px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px}.acord--cosmetics-price-card .text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.acord--cosmetics-price-card .text .usd{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-price-card .text .try{font-size:16px;font-weight:500;color:rgba(245,245,245,.75)}.acord--cosmetics-price-card .add-to-cart{cursor:pointer;display:flex}.acord--cosmetics-price-card .add-to-cart svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-price-card .add-to-cart.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-price-card.small{padding:2px 4px}.acord--cosmetics-price-card.small .text .usd{font-size:16px}.acord--cosmetics-price-card.small .text .try{font-size:12px}.acord--cosmetics-price-card.small .add-to-cart svg{width:18px;height:18px}`;
 
   // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-price-card/index.js
-  patcher_default.injectCSS(style_default17);
+  patcher_default.injectCSS(style_default20);
   var cosmetics_price_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -5773,6 +5947,77 @@
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       cosmetics_price_card_default.load(vueApp);
+      cosmetics_old_payment_card_default.load(vueApp);
+      cosmetics_item_card_default.load(vueApp);
+      cosmetics_cart_button_default.load(vueApp);
+    }
+  };
+
+  // src/ui/home/vue/components/pages/cosmetics/cosmetics-items-page/style.scss
+  var style_default21 = `
+.acord--cosmetics-items-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-items-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--cosmetics-items-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-items-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-items-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-items-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-items-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-items-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-items-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-items-page .items{width:100%;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}`;
+
+  // src/ui/home/vue/components/pages/cosmetics/cosmetics-items-page/index.js
+  patcher_default.injectCSS(style_default21);
+  var cosmetics_items_page_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      vueApp.component(
+        "cosmetics-items-page",
+        {
+          template: `
+        <div class="acord--cosmetics-items-page">
+          <div class="container">
+            <div class="nav">
+              <div class="left">
+                <div class="back" @click="goBack">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
+                  </svg>
+                </div>
+                <div class="title">{{i18nFormat(pageData.type === "items" ? "COSMETICS_ITEMS" : "COSMETICS_PACKS")}}</div>
+              </div>
+              <cosmetics-cart-button />
+            </div>
+            <div class="items">
+              <cosmetics-item-card v-for="item in items" :item="item" :key="item.id" />
+            </div>
+          </div>
+        </div>
+        `,
+          props: ["pageData"],
+          data() {
+            return {
+              items: []
+            };
+          },
+          watch: {
+            pageData() {
+              this.fetchItems();
+            }
+          },
+          mounted() {
+            this.fetchItems();
+            this.updateInterval = setInterval(() => {
+              this.fetchItems();
+            }, 6e4 * 60);
+          },
+          unmounted() {
+            clearInterval(this.updateInterval);
+          },
+          methods: {
+            i18nFormat: i18n_default.format,
+            async fetchItems() {
+              this.items = [];
+              let data = await (await fetch(`https://api.acord.app/store/${this.pageData.type}?all=true`, { cache: "no-store" })).json();
+              this.items = data.data;
+            },
+            goBack() {
+              events_default.emit("CosmeticsSubPageChange", { name: "landing" });
+            }
+          }
+        }
+      );
     }
   };
 
@@ -5783,6 +6028,7 @@
       cosmetics_landing_page_default.load(vueApp);
       cosmetics_cart_page_default.load(vueApp);
       cosmetics_router_page_default.load(vueApp);
+      cosmetics_items_page_default.load(vueApp);
       components_default3.load(vueApp);
     }
   };
@@ -6071,11 +6317,11 @@
   };
 
   // src/ui/home/vue/components/components/config/style.scss
-  var style_default18 = `
+  var style_default22 = `
 .acord--config-item{width:100%;display:flex}.acord--config-row{width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:4px}.acord--config-row.horizontal-align-left{justify-content:flex-start}.acord--config-row.horizontal-align-right{justify-content:flex-end}.acord--config-row.horizontal-align-center{justify-content:center}.acord--config-row.justify-space-between{justify-content:space-between}.acord--config-row.justify-space-around{justify-content:space-around}.acord--config-row.vertical-align-top{align-items:flex-start}.acord--config-row.vertical-align-bottom{align-items:flex-end}.acord--config-column{width:100%;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:4px}.acord--config-column.horizontal-align-left{justify-content:flex-start}.acord--config-column.horizontal-align-right{justify-content:flex-end}.acord--config-column.horizontal-align-center{justify-content:center}.acord--config-column.justify-space-between{justify-content:space-between}.acord--config-column.justify-space-around{justify-content:space-around}.acord--config-column.vertical-align-top{align-items:flex-start}.acord--config-column.vertical-align-bottom{align-items:flex-end}.acord--config-column.vertical-align-center{align-items:center}.acord--config-heading{font-size:1.2rem;font-weight:500;color:#f5f5f5}.acord--config-paragraph{font-size:1rem;font-weight:400;color:rgba(245,245,245,.85)}.acord--config-check,.acord--config-button{width:fit-content}`;
 
   // src/ui/home/vue/components/components/config/index.js
-  patcher_default.injectCSS(style_default18);
+  patcher_default.injectCSS(style_default22);
   var config_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6093,11 +6339,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/style.scss
-  var style_default19 = `
+  var style_default23 = `
 @keyframes colorFlashAnimation{0%{color:var(--flash-color-1)}50%{color:var(--flash-color-2)}100%{color:var(--flash-color-1)}}.acord--installed-extension-card{width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;gap:8px;position:relative}.acord--installed-extension-card>.status-container{position:absolute;top:-9px;right:8px;border-radius:9999px;padding:8px;height:24px;display:flex;gap:6px;align-items:center;background-color:rgba(0,0,0,.25)}.acord--installed-extension-card>.status-container>.loaded-state{width:14px;height:14px;border-radius:50%;background-color:#82858f}.acord--installed-extension-card>.status-container>.loaded-state.active{background-color:#23a55a;filter:drop-shadow(0px 0px 4px #23a55a)}.acord--installed-extension-card>.status-container>.development-mode-warning{color:#f0b232;display:flex;align-items:center;justify-content:center;border-radius:50%}.acord--installed-extension-card>.status-container>.authentication-required{color:#ed4245;display:flex;align-items:center;justify-content:center;border-radius:50%;--flash-color-1: #ed4245;--flash-color-2: #000000;animation:colorFlashAnimation 1s linear infinite normal}.acord--installed-extension-card>.top{background-color:rgba(0,0,0,.25);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--installed-extension-card>.top>.left{display:flex;flex-direction:column;height:100%;gap:4px}.acord--installed-extension-card>.top>.left>.top{display:flex;align-items:flex-end;gap:4px}.acord--installed-extension-card>.top>.left>.top>.name{font-size:1.4rem;font-weight:500;color:#fff}.acord--installed-extension-card>.top>.left>.top>.version{font-size:1rem;font-weight:300;color:rgba(255,255,255,.5)}.acord--installed-extension-card>.top>.left>.bottom{display:flex;flex-direction:column;gap:8px}.acord--installed-extension-card>.top>.left>.bottom>.top{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors{display:flex;gap:2px;font-size:12px;font-weight:300;color:rgba(255,255,255,.45)}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors>.label{font-weight:500;margin-right:2px}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author{display:flex}.acord--installed-extension-card>.top>.left>.bottom>.top>.authors .author .hoverable:hover{cursor:pointer;text-decoration:underline}.acord--installed-extension-card>.top>.left>.bottom>.bottom>.description{font-size:16px;color:rgba(255,255,255,.75)}.acord--installed-extension-card>.top>.right{display:flex;height:100%;flex-direction:column;justify-content:space-between;align-items:flex-end}.acord--installed-extension-card>.top>.right>.top{display:flex}.acord--installed-extension-card>.top>.right>.top>.controls{display:flex;align-items:center;gap:8px}.acord--installed-extension-card>.top>.right>.top>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--installed-extension-card>.top>.right>.top>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--installed-extension-card>.top>.right>.top>.controls .control.uninstall:hover{color:#f23f42}.acord--installed-extension-card>.top>.right>.bottom{display:flex}.acord--installed-extension-card>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px}.acord--installed-extension-card>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--installed-extension-card>.bottom{border-radius:8px;width:100%;padding:16px}`;
 
   // src/ui/home/vue/components/components/cards/installed-extension-card/index.js
-  patcher_default.injectCSS(style_default19);
+  patcher_default.injectCSS(style_default23);
   var installed_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6268,11 +6514,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/style.scss
-  var style_default20 = `
+  var style_default24 = `
 .acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template,.acord--inventory-badge-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/index.js
-  patcher_default.injectCSS(style_default20);
+  patcher_default.injectCSS(style_default24);
   var inventory_badge_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6365,11 +6611,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/style.scss
-  var style_default21 = `
+  var style_default25 = `
 .acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template,.acord--inventory-colored-name-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
 
   // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/index.js
-  patcher_default.injectCSS(style_default21);
+  patcher_default.injectCSS(style_default25);
   var inventory_colored_name_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6422,11 +6668,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/style.scss
-  var style_default22 = `
+  var style_default26 = `
 .acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template,.acord--inventory-hat-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/index.js
-  patcher_default.injectCSS(style_default22);
+  patcher_default.injectCSS(style_default26);
   var inventory_hat_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6516,7 +6762,7 @@
   };
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
-  var style_default23 = `
+  var style_default27 = `
 .acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top{padding:16px;height:175px;overflow:auto}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-profile-music-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-profile-music-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:6px;color:#f5f5f5;opacity:.95}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line.column{flex-direction:column;align-items:flex-start;gap:2px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.small-label{font-size:10px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input{border:none;border-bottom:1px solid #f5f5f5;background-color:rgba(0,0,0,.2);padding:2px;border-radius:4px;font-size:14px;color:#f5f5f5;width:100%}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input.error{border:1px solid #f23f43}.acord--inventory-profile-music-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:flex-end;padding-right:16px;padding-bottom:16px}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/other/utils/spotify.js
@@ -6567,7 +6813,7 @@
   }
 
   // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/index.js
-  patcher_default.injectCSS(style_default23);
+  patcher_default.injectCSS(style_default27);
   var inventory_profile_music_feature_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6767,11 +7013,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/profile-card/style.scss
-  var style_default24 = `
+  var style_default28 = `
 .acord--profile-card{filter:drop-shadow(var(--elevation-medium));width:auto}.acord--profile-card>.container{display:flex;align-items:center;justify-content:center;--h: 160px;height:var(--h);width:400px;background-color:rgba(0,0,0,.1);border-radius:4px;box-shadow:var(--elevation-medium)}.acord--profile-card>.container>.left,.acord--profile-card>.container>.right{position:relative;display:flex;align-items:center;justify-content:center;height:var(--h)}.acord--profile-card>.container>.left{position:relative;width:100%}.acord--profile-card>.container>.left>.badges{position:absolute;top:8px;left:8px;display:flex;background-color:rgba(0,0,0,.1);border-radius:8px;padding:6px;gap:6px}.acord--profile-card>.container>.left>.badges .badge{width:16px;height:16px}.acord--profile-card>.container>.left>.spotify-action{position:absolute;bottom:8px;left:8px;background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--profile-card>.container>.left>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--profile-card>.container>.left .name-container{padding:0 16px;display:flex;align-items:center;justify-content:center}.acord--profile-card>.container>.left .name-container .name{font-size:28px;color:var(--header-primary);font-weight:600;text-shadow:0px 2px 4px rgba(0,0,0,.4)}.acord--profile-card>.container>.left .name-container .name.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--profile-card>.container>.right{padding:0 16px}.acord--profile-card>.container>.right>.avatar{background-size:cover;background-position:center;background-repeat:no-repeat;border-radius:50%;width:128px;height:128px;min-width:128px;min-height:128px}.acord--profile-card>.container>.right>.avatar::before{content:"";width:256px;height:256px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-64px, -64px);position:absolute;pointer-events:none}`;
 
   // src/ui/home/vue/components/components/cards/profile-card/index.js
-  patcher_default.injectCSS(style_default24);
+  patcher_default.injectCSS(style_default28);
   var profile_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -6842,11 +7088,11 @@
   };
 
   // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
-  var style_default25 = `
+  var style_default29 = `
 .acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--store-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
 
   // src/ui/home/vue/components/components/cards/store-extension-card/index.js
-  patcher_default.injectCSS(style_default25);
+  patcher_default.injectCSS(style_default29);
   var store_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
@@ -7437,11 +7683,11 @@
   );
 
   // src/ui/other/style.scss
-  var style_default26 = `
+  var style_default30 = `
 .acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="120px"]::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userAvatar-3Hwf1F::before,.avatar-2EVtgZ::before,.wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="80px"]::before,.wrapper-3Un6-K[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}`;
 
   // src/ui/other/index.js
-  patcher_default.injectCSS(style_default26);
+  patcher_default.injectCSS(style_default30);
 
   // src/index.js
   (async () => {

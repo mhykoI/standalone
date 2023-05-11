@@ -42,14 +42,20 @@ export default {
                 </div>
               </div>
               <div class="total">
-                <div class="line">
+                <div class="info-line">
                   <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺ ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                 </div>
-                <strong class="line">
+                <strong class="info-line">
                   {{i18nFormat("COSMETICS_KDV_INCLUDED")}}
                 </strong>
                 <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length}">
                   {{i18nFormat("COSMETICS_CHECKOUT")}}
+                </div>
+                <div class="old-payments">
+                  <div class="title">{{i18nFormat("COSMETICS_OLD_PAYMENTS")}}</div>
+                  <div class="items">
+                    <cosmetics-old-payment-card v-for="item in oldPayments" :item="item" :key="item.id" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -196,11 +202,19 @@ export default {
             this.paymentPageUrl = res.data.payment_page_url;
             this.paymentLoading = false;
             internal.openExternal(this.paymentPageUrl);
-            // reactive.cartItems.splice(0, reactive.cartItems.length);
-            // this.inCheckout = false;
-            // setTimeout(() => {
-            //   this.fetchOldPayments();
-            // }, 1000);
+            reactive.cartItems.splice(0, reactive.cartItems.length);
+            this.buyerData = {
+              buyer_name: '',
+              buyer_surname: '',
+              buyer_mail: '',
+              buyer_gsm_no: '',
+              buyer_address: '',
+              buyer_city: '',
+              buyer_country: '',
+              buyer_district: ''
+            };
+            this.inCheckout = false;
+            this.fetchOldPayments();
           }
         }
       }
