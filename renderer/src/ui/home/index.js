@@ -105,6 +105,7 @@ let internalVueApp = null;
 
             buttons.push(elm);
 
+            if (authRequired) elm.classList.add("auth-required");
             if (!authentication.token && authRequired) elm.classList.add("disabled");
 
             elm.setSelected = (s) => {
@@ -155,6 +156,9 @@ let internalVueApp = null;
           element.classList[connected ? "remove" : "add"]("disabled");
         }
       )
+      document.querySelectorAll(".acord--tabs-tab-button.auth-required").forEach((elm) => {
+        elm.classList[connected ? "remove" : "add"]("disabled");
+      });
     }
 
     storage.authentication.when().then(updateAuthRelatedStuff);

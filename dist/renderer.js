@@ -7263,7 +7263,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.458";
+  var CURRENT_VERSION = "0.1.459";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -7324,6 +7324,8 @@
             let buildButton = function(id, text, customClasses = "", noPadding = false, authRequired = false) {
               let elm2 = dom_default.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
               buttons.push(elm2);
+              if (authRequired)
+                elm2.classList.add("auth-required");
               if (!authentication_default.token && authRequired)
                 elm2.classList.add("disabled");
               elm2.setSelected = (s) => {
@@ -7380,6 +7382,9 @@
             element.classList[connected ? "remove" : "add"]("disabled");
           }
         );
+        document.querySelectorAll(".acord--tabs-tab-button.auth-required").forEach((elm2) => {
+          elm2.classList[connected ? "remove" : "add"]("disabled");
+        });
       }
       storage_default.authentication.when().then(updateAuthRelatedStuff);
       events_default.on("CurrentUserChange", updateAuthRelatedStuff);
