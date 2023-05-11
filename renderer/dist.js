@@ -5585,7 +5585,7 @@
               this.paymentPageUrl = res.data.payment_page_url;
               this.paymentLoading = false;
               internal_default.openExternal(this.paymentPageUrl);
-              reactive.cartItems.splice(0, reactive.cartItems.length);
+              this.reactive.cartItems.splice(0, reactive.cartItems.length);
               this.buyerData = {
                 buyer_name: "",
                 buyer_surname: "",

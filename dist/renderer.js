@@ -5585,7 +5585,7 @@
               this.paymentPageUrl = res.data.payment_page_url;
               this.paymentLoading = false;
               internal_default.openExternal(this.paymentPageUrl);
-              reactive.cartItems.splice(0, reactive.cartItems.length);
+              this.reactive.cartItems.splice(0, reactive.cartItems.length);
               this.buyerData = {
                 buyer_name: "",
                 buyer_surname: "",
@@ -7262,7 +7262,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.451";
+  var CURRENT_VERSION = "0.1.452";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
