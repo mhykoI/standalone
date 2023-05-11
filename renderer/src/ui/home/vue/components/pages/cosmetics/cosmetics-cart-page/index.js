@@ -164,7 +164,7 @@ export default {
                 "x-acord-token": authentication.token
               }
             }).then((res) => res.json());
-            this.oldPayments = list?.data ?? [];
+            this.oldPayments = list?.data.reverse() ?? [];
           },
           async onCheckoutSubmit(e) {
             e.preventDefault();
