@@ -5560,8 +5560,6 @@
                 internal_default.openExternal(this.paymentPageUrl);
                 return;
               }
-              if (this.paymentLoading)
-                return;
               this.paymentLoading = true;
               let req = await fetch(
                 "https://api.acord.app/store/payment/create-checkout-session",
@@ -5599,7 +5597,9 @@
                 buyer_district: ""
               };
               this.inCheckout = false;
-              this.fetchOldPayments();
+              setTimeout(() => {
+                this.fetchOldPayments();
+              }, 3e3);
             }
           }
         }

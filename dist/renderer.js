@@ -5560,8 +5560,6 @@
                 internal_default.openExternal(this.paymentPageUrl);
                 return;
               }
-              if (this.paymentLoading)
-                return;
               this.paymentLoading = true;
               let req = await fetch(
                 "https://api.acord.app/store/payment/create-checkout-session",
@@ -5599,7 +5597,9 @@
                 buyer_district: ""
               };
               this.inCheckout = false;
-              this.fetchOldPayments();
+              setTimeout(() => {
+                this.fetchOldPayments();
+              }, 3e3);
             }
           }
         }
@@ -7262,7 +7262,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.450";
+  var CURRENT_VERSION = "0.1.451";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
