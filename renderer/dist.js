@@ -7357,7 +7357,7 @@
               buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS"), "", false));
               buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS"), "", false));
               buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button", false, true));
-              buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button", false, true));
+              buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button", false, false));
               buttonsContainer.appendChild(buildButton("cosmetics-router", i18n_default.format("COSMETICS"), "cosmetics-tab-button", true, true));
             }
             container.appendChild(buttonsContainer);
@@ -7374,12 +7374,6 @@
           document.querySelector(".acord--connected-status"),
           (element) => {
             element.classList[connected ? "add" : "remove"]("connected");
-          }
-        );
-        utils_default.ifExists(
-          document.querySelector(".inventory-tab-button"),
-          (element) => {
-            element.classList[connected ? "remove" : "add"]("disabled");
           }
         );
         document.querySelectorAll(".acord--tabs-tab-button.auth-required").forEach((elm2) => {

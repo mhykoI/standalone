@@ -129,7 +129,7 @@ let internalVueApp = null;
             buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS"), "", false));
             buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS"), "", false));
             buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button", false, true));
-            buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false, true));
+            buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false, false));
             buttonsContainer.appendChild(buildButton("cosmetics-router", i18n.format("COSMETICS"), "cosmetics-tab-button", true, true));
           }
 
@@ -150,12 +150,6 @@ let internalVueApp = null;
           element.classList[connected ? "add" : "remove"]("connected");
         }
       );
-      utils.ifExists(
-        document.querySelector(".inventory-tab-button"),
-        (element) => {
-          element.classList[connected ? "remove" : "add"]("disabled");
-        }
-      )
       document.querySelectorAll(".acord--tabs-tab-button.auth-required").forEach((elm) => {
         elm.classList[connected ? "remove" : "add"]("disabled");
       });
