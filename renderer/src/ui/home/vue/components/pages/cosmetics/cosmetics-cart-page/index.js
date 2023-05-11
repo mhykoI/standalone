@@ -107,6 +107,7 @@ export default {
         data() {
           return {
             reactive: cosmeticsData.reactive,
+            oldPayments: [],
             inCheckout: false,
             paymentLoading: false,
             buyerData: {
@@ -124,6 +125,7 @@ export default {
           }
         },
         mounted() {
+          this.fetchOldPayments();
           events.on("CosmeticsPaymentOk", this.paymentOk);
         },
         unmounted() {
@@ -147,6 +149,15 @@ export default {
           checkout() {
             if (this.inCheckout) return;
             this.inCheckout = true;
+          },
+          async fetchOldPayments() {
+            const list = await fetch("https://api.acord.app/store/payment/list", {
+              method: "GET",
+              headers: {
+                "x-acord-token": authentication.token
+              }
+            }).then((res) => res.json());
+            this.oldPayments = list?.data ?? [];
           },
           async onCheckoutSubmit(e) {
             e.preventDefault();
@@ -185,6 +196,11 @@ export default {
             this.paymentPageUrl = res.data.payment_page_url;
             this.paymentLoading = false;
             internal.openExternal(this.paymentPageUrl);
+            // reactive.cartItems.splice(0, reactive.cartItems.length);
+            // this.inCheckout = false;
+            // setTimeout(() => {
+            //   this.fetchOldPayments();
+            // }, 1000);
           }
         }
       }
