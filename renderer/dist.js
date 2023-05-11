@@ -7321,9 +7321,11 @@
           <div class="acord--connected-status"></div>
         `;
           if (internalVueApp) {
-            let buildButton = function(id, text, customClasses = "", noPadding = false) {
+            let buildButton = function(id, text, customClasses = "", noPadding = false, authRequired = false) {
               let elm2 = dom_default.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
               buttons.push(elm2);
+              if (!authentication_default.token && authRequired)
+                elm2.classList.add("disabled");
               elm2.setSelected = (s) => {
                 if (s)
                   elm2.classList.add(headerClasses.selected, "selected");
@@ -7352,9 +7354,9 @@
               buttonsContainer.appendChild(buildButton("home", i18n_default.format("HOME"), "", false));
               buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS"), "", false));
               buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS"), "", false));
-              buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button", false));
-              buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button", false));
-              buttonsContainer.appendChild(buildButton("cosmetics-router", i18n_default.format("COSMETICS"), "cosmetics-tab-button", true));
+              buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button", false, true));
+              buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button", false, true));
+              buttonsContainer.appendChild(buildButton("cosmetics-router", i18n_default.format("COSMETICS"), "cosmetics-tab-button", true, true));
             }
             container.appendChild(buttonsContainer);
           }

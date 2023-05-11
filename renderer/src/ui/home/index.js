@@ -13,6 +13,7 @@ import vueComponents from "./vue/components/index.js";
 import events from "../../api/events/index.js";
 import shared from "../../api/shared/index.js";
 import common from "../../api/modules/common.js";
+import authentication from "../../api/authentication/index.js";
 patcher.injectCSS(cssText);
 
 {
@@ -99,10 +100,12 @@ let internalVueApp = null;
 
           let buttons = [];
 
-          function buildButton(id, text, customClasses = "", noPadding = false) {
+          function buildButton(id, text, customClasses = "", noPadding = false, authRequired = false) {
             let elm = dom.parse(`<div id="tab-button-${id}" class="acord--tabs-tab-button ${customClasses} ${tabBarClasses.item} ${headerClasses.item} ${headerClasses.themed}">${text}</div>`);
 
             buttons.push(elm);
+
+            if (!authentication.token && authRequired) elm.classList.add("disabled");
 
             elm.setSelected = (s) => {
               if (s) elm.classList.add(headerClasses.selected, "selected");
@@ -124,9 +127,9 @@ let internalVueApp = null;
             buttonsContainer.appendChild(buildButton("home", i18n.format("HOME"), "", false));
             buttonsContainer.appendChild(buildButton("extensions", i18n.format("EXTENSIONS"), "", false));
             buttonsContainer.appendChild(buildButton("settings", i18n.format("SETTINGS"), "", false));
-            buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button", false));
-            buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false));
-            buttonsContainer.appendChild(buildButton("cosmetics-router", i18n.format("COSMETICS"), "cosmetics-tab-button", true));
+            buttonsContainer.appendChild(buildButton("inventory", i18n.format("INVENTORY"), "inventory-tab-button", false, true));
+            buttonsContainer.appendChild(buildButton("store", i18n.format("STORE"), "store-tab-button", false, true));
+            buttonsContainer.appendChild(buildButton("cosmetics-router", i18n.format("COSMETICS"), "cosmetics-tab-button", true, true));
           }
 
           container.appendChild(buttonsContainer);
