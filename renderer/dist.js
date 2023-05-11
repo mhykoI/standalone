@@ -5548,7 +5548,7 @@
                   "x-acord-token": authentication_default.token
                 }
               }).then((res) => res.json());
-              this.oldPayments = list?.data ?? [];
+              this.oldPayments = list?.data.reverse() ?? [];
             },
             async onCheckoutSubmit(e) {
               e.preventDefault();

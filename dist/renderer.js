@@ -5548,7 +5548,7 @@
                   "x-acord-token": authentication_default.token
                 }
               }).then((res) => res.json());
-              this.oldPayments = list?.data ?? [];
+              this.oldPayments = list?.data.reverse() ?? [];
             },
             async onCheckoutSubmit(e) {
               e.preventDefault();
@@ -7263,7 +7263,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.456";
+  var CURRENT_VERSION = "0.1.457";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
