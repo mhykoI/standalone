@@ -280,6 +280,34 @@
         ]
       }
     },
+    "UserSettingsProtoActions": {
+      "__": true,
+      "filter": {
+        "export": false,
+        "in": "strings",
+        "by": [
+          [
+            "updateAsync",
+            "USER_SETTINGS_PROTO_UPDATE_EDIT_INFO"
+          ]
+        ]
+      },
+      "path": {
+        "before": [
+          "exports.Z",
+          "exports.ZP",
+          "exports.default",
+          "exports"
+        ],
+        "after": "UserSettingsProtoActions"
+      },
+      "map": {
+        "UserSettingsProtoActions": [
+          "beforeSendCallbacks",
+          "ProtoClass"
+        ]
+      }
+    },
     "SyntaxParser": {
       "__": true,
       "filter": {

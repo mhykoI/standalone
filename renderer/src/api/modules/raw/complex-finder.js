@@ -259,7 +259,19 @@ export function finderMap(__original__, map) {
       get() {
         if (__mapped__[key]) return __original__[__mapped__[key]];
 
-        let foundFunc = findFunctionNameByStrings(Object.entries(__original__ || {}), map[key] || []);
+        let entires = Object.entries(__original__ || {});
+
+        let foundObj = entires.find(([k, v]) => {
+          if (typeof v !== "object") return false;
+          let propNames = Object.getOwnPropertyNames(v);
+          return strings.every(string => propNames.includes(string));
+        })
+        if (foundObj) {
+          __mapped__[key] = foundObj[0];
+          return foundObj[1];
+        }
+
+        let foundFunc = findFunctionNameByStrings(entires, strings);
         if (!foundFunc?.length) return;
 
         __mapped__[key] = foundFunc[0];
