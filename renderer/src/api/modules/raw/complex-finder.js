@@ -262,7 +262,6 @@ export function finderMap(__original__, map) {
         let entires = Object.entries(__original__ || {});
 
         try {
-
           let foundObj = entires.find(([k, v]) => {
             if (typeof v !== "object") return false;
             let propNames = Object.getOwnPropertyNames(v);
