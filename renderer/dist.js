@@ -1714,15 +1714,18 @@
           if (__mapped__[key])
             return __original__[__mapped__[key]];
           let entires = Object.entries(__original__ || {});
-          let foundObj = entires.find(([k, v]) => {
-            if (typeof v !== "object")
-              return false;
-            let propNames = Object.getOwnPropertyNames(v);
-            return strings.every((string) => propNames.includes(string));
-          });
-          if (foundObj) {
-            __mapped__[key] = foundObj[0];
-            return foundObj[1];
+          try {
+            let foundObj = entires.find(([k, v]) => {
+              if (typeof v !== "object")
+                return false;
+              let propNames = Object.getOwnPropertyNames(v);
+              return strings.every((string) => propNames.includes(string));
+            });
+            if (foundObj) {
+              __mapped__[key] = foundObj[0];
+              return foundObj[1];
+            }
+          } catch {
           }
           let foundFunc = findFunctionNameByStrings(entires, strings);
           if (!foundFunc?.length)

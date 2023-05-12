@@ -1714,15 +1714,18 @@
           if (__mapped__[key])
             return __original__[__mapped__[key]];
           let entires = Object.entries(__original__ || {});
-          let foundObj = entires.find(([k, v]) => {
-            if (typeof v !== "object")
-              return false;
-            let propNames = Object.getOwnPropertyNames(v);
-            return strings.every((string) => propNames.includes(string));
-          });
-          if (foundObj) {
-            __mapped__[key] = foundObj[0];
-            return foundObj[1];
+          try {
+            let foundObj = entires.find(([k, v]) => {
+              if (typeof v !== "object")
+                return false;
+              let propNames = Object.getOwnPropertyNames(v);
+              return strings.every((string) => propNames.includes(string));
+            });
+            if (foundObj) {
+              __mapped__[key] = foundObj[0];
+              return foundObj[1];
+            }
+          } catch {
           }
           let foundFunc = findFunctionNameByStrings(entires, strings);
           if (!foundFunc?.length)
@@ -7307,7 +7310,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.468";
+  var CURRENT_VERSION = "0.1.469";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
