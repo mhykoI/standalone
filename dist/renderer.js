@@ -5552,9 +5552,7 @@
             };
           },
           mounted() {
-            let currentUser = common_default2.UserStore.getCurrentUser();
-            this.buyerData.buyer_mail = currentUser.email || "";
-            this.buyerData.buyer_gsm_no = currentUser.phone || "";
+            this.resetBuyerData();
             this.fetchOldPayments();
             events_default.on("CosmeticsPaymentOk", this.paymentOk);
           },
@@ -5563,6 +5561,19 @@
           },
           methods: {
             i18nFormat: i18n_default.format,
+            resetBuyerData() {
+              let currentUser = common_default2.UserStore.getCurrentUser();
+              this.buyerData = {
+                buyer_name: "",
+                buyer_surname: "",
+                buyer_mail: currentUser.email || "",
+                buyer_gsm_no: currentUser.phone || "",
+                buyer_address: "...",
+                buyer_city: "",
+                buyer_country: "",
+                buyer_district: ""
+              };
+            },
             paymentOk() {
               this.paymentPageUrl = "";
               this.inCheckout = false;
@@ -5633,16 +5644,7 @@
               this.paymentLoading = false;
               internal_default.openExternal(this.paymentPageUrl);
               this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
-              this.buyerData = {
-                buyer_name: "",
-                buyer_surname: "",
-                buyer_mail: "",
-                buyer_gsm_no: "",
-                buyer_address: "",
-                buyer_city: "",
-                buyer_country: "",
-                buyer_district: ""
-              };
+              this.resetBuyerData();
               this.inCheckout = false;
               setTimeout(() => {
                 this.fetchOldPayments();
@@ -7315,7 +7317,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.476";
+  var CURRENT_VERSION = "0.1.478";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
