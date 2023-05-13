@@ -1718,7 +1718,7 @@
             let foundObj = entires.find(([k, v]) => {
               if (typeof v !== "object")
                 return false;
-              let propNames = Object.getOwnPropertyNames(v);
+              let propNames = Object.getOwnPropertyNames(v || {});
               return strings.every((string) => propNames.includes(string));
             });
             if (foundObj) {
@@ -5673,12 +5673,12 @@
             <div v-if="!!featuredItem" class="featured-container" :style="\`background-image: url('\${featuredItem.image[0]}');\`">
               <div class="name">{{featuredItem.name}}</div>
               <div class="page">{{mainFeaturedItemIndex + 1}}/{{mainFeaturedItems.length}}</div>
-              <div class="control previous" :class="{'disabled': mainFeaturedItemIndex === 0}" @click="mainFeaturedItemIndex--">
+              <div class="control previous" :class="{'disabled': mainFeaturedItemIndex === 0}" @click="updateFeaturedIndex(-1)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
                 </svg>
               </div>
-              <div class="control next" :class="{'disabled': mainFeaturedItemIndex >= (mainFeaturedItems.length - 1)}" @click="mainFeaturedItemIndex++">
+              <div class="control next" :class="{'disabled': mainFeaturedItemIndex >= (mainFeaturedItems.length - 1)}" @click="updateFeaturedIndex(1)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"></path>
                 </svg>
@@ -5728,13 +5728,7 @@
             this.updateInterval = setInterval(() => {
               this.fetchItems();
             }, 6e4 * 60);
-            this.switchInterval = setInterval(() => {
-              if (this.mainFeaturedItemIndex >= this.mainFeaturedItems.length - 1) {
-                this.mainFeaturedItemIndex = 0;
-              } else {
-                this.mainFeaturedItemIndex++;
-              }
-            }, 5e3);
+            this.switchInterval = setInterval(this.switchFeaturedItem, 5e3);
           },
           unmounted() {
             clearInterval(this.updateInterval);
@@ -5749,6 +5743,18 @@
             },
             gotoItemsPage(type) {
               events_default.emit("CosmeticsSubPageChange", { name: "items", data: { type }, hideNav: true });
+            },
+            updateFeaturedIndex(amount) {
+              clearInterval(this.switchInterval);
+              this.switchInterval = setInterval(this.switchFeaturedItem, 5e3);
+              this.mainFeaturedItemIndex += amount;
+            },
+            switchFeaturedItem() {
+              if (this.mainFeaturedItemIndex >= this.mainFeaturedItems.length - 1) {
+                this.mainFeaturedItemIndex = 0;
+              } else {
+                this.mainFeaturedItemIndex++;
+              }
             }
           }
         }
