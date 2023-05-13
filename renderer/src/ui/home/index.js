@@ -249,6 +249,9 @@ function fillSVGElmWithAcordLogo(svgElm) {
   });
 })();
 
+dom.patch('.premiumTrialBadge-pEqntF.premiumTrialAcknowledgedBadge-2QxbU_', (e) => {
+  e.remove();
+});
 
 
 

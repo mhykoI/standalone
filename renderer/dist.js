@@ -7517,6 +7517,9 @@
       containerElm.replaceChildren(baseVueElm);
     });
   })();
+  dom_default.patch(".premiumTrialBadge-pEqntF.premiumTrialAcknowledgedBadge-2QxbU_", (e) => {
+    e.remove();
+  });
 
   // src/ui/other/logo.js
   var injectAcordLogo = async () => {
