@@ -179,18 +179,18 @@
           width: 100%;
 
           & > .label {
-            font-size: 18px;
+            font-size: 20px;
             color: whitesmoke;
             font-weight: 600;
           }
 
           input,
           select {
-            padding: 4px 8px;
+            padding: 8px 16px;
             border-radius: 4px;
             background-color: rgba(0, 0, 0, 0.25);
             color: whitesmoke;
-            font-size: 14px;
+            font-size: 16px;
             border: none;
             outline: none;
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.25);

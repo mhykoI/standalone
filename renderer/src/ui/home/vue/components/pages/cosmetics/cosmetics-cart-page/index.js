@@ -7,6 +7,7 @@ import countries from "./countries.json";
 import internal from "../../../../../../../api/internal/index.js";
 import authentication from "../../../../../../../api/authentication/index.js";
 import ui from "../../../../../../../api/ui/index.js";
+import common from "../../../../../../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -78,10 +79,6 @@ export default {
                   <input v-model="buyerData.buyer_gsm_no" type="tel" required tabindex="4" />
                 </div>
                 <div class="input-line">
-                  <div class="label">{{i18nFormat("BUYER_ADDRESS")}}:</div>
-                  <input v-model="buyerData.buyer_address" type="text" required tabindex="5" />
-                </div>
-                <div class="input-line">
                   <div class="label">{{i18nFormat("BUYER_CITY")}}:</div>
                   <input v-model="buyerData.buyer_city" type="text" required tabindex="6" />
                 </div>
@@ -121,7 +118,7 @@ export default {
               buyer_surname: '',
               buyer_mail: '',
               buyer_gsm_no: '',
-              buyer_address: '',
+              buyer_address: '...',
               buyer_city: '',
               buyer_country: '',
               buyer_district: ''
@@ -131,6 +128,9 @@ export default {
           }
         },
         mounted() {
+          let currentUser = common.UserStore.getCurrentUser();
+          this.buyerData.buyer_mail = currentUser.email || "";
+          this.buyerData.buyer_gsm_no = currentUser.phone || "";
           this.fetchOldPayments();
           events.on("CosmeticsPaymentOk", this.paymentOk);
         },
