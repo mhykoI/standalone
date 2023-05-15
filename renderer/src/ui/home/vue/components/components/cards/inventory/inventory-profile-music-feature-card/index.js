@@ -1,11 +1,11 @@
-import patcher from "../../../../../../../api/patcher/index.js";
-import i18n from "../../../../../../../api/i18n/index.js";
+import patcher from "../../../../../../../../api/patcher/index.js";
+import i18n from "../../../../../../../../api/i18n/index.js";
 
 import cssText from "./style.scss";
-import { playSpotifyData } from "../../../../../../other/utils/spotify.js";
-import common from "../../../../../../../api/modules/common.js";
-import authentication from "../../../../../../../api/authentication/index.js";
-import events from "../../../../../../../api/events/index.js";
+import { playSpotifyData } from "../../../../../../../other/utils/spotify.js";
+import common from "../../../../../../../../api/modules/common.js";
+import authentication from "../../../../../../../../api/authentication/index.js";
+import events from "../../../../../../../../api/events/index.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -27,7 +27,7 @@ export default {
                   </svg>
                 </div>
               </div>
-              <div class="top">
+              <div class="top thin-RnSY0a scrollerBase-1Pkza4">
                 <div class="name">
                   {{i18nFormat('INVENTORY_PROFILE_MUSIC_FEATURE')}}
                 </div>
@@ -48,8 +48,8 @@ export default {
                     <input v-model="trackLinkInputText" type="text" class="info-input" :class="{'error': trackLinkInputError}" placeholder="https://open.spotify.com/track/1234" />
                   </div>
                   <div class="line column">
-                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION')}}:</div>
-                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="0" />
+                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION_SECONDS')}}:</div>
+                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="45" />
                   </div>
                 </div>
               </div>
@@ -73,84 +73,39 @@ export default {
             settingsLoading: false,
             trackLinkInputText: "",
             trackLinkInputError: false,
-            trackPositionInputText: 0,
+            trackPositionInputText: "0",
             trackPositionInputError: false
           }
         },
         mounted() {
-          this.updateDuration();
-          let id = this.feature.data.uri.split(":").pop().trim();
-          if (id) {
-            this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
-          }
+          this.updateSelfData();
         },
         watch: {
           feature() {
-            this.updateDuration();
-            let id = this.feature.data.uri.split(":").pop().trim();
-            if (id) {
-              this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
-            }
+            this.updateSelfData();
           },
           trackLinkInputText(val) {
             this.trackLinkInputError = !val.startsWith("https://open.spotify.com/track/");
             if (!this.trackLinkInputError) {
               let id = val.split("?")[0].split("/").pop().trim();
               this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
-              (async () => {
-                if (!this.settingsLoading) {
-                  this.settingsLoading = true;
-                  await fetch(
-                    `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
-                    {
-                      method: "PATCH",
-                      headers: {
-                        "x-acord-token": authentication.token,
-                        "content-type": "application/json"
-                      },
-                      body: JSON.stringify({
-                        uri: `spotify:track:${id}`
-                      })
-                    }
-                  )
-                  this.settingsLoading = false;
-                  events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, uri: `spotify:track:${id}` } });
-                }
-              })();
+              this.debouncedTrackLinkInputText(id);
             }
           },
           trackPositionInputText(val) {
             if (!val) {
-              this.trackPositionInputText = 0;
+              this.trackPositionInputText = `0`;
               return;
             }
             let num = parseFloat(this.trackPositionInputText);
+            this.trackPositionInputText = `${num}`;
             if (isNaN(num) || num < 0) {
               this.trackPositionInputError = true;
               return;
             }
             this.trackPositionInputError = false;
-            (async () => {
-              if (!this.settingsLoading) {
-                this.settingsLoading = true;
-                await fetch(
-                  `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
-                  {
-                    method: "PATCH",
-                    headers: {
-                      "x-acord-token": authentication.token,
-                      "content-type": "application/json"
-                    },
-                    body: JSON.stringify({
-                      position_ms: num * 1000
-                    })
-                  }
-                )
-                this.settingsLoading = false;
-                events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, position_ms: num * 1000 } });
-              }
-            })();
-          }
+            this.debouncedTrackPositionInputText(num);
+          },
         },
         methods: {
           i18nFormat: i18n.format,
@@ -198,7 +153,49 @@ export default {
             )
             this.settingsLoading = false;
             events.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
-          }
+          },
+          updateSelfData() {
+            this.updateDuration();
+            let id = this.feature.data.uri.split(":").pop().trim();
+            if (id) this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+            this.trackPositionInputText = `${Math.floor(this.feature.data.position_ms / 1000)}`;
+          },
+          debouncedTrackPositionInputText: _.debounce(async function (num) {
+            this.settingsLoading = true;
+            await fetch(
+              `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+              {
+                method: "PATCH",
+                headers: {
+                  "x-acord-token": authentication.token,
+                  "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                  position_ms: num * 1000
+                })
+              }
+            )
+            this.settingsLoading = false;
+            events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, position_ms: num * 1000 } });
+          }, 1500),
+          debouncedTrackLinkInputText: _.debounce(async function (id) {
+            this.settingsLoading = true;
+            await fetch(
+              `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+              {
+                method: "PATCH",
+                headers: {
+                  "x-acord-token": authentication.token,
+                  "content-type": "application/json"
+                },
+                body: JSON.stringify({
+                  uri: `spotify:track:${id}`
+                })
+              }
+            )
+            this.settingsLoading = false;
+            events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, uri: `spotify:track:${id}` } });
+          }, 1500),
         }
       }
     );

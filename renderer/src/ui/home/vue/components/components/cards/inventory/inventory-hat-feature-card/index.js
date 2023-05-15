@@ -1,10 +1,10 @@
-import patcher from "../../../../../../../api/patcher/index.js";
-import i18n from "../../../../../../../api/i18n/index.js";
+import patcher from "../../../../../../../../api/patcher/index.js";
+import i18n from "../../../../../../../../api/i18n/index.js";
 
 import cssText from "./style.scss";
-import authentication from "../../../../../../../api/authentication/index.js";
-import events from "../../../../../../../api/events/index.js";
-import common from "../../../../../../../api/modules/common.js";
+import authentication from "../../../../../../../../api/authentication/index.js";
+import events from "../../../../../../../../api/events/index.js";
+import common from "../../../../../../../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 export default {

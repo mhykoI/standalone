@@ -6568,11 +6568,11 @@
     }
   };
 
-  // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/style.scss
+  // src/ui/home/vue/components/components/cards/inventory/inventory-badge-feature-card/style.scss
   var style_default24 = `
 .acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template,.acord--inventory-badge-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
-  // src/ui/home/vue/components/components/cards/inventory-badge-feature-card/index.js
+  // src/ui/home/vue/components/components/cards/inventory/inventory-badge-feature-card/index.js
   patcher_default.injectCSS(style_default24);
   var inventory_badge_feature_card_default = {
     /** @param {import("vue").App} vueApp */
@@ -6665,11 +6665,11 @@
     }
   };
 
-  // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/style.scss
+  // src/ui/home/vue/components/components/cards/inventory/inventory-colored-name-feature-card/style.scss
   var style_default25 = `
 .acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template,.acord--inventory-colored-name-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
 
-  // src/ui/home/vue/components/components/cards/inventory-colored-name-feature-card/index.js
+  // src/ui/home/vue/components/components/cards/inventory/inventory-colored-name-feature-card/index.js
   patcher_default.injectCSS(style_default25);
   var inventory_colored_name_feature_card_default = {
     /** @param {import("vue").App} vueApp */
@@ -6722,11 +6722,11 @@
     }
   };
 
-  // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/style.scss
+  // src/ui/home/vue/components/components/cards/inventory/inventory-hat-feature-card/style.scss
   var style_default26 = `
 .acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template,.acord--inventory-hat-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
-  // src/ui/home/vue/components/components/cards/inventory-hat-feature-card/index.js
+  // src/ui/home/vue/components/components/cards/inventory/inventory-hat-feature-card/index.js
   patcher_default.injectCSS(style_default26);
   var inventory_hat_feature_card_default = {
     /** @param {import("vue").App} vueApp */
@@ -6816,9 +6816,9 @@
     }
   };
 
-  // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/style.scss
+  // src/ui/home/vue/components/components/cards/inventory/inventory-profile-music-feature-card/style.scss
   var style_default27 = `
-.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top{padding:16px;height:175px;overflow:auto}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-profile-music-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-profile-music-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:6px;color:#f5f5f5;opacity:.95}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line.column{flex-direction:column;align-items:flex-start;gap:2px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.small-label{font-size:10px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input{border:none;border-bottom:1px solid #f5f5f5;background-color:rgba(0,0,0,.2);padding:2px;border-radius:4px;font-size:14px;color:#f5f5f5;width:100%}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input.error{border:1px solid #f23f43}.acord--inventory-profile-music-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:flex-end;padding-right:16px;padding-bottom:16px}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
+.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99999}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top{padding:16px;height:175px;overflow:auto;overflow-x:hidden;overflow-wrap:break-word;word-break:break-all}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-profile-music-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-profile-music-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:6px;color:#f5f5f5;opacity:.95}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line.column{flex-direction:column;align-items:flex-start;gap:2px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.small-label{font-size:10px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input{border:none;border-bottom:1px solid #f5f5f5;background-color:rgba(0,0,0,.2);padding:2px;border-radius:4px;font-size:14px;color:#f5f5f5;width:100%}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input.error{border:1px solid #f23f43}.acord--inventory-profile-music-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:flex-end;padding-right:16px;padding-bottom:16px}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
 
   // src/ui/other/utils/spotify.js
   async function playSpotifyData(data) {
@@ -6867,7 +6867,7 @@
     }
   }
 
-  // src/ui/home/vue/components/components/cards/inventory-profile-music-feature-card/index.js
+  // src/ui/home/vue/components/components/cards/inventory/inventory-profile-music-feature-card/index.js
   patcher_default.injectCSS(style_default27);
   var inventory_profile_music_feature_card_default = {
     /** @param {import("vue").App} vueApp */
@@ -6888,7 +6888,7 @@
                   </svg>
                 </div>
               </div>
-              <div class="top">
+              <div class="top thin-RnSY0a scrollerBase-1Pkza4">
                 <div class="name">
                   {{i18nFormat('INVENTORY_PROFILE_MUSIC_FEATURE')}}
                 </div>
@@ -6909,8 +6909,8 @@
                     <input v-model="trackLinkInputText" type="text" class="info-input" :class="{'error': trackLinkInputError}" placeholder="https://open.spotify.com/track/1234" />
                   </div>
                   <div class="line column">
-                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION')}}:</div>
-                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="0" />
+                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION_SECONDS')}}:</div>
+                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="45" />
                   </div>
                 </div>
               </div>
@@ -6934,83 +6934,38 @@
               settingsLoading: false,
               trackLinkInputText: "",
               trackLinkInputError: false,
-              trackPositionInputText: 0,
+              trackPositionInputText: "0",
               trackPositionInputError: false
             };
           },
           mounted() {
-            this.updateDuration();
-            let id = this.feature.data.uri.split(":").pop().trim();
-            if (id) {
-              this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
-            }
+            this.updateSelfData();
           },
           watch: {
             feature() {
-              this.updateDuration();
-              let id = this.feature.data.uri.split(":").pop().trim();
-              if (id) {
-                this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
-              }
+              this.updateSelfData();
             },
             trackLinkInputText(val) {
               this.trackLinkInputError = !val.startsWith("https://open.spotify.com/track/");
               if (!this.trackLinkInputError) {
                 let id = val.split("?")[0].split("/").pop().trim();
                 this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
-                (async () => {
-                  if (!this.settingsLoading) {
-                    this.settingsLoading = true;
-                    await fetch(
-                      `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
-                      {
-                        method: "PATCH",
-                        headers: {
-                          "x-acord-token": authentication_default.token,
-                          "content-type": "application/json"
-                        },
-                        body: JSON.stringify({
-                          uri: `spotify:track:${id}`
-                        })
-                      }
-                    );
-                    this.settingsLoading = false;
-                    events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, uri: `spotify:track:${id}` } });
-                  }
-                })();
+                this.debouncedTrackLinkInputText(id);
               }
             },
             trackPositionInputText(val) {
               if (!val) {
-                this.trackPositionInputText = 0;
+                this.trackPositionInputText = `0`;
                 return;
               }
               let num = parseFloat(this.trackPositionInputText);
+              this.trackPositionInputText = `${num}`;
               if (isNaN(num) || num < 0) {
                 this.trackPositionInputError = true;
                 return;
               }
               this.trackPositionInputError = false;
-              (async () => {
-                if (!this.settingsLoading) {
-                  this.settingsLoading = true;
-                  await fetch(
-                    `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
-                    {
-                      method: "PATCH",
-                      headers: {
-                        "x-acord-token": authentication_default.token,
-                        "content-type": "application/json"
-                      },
-                      body: JSON.stringify({
-                        position_ms: num * 1e3
-                      })
-                    }
-                  );
-                  this.settingsLoading = false;
-                  events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, position_ms: num * 1e3 } });
-                }
-              })();
+              this.debouncedTrackPositionInputText(num);
             }
           },
           methods: {
@@ -7060,10 +7015,64 @@
               );
               this.settingsLoading = false;
               events_default.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
-            }
+            },
+            updateSelfData() {
+              this.updateDuration();
+              let id = this.feature.data.uri.split(":").pop().trim();
+              if (id)
+                this.trackLinkInputText = `https://open.spotify.com/track/${id}`;
+              this.trackPositionInputText = `${Math.floor(this.feature.data.position_ms / 1e3)}`;
+            },
+            debouncedTrackPositionInputText: _.debounce(async function(num) {
+              this.settingsLoading = true;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    position_ms: num * 1e3
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, position_ms: num * 1e3 } });
+            }, 1500),
+            debouncedTrackLinkInputText: _.debounce(async function(id) {
+              this.settingsLoading = true;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    uri: `spotify:track:${id}`
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, uri: `spotify:track:${id}` } });
+            }, 1500)
           }
         }
       );
+    }
+  };
+
+  // src/ui/home/vue/components/components/cards/inventory/index.js
+  var inventory_default = {
+    /** @param {import("vue").App} vueApp */
+    load(vueApp) {
+      inventory_colored_name_feature_card_default.load(vueApp);
+      inventory_hat_feature_card_default.load(vueApp);
+      inventory_profile_music_feature_card_default.load(vueApp);
+      inventory_badge_feature_card_default.load(vueApp);
     }
   };
 
@@ -7285,10 +7294,7 @@
       profile_card_default.load(vueApp);
       store_extension_card_default.load(vueApp);
       installed_extension_card_default.load(vueApp);
-      inventory_colored_name_feature_card_default.load(vueApp);
-      inventory_hat_feature_card_default.load(vueApp);
-      inventory_profile_music_feature_card_default.load(vueApp);
-      inventory_badge_feature_card_default.load(vueApp);
+      inventory_default.load(vueApp);
     }
   };
 
@@ -7317,7 +7323,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.478";
+  var CURRENT_VERSION = "0.1.485";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
