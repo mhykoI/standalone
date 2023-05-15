@@ -7730,8 +7730,11 @@
     async (elm) => {
       let userId;
       let src = utils_default.react.getProps(elm, (i) => i?.src, 1e3)?.src;
-      if (src)
-        userId = src.split("/")?.[4];
+      if (src) {
+        let splitted = src.split("/");
+        userId = splitted[3] === "guilds" ? splitted[6] : splitted[4];
+      }
+      ;
       if (!userId)
         userId = utils_default.react.getProps(elm, (i) => i?.participant?.id, 1e3)?.participant?.id;
       if (!userId)

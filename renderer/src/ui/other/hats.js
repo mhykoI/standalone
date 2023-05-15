@@ -14,7 +14,10 @@ dom.patch(
   async (elm) => {
     let userId;
     let src = utils.react.getProps(elm, i => i?.src, 1000)?.src;
-    if (src) userId = src.split('/')?.[4];
+    if (src) {
+      let splitted = src.split('/');
+      userId = splitted[3] === 'guilds' ? splitted[6] : splitted[4];
+    };
     if (!userId) userId = utils.react.getProps(elm, i => i?.participant?.id, 1000)?.participant?.id;
     if (!userId) userId = utils.react.getProps(elm, i => i?.user?.id, 1000)?.user?.id;
     if (!userId) userId = utils.react.getProps(elm, i => i?.message?.author?.id, 1000)?.message?.author?.id;
