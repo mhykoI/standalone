@@ -1716,10 +1716,7 @@
           let entires = Object.entries(__original__ || {});
           try {
             let foundObj = entires.find(([k, v]) => {
-              if (typeof v !== "object")
-                return false;
-              let propNames = Object.getOwnPropertyNames(v || {});
-              return strings.every((string) => propNames.includes(string));
+              return strings.every((string) => _.has(v, string));
             });
             if (foundObj) {
               __mapped__[key] = foundObj[0];
@@ -1902,7 +1899,7 @@
     ];
     webpack_default.filter((i) => i?.getName?.()?.endsWith?.("Store"), { defaultExport: false }).forEach((m) => {
       let obj = paths.map((path) => _.get(m, path)).find((i) => i);
-      if (!obj)
+      if (!obj?._dispatchToken)
         return;
       let name2 = obj?.getName?.();
       if (!name2)

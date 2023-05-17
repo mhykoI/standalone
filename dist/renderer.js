@@ -1716,10 +1716,7 @@
           let entires = Object.entries(__original__ || {});
           try {
             let foundObj = entires.find(([k, v]) => {
-              if (typeof v !== "object")
-                return false;
-              let propNames = Object.getOwnPropertyNames(v || {});
-              return strings.every((string) => propNames.includes(string));
+              return strings.every((string) => _.has(v, string));
             });
             if (foundObj) {
               __mapped__[key] = foundObj[0];
@@ -1902,7 +1899,7 @@
     ];
     webpack_default.filter((i) => i?.getName?.()?.endsWith?.("Store"), { defaultExport: false }).forEach((m) => {
       let obj = paths.map((path) => _.get(m, path)).find((i) => i);
-      if (!obj)
+      if (!obj?._dispatchToken)
         return;
       let name2 = obj?.getName?.();
       if (!name2)
@@ -7323,7 +7320,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.488";
+  var CURRENT_VERSION = "0.1.500";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

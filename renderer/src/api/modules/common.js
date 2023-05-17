@@ -53,7 +53,7 @@ function findStores() {
   ];
   webpack.filter((i) => i?.getName?.()?.endsWith?.("Store"), { defaultExport: false }).forEach((m) => {
     let obj = paths.map(path => _.get(m, path)).find(i => i);
-    if (!obj) return;
+    if (!obj?._dispatchToken) return;
     let name = obj?.getName?.();
     if (!name) return;
     if (common[name]) return;

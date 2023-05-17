@@ -263,9 +263,7 @@ export function finderMap(__original__, map) {
 
         try {
           let foundObj = entires.find(([k, v]) => {
-            if (typeof v !== "object") return false;
-            let propNames = Object.getOwnPropertyNames(v || {});
-            return strings.every(string => propNames.includes(string));
+            return strings.every(string => _.has(v, string));
           })
           if (foundObj) {
             __mapped__[key] = foundObj[0];
