@@ -5847,7 +5847,7 @@
 
   // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-item-card/style.scss
   var style_default18 = `
-.acord--cosmetics-item-card{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-item-card .name{position:absolute;top:8px;left:8px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-item-card .price-card{display:flex;position:absolute;bottom:8px;right:8px}`;
+.acord--cosmetics-item-card{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-item-card .name{position:absolute;top:8px;left:8px;border-radius:4px;max-width:calc(100% - 16px);background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:20px;font-weight:600;color:#f5f5f5}.acord--cosmetics-item-card .price-card{display:flex;position:absolute;bottom:8px;right:8px}`;
 
   // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-item-card/index.js
   patcher_default.injectCSS(style_default18);
