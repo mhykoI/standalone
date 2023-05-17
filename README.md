@@ -2,7 +2,7 @@
 
 ## First of all
 
-You need to install NodeJS to your device. You can access it from [here](https://nodejs.org/).
+You need to install NodeJS to your device. You can download it from [here](https://nodejs.org/).
 
 ## Mac
 
