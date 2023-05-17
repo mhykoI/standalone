@@ -3,6 +3,7 @@
 ## First of all
 
 You need to install NodeJS to your device. You can download it from [here](https://nodejs.org/).
+Also you can download latest version of Acord from [here](https://github.com/acord-standalone/standalone/archive/refs/heads/main.zip).
 
 ## Mac
 
