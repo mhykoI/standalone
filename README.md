@@ -4,7 +4,7 @@
 
 You need to install NodeJS to your device. You can access it from [here](https://nodejs.org/).
 
-## Mac & Linux
+## Mac
 
 First download Open Asar raw file from [app.asar](https://github.com/GooseMod/OpenAsar/releases/download/nightly/app.asar).
 
