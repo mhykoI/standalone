@@ -124,12 +124,30 @@ export default {
             this.saveFeature();
           },
           fixPercentages() {
-            let amount = (this.feature.data.max_points / this.points.length) * 100;
-            let v = 0;
-            this.points.forEach((i, idx) => {
-              i.percentage = parseFloat(v.toFixed(2));
-              v += amount;
+            let totalPoints = this.points.length;
+            if (totalPoints === 0) {
+              return;
+            }
+
+            let maxPoints = this.feature.data.max_points;
+            let amount = Math.floor(maxPoints / totalPoints);
+            let remainingAmount = maxPoints % totalPoints;
+
+            let v = amount;
+            this.points.forEach((point, idx) => {
+              let additionalAmount = (remainingAmount > 0) ? 1 : 0;
+              let currentAmount = amount + additionalAmount;
+              let percentage = parseFloat(((v + currentAmount) * 100 / maxPoints).toFixed(2));
+
+              if (percentage > 100) {
+                currentAmount -= (percentage - 100);
+              }
+
+              point.percentage = parseFloat((v * 100 / maxPoints).toFixed(2));
+              v += currentAmount;
+              remainingAmount--;
             });
+
             this.saveFeature();
           },
           updateDuration() {
@@ -156,6 +174,9 @@ export default {
           }, 1000),
           syncPoints() {
             this.points = [...this.feature.data.points];
+            if (this.points.find(i => i.percentage === null)) {
+              this.fixPercentages();
+            }
           }
         }
       }

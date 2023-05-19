@@ -6785,11 +6785,24 @@
               this.saveFeature();
             },
             fixPercentages() {
-              let amount = this.feature.data.max_points / this.points.length * 100;
-              let v = 0;
-              this.points.forEach((i, idx) => {
-                i.percentage = parseFloat(v.toFixed(2));
-                v += amount;
+              let totalPoints = this.points.length;
+              if (totalPoints === 0) {
+                return;
+              }
+              let maxPoints = this.feature.data.max_points;
+              let amount = Math.floor(maxPoints / totalPoints);
+              let remainingAmount = maxPoints % totalPoints;
+              let v = amount;
+              this.points.forEach((point, idx) => {
+                let additionalAmount = remainingAmount > 0 ? 1 : 0;
+                let currentAmount = amount + additionalAmount;
+                let percentage = parseFloat(((v + currentAmount) * 100 / maxPoints).toFixed(2));
+                if (percentage > 100) {
+                  currentAmount -= percentage - 100;
+                }
+                point.percentage = parseFloat((v * 100 / maxPoints).toFixed(2));
+                v += currentAmount;
+                remainingAmount--;
               });
               this.saveFeature();
             },
@@ -6818,6 +6831,9 @@
             }, 1e3),
             syncPoints() {
               this.points = [...this.feature.data.points];
+              if (this.points.find((i) => i.percentage === null)) {
+                this.fixPercentages();
+              }
             }
           }
         }
@@ -7434,7 +7450,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.534";
+  var CURRENT_VERSION = "0.1.538";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
