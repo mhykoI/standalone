@@ -22,7 +22,7 @@ export default {
               <div class="top">
                 <div class="left">
                   <div class="name">{{i18nFormat('COLORED_NAME')}}</div>
-                  <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                  <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
                 </div>
                 <div class="right">
                   <div class="top">

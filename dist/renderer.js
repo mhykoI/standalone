@@ -6568,7 +6568,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-badge-feature-card/style.scss
   var style_default24 = `
-.acord--inventory-badge-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-badge-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.template>img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-badge-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-badge-feature-card>.content.enabled>.template,.acord--inventory-badge-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-badge-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-badge-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-badge-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-badge-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-badge-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-badge-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
+.acord--inventory-badge-feature-card{width:100%}.acord--inventory-badge-feature-card>.content{--outline-color: #949ba4;width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;position:relative;border:2px solid var(--outline-color)}.acord--inventory-badge-feature-card>.content.enabled{--outline-color: #5662f6}.acord--inventory-badge-feature-card>.content>.top{background-color:rgba(0,0,0,.1);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--inventory-badge-feature-card>.content>.top>.left{display:flex;height:100%;gap:16px}.acord--inventory-badge-feature-card>.content>.top>.left>.left{height:100%;display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.top>.left>.left .template{width:64px;height:64px;border-radius:50%;background-color:var(--outline-color);display:flex;align-items:center;justify-content:center}.acord--inventory-badge-feature-card>.content>.top>.left>.left .template img{width:32px;height:32px;filter:drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.25))}.acord--inventory-badge-feature-card>.content>.top>.left>.right{display:flex;flex-direction:column}.acord--inventory-badge-feature-card>.content>.top>.left>.right>.name{font-size:24px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-badge-feature-card>.content>.top>.left>.right>.duration{font-size:12px;font-weight:300;color:#f5f5f5;opacity:.75}.acord--inventory-badge-feature-card>.content>.top>.right{display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:100%}.acord--inventory-badge-feature-card>.content>.top>.right>.top{display:flex;justify-content:flex-end}.acord--inventory-badge-feature-card>.content>.top>.right>.top .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--inventory-badge-feature-card>.content>.top>.right>.top .control:hover{background-color:rgba(0,0,0,.5)}`;
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-badge-feature-card/index.js
   patcher_default.injectCSS(style_default24);
@@ -6581,34 +6581,31 @@
           template: `
           <div class="acord--inventory-badge-feature-card">
             <div class="content" :class="{'enabled': feature.enabled, 'selected': selected}">
-              <div class="template">
-                <img :src="fetched?.image" />
-              </div>
               <div class="top">
-                <div class="name">
-                  {{i18nFormat('INVENTORY_BADGE_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}
+                <div class="left">
+                  <div class="left">
+                    <div class="template">
+                      <img :src="fetched?.image" />
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="name">{{i18nFormat('INVENTORY_BADGE_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}</div>
+                    <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                  </div>
                 </div>
-                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
-                  <div class="line">
+                <div class="right">
+                  <div class="top">
                     <div class="control" @click="toggleEnabled">
-                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      <svg v-if="!feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M8 7a5 5 0 1 0 0 10h8a5 5 0 0 0 0-10H8zm0-2h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                       </svg>
                       <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                        <path fill="currentColor" d="M8 5h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                       </svg>
                     </div>
-                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
                   </div>
                 </div>
               </div>
-              <div class="bottom">
-                <div></div>
-                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
-                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
-                </div>
-              </div>
-              <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -6665,7 +6662,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-colored-name-feature-card/style.scss
   var style_default25 = `
-.acord--inventory-colored-name-feature-card{width:100%}.acord--inventory-colored-name-feature-card>.content{--outline-color: #949ba4;width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;position:relative;border:2px solid var(--outline-color)}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:192px;height:24px;right:16px;top:-12px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600;background-color:var(--outline-color)}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content.enabled{--outline-color: #5662f6}.acord--inventory-colored-name-feature-card>.content>.top{background-color:rgba(0,0,0,.1);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--inventory-colored-name-feature-card>.content>.top>.left{height:100%}.acord--inventory-colored-name-feature-card>.content>.top>.left>.name{font-size:20px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-colored-name-feature-card>.content>.top>.left>.duration{font-size:12px;font-weight:300;color:#f5f5f5;opacity:.75}.acord--inventory-colored-name-feature-card>.content>.top>.right{display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:100%}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top{display:flex;justify-content:flex-end}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top .control:hover{background-color:rgba(0,0,0,.5)}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom{display:flex;justify-content:flex-end}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px;font-size:14px}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--inventory-colored-name-feature-card>.content>.settings{padding:16px;display:flex;flex-direction:column;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-colored-name-feature-card>.content>.settings>.controls{display:flex;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.controls .button{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;font-size:14px;color:#f5f5f5;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.controls .button.disabled{opacity:.5;pointer-events:none}.acord--inventory-colored-name-feature-card>.content>.settings>.colors{display:flex;flex-direction:column;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color{display:flex;align-items:center;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .color-input{padding:0;border-radius:50%;width:32px;height:32px;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .color-input::-webkit-color-swatch-wrapper{padding:0;border:none;border-radius:50%}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .percentage-input{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#f5f5f5;width:36px;border:none;border-bottom:2px solid #f5f5f5}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove{display:flex;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove svg{color:rgba(245,245,245,.95);width:24px;height:24px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove:hover svg{color:#f23f42}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove.disabled{opacity:.5;pointer-events:none}`;
+.acord--inventory-colored-name-feature-card{width:100%}.acord--inventory-colored-name-feature-card>.content{--outline-color: #949ba4;width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;position:relative;border:2px solid var(--outline-color)}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:192px;height:24px;right:16px;top:-12px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600;background-color:var(--outline-color)}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content.enabled{--outline-color: #5662f6}.acord--inventory-colored-name-feature-card>.content>.top{background-color:rgba(0,0,0,.1);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--inventory-colored-name-feature-card>.content>.top>.left{height:100%}.acord--inventory-colored-name-feature-card>.content>.top>.left>.name{font-size:24px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-colored-name-feature-card>.content>.top>.left>.duration{font-size:12px;font-weight:300;color:#f5f5f5;opacity:.75}.acord--inventory-colored-name-feature-card>.content>.top>.right{display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:100%}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top{display:flex;justify-content:flex-end}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top .control:hover{background-color:rgba(0,0,0,.5)}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom{display:flex;justify-content:flex-end}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px;font-size:14px}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--inventory-colored-name-feature-card>.content>.settings{padding:16px;display:flex;flex-direction:column;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-colored-name-feature-card>.content>.settings>.controls{display:flex;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.controls .button{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;font-size:14px;color:#f5f5f5;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.controls .button.disabled{opacity:.5;pointer-events:none}.acord--inventory-colored-name-feature-card>.content>.settings>.colors{display:flex;flex-direction:column;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color{display:flex;align-items:center;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .color-input{padding:0;border-radius:50%;width:32px;height:32px;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .color-input::-webkit-color-swatch-wrapper{padding:0;border:none;border-radius:50%}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .percentage-input{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#f5f5f5;width:36px;border:none;border-bottom:2px solid #f5f5f5}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove{display:flex;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove svg{color:rgba(245,245,245,.95);width:24px;height:24px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove:hover svg{color:#f23f42}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove.disabled{opacity:.5;pointer-events:none}`;
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-colored-name-feature-card/index.js
   patcher_default.injectCSS(style_default25);
@@ -6684,7 +6681,7 @@
               <div class="top">
                 <div class="left">
                   <div class="name">{{i18nFormat('COLORED_NAME')}}</div>
-                  <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                  <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
                 </div>
                 <div class="right">
                   <div class="top">
@@ -6830,7 +6827,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-hat-feature-card/style.scss
   var style_default26 = `
-.acord--inventory-hat-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-hat-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%}.acord--inventory-hat-feature-card>.content>.template::before{content:"";width:128px;height:128px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-32px, -32px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-hat-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-hat-feature-card>.content.enabled>.template,.acord--inventory-hat-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-hat-feature-card>.content>.top{padding:16px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-hat-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-hat-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:4px;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-hat-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:space-between;padding:16px}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-hat-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
+.acord--inventory-hat-feature-card{width:100%}.acord--inventory-hat-feature-card>.content{--outline-color: #949ba4;width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;position:relative;border:2px solid var(--outline-color)}.acord--inventory-hat-feature-card>.content.enabled{--outline-color: #5662f6}.acord--inventory-hat-feature-card>.content>.top{background-color:rgba(0,0,0,.1);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--inventory-hat-feature-card>.content>.top>.left{display:flex;height:100%;gap:16px}.acord--inventory-hat-feature-card>.content>.top>.left>.left{height:100%;display:flex;align-items:center;justify-content:center;width:64px}.acord--inventory-hat-feature-card>.content>.top>.left>.left .template{width:48px;height:48px;background-color:var(--outline-color);border-radius:50%}.acord--inventory-hat-feature-card>.content>.top>.left>.left .template::before{content:"";width:96px;height:96px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-24px, -24px);position:absolute;pointer-events:none}.acord--inventory-hat-feature-card>.content>.top>.left>.right{display:flex;flex-direction:column}.acord--inventory-hat-feature-card>.content>.top>.left>.right>.name{font-size:24px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-hat-feature-card>.content>.top>.left>.right>.duration{font-size:12px;font-weight:300;color:#f5f5f5;opacity:.75}.acord--inventory-hat-feature-card>.content>.top>.right{display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:100%}.acord--inventory-hat-feature-card>.content>.top>.right>.top{display:flex;justify-content:flex-end}.acord--inventory-hat-feature-card>.content>.top>.right>.top .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--inventory-hat-feature-card>.content>.top>.right>.top .control:hover{background-color:rgba(0,0,0,.5)}`;
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-hat-feature-card/index.js
   patcher_default.injectCSS(style_default26);
@@ -6843,32 +6840,29 @@
           template: `
           <div class="acord--inventory-hat-feature-card">
             <div class="content" :class="{'enabled': feature.enabled, 'selected': selected}">
-              <div class="template" :style="\`--hat-image: url('\${fetched?.image}');\`"></div>
               <div class="top">
-                <div class="name">
-                  {{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}
+                <div class="left">
+                  <div class="left">
+                    <div class="template" :style="\`--hat-image: url('\${fetched?.image}');\`"></div>
+                  </div>
+                  <div class="right">
+                    <div class="name">{{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}</div>
+                    <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                  </div>
                 </div>
-                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
-                  <div class="line">
+                <div class="right">
+                  <div class="top">
                     <div class="control" @click="toggleEnabled">
-                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      <svg v-if="!feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M8 7a5 5 0 1 0 0 10h8a5 5 0 0 0 0-10H8zm0-2h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                       </svg>
                       <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                        <path fill="currentColor" d="M8 5h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                       </svg>
                     </div>
-                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
                   </div>
                 </div>
               </div>
-              <div class="bottom">
-                <div></div>
-                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
-                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
-                </div>
-              </div>
-              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -6924,7 +6918,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-profile-music-feature-card/style.scss
   var style_default27 = `
-.acord--inventory-profile-music-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;margin-right:32px;margin-top:32px}.acord--inventory-profile-music-feature-card>.content>.template{position:absolute;width:64px;height:64px;right:-32px;top:-32px;background-color:#949ba4;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:99999}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-profile-music-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-profile-music-feature-card>.content.enabled>.template,.acord--inventory-profile-music-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-profile-music-feature-card>.content>.top{padding:16px;height:175px;overflow:auto;overflow-x:hidden;overflow-wrap:break-word;word-break:break-all}.acord--inventory-profile-music-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:calc(100% - 32px);word-break:break-word;margin-bottom:8px}.acord--inventory-profile-music-feature-card>.content>.top>.settings{display:flex;flex-direction:column;gap:4px}.acord--inventory-profile-music-feature-card>.content>.top>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line{display:flex;align-items:center;gap:6px;color:#f5f5f5;opacity:.95}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line.column{flex-direction:column;align-items:flex-start;gap:2px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.control{display:flex;cursor:pointer}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.label{font-size:14px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.small-label{font-size:10px}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input{border:none;border-bottom:1px solid #f5f5f5;background-color:rgba(0,0,0,.2);padding:2px;border-radius:4px;font-size:14px;color:#f5f5f5;width:100%}.acord--inventory-profile-music-feature-card>.content>.top>.settings .line>.info-input.error{border:1px solid #f23f43}.acord--inventory-profile-music-feature-card>.content>.bottom{display:flex;align-items:center;justify-content:flex-end;padding-right:16px;padding-bottom:16px}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle{color:#f5f5f5;font-size:14px;opacity:.75;font-weight:300}.acord--inventory-profile-music-feature-card>.content>.bottom>.settings-toggle:hover{text-decoration:underline}`;
+.acord--inventory-profile-music-feature-card{width:100%}.acord--inventory-profile-music-feature-card>.content{--outline-color: #949ba4;width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;position:relative;border:2px solid var(--outline-color)}.acord--inventory-profile-music-feature-card>.content.enabled{--outline-color: #5662f6}.acord--inventory-profile-music-feature-card>.content>.top{background-color:rgba(0,0,0,.1);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--inventory-profile-music-feature-card>.content>.top>.left{display:flex;height:100%;gap:16px}.acord--inventory-profile-music-feature-card>.content>.top>.left>.left{height:100%;display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.top>.left>.left .template{width:64px;height:64px;border-radius:50%;background-color:var(--outline-color);display:flex;align-items:center;justify-content:center}.acord--inventory-profile-music-feature-card>.content>.top>.left>.left .template>.spotify-action{background-color:rgba(0,0,0,.25);border-radius:50%;padding:8px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);cursor:pointer;transition:all 100ms ease-in-ou}.acord--inventory-profile-music-feature-card>.content>.top>.left>.left .template>.spotify-action.disabled{opacity:.5;cursor:not-allowed;pointer-events:none}.acord--inventory-profile-music-feature-card>.content>.top>.left>.right{display:flex;flex-direction:column}.acord--inventory-profile-music-feature-card>.content>.top>.left>.right>.name{font-size:24px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-profile-music-feature-card>.content>.top>.left>.right>.duration{font-size:12px;font-weight:300;color:#f5f5f5;opacity:.75}.acord--inventory-profile-music-feature-card>.content>.top>.right{display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:100%}.acord--inventory-profile-music-feature-card>.content>.top>.right>.top{display:flex;justify-content:flex-end}.acord--inventory-profile-music-feature-card>.content>.top>.right>.top .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--inventory-profile-music-feature-card>.content>.top>.right>.top .control:hover{background-color:rgba(0,0,0,.5)}.acord--inventory-profile-music-feature-card>.content>.top>.right>.bottom{display:flex;justify-content:flex-end}.acord--inventory-profile-music-feature-card>.content>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px;font-size:14px}.acord--inventory-profile-music-feature-card>.content>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--inventory-profile-music-feature-card>.content>.settings{padding:16px;display:flex;flex-direction:column;gap:8px}.acord--inventory-profile-music-feature-card>.content>.settings .line>.label{font-size:14px;font-weight:300;color:rgba(255,255,255,.95)}.acord--inventory-profile-music-feature-card>.content>.settings .line input{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#f5f5f5;width:350px;border:none;border-bottom:2px solid #f5f5f5}.acord--inventory-profile-music-feature-card>.content>.settings .line input.error{border-bottom:2px solid #f23f42}`;
 
   // src/ui/other/utils/spotify.js
   async function playSpotifyData(data) {
@@ -6984,48 +6978,59 @@
           template: `
           <div class="acord--inventory-profile-music-feature-card">
             <div class="content" :class="{'enabled': feature.enabled, 'selected': selected}">
-              <div class="template">
-                <div @click="spotifyAction" v-if="feature?.data" class="spotify-action" :class="{'disabled': spotifyLoading}">
-                  <svg v-if="!spotifyPlaying" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10.622 8.415l4.879 3.252a.4.4 0 0 1 0 .666l-4.88 3.252a.4.4 0 0 1-.621-.332V8.747a.4.4 0 0 1 .622-.332z"/>
-                  </svg>
-                  <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM9 9h2v6H9V9zm4 0h2v6h-2V9z"/>
-                  </svg>
+              <div class="top">
+                <div class="left">
+                  <div class="left">
+                    <div class="template">
+                      <div @click="spotifyAction" v-if="feature?.data" class="spotify-action" :class="{'disabled': spotifyLoading}">
+                        <svg v-if="!spotifyPlaying" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                          <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM10.622 8.415l4.879 3.252a.4.4 0 0 1 0 .666l-4.88 3.252a.4.4 0 0 1-.621-.332V8.747a.4.4 0 0 1 .622-.332z"/>
+                        </svg>
+                        <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                          <path fill="currentColor" d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM9 9h2v6H9V9zm4 0h2v6h-2V9z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="right">
+                    <div class="name">{{i18nFormat('INVENTORY_PROFILE_MUSIC_FEATURE')}}</div>
+                    <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                  </div>
                 </div>
-              </div>
-              <div class="top thin-RnSY0a scrollerBase-1Pkza4">
-                <div class="name">
-                  {{i18nFormat('INVENTORY_PROFILE_MUSIC_FEATURE')}}
-                </div>
-                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
-                  <div class="line">
+                <div class="right">
+                  <div class="top">
                     <div class="control" @click="toggleEnabled">
-                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      <svg v-if="!feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M8 7a5 5 0 1 0 0 10h8a5 5 0 0 0 0-10H8zm0-2h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                       </svg>
                       <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                        <path fill="currentColor" d="M8 5h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                       </svg>
                     </div>
-                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
                   </div>
-                  <div class="line column">
-                    <div class="small-label">{{i18nFormat('SPOTIFY_TRACK_LINK')}}:</div>
-                    <input v-model="trackLinkInputText" type="text" class="info-input" :class="{'error': trackLinkInputError}" placeholder="https://open.spotify.com/track/1234" />
-                  </div>
-                  <div class="line column">
-                    <div class="small-label">{{i18nFormat('TRACK_START_POSITION_SECONDS')}}:</div>
-                    <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="45" />
+                  <div class="bottom">
+                    <div class="settings" @click="settingsVisible = !settingsVisible">
+                      <div class="text">{{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}</div>
+                      <svg v-if="!settingsVisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 11.828l-2.828 2.829-1.415-1.414L12 9l4.243 4.243-1.415 1.414L12 11.828z"/>
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="bottom">
-                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
-                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
+              <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
+                <div class="line">
+                  <div class="label">{{i18nFormat('SPOTIFY_TRACK_LINK')}}:</div>
+                  <input v-model="trackLinkInputText" type="text" class="info-input" :class="{'error': trackLinkInputError}" placeholder="https://open.spotify.com/track/1234" />
+                </div>
+                <div class="line">
+                  <div class="label">{{i18nFormat('TRACK_START_POSITION_SECONDS')}}:</div>
+                  <input v-model="trackPositionInputText" type="number" step="0.5" class="info-input" :class="{'error': trackPositionInputError}" placeholder="45" />
                 </div>
               </div>
-              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
@@ -7429,7 +7434,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.524";
+  var CURRENT_VERSION = "0.1.534";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

@@ -1,165 +1,162 @@
 .acord--inventory-profile-music-feature-card {
+  width: 100%;
   & > .content {
-    display: flex;
-    width: 175px;
-    height: 225px;
+    --outline-color: #949ba4;
+    width: 100%;
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    box-shadow: var(--elevation-medium);
-    border: 4px solid #949ba4;
-    transition: border 100ms ease-in-out, background-color 100ms ease-in-out;
-    position: relative;
+    display: flex;
     flex-direction: column;
-    gap: 8px;
-
-    margin-right: calc(64px / 2);
-    margin-top: calc(64px / 2);
-
-    & > .template {
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      right: calc(64px / 2 * -1);
-      top: calc(64px / 2 * -1);
-      background-color: #949ba4;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999;
-
-      & > .spotify-action {
-        background-color: rgba(0, 0, 0, 0.25);
-        border-radius: 50%;
-        padding: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--header-primary);
-        cursor: pointer;
-        transition: all 100ms ease-in-ou;
-
-        &.disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-          pointer-events: none;
-        }
-      }
-    }
-
-    & > .duration {
-      position: absolute;
-      width: fit-content;
-      width: calc(100% - 32px);
-      height: 20px;
-      left: 16px;
-      bottom: calc(20px / 2 * -1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 300;
-      font-size: 12px;
-      background-color: #949ba4;
-      color: black;
-    }
+    position: relative;
+    border: 2px solid var(--outline-color);
 
     &.enabled {
-      border: 4px solid #5662f6;
-      & > .template,
-      & > .duration {
-        background-color: #5662f6;
-        color: whitesmoke;
-      }
+      --outline-color: #5662f6;
     }
 
     & > .top {
+      background-color: rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      width: 100%;
       padding: 16px;
-      height: 175px;
-      overflow: auto;
-      overflow-x: hidden;
-      overflow-wrap: break-word;
-      word-break: break-all;
+      height: 128px;
+      display: flex;
+      justify-content: space-between;
 
-      & > .name {
-        font-size: 18px;
-        font-weight: 500;
-        color: var(--header-primary);
-        opacity: 0.95;
-        width: calc(100% - 32px);
-        word-break: break-word;
-        margin-bottom: 8px;
-      }
-
-      & > .settings {
+      & > .left {
         display: flex;
-        flex-direction: column;
-        gap: 4px;
+        height: 100%;
+        gap: 16px;
 
-        &.loading {
-          opacity: 0.5;
-          pointer-events: none;
-        }
-
-        .line {
+        & > .left {
+          height: 100%;
           display: flex;
           align-items: center;
-          gap: 6px;
-          color: whitesmoke;
-          opacity: 0.95;
+          justify-content: center;
 
-          &.column {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 2px;
-          }
-
-          & > .control {
+          .template {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: var(--outline-color);
             display: flex;
-            cursor: pointer;
-          }
+            align-items: center;
+            justify-content: center;
 
-          & > .label {
-            font-size: 14px;
-          }
+            & > .spotify-action {
+              background-color: rgba(0, 0, 0, 0.25);
+              border-radius: 50%;
+              padding: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: var(--header-primary);
+              cursor: pointer;
+              transition: all 100ms ease-in-ou;
 
-          & > .small-label {
-            font-size: 10px;
+              &.disabled {
+                opacity: 0.5;
+                cursor: not-allowed;
+                pointer-events: none;
+              }
+            }
           }
+        }
 
-          & > .info-input {
-            border: none;
-            border-bottom: 1px solid whitesmoke;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 2px;
-            border-radius: 4px;
-            font-size: 14px;
+        & > .right {
+          display: flex;
+          flex-direction: column;
+
+          & > .name {
+            font-size: 24px;
+            font-weight: 500;
             color: whitesmoke;
-            width: 100%;
+            opacity: 0.95;
+          }
 
-            &.error {
-              border: 1px solid #f23f43;
+          & > .duration {
+            font-size: 12px;
+            font-weight: 300;
+            color: whitesmoke;
+            opacity: 0.75;
+          }
+        }
+      }
+
+      & > .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 8px;
+        height: 100%;
+
+        & > .top {
+          display: flex;
+          justify-content: flex-end;
+          .control {
+            display: flex;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.25);
+            border-radius: 8px;
+            color: whitesmoke;
+            cursor: pointer;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+          }
+        }
+
+        & > .bottom {
+          display: flex;
+          justify-content: flex-end;
+
+          & > .settings {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            cursor: pointer;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.75);
+            gap: 8px;
+            font-size: 14px;
+
+            svg {
+              padding: 4px;
+              background-color: rgba(0, 0, 0, 0.25);
+              border-radius: 4px;
+              color: rgba(255, 255, 255, 1);
             }
           }
         }
       }
     }
 
-    & > .bottom {
+    & > .settings {
+      padding: 16px;
       display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 16px;
-      padding-bottom: 16px;
+      flex-direction: column;
+      gap: 8px;
 
-      & > .settings-toggle {
-        color: whitesmoke;
-        font-size: 14px;
-        opacity: 0.75;
-        font-weight: 300;
+      .line {
+        & > .label {
+          font-size: 14px;
+          font-weight: 300;
+          color: rgba(255, 255, 255, 0.95);
+        }
 
-        &:hover {
-          text-decoration: underline;
+        input {
+          padding: 4px 8px;
+          background-color: rgba(0, 0, 0, 0.25);
+          border-radius: 4px;
+          color: whitesmoke;
+          width: 350px;
+          border: none;
+          border-bottom: 2px solid whitesmoke;
+
+          &.error {
+            border-bottom: 2px solid #f23f42;
+          }
         }
       }
     }
