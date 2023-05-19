@@ -16,32 +16,29 @@ export default {
         template: `
           <div class="acord--inventory-hat-feature-card">
             <div class="content" :class="{'enabled': feature.enabled, 'selected': selected}">
-              <div class="template" :style="\`--hat-image: url('\${fetched?.image}');\`"></div>
               <div class="top">
-                <div class="name">
-                  {{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}
+                <div class="left">
+                  <div class="left">
+                    <div class="template" :style="\`--hat-image: url('\${fetched?.image}');\`"></div>
+                  </div>
+                  <div class="right">
+                    <div class="name">{{i18nFormat('INVENTORY_HAT_FEATURE', i18nFormat(fetched?.display_name ?? 'LOADING'))}}</div>
+                    <div v-if="durationText" class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                  </div>
                 </div>
-                <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
-                  <div class="line">
+                <div class="right">
+                  <div class="top">
                     <div class="control" @click="toggleEnabled">
-                      <svg v-if="feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm6.003 11L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"/>
+                      <svg v-if="!feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M8 7a5 5 0 1 0 0 10h8a5 5 0 0 0 0-10H8zm0-2h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                       </svg>
                       <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
-                        <path fill="currentColor" d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5z"/>
+                        <path fill="currentColor" d="M8 5h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
                       </svg>
                     </div>
-                    <div class="label">{{i18nFormat('ENABLED_QUESTION')}}</div>
                   </div>
                 </div>
               </div>
-              <div class="bottom">
-                <div></div>
-                <div class="settings-toggle" @click="settingsVisible = !settingsVisible">
-                  {{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}
-                </div>
-              </div>
-              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
