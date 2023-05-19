@@ -5205,7 +5205,10 @@
                 }
               });
               let features = (await req.json())?.data?.features || [];
-              this.features = features.filter((i) => !i.hidden_in_inventory).map((i) => ({ ...i, _id: `${i.type},${i.id},${i.feature_id}` }));
+              this.features = features.filter((i) => !i.hidden_in_inventory).map((i) => ({ ...i, _id: `${i.type},${i.id},${i.feature_id}` })).sort((a, b) => {
+                return a.enabled ? -1 : 1;
+              });
+              ;
               this.processFeatures();
             }
           }
@@ -6733,6 +6736,7 @@
               durationText: "",
               settingsLoading: false,
               settingsVisible: false,
+              ignoreUpdateOnce: false,
               points: []
             };
           },
@@ -6744,6 +6748,12 @@
             feature() {
               this.updateDuration();
               this.syncPoints();
+            },
+            points: {
+              deep: true,
+              handler() {
+                this.saveFeature();
+              }
             }
           },
           methods: {
@@ -6810,6 +6820,10 @@
               this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
             },
             saveFeature: _.debounce(async function() {
+              if (this.ignoreUpdateOnce) {
+                this.ignoreUpdateOnce = false;
+                return;
+              }
               if (this.settingsLoading)
                 return;
               this.settingsLoading = true;
@@ -6827,6 +6841,7 @@
                 }
               );
               this.settingsLoading = false;
+              this.ignoreUpdateOnce = true;
               events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, points: this.points } });
             }, 1e3),
             syncPoints() {
@@ -7450,7 +7465,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.538";
+  var CURRENT_VERSION = "0.1.543";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

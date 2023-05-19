@@ -74,6 +74,7 @@ export default {
             durationText: "",
             settingsLoading: false,
             settingsVisible: false,
+            ignoreUpdateOnce: false,
             points: []
           }
         },
@@ -85,6 +86,12 @@ export default {
           feature() {
             this.updateDuration();
             this.syncPoints();
+          },
+          points: {
+            deep: true,
+            handler() {
+              this.saveFeature();
+            }
           }
         },
         methods: {
@@ -154,6 +161,10 @@ export default {
             this.durationText = common.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n.locale).humanize();
           },
           saveFeature: _.debounce(async function () {
+            if (this.ignoreUpdateOnce) {
+              this.ignoreUpdateOnce = false;
+              return;
+            }
             if (this.settingsLoading) return;
             this.settingsLoading = true;
             await fetch(
@@ -170,6 +181,7 @@ export default {
               }
             )
             this.settingsLoading = false;
+            this.ignoreUpdateOnce = true;
             events.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, points: this.points } });
           }, 1000),
           syncPoints() {
