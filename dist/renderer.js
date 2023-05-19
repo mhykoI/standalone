@@ -5084,7 +5084,7 @@
 
   // src/ui/home/vue/components/pages/inventory-page/style.scss
   var style_default13 = `
-@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page>.container{width:100%;max-width:1255px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page>.container>.left{width:100%;height:100%;display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.left>.top{display:flex;gap:8px}.acord--inventory-page>.container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page>.container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page>.container>.left>.bottom{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-around;gap:16px}.acord--inventory-page>.container>.right{width:400px;height:100%;display:flex;justify-content:center}@media screen and (max-width: 1255px){.acord--inventory-page>.container{flex-direction:column-reverse}.acord--inventory-page>.container>.right{width:100%}}`;
+@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--inventory-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--inventory-page>.container{width:100%;max-width:1255px;display:flex;flex-direction:row;gap:16px}.acord--inventory-page>.container>.left{width:100%;height:100%;display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.left>.top{display:flex;gap:8px}.acord--inventory-page>.container>.left>.top>.title{width:100%;display:flex;align-items:center;font-size:24px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-page>.container>.left>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--inventory-page>.container>.left>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--inventory-page>.container>.left>.bottom{display:flex;flex-direction:column;gap:16px}.acord--inventory-page>.container>.right{width:400px;height:100%;display:flex;justify-content:center}@media screen and (max-width: 1255px){.acord--inventory-page>.container{flex-direction:column-reverse}.acord--inventory-page>.container>.right{width:100%}}`;
 
   // src/ui/home/vue/components/pages/inventory-page/index.js
   patcher_default.injectCSS(style_default13);
@@ -5099,7 +5099,7 @@
           <div class="container">
             <div class="left">
               <div class="top">
-                <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')"></discord-input>
+                <div class="title">{{i18nFormat('INVENTORY')}}</div>
                 <div class="refresh" :class="{'loading': fetching}" :acord--tooltip-content="i18nFormat('REFRESH')"
                   @click="fetchAll">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -5134,7 +5134,6 @@
                 avatarUrl: ""
               },
               features: [],
-              searchText: "",
               fetching: false,
               selectedFeature: null
             };
@@ -6666,7 +6665,7 @@
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-colored-name-feature-card/style.scss
   var style_default25 = `
-.acord--inventory-colored-name-feature-card>.content{display:flex;width:175px;height:225px;background-color:rgba(0,0,0,.1);border-radius:8px;box-shadow:var(--elevation-medium);border:4px solid #949ba4;transition:border 100ms ease-in-out,background-color 100ms ease-in-out;position:relative;flex-direction:column;gap:8px;padding:16px;padding-top:32px;margin-right:32px;margin-top:32px}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:calc(100% - 32px);height:32px;left:16px;top:-16px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content>.duration{position:absolute;width:fit-content;width:calc(100% - 32px);height:20px;left:16px;bottom:-10px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:300;font-size:12px;background-color:#949ba4;color:#000}.acord--inventory-colored-name-feature-card>.content.enabled{border:4px solid #5662f6}.acord--inventory-colored-name-feature-card>.content.enabled>.template,.acord--inventory-colored-name-feature-card>.content.enabled>.duration{background-color:#5662f6;color:#f5f5f5}.acord--inventory-colored-name-feature-card>.content>.top>.name{font-size:18px;font-weight:500;color:var(--header-primary);opacity:.95;width:100%;word-break:break-word}`;
+.acord--inventory-colored-name-feature-card{width:100%}.acord--inventory-colored-name-feature-card>.content{--outline-color: #949ba4;width:100%;background-color:rgba(0,0,0,.1);border-radius:8px;display:flex;flex-direction:column;position:relative;border:2px solid var(--outline-color)}.acord--inventory-colored-name-feature-card>.content>.template{position:absolute;width:192px;height:24px;right:16px;top:-12px;border-radius:8px;display:flex;align-items:center;justify-content:center;text-shadow:0px 2px 4px rgba(0,0,0,.4);font-weight:600;background-color:var(--outline-color)}.acord--inventory-colored-name-feature-card>.content>.template>.colored{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--inventory-colored-name-feature-card>.content.enabled{--outline-color: #5662f6}.acord--inventory-colored-name-feature-card>.content>.top{background-color:rgba(0,0,0,.1);border-radius:8px;width:100%;padding:16px;height:128px;display:flex;justify-content:space-between}.acord--inventory-colored-name-feature-card>.content>.top>.left{height:100%}.acord--inventory-colored-name-feature-card>.content>.top>.left>.name{font-size:20px;font-weight:500;color:#f5f5f5;opacity:.95}.acord--inventory-colored-name-feature-card>.content>.top>.left>.duration{font-size:12px;font-weight:300;color:#f5f5f5;opacity:.75}.acord--inventory-colored-name-feature-card>.content>.top>.right{display:flex;flex-direction:column;justify-content:space-between;gap:8px;height:100%}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top{display:flex;justify-content:flex-end}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.top>.right>.top .control:hover{background-color:rgba(0,0,0,.5)}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom{display:flex;justify-content:flex-end}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom>.settings{display:flex;align-items:center;justify-content:flex-end;cursor:pointer;font-weight:300;color:rgba(255,255,255,.75);gap:8px;font-size:14px}.acord--inventory-colored-name-feature-card>.content>.top>.right>.bottom>.settings svg{padding:4px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#fff}.acord--inventory-colored-name-feature-card>.content>.settings{padding:16px;display:flex;flex-direction:column;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings.loading{opacity:.5;pointer-events:none}.acord--inventory-colored-name-feature-card>.content>.settings>.controls{display:flex;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.controls .button{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;font-size:14px;color:#f5f5f5;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.controls .button.disabled{opacity:.5;pointer-events:none}.acord--inventory-colored-name-feature-card>.content>.settings>.colors{display:flex;flex-direction:column;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color{display:flex;align-items:center;gap:8px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .color-input{padding:0;border-radius:50%;width:32px;height:32px;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .color-input::-webkit-color-swatch-wrapper{padding:0;border:none;border-radius:50%}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .percentage-input{padding:4px 8px;background-color:rgba(0,0,0,.25);border-radius:4px;color:#f5f5f5;width:36px;border:none;border-bottom:2px solid #f5f5f5}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove{display:flex;cursor:pointer}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove svg{color:rgba(245,245,245,.95);width:24px;height:24px}.acord--inventory-colored-name-feature-card>.content>.settings>.colors .color .remove:hover svg{color:#f23f42}`;
 
   // src/ui/home/vue/components/components/cards/inventory/inventory-colored-name-feature-card/index.js
   patcher_default.injectCSS(style_default25);
@@ -6683,37 +6682,145 @@
                 <div class="colored" :style="feature?.data ? \`\${feature.data.points.length === 1 ? \`background-color: \${feature.data.points[0].color};\` : \`background-image: \${feature.data.type}-gradient(\${feature.data.angle}, \${feature.data.points.map(i => \`\${i.color}\${i.percentage ? \` \${i.percentage}%\` : ''}\`).join(', ')}\`}\` : ''">{{i18nFormat('COLORED_NAME')}}</div>
               </div>
               <div class="top">
-                <div class="name">
-                  {{i18nFormat('INVENTORY_COLORED_NAME_FEATURE')}}
+                <div class="left">
+                  <div class="name">{{i18nFormat('COLORED_NAME')}}</div>
+                  <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
+                </div>
+                <div class="right">
+                  <div class="top">
+                    <div class="control" @click="toggleEnabled">
+                      <svg v-if="!feature?.enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M8 7a5 5 0 1 0 0 10h8a5 5 0 0 0 0-10H8zm0-2h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                        <path fill="currentColor" d="M8 5h8a7 7 0 0 1 0 14H8A7 7 0 0 1 8 5zm8 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="bottom">
+                    <div class="settings" @click="settingsVisible = !settingsVisible">
+                      <div class="text">{{i18nFormat(settingsVisible ? 'HIDE_SETTINGS' : 'SHOW_SETTINGS')}}</div>
+                      <svg v-if="!settingsVisible" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z"/>
+                      </svg>
+                      <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="currentColor" d="M12 11.828l-2.828 2.829-1.415-1.414L12 9l4.243 4.243-1.415 1.414L12 11.828z"/>
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="bottom">
-
+              <div class="settings" v-if="settingsVisible" :class="{'loading': settingsLoading}">
+                <div class="controls">
+                  <div class="button" :class="{disabled: points.length >= feature.data.max_points}" @click="addColor">{{i18nFormat("ADD_COLOR")}}</div>
+                  <div class="button" @click="fixPercentages">{{i18nFormat("FIX_PERCENTAGES")}}</div>
+                </div>
+                <div class="colors">
+                  <div class="color" v-for="(point, idx) in points" :key="idx">
+                    <input v-model="point.color" type="color" class="color-input" />
+                    <input v-model="point.percentage" type="number" step="0.05" class="percentage-input" max="100" min="0" />
+                    <div class="remove" @click="removeColor(idx)">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"></path>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="duration">{{i18nFormat('ENDS_IN', durationText)}}</div>
             </div>
           </div>
         `,
           props: ["feature", "selected"],
           data() {
             return {
-              durationText: ""
+              durationText: "",
+              settingsLoading: false,
+              settingsVisible: false,
+              points: []
             };
           },
           mounted() {
             this.updateDuration();
+            this.syncPoints();
           },
           watch: {
             feature() {
               this.updateDuration();
+              this.syncPoints();
             }
           },
           methods: {
             i18nFormat: i18n_default.format,
-            toggleEnabled() {
+            async toggleEnabled() {
+              if (this.settingsLoading)
+                return;
+              this.settingsLoading = true;
+              let newState = !this.feature.enabled;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    enabled: newState
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, enabled: newState });
+              this.syncPoints();
+            },
+            removeColor(idx) {
+              this.points.splice(idx, 1);
+              this.points = [...this.points];
+              this.saveFeature();
+            },
+            addColor() {
+              if (this.points.length >= this.feature.data.max_points)
+                return;
+              this.points.push({
+                color: "#ffffff",
+                percentage: 0
+              });
+              this.saveFeature();
+            },
+            fixPercentages() {
+              let amount = this.feature.data.max_points / this.points.length * 100;
+              let v = 0;
+              this.points.forEach((i, idx) => {
+                i.percentage = parseFloat(v.toFixed(2));
+                v += amount;
+              });
+              this.saveFeature();
             },
             updateDuration() {
               this.durationText = common_default2.moment.duration(this.feature.durations.end - this.feature.durations.now).locale(i18n_default.locale).humanize();
+            },
+            saveFeature: _.debounce(async function() {
+              if (this.settingsLoading)
+                return;
+              this.settingsLoading = true;
+              await fetch(
+                `https://api.acord.app/user/@me/profile/item/${this.feature.id}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    "x-acord-token": authentication_default.token,
+                    "content-type": "application/json"
+                  },
+                  body: JSON.stringify({
+                    points: this.points
+                  })
+                }
+              );
+              this.settingsLoading = false;
+              events_default.emit("InventoryFeatureUpdate", { ...this.feature, data: { ...this.feature.data, points: this.points } });
+            }, 1e3),
+            syncPoints() {
+              this.points = [...this.feature.data.points];
             }
           }
         }
@@ -7322,7 +7429,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.505";
+  var CURRENT_VERSION = "0.1.523";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

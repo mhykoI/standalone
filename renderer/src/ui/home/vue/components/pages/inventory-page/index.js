@@ -17,7 +17,7 @@ export default {
           <div class="container">
             <div class="left">
               <div class="top">
-                <discord-input v-model="searchText" :placeholder="i18nFormat('SEARCH')"></discord-input>
+                <div class="title">{{i18nFormat('INVENTORY')}}</div>
                 <div class="refresh" :class="{'loading': fetching}" :acord--tooltip-content="i18nFormat('REFRESH')"
                   @click="fetchAll">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
@@ -52,7 +52,6 @@ export default {
               avatarUrl: ""
             },
             features: [],
-            searchText: "",
             fetching: false,
             selectedFeature: null
           }
