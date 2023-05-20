@@ -8,7 +8,7 @@ async function fetchNameColorsOfUser(userId) {
 
 
 dom.patch(
-  '.username-3JLfHz, .username-h_Y3Us, .name-2m3Cms > .overflow-1wOqNV, .username-3_PJ5r, .mention',
+  '.username-3JLfHz, .username-h_Y3Us, .name-2m3Cms > .overflow-1wOqNV, .username-3_PJ5r, .nickname-3P1RuO, .mention',
   /** @param {HTMLDivElement} elm */ async (elm) => {
     if (elm.getAttribute("style")) return;
     let userId = elm.classList.contains("mention") ? (utils.react.getProps(elm, i => i?.userId)?.userId) : (utils.react.getProps(elm, i => i?.user)?.user?.id || utils.react.getProps(elm, i => i?.message)?.message?.author?.id);
@@ -19,11 +19,12 @@ dom.patch(
 
     if (elm.classList.contains("mention")) data.points = data.points.map(i => ({ ...i, color: `${i.color}4d` }));
 
-    elm.setAttribute("style",
-      data.points.length === 1
-        ? `background-color: ${data.points[0].color};`
-        : `background-image: ${data.type}-gradient(${data.angle}, ${data.points.map(i => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")});`
-    );
+    if (data.points.length === 1) {
+      elm.style.backgroundColor = data.points[0].color;
+    } else {
+      elm.style.backgroundImage = `${data.type}-gradient(${data.angle}, ${data.points.map(i => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")})`;
+    }
+
     elm.classList.add(`acord--gradient-${elm.classList.contains("mention") ? "mention" : "name"}`);
   }
 );

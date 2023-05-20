@@ -52,6 +52,7 @@ export default {
                 <div class="controls">
                   <div class="button" :class="{disabled: points.length >= feature.data.max_points}" @click="addColor">{{i18nFormat("ADD_COLOR")}}</div>
                   <div class="button" @click="fixPercentages">{{i18nFormat("FIX_PERCENTAGES")}}</div>
+                  <div class="button" @click="resetPercentages">{{i18nFormat("RESET_PERCENTAGES")}}</div>
                 </div>
                 <div class="colors">
                   <div class="color" v-for="(point, idx) in points" :key="idx">
@@ -155,6 +156,12 @@ export default {
               remainingAmount--;
             });
 
+            this.saveFeature();
+          },
+          resetPercentages() {
+            this.points.forEach((point, idx) => {
+              point.percentage = 0;
+            });
             this.saveFeature();
           },
           updateDuration() {

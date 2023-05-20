@@ -6714,6 +6714,7 @@
                 <div class="controls">
                   <div class="button" :class="{disabled: points.length >= feature.data.max_points}" @click="addColor">{{i18nFormat("ADD_COLOR")}}</div>
                   <div class="button" @click="fixPercentages">{{i18nFormat("FIX_PERCENTAGES")}}</div>
+                  <div class="button" @click="resetPercentages">{{i18nFormat("RESET_PERCENTAGES")}}</div>
                 </div>
                 <div class="colors">
                   <div class="color" v-for="(point, idx) in points" :key="idx">
@@ -6813,6 +6814,12 @@
                 point.percentage = parseFloat((v * 100 / maxPoints).toFixed(2));
                 v += currentAmount;
                 remainingAmount--;
+              });
+              this.saveFeature();
+            },
+            resetPercentages() {
+              this.points.forEach((point, idx) => {
+                point.percentage = 0;
               });
               this.saveFeature();
             },
@@ -7820,7 +7827,7 @@
     return (await fetchFeatures(userId))?.find((i) => i.type === "colored_name")?.data;
   }
   dom_default.patch(
-    ".username-3JLfHz, .username-h_Y3Us, .name-2m3Cms > .overflow-1wOqNV, .username-3_PJ5r, .mention",
+    ".username-3JLfHz, .username-h_Y3Us, .name-2m3Cms > .overflow-1wOqNV, .username-3_PJ5r, .nickname-3P1RuO, .mention",
     /** @param {HTMLDivElement} elm */
     async (elm) => {
       if (elm.getAttribute("style"))
@@ -7834,10 +7841,11 @@
       data = JSON.parse(JSON.stringify(data));
       if (elm.classList.contains("mention"))
         data.points = data.points.map((i) => ({ ...i, color: `${i.color}4d` }));
-      elm.setAttribute(
-        "style",
-        data.points.length === 1 ? `background-color: ${data.points[0].color};` : `background-image: ${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")});`
-      );
+      if (data.points.length === 1) {
+        elm.style.backgroundColor = data.points[0].color;
+      } else {
+        elm.style.backgroundImage = `${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")})`;
+      }
       elm.classList.add(`acord--gradient-${elm.classList.contains("mention") ? "mention" : "name"}`);
     }
   );
