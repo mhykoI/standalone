@@ -4757,6 +4757,18 @@
     return true;
   });
 
+  // src/other/badge-count.js
+  function update() {
+    let unreadPrivateCount = modules_default.common.PrivateChannelReadStateStore.__getLocalVars().unreadPrivateChannelIds.length;
+    let unreadGuildCount = modules_default.common.GuildReadStateStore.__getLocalVars().unreadGuilds.size;
+    let count = unreadPrivateCount || unreadGuildCount && void 0;
+    modules_default.native.app.setBadgeCount(count);
+  }
+  waitUntilConnectionOpen().then(() => {
+    update();
+    setInterval(update, 1e3);
+  });
+
   // src/ui/home/style.scss
   var style_default8 = `
 [class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}@keyframes updateAnimation{0%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}50%{filter:brightness(1.1) drop-shadow(0px 0px 2px #5865f2)}100%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container.no-padding{padding:0}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}.acord--tabs-tab-button.cosmetics-tab-button{background-image:linear-gradient(to right, #4900fa, #d100fc) !important;color:#f5f5f5}.acord--tabs-tab-button.cosmetics-tab-button.selected,.acord--tabs-tab-button.cosmetics-tab-button:hover{color:#f5f5f5;background-image:linear-gradient(to right, hsl(258deg, 100%, 60%), hsl(290deg, 100%, 60%)) !important}.acord--tabs-tab-button.disabled{pointer-events:none;opacity:.5}.acord--connected-status{width:9px;height:9px;border-radius:50%;margin-left:8px;background:#ed4245}.acord--connected-status.connected{background:#23a559}.acord--update-required{background-color:#5865f2;padding:4px 8px;border-radius:9999px;font-size:9px;font-weight:500;color:#fff;animation:updateAnimation 1s infinite normal;z-index:99;margin:4px}`;
