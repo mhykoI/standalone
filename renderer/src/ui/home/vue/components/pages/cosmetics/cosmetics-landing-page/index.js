@@ -72,6 +72,7 @@ export default {
           this.fetchItems();
           this.updateInterval = setInterval(() => { this.fetchItems(); }, 60000 * 60);
           this.switchInterval = setInterval(this.switchFeaturedItem, 5000);
+          cosmeticsData.fetchBalance();
         },
         unmounted() {
           clearInterval(this.updateInterval);

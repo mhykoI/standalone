@@ -5312,18 +5312,29 @@
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-cart-page/style.scss
   var style_default14 = `
-.acord--cosmetics-cart-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-cart-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-cart-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-cart-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-cart-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-cart-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-cart-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content{display:flex;gap:16px}.acord--cosmetics-cart-page>.container>.items-content>.items{display:flex;flex-direction:column;width:100%}.acord--cosmetics-cart-page>.container>.items-content>.items .item{display:flex;width:100%;padding:16px;border-bottom:1px solid rgba(245,245,245,.25);align-items:center;justify-content:space-between}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left{align-items:center;display:flex;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .image{width:100px;height:75px;background-position:center;background-size:contain;background-repeat:no-repeat;border-radius:4px;background-color:rgba(0,0,0,.15)}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .name{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.right{display:flex}.acord--cosmetics-cart-page>.container>.items-content>.total{width:240px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line{font-size:18px;color:#f5f5f5;border-bottom:1px solid rgba(245,245,245,.25);padding:8px}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line.total-price{font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.25);margin-top:32px;text-align:center}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments{margin-top:16px;display:flex;flex-direction:column;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.title{font-size:16px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.items{display:flex;flex-direction:column;gap:8px;margin-top:8px}.acord--cosmetics-cart-page>.container>.checkout-content{display:flex;align-items:flex-start;justify-content:center}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form{width:350px}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line>.label{font-size:20px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select{padding:8px 16px;border-radius:4px;background-color:rgba(0,0,0,.25);color:#f5f5f5;font-size:16px;border:none;outline:none;box-shadow:0 0 8px rgba(0,0,0,.25);width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input option,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select option{color:#000}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .price{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:32px;text-align:center;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button.disabled{opacity:.5;pointer-events:none}`;
+.acord--cosmetics-cart-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-cart-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-cart-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-cart-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-cart-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-cart-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-cart-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content{display:flex;gap:16px}.acord--cosmetics-cart-page>.container>.items-content>.items{display:flex;flex-direction:column;width:100%}.acord--cosmetics-cart-page>.container>.items-content>.items .item{display:flex;width:100%;padding:16px;border-bottom:1px solid rgba(245,245,245,.25);align-items:center;justify-content:space-between}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left{align-items:center;display:flex;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .image{width:100px;height:75px;background-position:center;background-size:contain;background-repeat:no-repeat;border-radius:4px;background-color:rgba(0,0,0,.15)}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .name{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.right{display:flex}.acord--cosmetics-cart-page>.container>.items-content>.total{width:240px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line{font-size:18px;color:#f5f5f5;border-bottom:1px solid rgba(245,245,245,.25);padding:8px}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line.total-price{font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line:last-child{border-bottom:32px}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.25);margin-top:16px;text-align:center}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments{margin-top:16px;display:flex;flex-direction:column;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.title{font-size:16px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.items{display:flex;flex-direction:column;gap:8px;margin-top:8px}.acord--cosmetics-cart-page>.container>.checkout-content{display:flex;align-items:flex-start;justify-content:center}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form{width:350px}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line>.label{font-size:20px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select{padding:8px 16px;border-radius:4px;background-color:rgba(0,0,0,.25);color:#f5f5f5;font-size:16px;border:none;outline:none;box-shadow:0 0 8px rgba(0,0,0,.25);width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input option,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select option{color:#000}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .price{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:32px;text-align:center;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button.disabled{opacity:.5;pointer-events:none}`;
 
   // src/ui/home/vue/components/pages/cosmetics/cosmetics-data.js
   var reactive;
   ui_default.vue.ready.when().then(() => {
     reactive = Vue.reactive({
-      cartItems: []
+      cartItems: [],
+      balance: 0
     });
   });
   var cosmetics_data_default = {
     get reactive() {
       return reactive;
+    },
+    async fetchBalance() {
+      let data = await (await fetch(`https://api.acord.app/store/balance`, {
+        cache: "no-store",
+        headers: {
+          "x-acord-token": authentication_default.token
+        }
+      })).json();
+      reactive.balance = data.data;
+      return data.data;
     }
   };
 
@@ -5562,13 +5573,19 @@
               </div>
               <div class="total">
                 <div class="info-line">
+                  <strong>{{i18nFormat("COSMETICS_BALANCE")}}:</strong> {{reactive.balance.toFixed(2)}}$
+                </div>
+                <div class="info-line">
                   <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}\u20BA ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                 </div>
                 <strong class="info-line">
                   {{i18nFormat("COSMETICS_KDV_INCLUDED")}}
                 </strong>
-                <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length}">
+                <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length || paymentLoading}">
                   {{i18nFormat("COSMETICS_CHECKOUT")}}
+                </div>
+                <div class="checkout-button" @click="checkoutWithBalance" :class="{'disabled': !reactive.cartItems.length || reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0) > reactive.balance || paymentLoading}">
+                  {{i18nFormat("COSMETICS_CHECKOUT_BALANCE")}}
                 </div>
                 <div class="old-payments">
                   <div class="title">{{i18nFormat("COSMETICS_OLD_PAYMENTS")}}</div>
@@ -5673,7 +5690,35 @@
               this.inCheckout = false;
               this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
               events_default.emit("CosmeticsSubPageChange", { name: "landing" });
+              ui_default.notifications.show.success(i18n_default.format("COSMETICS_PAYMENT_OK"));
               this.fetchOldPayments();
+              cosmetics_data_default.fetchBalance();
+            },
+            async checkoutWithBalance() {
+              if (this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0) > this.reactive.balance)
+                return;
+              this.paymentLoading = true;
+              let req = await fetch(
+                "https://api.acord.app/store/payment/deposit-pay",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    "x-acord-token": authentication_default.token
+                  },
+                  body: JSON.stringify({
+                    items: this.reactive.cartItems.map((i) => ({ id: i.id, type: i.type }))
+                  })
+                }
+              );
+              let res = await req.json();
+              if (!req.ok) {
+                this.paymentLoading = false;
+                ui_default.notifications.show.error(res.error, { timeout: 3e4 });
+                return;
+              }
+              this.paymentLoading = false;
+              this.paymentOk();
             },
             goBack() {
               if (this.inCheckout) {
@@ -5703,6 +5748,7 @@
             },
             async onCheckoutSubmit(e) {
               e.preventDefault();
+              await cosmetics_data_default.fetchBalance();
               let usdTotal = this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0);
               if (usdTotal < 0.5 && this.buyerData.buyer_country !== "Turkey") {
                 ui_default.notifications.show.error(i18n_default.format("COSMETICS_MINIMUM_USD"));
@@ -5740,6 +5786,7 @@
               this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
               this.resetBuyerData();
               this.inCheckout = false;
+              cosmetics_data_default.fetchBalance();
               setTimeout(() => {
                 this.fetchOldPayments();
               }, 1e3);
@@ -5824,6 +5871,7 @@
               this.fetchItems();
             }, 6e4 * 60);
             this.switchInterval = setInterval(this.switchFeaturedItem, 5e3);
+            cosmetics_data_default.fetchBalance();
           },
           unmounted() {
             clearInterval(this.updateInterval);
@@ -5906,7 +5954,7 @@
 
   // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-cart-button/style.scss
   var style_default17 = `
-.acord--cosmetics-cart-button{padding:8px;display:flex;border-radius:4px;background-color:rgba(245,245,245,.25);cursor:pointer;position:relative}.acord--cosmetics-cart-button .count{display:flex;position:absolute;top:-4px;right:-4px;background-color:#f04747;color:#f5f5f5;border-radius:50%;width:16px;height:16px;font-size:14px;align-items:center;justify-content:center}.acord--cosmetics-cart-button svg{width:24px;height:24px;color:#f5f5f5}`;
+.acord--cosmetics-cart-button{display:flex;background-color:rgba(245,245,245,.1);border-radius:4px;display:flex;align-items:center;justify-content:center}.acord--cosmetics-cart-button>.prices{padding:0px 8px;font-size:18px;display:flex;flex-direction:column;align-items:center}.acord--cosmetics-cart-button>.prices>.total{font-size:16px;color:#f5f5f5}.acord--cosmetics-cart-button>.prices>.balance{font-size:14px;color:rgba(245,245,245,.75)}.acord--cosmetics-cart-button>.icon{padding:8px;display:flex;border-radius:4px;background-color:rgba(245,245,245,.25);cursor:pointer;position:relative}.acord--cosmetics-cart-button>.icon .count{display:flex;position:absolute;top:-4px;right:-4px;background-color:#f04747;color:#f5f5f5;border-radius:50%;width:16px;height:16px;font-size:14px;align-items:center;justify-content:center}.acord--cosmetics-cart-button>.icon svg{width:24px;height:24px;color:#f5f5f5}`;
 
   // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-cart-button/index.js
   patcher_default.injectCSS(style_default17);
@@ -5918,10 +5966,20 @@
         {
           template: `
         <div class="acord--cosmetics-cart-button" @click="go">
-          <div v-if="reactive.cartItems.length" class="count">{{reactive.cartItems.length}}</div>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <path fill="currentColor" d="M12.0049 2C15.3186 2 18.0049 4.68629 18.0049 8V9H22.0049V11H20.8379L20.0813 20.083C20.0381 20.6013 19.6048 21 19.0847 21H4.92502C4.40493 21 3.97166 20.6013 3.92847 20.083L3.17088 11H2.00488V9H6.00488V8C6.00488 4.68629 8.69117 2 12.0049 2ZM18.8309 11H5.17788L5.84488 19H18.1639L18.8309 11ZM13.0049 13V17H11.0049V13H13.0049ZM9.00488 13V17H7.00488V13H9.00488ZM17.0049 13V17H15.0049V13H17.0049ZM12.0049 4C9.86269 4 8.1138 5.68397 8.00978 7.80036L8.00488 8V9H16.0049V8C16.0049 5.8578 14.3209 4.10892 12.2045 4.0049L12.0049 4Z"></path>
-          </svg>
+          <div class="prices">
+            <div class="total">
+              {{i18nFormat("COSMETICS_TOTAL")}}: {{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toLocaleString()}}$
+            </div>
+            <div class="balance">
+              {{i18nFormat("COSMETICS_BALANCE")}}: {{reactive.balance.toLocaleString()}}$
+            </div>
+          </div>
+          <div class="icon">
+            <div v-if="reactive.cartItems.length" class="count">{{reactive.cartItems.length}}</div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12.0049 2C15.3186 2 18.0049 4.68629 18.0049 8V9H22.0049V11H20.8379L20.0813 20.083C20.0381 20.6013 19.6048 21 19.0847 21H4.92502C4.40493 21 3.97166 20.6013 3.92847 20.083L3.17088 11H2.00488V9H6.00488V8C6.00488 4.68629 8.69117 2 12.0049 2ZM18.8309 11H5.17788L5.84488 19H18.1639L18.8309 11ZM13.0049 13V17H11.0049V13H13.0049ZM9.00488 13V17H7.00488V13H9.00488ZM17.0049 13V17H15.0049V13H17.0049ZM12.0049 4C9.86269 4 8.1138 5.68397 8.00978 7.80036L8.00488 8V9H16.0049V8C16.0049 5.8578 14.3209 4.10892 12.2045 4.0049L12.0049 4Z"></path>
+            </svg>
+          </div>
         </div>
         `,
           data() {
@@ -5929,9 +5987,14 @@
               reactive: cosmetics_data_default.reactive
             };
           },
+          mounted() {
+            cosmetics_data_default.fetchBalance();
+          },
           methods: {
+            i18nFormat: i18n_default.format,
             go() {
               events_default.emit("CosmeticsSubPageChange", { name: "cart", data: {}, hideNav: true });
+              cosmetics_data_default.fetchBalance();
             }
           }
         }
@@ -7565,7 +7628,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.560";
+  var CURRENT_VERSION = "0.1.568";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

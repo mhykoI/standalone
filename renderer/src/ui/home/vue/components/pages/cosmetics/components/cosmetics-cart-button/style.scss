@@ -1,29 +1,56 @@
 .acord--cosmetics-cart-button {
-  padding: 8px;
   display: flex;
+  background-color: rgba(245, 245, 245, 0.1);
   border-radius: 4px;
-  background-color: rgba(245, 245, 245, 0.25);
-  cursor: pointer;
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  .count {
+  & > .prices {
+    padding: 0px 8px;
+    font-size: 18px;
     display: flex;
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    background-color: #f04747;
-    color: whitesmoke;
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    font-size: 14px;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+
+    & > .total {
+      font-size: 16px;
+      color: whitesmoke;
+    }
+
+    & > .balance {
+      font-size: 14px;
+      color: rgba(245, 245, 245, 0.75);
+    }
   }
 
-  svg {
-    width: 24px;
-    height: 24px;
-    color: whitesmoke;
+  & > .icon {
+    padding: 8px;
+    display: flex;
+    border-radius: 4px;
+    background-color: rgba(245, 245, 245, 0.25);
+    cursor: pointer;
+    position: relative;
+
+    .count {
+      display: flex;
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background-color: #f04747;
+      color: whitesmoke;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      font-size: 14px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+      color: whitesmoke;
+    }
   }
 }

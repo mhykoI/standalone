@@ -44,13 +44,19 @@ export default {
               </div>
               <div class="total">
                 <div class="info-line">
+                  <strong>{{i18nFormat("COSMETICS_BALANCE")}}:</strong> {{reactive.balance.toFixed(2)}}$
+                </div>
+                <div class="info-line">
                   <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}₺ ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                 </div>
                 <strong class="info-line">
                   {{i18nFormat("COSMETICS_KDV_INCLUDED")}}
                 </strong>
-                <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length}">
+                <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length || paymentLoading}">
                   {{i18nFormat("COSMETICS_CHECKOUT")}}
+                </div>
+                <div class="checkout-button" @click="checkoutWithBalance" :class="{'disabled': !reactive.cartItems.length || reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0) > reactive.balance || paymentLoading}">
+                  {{i18nFormat("COSMETICS_CHECKOUT_BALANCE")}}
                 </div>
                 <div class="old-payments">
                   <div class="title">{{i18nFormat("COSMETICS_OLD_PAYMENTS")}}</div>
@@ -155,7 +161,34 @@ export default {
             this.inCheckout = false;
             this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
             events.emit("CosmeticsSubPageChange", { name: "landing" });
+            ui.notifications.show.success(i18n.format("COSMETICS_PAYMENT_OK"));
             this.fetchOldPayments();
+            cosmeticsData.fetchBalance();
+          },
+          async checkoutWithBalance() {
+            if (this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0) > this.reactive.balance) return;
+            this.paymentLoading = true;
+            let req = await fetch(
+              "https://api.acord.app/store/payment/deposit-pay",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "x-acord-token": authentication.token
+                },
+                body: JSON.stringify({
+                  items: this.reactive.cartItems.map(i => ({ id: i.id, type: i.type }))
+                }),
+              }
+            );
+            let res = await req.json();
+            if (!req.ok) {
+              this.paymentLoading = false;
+              ui.notifications.show.error(res.error, { timeout: 30000 });
+              return;
+            }
+            this.paymentLoading = false;
+            this.paymentOk();
           },
           goBack() {
             if (this.inCheckout) {
@@ -184,6 +217,7 @@ export default {
           },
           async onCheckoutSubmit(e) {
             e.preventDefault();
+            await cosmeticsData.fetchBalance();
             let usdTotal = this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0);
             if (usdTotal < 0.5 && this.buyerData.buyer_country !== "Turkey") {
               ui.notifications.show.error(i18n.format("COSMETICS_MINIMUM_USD"));
@@ -221,6 +255,7 @@ export default {
             this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
             this.resetBuyerData();
             this.inCheckout = false;
+            cosmeticsData.fetchBalance();
             setTimeout(() => {
               this.fetchOldPayments();
             }, 1000);
