@@ -4750,10 +4750,10 @@
     }
   }, 1e3);
 
-  // src/other/cosmetics-payment-ok.js
-  http_default.set("CosmeticsPaymentOk", async () => {
-    events_default.emit("CosmeticsPaymentOk");
-    console.log("CosmeticsPaymentOk");
+  // src/other/store-payment-ok.js
+  http_default.set("StorePaymentOk", async () => {
+    events_default.emit("StorePaymentOk");
+    console.log("StorePaymentOk");
     return true;
   });
 
@@ -4771,7 +4771,7 @@
 
   // src/ui/home/style.scss
   var style_default8 = `
-[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}@keyframes updateAnimation{0%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}50%{filter:brightness(1.1) drop-shadow(0px 0px 2px #5865f2)}100%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container.no-padding{padding:0}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.store-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.store-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.store-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}.acord--tabs-tab-button.cosmetics-tab-button{background-image:linear-gradient(to right, #4900fa, #d100fc) !important;color:#f5f5f5}.acord--tabs-tab-button.cosmetics-tab-button.selected,.acord--tabs-tab-button.cosmetics-tab-button:hover{color:#f5f5f5;background-image:linear-gradient(to right, hsl(258deg, 100%, 60%), hsl(290deg, 100%, 60%)) !important}.acord--tabs-tab-button.disabled{pointer-events:none;opacity:.5}.acord--connected-status{width:9px;height:9px;border-radius:50%;margin-left:8px;background:#ed4245}.acord--connected-status.connected{background:#23a559}.acord--update-required{background-color:#5865f2;padding:4px 8px;border-radius:9999px;font-size:9px;font-weight:500;color:#fff;animation:updateAnimation 1s infinite normal;z-index:99;margin:4px}`;
+[class*=acord--]{box-sizing:border-box}[class*=acord--] *{box-sizing:border-box}@keyframes updateAnimation{0%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}50%{filter:brightness(1.1) drop-shadow(0px 0px 2px #5865f2)}100%{filter:brightness(1) drop-shadow(0px 0px 0px #5865f2)}}.acord--tabs-content-container{padding:32px 16px;display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--tabs-content-container.no-padding{padding:0}.acord--tabs-content-container>.tab{width:100%}.acord--tabs-tab-button{cursor:pointer}.acord--tabs-tab-button.explore-tab-button{background-color:var(--status-positive-background);color:var(--status-positive-text)}.acord--tabs-tab-button.explore-tab-button:hover:not(.selected){background-color:var(--status-positive-background) !important;color:var(--status-positive-text) !important}.acord--tabs-tab-button.explore-tab-button.selected{color:var(--text-positive);background-color:rgba(0,0,0,0)}.acord--tabs-tab-button.store-tab-button{background-image:linear-gradient(to right, #4900fa, #d100fc) !important;color:#f5f5f5}.acord--tabs-tab-button.store-tab-button.selected,.acord--tabs-tab-button.store-tab-button:hover{color:#f5f5f5;background-image:linear-gradient(to right, hsl(258deg, 100%, 60%), hsl(290deg, 100%, 60%)) !important}.acord--tabs-tab-button.disabled{pointer-events:none;opacity:.5}.acord--connected-status{width:9px;height:9px;border-radius:50%;margin-left:8px;background:#ed4245}.acord--connected-status.connected{background:#23a559}.acord--update-required{background-color:#5865f2;padding:4px 8px;border-radius:9999px;font-size:9px;font-weight:500;color:#fff;animation:updateAnimation 1s infinite normal;z-index:99;margin:4px}`;
 
   // src/ui/home/vue/components/pages/home-page/style.scss
   var style_default9 = `
@@ -5100,20 +5100,20 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/store-page/style.scss
+  // src/ui/home/vue/components/pages/explore-page/style.scss
   var style_default12 = `
-@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--store-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--store-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-page .container>.top{display:flex;align-items:center;gap:8px}.acord--store-page .container>.top>.search{width:80%}.acord--store-page .container>.top>.category{width:20%}.acord--store-page .container>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--store-page .container>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--store-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
+@keyframes rotate360{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}.acord--explore-page{display:flex;align-items:flex-start;justify-content:center;padding:0 16px}.acord--explore-page .container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--explore-page .container>.top{display:flex;align-items:center;gap:8px}.acord--explore-page .container>.top>.search{width:80%}.acord--explore-page .container>.top>.category{width:20%}.acord--explore-page .container>.top>.refresh{display:flex;align-items:center;justify-content:center;color:#f5f5f5;height:42px;background:#1e1f22;width:42px;min-width:42px;border-radius:4px;cursor:pointer}.acord--explore-page .container>.top>.refresh.loading svg{animation:rotate360 1s linear infinite}.acord--explore-page .container>.bottom{display:flex;flex-direction:row;justify-content:center;flex-wrap:wrap;gap:16px;margin-top:16px}`;
 
-  // src/ui/home/vue/components/pages/store-page/index.js
+  // src/ui/home/vue/components/pages/explore-page/index.js
   patcher_default.injectCSS(style_default12);
-  var store_page_default = {
+  var explore_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "store-page",
+        "explore-page",
         {
           template: `
-        <div class="acord--store-page">
+        <div class="acord--explore-page">
           <div class="container">
             <div class="top">
               <div class="search">
@@ -5129,7 +5129,7 @@
               </div>
             </div>
             <div class="bottom">
-              <store-extension-card v-for="extension in filteredExtensions" :id="extension.meta.url" :extension="extension" :key="extension.meta.url" />
+              <explore-extension-card v-for="extension in filteredExtensions" :id="extension.meta.url" :extension="extension" :key="extension.meta.url" />
             </div>
           </div>
         </div>
@@ -5310,11 +5310,11 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-cart-page/style.scss
+  // src/ui/home/vue/components/pages/store/store-cart-page/style.scss
   var style_default14 = `
-.acord--cosmetics-cart-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-cart-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-cart-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-cart-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-cart-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-cart-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-cart-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content{display:flex;gap:16px}.acord--cosmetics-cart-page>.container>.items-content>.items{display:flex;flex-direction:column;width:100%}.acord--cosmetics-cart-page>.container>.items-content>.items .item{display:flex;width:100%;padding:16px;border-bottom:1px solid rgba(245,245,245,.25);align-items:center;justify-content:space-between}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left{align-items:center;display:flex;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .image{width:100px;height:75px;background-position:center;background-size:contain;background-repeat:no-repeat;border-radius:4px;background-color:rgba(0,0,0,.15)}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.left .name{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-cart-page>.container>.items-content>.items .item>.right{display:flex}.acord--cosmetics-cart-page>.container>.items-content>.total{width:240px;display:flex;flex-direction:column}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line{font-size:18px;color:#f5f5f5;border-bottom:1px solid rgba(245,245,245,.25);padding:8px}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line.total-price{font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total .info-line:last-child{border-bottom:32px}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.25);margin-top:16px;text-align:center}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.items-content>.total>.checkout-button.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments{margin-top:16px;display:flex;flex-direction:column;gap:8px}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.title{font-size:16px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.items-content>.total>.old-payments>.items{display:flex;flex-direction:column;gap:8px;margin-top:8px}.acord--cosmetics-cart-page>.container>.checkout-content{display:flex;align-items:flex-start;justify-content:center}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form{width:350px}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line>.label{font-size:20px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select{padding:8px 16px;border-radius:4px;background-color:rgba(0,0,0,.25);color:#f5f5f5;font-size:16px;border:none;outline:none;box-shadow:0 0 8px rgba(0,0,0,.25);width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line input option,.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .input-line select option{color:#000}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:8px;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .price-line .price{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:32px;text-align:center;width:100%}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button:hover{background-color:#1e6f3d}.acord--cosmetics-cart-page>.container>.checkout-content .checkout-form .submit-button.disabled{opacity:.5;pointer-events:none}`;
+.acord--store-cart-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--store-cart-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column}.acord--store-cart-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--store-cart-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--store-cart-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--store-cart-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--store-cart-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--store-cart-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--store-cart-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--store-cart-page>.container>.items-content{display:flex;gap:16px}.acord--store-cart-page>.container>.items-content>.items{display:flex;flex-direction:column;width:100%}.acord--store-cart-page>.container>.items-content>.items .item{display:flex;width:100%;padding:16px;border-bottom:1px solid rgba(245,245,245,.25);align-items:center;justify-content:space-between}.acord--store-cart-page>.container>.items-content>.items .item>.left{align-items:center;display:flex;gap:8px}.acord--store-cart-page>.container>.items-content>.items .item>.left .image{width:100px;height:75px;background-position:center;background-size:contain;background-repeat:no-repeat;border-radius:4px;background-color:rgba(0,0,0,.15)}.acord--store-cart-page>.container>.items-content>.items .item>.left .name{font-size:24px;font-weight:600;color:#f5f5f5}.acord--store-cart-page>.container>.items-content>.items .item>.right{display:flex}.acord--store-cart-page>.container>.items-content>.total{width:240px;display:flex;flex-direction:column}.acord--store-cart-page>.container>.items-content>.total .info-line{font-size:18px;color:#f5f5f5;border-bottom:1px solid rgba(245,245,245,.25);padding:8px}.acord--store-cart-page>.container>.items-content>.total .info-line.total-price{font-weight:600}.acord--store-cart-page>.container>.items-content>.total .info-line:last-child{border-bottom:32px}.acord--store-cart-page>.container>.items-content>.total>.checkout-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;box-shadow:0 0 8px rgba(0,0,0,.25);margin-top:16px;text-align:center}.acord--store-cart-page>.container>.items-content>.total>.checkout-button:hover{background-color:#1e6f3d}.acord--store-cart-page>.container>.items-content>.total>.checkout-button.disabled{opacity:.5;pointer-events:none}.acord--store-cart-page>.container>.items-content>.total>.old-payments{margin-top:16px;display:flex;flex-direction:column;gap:8px}.acord--store-cart-page>.container>.items-content>.total>.old-payments>.title{font-size:16px;color:#f5f5f5;font-weight:600}.acord--store-cart-page>.container>.items-content>.total>.old-payments>.items{display:flex;flex-direction:column;gap:8px;margin-top:8px}.acord--store-cart-page>.container>.checkout-content{display:flex;align-items:flex-start;justify-content:center}.acord--store-cart-page>.container>.checkout-content .checkout-form{width:350px}.acord--store-cart-page>.container>.checkout-content .checkout-form .input-line{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;width:100%}.acord--store-cart-page>.container>.checkout-content .checkout-form .input-line>.label{font-size:20px;color:#f5f5f5;font-weight:600}.acord--store-cart-page>.container>.checkout-content .checkout-form .input-line input,.acord--store-cart-page>.container>.checkout-content .checkout-form .input-line select{padding:8px 16px;border-radius:4px;background-color:rgba(0,0,0,.25);color:#f5f5f5;font-size:16px;border:none;outline:none;box-shadow:0 0 8px rgba(0,0,0,.25);width:100%}.acord--store-cart-page>.container>.checkout-content .checkout-form .input-line input option,.acord--store-cart-page>.container>.checkout-content .checkout-form .input-line select option{color:#000}.acord--store-cart-page>.container>.checkout-content .checkout-form .price-line{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:8px;width:100%}.acord--store-cart-page>.container>.checkout-content .checkout-form .price-line .label{font-size:18px;color:#f5f5f5;font-weight:600}.acord--store-cart-page>.container>.checkout-content .checkout-form .price-line .price{font-size:14px;color:#f5f5f5;font-weight:500}.acord--store-cart-page>.container>.checkout-content .checkout-form .submit-button{padding:16px 8px;background-color:#248046;color:#f5f5f5;font-size:18px;font-weight:600;border-radius:8px;cursor:pointer;margin-top:32px;text-align:center;width:100%}.acord--store-cart-page>.container>.checkout-content .checkout-form .submit-button:hover{background-color:#1e6f3d}.acord--store-cart-page>.container>.checkout-content .checkout-form .submit-button.disabled{opacity:.5;pointer-events:none}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-data.js
+  // src/ui/home/vue/components/pages/store/store-data.js
   var reactive;
   ui_default.vue.ready.when().then(() => {
     reactive = Vue.reactive({
@@ -5322,7 +5322,7 @@
       balance: 0
     });
   });
-  var cosmetics_data_default = {
+  var store_data_default = {
     get reactive() {
       return reactive;
     },
@@ -5338,7 +5338,7 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-cart-page/countries.json
+  // src/ui/home/vue/components/pages/store/store-cart-page/countries.json
   var countries_default = [
     "Afghanistan",
     "Albania",
@@ -5537,16 +5537,16 @@
     "Zimbabwe"
   ];
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-cart-page/index.js
+  // src/ui/home/vue/components/pages/store/store-cart-page/index.js
   patcher_default.injectCSS(style_default14);
-  var cosmetics_cart_page_default = {
+  var store_cart_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-cart-page",
+        "store-cart-page",
         {
           template: `
-        <div class="acord--cosmetics-cart-page">
+        <div class="acord--store-cart-page">
           <div class="container">
             <div class="nav">
               <div class="left">
@@ -5555,7 +5555,7 @@
                     <path fill="currentColor" d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
                   </svg>
                 </div>
-                <div class="title">{{i18nFormat("COSMETICS_CART")}}</div>
+                <div class="title">{{i18nFormat("STORE_CART")}}</div>
               </div>
               <div class="right"></div>
             </div>
@@ -5567,30 +5567,30 @@
                     <div class="name">{{item.name}}</div>
                   </div>
                   <div class="right">
-                    <cosmetics-price-card :item="item" :small="true" />
+                    <store-price-card :item="item" :small="true" />
                   </div>
                 </div>
               </div>
               <div class="total">
                 <div class="info-line">
-                  <strong>{{i18nFormat("COSMETICS_BALANCE")}}:</strong> {{reactive.balance.toFixed(2)}}$
+                  <strong>{{i18nFormat("STORE_BALANCE")}}:</strong> {{reactive.balance.toFixed(2)}}$
                 </div>
                 <div class="info-line">
-                  <strong>{{i18nFormat("COSMETICS_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}\u20BA ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
+                  <strong>{{i18nFormat("STORE_TOTAL")}}:</strong> {{reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2)}}\u20BA ({{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toFixed(2)}}$)
                 </div>
                 <strong class="info-line">
-                  {{i18nFormat("COSMETICS_KDV_INCLUDED")}}
+                  {{i18nFormat("STORE_KDV_INCLUDED")}}
                 </strong>
                 <div class="checkout-button" @click="checkout" :class="{'disabled': !reactive.cartItems.length || paymentLoading}">
-                  {{i18nFormat("COSMETICS_CHECKOUT")}}
+                  {{i18nFormat("STORE_CHECKOUT")}}
                 </div>
                 <div class="checkout-button" @click="checkoutWithBalance" :class="{'disabled': !reactive.cartItems.length || reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0) > reactive.balance || paymentLoading}">
-                  {{i18nFormat("COSMETICS_CHECKOUT_BALANCE")}}
+                  {{i18nFormat("STORE_CHECKOUT_BALANCE")}}
                 </div>
                 <div class="old-payments">
-                  <div class="title">{{i18nFormat("COSMETICS_OLD_PAYMENTS")}}</div>
+                  <div class="title">{{i18nFormat("STORE_OLD_PAYMENTS")}}</div>
                   <div class="items">
-                    <cosmetics-old-payment-card v-for="item in oldPayments" :item="item" :key="item.id" />
+                    <store-old-payment-card v-for="item in oldPayments" :item="item" :key="item.id" />
                   </div>
                 </div>
               </div>
@@ -5629,13 +5629,13 @@
                   </select>
                 </div>
                 <div class="price-line">
-                  <div class="label">{{i18nFormat("COSMETICS_TOTAL")}}:</div>
+                  <div class="label">{{i18nFormat("STORE_TOTAL")}}:</div>
                   <div class="price">
                     {{(buyerData.buyer_country === "Turkey" || !buyerData.buyer_country) ? reactive.cartItems.reduce((all,i)=>all+i.prices.try,0).toFixed(2) : (reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0) + ((buyerData.buyer_country === "Turkey" || !buyerData.buyer_country) ? 0 : 0.5)).toFixed(2)}}{{(buyerData.buyer_country === "Turkey" || !buyerData.buyer_country) ? "\u20BA" : "$"}}
                   </div>
                 </div>
                 <button type="submit" class="submit-button" :class="{'disabled': paymentLoading}" tabindex="9">
-                  {{i18nFormat(paymentLoading ? "LOADING" : "COSMETICS_CHECKOUT")}}
+                  {{i18nFormat(paymentLoading ? "LOADING" : "STORE_CHECKOUT")}}
                 </button>
               </form>
             </div>
@@ -5644,7 +5644,7 @@
         `,
           data() {
             return {
-              reactive: cosmetics_data_default.reactive,
+              reactive: store_data_default.reactive,
               oldPayments: [],
               inCheckout: false,
               paymentLoading: false,
@@ -5665,10 +5665,10 @@
           mounted() {
             this.resetBuyerData();
             this.fetchOldPayments();
-            events_default.on("CosmeticsPaymentOk", this.paymentOk);
+            events_default.on("StorePaymentOk", this.paymentOk);
           },
           unmounted() {
-            events_default.off("CosmeticsPaymentOk", this.paymentOk);
+            events_default.off("StorePaymentOk", this.paymentOk);
           },
           methods: {
             i18nFormat: i18n_default.format,
@@ -5689,10 +5689,10 @@
               this.paymentPageUrl = "";
               this.inCheckout = false;
               this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
-              events_default.emit("CosmeticsSubPageChange", { name: "landing" });
-              ui_default.notifications.show.success(i18n_default.format("COSMETICS_PAYMENT_OK"));
+              events_default.emit("StoreSubPageChange", { name: "landing" });
+              ui_default.notifications.show.success(i18n_default.format("STORE_PAYMENT_OK"));
               this.fetchOldPayments();
-              cosmetics_data_default.fetchBalance();
+              store_data_default.fetchBalance();
             },
             async checkoutWithBalance() {
               if (this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0) > this.reactive.balance)
@@ -5725,7 +5725,7 @@
                 this.inCheckout = false;
                 return;
               }
-              events_default.emit("CosmeticsSubPageChange", { name: "landing" });
+              events_default.emit("StoreSubPageChange", { name: "landing" });
             },
             checkout() {
               if (this.inCheckout)
@@ -5748,10 +5748,10 @@
             },
             async onCheckoutSubmit(e) {
               e.preventDefault();
-              await cosmetics_data_default.fetchBalance();
+              await store_data_default.fetchBalance();
               let usdTotal = this.reactive.cartItems.reduce((all, i) => all + i.prices.usd, 0);
               if (usdTotal < 0.5 && this.buyerData.buyer_country !== "Turkey") {
-                ui_default.notifications.show.error(i18n_default.format("COSMETICS_MINIMUM_USD"));
+                ui_default.notifications.show.error(i18n_default.format("STORE_MINIMUM_USD"));
                 return;
               }
               if (this.paymentPageUrl) {
@@ -5786,7 +5786,7 @@
               this.reactive.cartItems.splice(0, this.reactive.cartItems.length);
               this.resetBuyerData();
               this.inCheckout = false;
-              cosmetics_data_default.fetchBalance();
+              store_data_default.fetchBalance();
               setTimeout(() => {
                 this.fetchOldPayments();
               }, 1e3);
@@ -5797,20 +5797,20 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-landing-page/style.scss
+  // src/ui/home/vue/components/pages/store/store-landing-page/style.scss
   var style_default15 = `
-.acord--cosmetics-landing-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-landing-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--cosmetics-landing-page>.container>.featured-container{width:100%;height:400px;border-radius:8px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.featured-container .name{position:absolute;top:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.featured-container .page{position:absolute;bottom:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:14px;font-weight:600;color:#f5f5f5;opacity:.75}.acord--cosmetics-landing-page>.container>.featured-container .control{position:absolute;display:flex;cursor:pointer;background-color:rgba(0,0,0,.5);border-radius:50%;padding:8px}.acord--cosmetics-landing-page>.container>.featured-container .control:hover{background-color:rgba(0,0,0,.75)}.acord--cosmetics-landing-page>.container>.featured-container .control svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.featured-container .control.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-landing-page>.container>.featured-container .previous{top:50%;left:16px;transform:translateY(-50%)}.acord--cosmetics-landing-page>.container>.featured-container .next{top:50%;right:16px;transform:translateY(-50%)}.acord--cosmetics-landing-page>.container>.featured-container .price-card{display:flex;position:absolute;bottom:16px;right:16px}.acord--cosmetics-landing-page>.container>.other-featured-items{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}.acord--cosmetics-landing-page>.container>.other-featured-items .item{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.other-featured-items .item .name{position:absolute;top:8px;left:8px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.other-featured-items .item .price-card{display:flex;position:absolute;bottom:8px;right:8px}.acord--cosmetics-landing-page>.container>.other-page-buttons{display:flex;flex-direction:column;gap:16px;margin-top:16px}.acord--cosmetics-landing-page>.container>.other-page-buttons>.title{width:100%;display:flex;justify-content:center;align-items:center;font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-landing-page>.container>.other-page-buttons>.buttons{display:flex;gap:16px;width:100%}.acord--cosmetics-landing-page>.container>.other-page-buttons>.buttons .button{width:100%;height:250px;cursor:pointer;border-radius:8px;background-position:center;background-size:cover;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-landing-page>.container>.other-page-buttons>.buttons .button>.title{position:absolute;top:32px;left:32px;border-radius:8px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:20px;font-weight:600;color:#f5f5f5}`;
+.acord--store-landing-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--store-landing-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--store-landing-page>.container>.featured-container{width:100%;height:400px;border-radius:8px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--store-landing-page>.container>.featured-container .name{position:absolute;top:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--store-landing-page>.container>.featured-container .page{position:absolute;bottom:16px;left:16px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:14px;font-weight:600;color:#f5f5f5;opacity:.75}.acord--store-landing-page>.container>.featured-container .control{position:absolute;display:flex;cursor:pointer;background-color:rgba(0,0,0,.5);border-radius:50%;padding:8px}.acord--store-landing-page>.container>.featured-container .control:hover{background-color:rgba(0,0,0,.75)}.acord--store-landing-page>.container>.featured-container .control svg{width:24px;height:24px;color:#f5f5f5}.acord--store-landing-page>.container>.featured-container .control.disabled{opacity:.5;pointer-events:none}.acord--store-landing-page>.container>.featured-container .previous{top:50%;left:16px;transform:translateY(-50%)}.acord--store-landing-page>.container>.featured-container .next{top:50%;right:16px;transform:translateY(-50%)}.acord--store-landing-page>.container>.featured-container .price-card{display:flex;position:absolute;bottom:16px;right:16px}.acord--store-landing-page>.container>.other-featured-items{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}.acord--store-landing-page>.container>.other-featured-items .item{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--store-landing-page>.container>.other-featured-items .item .name{position:absolute;top:8px;left:8px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:24px;font-weight:600;color:#f5f5f5}.acord--store-landing-page>.container>.other-featured-items .item .price-card{display:flex;position:absolute;bottom:8px;right:8px}.acord--store-landing-page>.container>.other-page-buttons{display:flex;flex-direction:column;gap:16px;margin-top:16px}.acord--store-landing-page>.container>.other-page-buttons>.title{width:100%;display:flex;justify-content:center;align-items:center;font-size:32px;font-weight:600;color:#f5f5f5}.acord--store-landing-page>.container>.other-page-buttons>.buttons{display:flex;gap:16px;width:100%}.acord--store-landing-page>.container>.other-page-buttons>.buttons .button{width:100%;height:250px;cursor:pointer;border-radius:8px;background-position:center;background-size:cover;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--store-landing-page>.container>.other-page-buttons>.buttons .button>.title{position:absolute;top:32px;left:32px;border-radius:8px;background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:20px;font-weight:600;color:#f5f5f5}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-landing-page/index.js
+  // src/ui/home/vue/components/pages/store/store-landing-page/index.js
   patcher_default.injectCSS(style_default15);
-  var cosmetics_landing_page_default = {
+  var store_landing_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-landing-page",
+        "store-landing-page",
         {
           template: `
-        <div class="acord--cosmetics-landing-page">
+        <div class="acord--store-landing-page">
           <div class="container">
             <div v-if="!!featuredItem" class="featured-container" :style="\`background-image: url('\${featuredItem.image[0]}');\`">
               <div class="name">{{featuredItem.name}}</div>
@@ -5826,22 +5826,22 @@
                 </svg>
               </div>
               <div class="price-card">
-                <cosmetics-price-card :item="featuredItem" />
+                <store-price-card :item="featuredItem" />
               </div>
             </div>
             <div class="other-featured-items">
-              <cosmetics-item-card v-for="item in otherFeaturedItems" :item="item" :key="item.id" />
+              <store-item-card v-for="item in otherFeaturedItems" :item="item" :key="item.id" />
             </div>
             <div class="other-page-buttons">
               <div class="title">
-                {{i18nFormat('COSMETICS_OTHER')}}
+                {{i18nFormat('STORE_OTHER')}}
               </div>
               <div class="buttons">
                 <div class="button items" @click="gotoItemsPage('items')" style="background-image: url('https://media.discordapp.net/attachments/756836048251650079/1106226686527275068/Items.png');">
-                  <div class="title">{{i18nFormat('COSMETICS_ITEMS')}}</div>
+                  <div class="title">{{i18nFormat('STORE_ITEMS')}}</div>
                 </div>
                 <div class="button packs" @click="gotoItemsPage('packs')" style="background-image: url('https://media.discordapp.net/attachments/756836048251650079/1106267998722994196/Packs.png');">
-                  <div class="title">{{i18nFormat('COSMETICS_PACKS')}}</div>
+                  <div class="title">{{i18nFormat('STORE_PACKS')}}</div>
                 </div>
               </div>
             </div>
@@ -5856,7 +5856,7 @@
               otherFeaturedItems: [],
               updateInterval: null,
               switchInterval: null,
-              reactive: cosmetics_data_default.reactive,
+              reactive: store_data_default.reactive,
               ownedFeatures: []
             };
           },
@@ -5871,7 +5871,7 @@
               this.fetchItems();
             }, 6e4 * 60);
             this.switchInterval = setInterval(this.switchFeaturedItem, 5e3);
-            cosmetics_data_default.fetchBalance();
+            store_data_default.fetchBalance();
           },
           unmounted() {
             clearInterval(this.updateInterval);
@@ -5885,7 +5885,7 @@
               this.otherFeaturedItems = data.data.other.sort((a, b) => b.view_order - a.view_order);
             },
             gotoItemsPage(type) {
-              events_default.emit("CosmeticsSubPageChange", { name: "items", data: { type }, hideNav: true });
+              events_default.emit("StoreSubPageChange", { name: "items", data: { type }, hideNav: true });
             },
             updateFeaturedIndex(amount) {
               clearInterval(this.switchInterval);
@@ -5905,73 +5905,73 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-router-page/style.scss
+  // src/ui/home/vue/components/pages/store/store-router-page/style.scss
   var style_default16 = `
-.acord--cosmetics-router-page{display:flex;align-items:center;justify-content:flex-start;flex-direction:column;width:100%;min-height:100vh;background-image:linear-gradient(to bottom, hsl(258deg, 50%, 50%), hsl(290deg, 50%, 50%));padding:32px 16px;gap:16px}.acord--cosmetics-router-page>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-router-page>.nav>.title{font-size:32px;font-weight:600;color:#f5f5f5}`;
+.acord--store-router-page{display:flex;align-items:center;justify-content:flex-start;flex-direction:column;width:100%;min-height:100vh;background-image:linear-gradient(to bottom, hsl(258deg, 50%, 50%), hsl(290deg, 50%, 50%));padding:32px 16px;gap:16px}.acord--store-router-page>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--store-router-page>.nav>.title{font-size:32px;font-weight:600;color:#f5f5f5}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-router-page/index.js
+  // src/ui/home/vue/components/pages/store/store-router-page/index.js
   patcher_default.injectCSS(style_default16);
-  var cosmetics_router_page_default = {
+  var store_router_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-router-page",
+        "store-router-page",
         {
           template: `
-        <div class="acord--cosmetics-router-page">
+        <div class="acord--store-router-page">
           <div v-if="!page.hideNav" class="nav">
-            <div class="title">{{i18nFormat("ACORD_COSMETICS_SHOP")}}</div>
-            <cosmetics-cart-button />
+            <div class="title">{{i18nFormat("ACORD_SHOP")}}</div>
+            <store-cart-button />
           </div>
           <keep-alive>
-            <component :is="\`cosmetics-\${page.name}-page\`" :page-data="page.data" />
+            <component :is="\`store-\${page.name}-page\`" :page-data="page.data" />
           </keep-alive>
         </div>
         `,
           data() {
             return {
               page: { name: "landing", data: {}, hideNav: false },
-              reactive: cosmetics_data_default.reactive
+              reactive: store_data_default.reactive
             };
           },
           mounted() {
-            events_default.on("CosmeticsSubPageChange", this.onCosmeticsSubPageChange);
+            events_default.on("StoreSubPageChange", this.onStoreSubPageChange);
           },
           methods: {
             i18nFormat: i18n_default.format,
-            onCosmeticsSubPageChange({ name: name2, data = {}, hideNav = false } = {}) {
+            onStoreSubPageChange({ name: name2, data = {}, hideNav = false } = {}) {
               this.page = { name: name2, data, hideNav };
               this.$el.scrollIntoView();
             }
           },
           unmounted() {
-            events_default.off("CosmeticsSubPageChange", this.onCosmeticsSubPageChange);
+            events_default.off("StoreSubPageChange", this.onStoreSubPageChange);
           }
         }
       );
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-cart-button/style.scss
+  // src/ui/home/vue/components/pages/store/components/store-cart-button/style.scss
   var style_default17 = `
-.acord--cosmetics-cart-button{display:flex;background-color:rgba(245,245,245,.1);border-radius:4px;display:flex;align-items:center;justify-content:center}.acord--cosmetics-cart-button>.prices{padding:0px 8px;font-size:18px;display:flex;flex-direction:column;align-items:center}.acord--cosmetics-cart-button>.prices>.total{font-size:16px;color:#f5f5f5}.acord--cosmetics-cart-button>.prices>.balance{font-size:14px;color:rgba(245,245,245,.75)}.acord--cosmetics-cart-button>.icon{padding:8px;display:flex;border-radius:4px;background-color:rgba(245,245,245,.25);cursor:pointer;position:relative}.acord--cosmetics-cart-button>.icon .count{display:flex;position:absolute;top:-4px;right:-4px;background-color:#f04747;color:#f5f5f5;border-radius:50%;width:16px;height:16px;font-size:14px;align-items:center;justify-content:center}.acord--cosmetics-cart-button>.icon svg{width:24px;height:24px;color:#f5f5f5}`;
+.acord--store-cart-button{display:flex;background-color:rgba(245,245,245,.1);border-radius:4px;display:flex;align-items:center;justify-content:center}.acord--store-cart-button>.prices{padding:0px 8px;font-size:18px;display:flex;flex-direction:column;align-items:center}.acord--store-cart-button>.prices>.total{font-size:16px;color:#f5f5f5}.acord--store-cart-button>.prices>.balance{font-size:14px;color:rgba(245,245,245,.75)}.acord--store-cart-button>.icon{padding:8px;display:flex;border-radius:4px;background-color:rgba(245,245,245,.25);cursor:pointer;position:relative}.acord--store-cart-button>.icon .count{display:flex;position:absolute;top:-4px;right:-4px;background-color:#f04747;color:#f5f5f5;border-radius:50%;width:16px;height:16px;font-size:14px;align-items:center;justify-content:center}.acord--store-cart-button>.icon svg{width:24px;height:24px;color:#f5f5f5}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-cart-button/index.js
+  // src/ui/home/vue/components/pages/store/components/store-cart-button/index.js
   patcher_default.injectCSS(style_default17);
-  var cosmetics_cart_button_default = {
+  var store_cart_button_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-cart-button",
+        "store-cart-button",
         {
           template: `
-        <div class="acord--cosmetics-cart-button" @click="go">
+        <div class="acord--store-cart-button" @click="go">
           <div class="prices">
             <div class="total">
-              {{i18nFormat("COSMETICS_TOTAL")}}: {{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toLocaleString()}}$
+              {{i18nFormat("STORE_TOTAL")}}: {{reactive.cartItems.reduce((all,i)=>all+i.prices.usd,0).toLocaleString()}}$
             </div>
             <div class="balance">
-              {{i18nFormat("COSMETICS_BALANCE")}}: {{reactive.balance.toLocaleString()}}$
+              {{i18nFormat("STORE_BALANCE")}}: {{reactive.balance.toLocaleString()}}$
             </div>
           </div>
           <div class="icon">
@@ -5984,17 +5984,17 @@
         `,
           data() {
             return {
-              reactive: cosmetics_data_default.reactive
+              reactive: store_data_default.reactive
             };
           },
           mounted() {
-            cosmetics_data_default.fetchBalance();
+            store_data_default.fetchBalance();
           },
           methods: {
             i18nFormat: i18n_default.format,
             go() {
-              events_default.emit("CosmeticsSubPageChange", { name: "cart", data: {}, hideNav: true });
-              cosmetics_data_default.fetchBalance();
+              events_default.emit("StoreSubPageChange", { name: "cart", data: {}, hideNav: true });
+              store_data_default.fetchBalance();
             }
           }
         }
@@ -6002,23 +6002,23 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-item-card/style.scss
+  // src/ui/home/vue/components/pages/store/components/store-item-card/style.scss
   var style_default18 = `
-.acord--cosmetics-item-card{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--cosmetics-item-card .name{position:absolute;top:8px;left:8px;border-radius:4px;max-width:calc(100% - 16px);background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:20px;font-weight:600;color:#f5f5f5}.acord--cosmetics-item-card .price-card{display:flex;position:absolute;bottom:8px;right:8px}`;
+.acord--store-item-card{width:300px;height:150px;border-radius:4px;background-position:center;background-size:contain;background-color:rgba(0,0,0,.25);background-repeat:no-repeat;position:relative}.acord--store-item-card .name{position:absolute;top:8px;left:8px;border-radius:4px;max-width:calc(100% - 16px);background-color:rgba(0,0,0,.5);padding:4px 8px;font-size:20px;font-weight:600;color:#f5f5f5}.acord--store-item-card .price-card{display:flex;position:absolute;bottom:8px;right:8px}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-item-card/index.js
+  // src/ui/home/vue/components/pages/store/components/store-item-card/index.js
   patcher_default.injectCSS(style_default18);
-  var cosmetics_item_card_default = {
+  var store_item_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-item-card",
+        "store-item-card",
         {
           template: `
-          <div class="acord--cosmetics-item-card" :style="\`background-image: url('\${item.image[0]}');\`">
+          <div class="acord--store-item-card" :style="\`background-image: url('\${item.image[0]}');\`">
             <div class="name">{{item.name}}</div>
             <div class="price-card">
-              <cosmetics-price-card :item="item" :small="true" />
+              <store-price-card :item="item" :small="true" />
             </div>
           </div>
         `,
@@ -6028,33 +6028,33 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-old-payment-card/style.scss
+  // src/ui/home/vue/components/pages/store/components/store-old-payment-card/style.scss
   var style_default19 = `
-.acord--cosmetics-old-payment-card{display:flex;flex-direction:column;background-color:rgba(0,0,0,.1);border-radius:4px}.acord--cosmetics-old-payment-card>.top{display:flex;flex-direction:column;background-color:rgba(0,0,0,.1);padding:8px;border-radius:4px;gap:8px}.acord--cosmetics-old-payment-card>.top>.top{display:flex;align-items:center;justify-content:space-between}.acord--cosmetics-old-payment-card>.top>.top>.left{display:flex;flex-direction:column;gap:2px}.acord--cosmetics-old-payment-card>.top>.top>.left .line{font-size:14px;color:#f5f5f5;font-weight:500}.acord--cosmetics-old-payment-card>.top>.top>.right{display:flex;cursor:pointer}.acord--cosmetics-old-payment-card>.top>.top>.right svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-old-payment-card>.top>.bottom{display:flex;align-items:center;justify-content:space-between}.acord--cosmetics-old-payment-card>.top>.bottom>.left{cursor:pointer;display:flex}.acord--cosmetics-old-payment-card>.top>.bottom>.left svg{width:20px;height:20px;color:#f5f5f5}.acord--cosmetics-old-payment-card>.top>.bottom>.right{font-size:16px;color:#f5f5f5;font-weight:500}.acord--cosmetics-old-payment-card>.bottom{padding:8px;display:flex;flex-direction:column;gap:2px}.acord--cosmetics-old-payment-card>.bottom .item{font-size:14px;color:#f5f5f5}`;
+.acord--store-old-payment-card{display:flex;flex-direction:column;background-color:rgba(0,0,0,.1);border-radius:4px}.acord--store-old-payment-card>.top{display:flex;flex-direction:column;background-color:rgba(0,0,0,.1);padding:8px;border-radius:4px;gap:8px}.acord--store-old-payment-card>.top>.top{display:flex;align-items:center;justify-content:space-between}.acord--store-old-payment-card>.top>.top>.left{display:flex;flex-direction:column;gap:2px}.acord--store-old-payment-card>.top>.top>.left .line{font-size:14px;color:#f5f5f5;font-weight:500}.acord--store-old-payment-card>.top>.top>.right{display:flex;cursor:pointer}.acord--store-old-payment-card>.top>.top>.right svg{width:24px;height:24px;color:#f5f5f5}.acord--store-old-payment-card>.top>.bottom{display:flex;align-items:center;justify-content:space-between}.acord--store-old-payment-card>.top>.bottom>.left{cursor:pointer;display:flex}.acord--store-old-payment-card>.top>.bottom>.left svg{width:20px;height:20px;color:#f5f5f5}.acord--store-old-payment-card>.top>.bottom>.right{font-size:16px;color:#f5f5f5;font-weight:500}.acord--store-old-payment-card>.bottom{padding:8px;display:flex;flex-direction:column;gap:2px}.acord--store-old-payment-card>.bottom .item{font-size:14px;color:#f5f5f5}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-old-payment-card/index.js
+  // src/ui/home/vue/components/pages/store/components/store-old-payment-card/index.js
   patcher_default.injectCSS(style_default19);
-  var cosmetics_old_payment_card_default = {
+  var store_old_payment_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-old-payment-card",
+        "store-old-payment-card",
         {
           template: `
-        <div class="acord--cosmetics-old-payment-card">
+        <div class="acord--store-old-payment-card">
           <div class="top">
             <div class="top">
               <div class="left">
-                <div class="line">{{i18nFormat("COSMETICS_NUM_PACKS", item.packs.length)}}</div>
-                <div class="line">{{i18nFormat("COSMETICS_NUM_ITEMS", item.items.length)}}</div>
+                <div class="line">{{i18nFormat("STORE_NUM_PACKS", item.packs.length)}}</div>
+                <div class="line">{{i18nFormat("STORE_NUM_ITEMS", item.items.length)}}</div>
               </div>
               <div class="right">
-                <div v-if="!item.fulfilled" @click="onOldPaymentAction(item)" class="action" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('COSMETICS_GOTO_PAYMENT')">
+                <div v-if="!item.fulfilled" @click="onOldPaymentAction(item)" class="action" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('STORE_GOTO_PAYMENT')">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM12 11H8V13H12V16L16 12L12 8V11Z"></path>
                   </svg>
                 </div>
-                <div v-else class="action" @click="onOldPaymentAction(item)" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('COSMETICS_PAYMENT_DONE')">
+                <div v-else class="action" @click="onOldPaymentAction(item)" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('STORE_PAYMENT_DONE')">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path fill="currentColor" d="M11.602 13.7599L13.014 15.1719L21.4795 6.7063L22.8938 8.12051L13.014 18.0003L6.65 11.6363L8.06421 10.2221L10.189 12.3469L11.6025 13.7594L11.602 13.7599ZM11.6037 10.9322L16.5563 5.97949L17.9666 7.38977L13.014 12.3424L11.6037 10.9322ZM8.77698 16.5873L7.36396 18.0003L1 11.6363L2.41421 10.2221L3.82723 11.6352L3.82604 11.6363L8.77698 16.5873Z"></path>
                   </svg>
@@ -6104,20 +6104,20 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-price-card/style.scss
+  // src/ui/home/vue/components/pages/store/components/store-price-card/style.scss
   var style_default20 = `
-.acord--cosmetics-price-card{display:flex;align-items:center;gap:4px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px}.acord--cosmetics-price-card .text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.acord--cosmetics-price-card .text .usd{font-size:24px;font-weight:600;color:#f5f5f5}.acord--cosmetics-price-card .text .try{font-size:16px;font-weight:500;color:rgba(245,245,245,.75)}.acord--cosmetics-price-card .add-to-cart{cursor:pointer;display:flex}.acord--cosmetics-price-card .add-to-cart svg{width:24px;height:24px;color:#f5f5f5}.acord--cosmetics-price-card .add-to-cart.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-price-card.small{padding:2px 4px}.acord--cosmetics-price-card.small .text .usd{font-size:16px}.acord--cosmetics-price-card.small .text .try{font-size:12px}.acord--cosmetics-price-card.small .add-to-cart svg{width:18px;height:18px}`;
+.acord--store-price-card{display:flex;align-items:center;gap:4px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px}.acord--store-price-card .text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.acord--store-price-card .text .usd{font-size:24px;font-weight:600;color:#f5f5f5}.acord--store-price-card .text .try{font-size:16px;font-weight:500;color:rgba(245,245,245,.75)}.acord--store-price-card .add-to-cart{cursor:pointer;display:flex}.acord--store-price-card .add-to-cart svg{width:24px;height:24px;color:#f5f5f5}.acord--store-price-card .add-to-cart.disabled{opacity:.5;pointer-events:none}.acord--store-price-card.small{padding:2px 4px}.acord--store-price-card.small .text .usd{font-size:16px}.acord--store-price-card.small .text .try{font-size:12px}.acord--store-price-card.small .add-to-cart svg{width:18px;height:18px}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/components/cosmetics-price-card/index.js
+  // src/ui/home/vue/components/pages/store/components/store-price-card/index.js
   patcher_default.injectCSS(style_default20);
-  var cosmetics_price_card_default = {
+  var store_price_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-price-card",
+        "store-price-card",
         {
           template: `
-        <div class="acord--cosmetics-price-card" :class="{'small': small}">
+        <div class="acord--store-price-card" :class="{'small': small}">
           <div class="text">
             <div class="usd">{{item.prices.usd.toFixed(2)}}$</div>
             <div class="try">{{item.prices.try.toFixed(2)}}\u20BA</div>
@@ -6136,7 +6136,7 @@
           props: ["item", "small", "disabled"],
           data() {
             return {
-              reactive: cosmetics_data_default.reactive
+              reactive: store_data_default.reactive
             };
           },
           methods: {
@@ -6154,31 +6154,31 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/components/index.js
+  // src/ui/home/vue/components/pages/store/components/index.js
   var components_default3 = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
-      cosmetics_price_card_default.load(vueApp);
-      cosmetics_old_payment_card_default.load(vueApp);
-      cosmetics_item_card_default.load(vueApp);
-      cosmetics_cart_button_default.load(vueApp);
+      store_price_card_default.load(vueApp);
+      store_old_payment_card_default.load(vueApp);
+      store_item_card_default.load(vueApp);
+      store_cart_button_default.load(vueApp);
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-items-page/style.scss
+  // src/ui/home/vue/components/pages/store/store-items-page/style.scss
   var style_default21 = `
-.acord--cosmetics-items-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--cosmetics-items-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--cosmetics-items-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--cosmetics-items-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--cosmetics-items-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--cosmetics-items-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--cosmetics-items-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--cosmetics-items-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--cosmetics-items-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--cosmetics-items-page .items{width:100%;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}`;
+.acord--store-items-page{display:flex;align-items:flex-start;justify-content:center;width:100%}.acord--store-items-page>.container{width:100%;max-width:1024px;display:flex;flex-direction:column;gap:16px}.acord--store-items-page>.container>.nav{width:100%;max-width:1024px;display:flex;justify-content:space-between;align-items:center;padding:8px}.acord--store-items-page>.container>.nav>.left{display:flex;gap:8px;align-items:center}.acord--store-items-page>.container>.nav>.left>.back{display:flex;align-items:center;justify-content:center;color:#f5f5f5;padding:4px;cursor:pointer;border-radius:50%}.acord--store-items-page>.container>.nav>.left>.back:hover{background-color:rgba(245,245,245,.25)}.acord--store-items-page>.container>.nav>.left>.back svg{width:24px;height:24px}.acord--store-items-page>.container>.nav>.left>.back.disabled{opacity:.5;pointer-events:none}.acord--store-items-page>.container>.nav>.left>.title{font-size:32px;font-weight:600;color:#f5f5f5}.acord--store-items-page .items{width:100%;display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:8px}`;
 
-  // src/ui/home/vue/components/pages/cosmetics/cosmetics-items-page/index.js
+  // src/ui/home/vue/components/pages/store/store-items-page/index.js
   patcher_default.injectCSS(style_default21);
-  var cosmetics_items_page_default = {
+  var store_items_page_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "cosmetics-items-page",
+        "store-items-page",
         {
           template: `
-        <div class="acord--cosmetics-items-page">
+        <div class="acord--store-items-page">
           <div class="container">
             <div class="nav">
               <div class="left">
@@ -6187,12 +6187,12 @@
                     <path fill="currentColor" d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
                   </svg>
                 </div>
-                <div class="title">{{i18nFormat(pageData.type === "items" ? "COSMETICS_ITEMS" : "COSMETICS_PACKS")}}</div>
+                <div class="title">{{i18nFormat(pageData.type === "items" ? "STORE_ITEMS" : "STORE_PACKS")}}</div>
               </div>
-              <cosmetics-cart-button />
+              <store-cart-button />
             </div>
             <div class="items">
-              <cosmetics-item-card v-for="item in items" :item="item" :key="item.id" />
+              <store-item-card v-for="item in items" :item="item" :key="item.id" />
             </div>
           </div>
         </div>
@@ -6225,7 +6225,7 @@
               this.items = data.data;
             },
             goBack() {
-              events_default.emit("CosmeticsSubPageChange", { name: "landing" });
+              events_default.emit("StoreSubPageChange", { name: "landing" });
             }
           }
         }
@@ -6233,14 +6233,14 @@
     }
   };
 
-  // src/ui/home/vue/components/pages/cosmetics/index.js
-  var cosmetics_default = {
+  // src/ui/home/vue/components/pages/store/index.js
+  var store_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
-      cosmetics_landing_page_default.load(vueApp);
-      cosmetics_cart_page_default.load(vueApp);
-      cosmetics_router_page_default.load(vueApp);
-      cosmetics_items_page_default.load(vueApp);
+      store_landing_page_default.load(vueApp);
+      store_cart_page_default.load(vueApp);
+      store_router_page_default.load(vueApp);
+      store_items_page_default.load(vueApp);
       components_default3.load(vueApp);
     }
   };
@@ -6253,8 +6253,8 @@
       home_page_default.load(vueApp);
       extensions_page_default.load(vueApp);
       settings_page_default.load(vueApp);
-      store_page_default.load(vueApp);
-      cosmetics_default.load(vueApp);
+      explore_page_default.load(vueApp);
+      store_default.load(vueApp);
     }
   };
 
@@ -7456,20 +7456,20 @@
     }
   };
 
-  // src/ui/home/vue/components/components/cards/store-extension-card/style.scss
+  // src/ui/home/vue/components/components/cards/explore-extension-card/style.scss
   var style_default29 = `
-.acord--store-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--store-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--store-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--store-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--store-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--store-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--store-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--store-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--store-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--store-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--store-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--store-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--store-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--store-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--store-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--store-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--store-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--store-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
+.acord--explore-extension-card{width:275px;height:250px;display:flex;flex-direction:column;border-radius:4px;contain:content;background-color:rgba(0,0,0,.1);box-shadow:var(--elevation-medium)}.acord--explore-extension-card>.preview{width:100%;height:100px;display:flex;flex-direction:column;justify-content:space-between;align-items:center;background-color:rgba(0,0,0,.1);background-position:center;background-size:cover}.acord--explore-extension-card>.preview>.controls{padding:8px;display:flex;align-items:center;justify-content:space-between;width:100%}.acord--explore-extension-card>.preview>.controls .go{background-color:rgba(0,0,0,.5);box-shadow:0px 0px 4px rgba(0,0,0,.5);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;color:var(--header-primary);font-weight:600;cursor:pointer}.acord--explore-extension-card>.preview>.name-container{display:flex;align-items:center;justify-content:flex-start;color:var(--header-primary);padding:8px;width:100%}.acord--explore-extension-card>.preview>.name-container>.name{font-size:10px;background-color:rgba(0,0,0,.5);padding:4px 8px;border-radius:9999px}.acord--explore-extension-card>.info-container{display:flex;justify-content:space-between;flex-direction:column;padding:8px;height:150px;width:100%}.acord--explore-extension-card>.info-container>.top{display:flex;flex-direction:column;gap:4px;height:100%}.acord--explore-extension-card>.info-container>.top>.name-container{display:flex;align-items:flex-end;gap:4px;width:100%}.acord--explore-extension-card>.info-container>.top>.name-container>.name{font-size:18px;font-weight:500;color:var(--header-primary)}.acord--explore-extension-card>.info-container>.top>.name-container>.version{font-size:12px;font-weight:500;color:var(--header-primary);opacity:.5}.acord--explore-extension-card>.info-container>.top>.description{font-size:14px;font-weight:300;color:var(--header-primary);opacity:.75;width:100%}.acord--explore-extension-card>.info-container>.bottom{display:flex;align-items:flex-start;justify-content:space-between;height:100%}.acord--explore-extension-card>.info-container>.bottom>.left{height:100%;display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-end}.acord--explore-extension-card>.info-container>.bottom>.left>.authors{display:flex;flex-direction:column;gap:4px}.acord--explore-extension-card>.info-container>.bottom>.left>.authors .author{display:flex;align-items:center;border-radius:9999px;background-color:rgba(0,0,0,.1);cursor:pointer}.acord--explore-extension-card>.info-container>.bottom>.left>.authors .author>.image{border-radius:50%;width:18px;height:18px;background-color:var(--brand-500);background-position:center;background-size:cover}.acord--explore-extension-card>.info-container>.bottom>.left>.authors .author>.name{font-size:10px;font-weight:400;color:var(--header-primary);opacity:.75;padding:6px}.acord--explore-extension-card>.info-container>.bottom>.right{height:100%;display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end}.acord--explore-extension-card>.info-container>.bottom>.right>.controls{display:flex;align-items:center;gap:8px}.acord--explore-extension-card>.info-container>.bottom>.right>.controls .control{display:flex;padding:8px;background-color:rgba(0,0,0,.25);border-radius:8px;color:#f5f5f5;cursor:pointer}.acord--explore-extension-card>.info-container>.bottom>.right>.controls .control.disabled{opacity:.5;pointer-events:none}.acord--explore-extension-card>.info-container>.bottom>.right>.controls .control:hover{background-color:rgba(0,0,0,.5)}.acord--explore-extension-card>.info-container>.bottom>.right>.controls .control.uninstall:hover{color:#f23f42}`;
 
-  // src/ui/home/vue/components/components/cards/store-extension-card/index.js
+  // src/ui/home/vue/components/components/cards/explore-extension-card/index.js
   patcher_default.injectCSS(style_default29);
-  var store_extension_card_default = {
+  var explore_extension_card_default = {
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       vueApp.component(
-        "store-extension-card",
+        "explore-extension-card",
         {
           template: `
-          <div class="acord--store-extension-card">
+          <div class="acord--explore-extension-card">
             <div v-if="extension.manifest.about.previews?.length" class="preview" :style="{ backgroundImage: 'url(' + extension.manifest.about.previews[selectedPreview].image + ')' }">
               <div class="controls">
                 <div v-if="extension.manifest.about.previews.length > 1" class="go go-back" @click="goBack">
@@ -7597,7 +7597,7 @@
     /** @param {import("vue").App} vueApp */
     load(vueApp) {
       profile_card_default.load(vueApp);
-      store_extension_card_default.load(vueApp);
+      explore_extension_card_default.load(vueApp);
       installed_extension_card_default.load(vueApp);
       inventory_default.load(vueApp);
     }
@@ -7722,8 +7722,8 @@
               buttonsContainer.appendChild(buildButton("extensions", i18n_default.format("EXTENSIONS"), "", false));
               buttonsContainer.appendChild(buildButton("settings", i18n_default.format("SETTINGS"), "", false));
               buttonsContainer.appendChild(buildButton("inventory", i18n_default.format("INVENTORY"), "inventory-tab-button", false, true));
-              buttonsContainer.appendChild(buildButton("store", i18n_default.format("STORE"), "store-tab-button", false, false));
-              buttonsContainer.appendChild(buildButton("cosmetics-router", i18n_default.format("COSMETICS"), "cosmetics-tab-button", true, true));
+              buttonsContainer.appendChild(buildButton("explore", i18n_default.format("EXPLORE"), "explore-tab-button", false, false));
+              buttonsContainer.appendChild(buildButton("store-router", i18n_default.format("STORE"), "store-tab-button", true, true));
             }
             container.appendChild(buttonsContainer);
           }

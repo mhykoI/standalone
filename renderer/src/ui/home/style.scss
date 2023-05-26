@@ -40,7 +40,7 @@
   &--tabs-tab-button {
     cursor: pointer;
 
-    &.store-tab-button {
+    &.explore-tab-button {
       background-color: var(--status-positive-background);
       color: var(--status-positive-text);
 
@@ -55,7 +55,7 @@
       }
     }
 
-    &.cosmetics-tab-button {
+    &.store-tab-button {
       background-image: linear-gradient(to right, #4900fa, #d100fc) !important;
       color: whitesmoke;
 

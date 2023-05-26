@@ -1,0 +1,64 @@
+.acord--store-price-card {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 4px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+
+    .usd {
+      font-size: 24px;
+      font-weight: 600;
+      color: whitesmoke;
+    }
+
+    .try {
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(245, 245, 245, 0.75);
+    }
+  }
+
+  .add-to-cart {
+    cursor: pointer;
+    display: flex;
+    svg {
+      width: 24px;
+      height: 24px;
+      color: whitesmoke;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  &.small {
+    padding: 2px 4px;
+    .text {
+      .usd {
+        font-size: 16px;
+      }
+
+      .try {
+        font-size: 12px;
+      }
+    }
+
+    .add-to-cart {
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}

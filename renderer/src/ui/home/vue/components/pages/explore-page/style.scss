@@ -1,0 +1,64 @@
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.acord--explore-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 16px;
+
+  .container {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+
+    & > .top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      & > .search {
+        width: 80%;
+      }
+
+      & > .category {
+        width: 20%;
+      }
+
+      & > .refresh {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: whitesmoke;
+        height: 42px;
+        background: #1e1f22;
+        width: 42px;
+        min-width: 42px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &.loading {
+          svg {
+            animation: rotate360 1s linear infinite;
+          }
+        }
+      }
+    }
+
+    & > .bottom {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 16px;
+    }
+  }
+}
