@@ -14,15 +14,15 @@ export default {
         template: `
         <div class="acord--store-landing-page">
           <div class="container">
-            <div v-if="!!featuredItem" class="featured-container" :style="\`background-image: url('\${featuredItem.image[0]}');\`">
+            <div v-if="!!featuredItem" @click="goToFeatured" class="featured-container" :style="\`background-image: url('\${featuredItem.image[0]}');\`">
               <div class="name">{{featuredItem.name}}</div>
               <div class="page">{{mainFeaturedItemIndex + 1}}/{{mainFeaturedItems.length}}</div>
-              <div class="control previous" :class="{'disabled': mainFeaturedItemIndex === 0}" @click="updateFeaturedIndex(-1)">
+              <div class="control previous" :class="{'disabled': mainFeaturedItemIndex === 0}" @click="updateFeaturedIndex(-1, $event)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M10.8284 12.0007L15.7782 16.9504L14.364 18.3646L8 12.0007L14.364 5.63672L15.7782 7.05093L10.8284 12.0007Z"></path>
                 </svg>
               </div>
-              <div class="control next" :class="{'disabled': mainFeaturedItemIndex >= (mainFeaturedItems.length - 1)}" @click="updateFeaturedIndex(1)">
+              <div class="control next" :class="{'disabled': mainFeaturedItemIndex >= (mainFeaturedItems.length - 1)}" @click="updateFeaturedIndex(1, $event)">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M13.1714 12.0007L8.22168 7.05093L9.63589 5.63672L15.9999 12.0007L9.63589 18.3646L8.22168 16.9504L13.1714 12.0007Z"></path>
                 </svg>
@@ -84,10 +84,14 @@ export default {
             this.mainFeaturedItems = data.data.main.sort((a, b) => b.view_order - a.view_order);
             this.otherFeaturedItems = data.data.other.sort((a, b) => b.view_order - a.view_order);
           },
+          goToFeatured() {
+            events.emit("StoreSubPageChange", { name: this.featuredItem.type ?? "single", data: { id: this.featuredItem.id }, hideNav: true });
+          },
           gotoItemsPage(type) {
             events.emit("StoreSubPageChange", { name: "items", data: { type }, hideNav: true });
           },
-          updateFeaturedIndex(amount) {
+          updateFeaturedIndex(amount, e) {
+            e.stopPropagation();
             clearInterval(this.switchInterval);
             this.switchInterval = setInterval(this.switchFeaturedItem, 5000);
             this.mainFeaturedItemIndex += amount;
