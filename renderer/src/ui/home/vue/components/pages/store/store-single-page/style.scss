@@ -1,0 +1,135 @@
+.acord--store-single-page {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+
+  & > .container {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    & > .nav {
+      width: 100%;
+      max-width: 1024px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px;
+
+      & > .left {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        & > .back {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: whitesmoke;
+          padding: 4px;
+          cursor: pointer;
+
+          border-radius: 50%;
+
+          &:hover {
+            background-color: rgba(245, 245, 245, 0.25);
+          }
+
+          svg {
+            width: 24px;
+            height: 24px;
+          }
+
+          &.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+          }
+        }
+
+        & > .title {
+          font-size: 32px;
+          font-weight: 600;
+          color: whitesmoke;
+        }
+      }
+    }
+
+    & > .item {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+      & > .top {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        height: 400px;
+
+        & > .image {
+          width: 100%;
+          height: 100%;
+          border-radius: 8px;
+          background-size: contain;
+          background-position: center;
+          background-repeat: no-repeat;
+          padding: 16px;
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+        }
+      }
+
+      & > .bottom {
+        display: flex;
+        padding: 16px;
+
+        & > .left {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          & > .description {
+            width: 75%;
+            font-size: 18px;
+            color: whitesmoke;
+          }
+        }
+
+        & > .right {
+          width: 250px;
+          min-width: 250px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          & > .avatar {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            width: 128px;
+            height: 128px;
+            min-width: 128px;
+            min-height: 128px;
+            margin-top: 32px;
+
+            &::before {
+              content: "";
+              width: 256px;
+              height: 256px;
+              z-index: 99;
+              background: var(--hat-image) center/cover;
+              transform: translate(-64px, -64px);
+              position: absolute;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

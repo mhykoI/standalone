@@ -2,7 +2,6 @@ import patcher from "../../../../../../../api/patcher/index.js";
 import i18n from "../../../../../../../api/i18n/index.js";
 import cssText from "./style.scss";
 import storeData from "../store-data.js";
-import authentication from "../../../../../../../api/authentication/index.js";
 import events from "../../../../../../../api/events/index.js";
 patcher.injectCSS(cssText);
 
