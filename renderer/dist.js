@@ -6149,7 +6149,7 @@
               e.stopPropagation();
               let idx = this.reactive.cartItems.findIndex((i) => i.id === item.id);
               if (idx === -1) {
-                this.reactive.cartItems.push(JSON.parse(JSON.stringify(item)));
+                this.reactive.cartItems.push({ id: item.id, type: item.type ?? "single" });
               } else {
                 this.reactive.cartItems.splice(idx, 1);
               }
