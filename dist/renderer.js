@@ -7803,7 +7803,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.601";
+  var CURRENT_VERSION = "0.1.602";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -8289,7 +8289,7 @@
     if (!elm)
       return;
     const channel = utils_default.react.getProps(elm, (i) => i?.channel)?.channel;
-    if (!channel)
+    if (!channel?.guild_id)
       return;
     const guildData = await fetchGuildData(channel.guild_id);
     if (!guildData)

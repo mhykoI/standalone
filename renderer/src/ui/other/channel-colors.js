@@ -25,7 +25,7 @@ dom.patch('.title-17SveM', async (innerElm) => {
   let elm = dom.parents(innerElm, 3).pop();
   if (!elm) return;
   const channel = utils.react.getProps(elm, i => i?.channel)?.channel;
-  if (!channel) return;
+  if (!channel?.guild_id) return;
   const guildData = await fetchGuildData(channel.guild_id);
   if (!guildData) return;
   const data = guildData?.channel_colors?.[channel.id];

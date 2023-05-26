@@ -8289,7 +8289,7 @@
     if (!elm)
       return;
     const channel = utils_default.react.getProps(elm, (i) => i?.channel)?.channel;
-    if (!channel)
+    if (!channel?.guild_id)
       return;
     const guildData = await fetchGuildData(channel.guild_id);
     if (!guildData)
