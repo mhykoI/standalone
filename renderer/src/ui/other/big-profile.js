@@ -1,7 +1,6 @@
-import authentication from "../../api/authentication/index.js";
 import dom from "../../api/dom/index.js";
 import utils from "../../api/utils/index.js";
-import fetchFeatures from "./utils/fetch-features.js";
+import { fetchFeatures } from "./utils/fetches.js";
 import { playSpotifyData } from "./utils/spotify.js";
 
 

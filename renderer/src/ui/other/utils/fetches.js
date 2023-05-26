@@ -2,7 +2,7 @@ import authentication from "../../../api/authentication/index.js";
 
 const cache = new Map();
 
-export default async function fetchFeatures(userId) {
+export async function fetchFeatures(userId) {
   if (!authentication.token) return [];
   if (cache.has(userId)) return cache.get(userId).data;
   let req = await fetch(`https://api.acord.app/user/${userId}/profile/inventory`, {
@@ -20,8 +20,20 @@ export default async function fetchFeatures(userId) {
   return data.data.features;
 }
 
+export async function fetchGuildData(guildId) {
+  if (cache.has(guildId)) return cache.get(guildId).data;
+  let req = await fetch(`https://raw.githubusercontent.com/acord-standalone/assets/main/data/guilds/${guildId}.json`, { cache: "no-store" });
+if (!req.ok) {
+  cache.set(guildId, { at: Date.now(), data: null });
+  return null;
+}
+let data = await req.json();
+cache.set(guildId, { at: Date.now(), data });
+return data;
+}
+
 setInterval(() => {
-  for (let [userId, { at }] of cache) {
-    if ((Date.now() - at) > 60000) cache.delete(userId);
+  for (let [key, { at }] of cache) {
+    if ((Date.now() - at) > 60000) cache.delete(key);
   }
 }, 60000);

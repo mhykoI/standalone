@@ -4,7 +4,7 @@ import i18n from "../../api/i18n/index.js";
 import authentication from "../../api/authentication/index.js";
 import utils from "../../api/utils/index.js";
 import ui from "../../api/ui/index.js";
-import fetchFeatures from "./utils/fetch-features.js";
+import { fetchFeatures } from "./utils/fetches.js";
 
 function buildBadge(displayName, sizes, image) {
   let elm = dom.parse(`

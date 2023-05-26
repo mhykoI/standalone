@@ -1,6 +1,4 @@
 import events from "../../api/events";
-import common from "../../api/modules/common";
-
 const injectAcordLogo = async () => {
 
   /** @type {SVGElement} */

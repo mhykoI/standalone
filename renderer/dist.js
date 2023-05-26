@@ -8051,7 +8051,7 @@
   events_default.on("CurrentUserChange", patchWindowActions);
   events_default.on("LocaleChange", patchWindowActions);
 
-  // src/ui/other/utils/fetch-features.js
+  // src/ui/other/utils/fetches.js
   var cache = /* @__PURE__ */ new Map();
   async function fetchFeatures(userId) {
     if (!authentication_default.token)
@@ -8072,10 +8072,22 @@
     cache.set(userId, { at: Date.now(), data: data.data.features });
     return data.data.features;
   }
+  async function fetchGuildData(guildId) {
+    if (cache.has(guildId))
+      return cache.get(guildId).data;
+    let req = await fetch(`https://raw.githubusercontent.com/acord-standalone/assets/main/data/guilds/${guildId}.json`, { cache: "no-store" });
+    if (!req.ok) {
+      cache.set(guildId, { at: Date.now(), data: null });
+      return null;
+    }
+    let data = await req.json();
+    cache.set(guildId, { at: Date.now(), data });
+    return data;
+  }
   setInterval(() => {
-    for (let [userId, { at }] of cache) {
+    for (let [key, { at }] of cache) {
       if (Date.now() - at > 6e4)
-        cache.delete(userId);
+        cache.delete(key);
     }
   }, 6e4);
 
@@ -8252,9 +8264,49 @@
     }
   );
 
+  // src/ui/other/channel-colors.js
+  dom_default.patch(
+    ".content-1gYQeQ",
+    async (elm) => {
+      const channel = utils_default.react.getProps(elm, (i) => i?.channel)?.channel;
+      if (!channel)
+        return;
+      const guildData = await fetchGuildData(channel.guild_id);
+      if (!guildData)
+        return;
+      const data = guildData?.channel_colors?.[channel.id];
+      if (!data)
+        return;
+      if (data.points.length === 1) {
+        elm.style.backgroundColor = `${data.points[0].color}40`;
+      } else {
+        elm.style.backgroundImage = `${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}40${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")})`;
+      }
+    }
+  );
+  dom_default.patch(".title-17SveM", async (innerElm) => {
+    let elm = dom_default.parents(innerElm, 3).pop();
+    if (!elm)
+      return;
+    const channel = utils_default.react.getProps(elm, (i) => i?.channel)?.channel;
+    if (!channel)
+      return;
+    const guildData = await fetchGuildData(channel.guild_id);
+    if (!guildData)
+      return;
+    const data = guildData?.channel_colors?.[channel.id];
+    if (!data)
+      return;
+    if (data.points.length === 1) {
+      elm.style.backgroundColor = `${data.points[0].color}40`;
+    } else {
+      elm.style.backgroundImage = `${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}40${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")})`;
+    }
+  });
+
   // src/ui/other/style.scss
   var style_default32 = `
-.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="120px"]::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userAvatar-3Hwf1F::before,.avatar-2EVtgZ::before,.wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="80px"]::before,.wrapper-3Un6-K[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}`;
+.acord--gradient-name{-webkit-background-clip:text !important;-webkit-text-fill-color:rgba(0,0,0,0) !important}.acord--gradient-mention{width:fit-content}[class*=userText-]>[class*=nickname-]{width:fit-content}.channel-1Shao0 .avatar-1HDIsL::before{content:"";width:64px;height:64px;background:var(--hat-image) center/cover;z-index:99;position:absolute;pointer-events:none}.message-2CShn3.groupStart-3Mlgv1:not(.systemMessage-1H1Z20) .contents-2MsGLg::before{content:"";width:80px;height:80px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-76px, -18px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="120px"]::before{content:"";width:240px;height:240px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-60px, -60px);position:absolute;pointer-events:none}.wrapper-3Un6-K[style*="32px"]::before{content:"";width:64px;height:64px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-16px, -16px);position:absolute;pointer-events:none}.userAvatar-3Hwf1F::before,.avatar-2EVtgZ::before,.wrapper-3Un6-K[style*="24px"]::before{content:"";width:48px;height:48px;z-index:99;background:var(--hat-image) center/cover;transform:translate(-12px, -12px);position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="80px"]::before,.wrapper-3Un6-K[style*="80px"]::before{content:"";width:160px;height:160px;background:var(--hat-image) center/cover;transform:translate(-40px, -40px);z-index:99;position:absolute;pointer-events:none}.avatarWrapper-24Rbpj[style*="40px"]::before{content:"";width:80px;height:80px;background:var(--hat-image) center/cover;transform:translate(-20px, -20px);z-index:99;position:absolute;pointer-events:none}.title-31SJ6t .children-3xh0VB::after{content:none}`;
 
   // src/ui/other/index.js
   patcher_default.injectCSS(style_default32);

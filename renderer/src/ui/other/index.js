@@ -6,6 +6,7 @@ import "./badges";
 import "./colored-name";
 import "./big-profile";
 import "./hats";
+import "./channel-colors";
 
 import styleText from "./style.scss";
 patcher.injectCSS(styleText);

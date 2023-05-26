@@ -1,6 +1,6 @@
 import dom from "../../api/dom/index.js";
 import utils from "../../api/utils/index.js";
-import fetchFeatures from "./utils/fetch-features.js";
+import { fetchFeatures } from "./utils/fetches.js";
 
 async function fetchNameColorsOfUser(userId) {
   return (await fetchFeatures(userId))?.find(i => i.type === "colored_name")?.data;
