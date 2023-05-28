@@ -57,7 +57,7 @@ export default {
                 <div class="controls">
                   <div class="line">
                     <div class="label">{{i18nFormat('BADGE_NAME')}}</div>
-                    <input v-model="badgeName" class="input" type="text" maxlength="64" />
+                    <input v-model="badgeName" class="input" type="text" :class="{error: this.badgeName.length < 3}" maxlength="64" />
                   </div>
                   <div class="line upload">
                     <div class="label">{{i18nFormat('BADGE_IMAGE')}}</div>
@@ -236,7 +236,7 @@ export default {
             file.click();
           },
           badgeNameDebounced: _.debounce(async function () {
-            if (this.settingsLoading || !this.badgeName.trim()) return;
+            if (this.settingsLoading || this.badgeName.length < 3) return;
             this.settingsLoading = true;
             await fetch(
               `https://api.acord.app/feature/custom-badge/${this.feature.feature_id}`,
@@ -277,7 +277,7 @@ export default {
             this.resolvedUser = { id: user.id, avatar: user.avatar, tag: user.tag };
           },
           badgeName(val) {
-            if (this.settingsLoading || !val.trim()) return;
+            if (this.settingsLoading || val.length < 3) return;
             if (this.ignoreUpdateOnce) {
               this.ignoreUpdateOnce = false;
               return;

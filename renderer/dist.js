@@ -5618,7 +5618,7 @@
                 <div class="controls">
                   <div class="line">
                     <div class="label">{{i18nFormat('BADGE_NAME')}}</div>
-                    <input v-model="badgeName" class="input" type="text" maxlength="64" />
+                    <input v-model="badgeName" class="input" type="text" :class="{error: this.badgeName.length < 3}" maxlength="64" />
                   </div>
                   <div class="line upload">
                     <div class="label">{{i18nFormat('BADGE_IMAGE')}}</div>
@@ -5796,7 +5796,7 @@
               file.click();
             },
             badgeNameDebounced: _.debounce(async function() {
-              if (this.settingsLoading || !this.badgeName.trim())
+              if (this.settingsLoading || this.badgeName.length < 3)
                 return;
               this.settingsLoading = true;
               await fetch(
@@ -5838,7 +5838,7 @@
               this.resolvedUser = { id: user.id, avatar: user.avatar, tag: user.tag };
             },
             badgeName(val) {
-              if (this.settingsLoading || !val.trim())
+              if (this.settingsLoading || val.length < 3)
                 return;
               if (this.ignoreUpdateOnce) {
                 this.ignoreUpdateOnce = false;

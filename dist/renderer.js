@@ -5618,7 +5618,7 @@
                 <div class="controls">
                   <div class="line">
                     <div class="label">{{i18nFormat('BADGE_NAME')}}</div>
-                    <input v-model="badgeName" class="input" type="text" maxlength="64" />
+                    <input v-model="badgeName" class="input" type="text" :class="{error: this.badgeName.length < 3}" maxlength="64" />
                   </div>
                   <div class="line upload">
                     <div class="label">{{i18nFormat('BADGE_IMAGE')}}</div>
@@ -5796,7 +5796,7 @@
               file.click();
             },
             badgeNameDebounced: _.debounce(async function() {
-              if (this.settingsLoading || !this.badgeName.trim())
+              if (this.settingsLoading || this.badgeName.length < 3)
                 return;
               this.settingsLoading = true;
               await fetch(
@@ -5838,7 +5838,7 @@
               this.resolvedUser = { id: user.id, avatar: user.avatar, tag: user.tag };
             },
             badgeName(val) {
-              if (this.settingsLoading || !val.trim())
+              if (this.settingsLoading || val.length < 3)
                 return;
               if (this.ignoreUpdateOnce) {
                 this.ignoreUpdateOnce = false;
@@ -8211,7 +8211,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.630";
+  var CURRENT_VERSION = "0.1.631";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
