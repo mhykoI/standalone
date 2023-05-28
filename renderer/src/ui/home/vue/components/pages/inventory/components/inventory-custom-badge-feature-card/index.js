@@ -222,7 +222,7 @@ export default {
 
                 this.isUploading = false;
                 this.settingsLoading = false;
-                
+
                 this.ignoreUpdateOnce = true;
                 events.emit("InventoryFeatureUpdate", { ...this.feature });
               };
@@ -236,7 +236,7 @@ export default {
             file.click();
           },
           badgeNameDebounced: _.debounce(async function () {
-            if (this.settingsLoading) return;
+            if (this.settingsLoading || !this.badgeName.trim()) return;
             this.settingsLoading = true;
             await fetch(
               `https://api.acord.app/feature/custom-badge/${this.feature.feature_id}`,

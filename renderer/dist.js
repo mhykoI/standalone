@@ -5796,7 +5796,7 @@
               file.click();
             },
             badgeNameDebounced: _.debounce(async function() {
-              if (this.settingsLoading)
+              if (this.settingsLoading || !this.badgeName.trim())
                 return;
               this.settingsLoading = true;
               await fetch(
