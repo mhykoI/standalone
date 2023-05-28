@@ -8404,9 +8404,8 @@
     ui_default.vue.components.load(vueApp);
     components_default6.load(vueApp);
     vueApp.mount(baseVueElm);
-    dom_default.patch(".hero-1aNo0v, .hero-1gKM4P", (elm) => {
+    dom_default.patch('[class*="applicationStore-"] [class*="hero-"]', (elm) => {
       let containerElm = dom_default.parents(elm, '[class*="premiumContainer-"]').pop();
-      console.log("UI PATCH", elm, containerElm);
       if (!containerElm)
         return;
       containerElm.replaceChildren(baseVueElm);
