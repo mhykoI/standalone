@@ -23,11 +23,22 @@ function buildBadge(displayName, sizes, image) {
 
 async function fetchBadgesOfUser(userId) {
   let badges = (await Promise.all(
-    (await fetchFeatures(userId)).filter(i => i.type === "badge").map(async i => {
-      let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
-      if (!req.ok) return null;
-      let json = await req.json();
-      return json.data;
+    (await fetchFeatures(userId)).filter(i => i.type.includes("badge")).map(async i => {
+      switch (i.type) {
+        case "badge": {
+          let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
+          if (!req.ok) return null;
+          let json = await req.json();
+          return { name: json.data.display_name, image: json.data.image };
+        }
+        case "custom_badge":
+        case "custom_badge_share": {
+          let req = await fetch(`https://api.acord.app/feature/custom-badge/${i.feature_id}`);
+          if (!req.ok) return null;
+          let json = await req.json();
+          return { name: json.data.badge_name, image: json.data.badge_url };
+        }
+      }
     })
   )).filter(i => i);
   return badges;
@@ -40,7 +51,7 @@ dom.patch(
     if (!user) return;
     const badges = await fetchBadgesOfUser(user.id);
     badges.forEach(badge => {
-      elm.appendChild(buildBadge(i18n.get(badge.display_name), [22, 16], badge.image));
+      elm.appendChild(buildBadge(i18n.get(badge.name), [22, 16], badge.image));
     });
   }
 )
@@ -52,7 +63,7 @@ dom.patch(
     if (!user) return;
     const badges = await fetchBadgesOfUser(user.id);
     badges.forEach(badge => {
-      elm.appendChild(buildBadge(i18n.get(badge.display_name), [22, 16], badge.image));
+      elm.appendChild(buildBadge(i18n.get(badge.name), [22, 16], badge.image));
     });
   }
 )
@@ -64,7 +75,7 @@ dom.patch(
     if (!user) return;
     const badges = await fetchBadgesOfUser(user.id);
     badges.forEach(badge => {
-      elm.appendChild(buildBadge(i18n.get(badge.display_name), [24, 18], badge.image));
+      elm.appendChild(buildBadge(i18n.get(badge.name), [24, 18], badge.image));
     });
   }
 )
@@ -76,7 +87,7 @@ dom.patch(
     if (!user) return;
     const badges = await fetchBadgesOfUser(user.id);
     badges.forEach(badge => {
-      elm.appendChild(buildBadge(i18n.get(badge.display_name), [22, 16], badge.image));
+      elm.appendChild(buildBadge(i18n.get(badge.name), [22, 16], badge.image));
     });
   }
 )

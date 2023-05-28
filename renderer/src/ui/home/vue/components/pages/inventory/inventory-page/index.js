@@ -1,9 +1,9 @@
-import patcher from "../../../../../../api/patcher/index.js";
-import i18n from "../../../../../../api/i18n/index.js";
+import patcher from "../../../../../../../api/patcher/index.js";
+import i18n from "../../../../../../../api/i18n/index.js";
 import cssText from "./style.scss";
-import authentication from "../../../../../../api/authentication/index.js";
-import events from "../../../../../../api/events/index.js";
-import common from "../../../../../../api/modules/common.js";
+import authentication from "../../../../../../../api/authentication/index.js";
+import events from "../../../../../../../api/events/index.js";
+import common from "../../../../../../../api/modules/common.js";
 patcher.injectCSS(cssText);
 
 export default {
@@ -106,11 +106,22 @@ export default {
             }
 
             this.profileCardData.badges = (await Promise.all(
-              this.features.filter(i => i.type === "badge" && i.enabled).map(async i => {
-                let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
-                if (!req.ok) return null;
-                let json = await req.json();
-                return json.data;
+              this.features.filter(i => i.type.includes("badge") && i.enabled).map(async i => {
+                switch (i.type) {
+                  case "badge": {
+                    let req = await fetch(`https://api.acord.app/feature/badge/${i.feature_id}`);
+                    if (!req.ok) return null;
+                    let json = await req.json();
+                    return { name: json.data.display_name, image: json.data.image };
+                  }
+                  case "custom_badge":
+                  case "custom_badge_share": {
+                    let req = await fetch(`https://api.acord.app/feature/custom-badge/${i.feature_id}`);
+                    if (!req.ok) return null;
+                    let json = await req.json();
+                    return { name: json.data.badge_name, image: json.data.badge_url };
+                  }
+                }
               })
             )).filter(i => i);
           },
