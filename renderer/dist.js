@@ -8404,7 +8404,7 @@
     ui_default.vue.components.load(vueApp);
     components_default6.load(vueApp);
     vueApp.mount(baseVueElm);
-    dom_default.patch('[class*="applicationStore-"] [class*="hero-"]', (elm) => {
+    dom_default.patch('[class*="applicationStore-"] [class*="hero-"], [class*="applicationStore-"] [class*="shinyButton-"]', (elm) => {
       let containerElm = dom_default.parents(elm, '[class*="premiumContainer-"]').pop();
       if (!containerElm)
         return;

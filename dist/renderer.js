@@ -8211,7 +8211,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.633";
+  var CURRENT_VERSION = "0.1.634";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -8404,7 +8404,7 @@
     ui_default.vue.components.load(vueApp);
     components_default6.load(vueApp);
     vueApp.mount(baseVueElm);
-    dom_default.patch('[class*="applicationStore-"] [class*="hero-"]', (elm) => {
+    dom_default.patch('[class*="applicationStore-"] [class*="hero-"], [class*="applicationStore-"] [class*="shinyButton-"]', (elm) => {
       let containerElm = dom_default.parents(elm, '[class*="premiumContainer-"]').pop();
       if (!containerElm)
         return;
