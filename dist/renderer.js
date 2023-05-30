@@ -3905,6 +3905,10 @@
             if (actionHandler) {
               actionHandlers.push({
                 name: storeName,
+                __original__: {
+                  actionHandler,
+                  storeDidChange: nodeData.storeDidChange
+                },
                 actionHandler(e) {
                   let actionPatches = out3.__cache__.patches.get(actionName)?.get(storeName);
                   if (e.__original__ || !actionPatches?.size)
@@ -8211,7 +8215,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.634";
+  var CURRENT_VERSION = "0.1.635";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

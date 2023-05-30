@@ -3905,6 +3905,10 @@
             if (actionHandler) {
               actionHandlers.push({
                 name: storeName,
+                __original__: {
+                  actionHandler,
+                  storeDidChange: nodeData.storeDidChange
+                },
                 actionHandler(e) {
                   let actionPatches = out3.__cache__.patches.get(actionName)?.get(storeName);
                   if (e.__original__ || !actionPatches?.size)
