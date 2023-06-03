@@ -8,6 +8,7 @@ import notifications from "./notifications.js";
 import contextMenus from "./contextMenus.js";
 import components from "./components.js";
 import modals from "./modals/index.jsx";
+import dialogs from "./dialogs.js";
 import toasts from "./toasts.js";
 import vue from "./vue/index.js";
 
@@ -18,6 +19,7 @@ export default {
   contextMenus,
   components,
   tooltips,
+  dialogs,
   modals,
   toasts,
   vue

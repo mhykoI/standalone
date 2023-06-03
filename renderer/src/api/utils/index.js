@@ -3,6 +3,7 @@ import logger from "./logger.js";
 import react from "./react.js";
 import spotify from "./spotify.js";
 import { findFunctionNameByStrings } from "../modules/raw/complex-finder.js";
+import internal from "../internal/index.js";
 
 export default {
   logger,
@@ -69,5 +70,8 @@ export default {
   },
   modules: {
     findFunctionNameByStrings
+  },
+  openExternal(url) {
+    internal.openExternal(url);
   }
 }

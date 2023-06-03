@@ -176,7 +176,7 @@ export function patchIPC() {
       const bw = new BrowserWindow(options);
       bw.loadURL(url);
       bw.webContents.on("did-navigate", (_, navigationURL) => {
-        if (navigationURL != closeOnUrl) return;
+        if (!navigationURL.startsWith(closeOnUrl)) return;
         windowInstance.close();
         resolve(bw.id);
       });

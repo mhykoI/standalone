@@ -1394,6 +1394,21 @@
     request
   };
 
+  // src/api/internal/index.js
+  var internal_default = {
+    process: globalThis["<<PRELOAD_KEY>>"].process,
+    isDevToolsOpen: globalThis["<<PRELOAD_KEY>>"].isDevToolsOpen,
+    openExternal(url) {
+      globalThis["<<PRELOAD_KEY>>"].ipcRenderer.send("OpenExternal", url);
+    },
+    showDialog(...args) {
+      return globalThis["<<PRELOAD_KEY>>"].ipcRenderer.invoke("ShowDialog", ...args);
+    },
+    showWindow(...args) {
+      return globalThis["<<PRELOAD_KEY>>"].ipcRenderer.invoke("ShowWindow", ...args);
+    }
+  };
+
   // src/api/utils/index.js
   var utils_default = {
     logger: logger_default,
@@ -1454,6 +1469,9 @@
     },
     modules: {
       findFunctionNameByStrings
+    },
+    openExternal(url) {
+      internal_default.openExternal(url);
     }
   };
 
@@ -3555,6 +3573,24 @@
     }
   };
 
+  // src/api/ui/dialogs.js
+  var showDialog = async (obj) => {
+    return (await internal_default.showDialog(obj))?.data;
+  };
+  var dialogs_default = {
+    show: Object.assign(showDialog, {
+      save(obj) {
+        return showDialog({ mode: "save", ...obj });
+      },
+      message(obj) {
+        return showDialog({ mode: "message", ...obj });
+      },
+      open(obj) {
+        return showDialog({ mode: "open", ...obj });
+      }
+    })
+  };
+
   // src/api/ui/toasts.js
   function getContainer3() {
     const appElm = document.querySelector('[class*="notAppAsidePanel-"]');
@@ -3891,6 +3927,7 @@
     contextMenus: contextMenus_default,
     components: components_default,
     tooltips: tooltips_default,
+    dialogs: dialogs_default,
     modals: modals_default,
     toasts: toasts_default,
     vue: vue_default
@@ -4528,15 +4565,6 @@
       isProcessing = false;
     }
   );
-
-  // src/api/internal/index.js
-  var internal_default = {
-    process: globalThis["<<PRELOAD_KEY>>"].process,
-    isDevToolsOpen: globalThis["<<PRELOAD_KEY>>"].isDevToolsOpen,
-    openExternal(url) {
-      globalThis["<<PRELOAD_KEY>>"].ipcRenderer.send("OpenExternal", url);
-    }
-  };
 
   // src/api/hotkeys/index.js
   var keyObjMap = {
