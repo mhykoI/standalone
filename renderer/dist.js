@@ -7556,7 +7556,7 @@
         props: ["item", "extension"],
         template: `
         <div v-show="item?.visible ?? true" class="acord--config-button acord--config-item">
-          <discord-button @click="onClick" :content="item.value ? i18nFormat(item.value) : '<no-value>'" :width="item?.width ?? '100%'" />
+          <discord-button @click="onClick" :content="item.value ? i18nLocalize(item.value) : ''" :width="item?.width ?? '100%'" />
         </div>
       `,
         methods: {
@@ -7572,7 +7572,7 @@
               }
             );
           },
-          i18nFormat: i18n_default.format
+          i18nLocalize: i18n_default.localize
         }
       });
     }

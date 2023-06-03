@@ -7556,7 +7556,7 @@
         props: ["item", "extension"],
         template: `
         <div v-show="item?.visible ?? true" class="acord--config-button acord--config-item">
-          <discord-button @click="onClick" :content="item.value ? i18nFormat(item.value) : '<no-value>'" :width="item?.width ?? '100%'" />
+          <discord-button @click="onClick" :content="item.value ? i18nLocalize(item.value) : ''" :width="item?.width ?? '100%'" />
         </div>
       `,
         methods: {
@@ -7572,7 +7572,7 @@
               }
             );
           },
-          i18nFormat: i18n_default.format
+          i18nLocalize: i18n_default.localize
         }
       });
     }
@@ -8261,7 +8261,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.647";
+  var CURRENT_VERSION = "0.1.651";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
