@@ -360,7 +360,11 @@ const out = {
           },
         }
 
-        evaluated?.config?.(extensionConfigFuncs);
+        evaluated?.config?.({
+          item: null,
+          data: null,
+          ...extensionConfigFuncs
+        });
 
         const offConfigListener =
           events.on("ExtensionConfigInteraction", (data) => {

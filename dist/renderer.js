@@ -4404,7 +4404,11 @@
               return findInTree(out4.__cache__.config[id], (i) => i.id, { all: true });
             }
           };
-          evaluated?.config?.(extensionConfigFuncs);
+          evaluated?.config?.({
+            item: null,
+            data: null,
+            ...extensionConfigFuncs
+          });
           const offConfigListener = events_default.on("ExtensionConfigInteraction", (data2) => {
             if (data2.extension !== id)
               return;
@@ -8265,7 +8269,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.652";
+  var CURRENT_VERSION = "0.1.653";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

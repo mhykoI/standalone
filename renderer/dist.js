@@ -4404,7 +4404,11 @@
               return findInTree(out4.__cache__.config[id], (i) => i.id, { all: true });
             }
           };
-          evaluated?.config?.(extensionConfigFuncs);
+          evaluated?.config?.({
+            item: null,
+            data: null,
+            ...extensionConfigFuncs
+          });
           const offConfigListener = events_default.on("ExtensionConfigInteraction", (data2) => {
             if (data2.extension !== id)
               return;
