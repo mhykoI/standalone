@@ -8,7 +8,7 @@ export default {
       props: ["item", "extension"],
       template: `
         <div v-show="item?.visible ?? true" class="acord--config-button acord--config-item">
-          <discord-button @click="onClick" :value="i18nFormat(item.value)" :size="item.size" :color="item.color" />
+          <discord-button @click="onClick" :content="item.value ? i18nFormat(item.value) : '<no-value>'" :width="item?.width ?? '100%'" />
         </div>
       `,
       methods: {

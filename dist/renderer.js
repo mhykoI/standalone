@@ -3644,11 +3644,11 @@
     load(vueApp) {
       vueApp.component("discord-button", {
         template: `
-        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow" :class="\`\${color ? \`color\${color[0].toUpperCase()}\${color.slice(1).toLowerCase()}\` : 'colorBrand'} \${size ? \`size\${size[0].toUpperCase()}\${size.slice(1).toLowerCase()}\` : 'sizeMedium'} \${disabled ? "disabled" : ""}\`" @click="onClick">
-          <div class="acord--discord-button-contents">{{value}}</div>
+        <div class="acord--discord-button acord--discord-button-lookFilled acord--discord-button-grow colorBrand sizeMedium" :style="{width}" :class="{disabled}" @click="onClick">
+          <div class="acord--discord-button-contents">{{content}}</div>
         </div>
       `,
-        props: ["value", "size", "color", "disabled"],
+        props: ["content", "disabled", "width"],
         emits: ["click"],
         methods: {
           onClick(e) {
@@ -4348,8 +4348,10 @@
           out4.__cache__.config[id] = Vue.reactive(JSON.parse(JSON.stringify(data.manifest.config)));
           findInTree(out4.__cache__.config[id], (i) => i.id, { all: true }).forEach(
             (i) => {
-              api2.extension.persist.store.settings[i.id] = api2.extension.persist.ghost?.settings?.[i.id] ?? i.default;
-              i.value = api2.extension.persist.ghost?.settings?.[i.id];
+              if (i.type !== "Button") {
+                api2.extension.persist.store.settings[i.id] = api2.extension.persist.ghost?.settings?.[i.id] ?? i.default;
+                i.value = api2.extension.persist.ghost?.settings?.[i.id];
+              }
             }
           );
           let evaluated = out4.evaluate(data.source, api2);
@@ -7526,7 +7528,7 @@
         props: ["item", "extension"],
         template: `
         <div v-show="item?.visible ?? true" class="acord--config-button acord--config-item">
-          <discord-button @click="onClick" :value="i18nFormat(item.value)" :size="item.size" :color="item.color" />
+          <discord-button @click="onClick" :content="item.value ? i18nFormat(item.value) : '<no-value>'" :width="item?.width ?? '100%'" />
         </div>
       `,
         methods: {
@@ -8231,7 +8233,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.639";
+  var CURRENT_VERSION = "0.1.644";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

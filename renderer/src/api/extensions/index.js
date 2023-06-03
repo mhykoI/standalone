@@ -327,8 +327,10 @@ const out = {
         out.__cache__.config[id] = Vue.reactive(JSON.parse(JSON.stringify(data.manifest.config)));
         findInTree(out.__cache__.config[id], (i) => i.id, { all: true }).forEach(
           (i) => {
-            api.extension.persist.store.settings[i.id] = api.extension.persist.ghost?.settings?.[i.id] ?? i.default;
-            i.value = api.extension.persist.ghost?.settings?.[i.id];
+            if (i.type !== "Button") {
+              api.extension.persist.store.settings[i.id] = api.extension.persist.ghost?.settings?.[i.id] ?? i.default;
+              i.value = api.extension.persist.ghost?.settings?.[i.id];
+            }
           }
         );
 
