@@ -4396,6 +4396,15 @@
           api2.extension.persist.on("UPDATE", onPersistUpdate);
           api2.extension.persist.on("DELETE", onPersistUpdate);
           api2.extension.persist.on("SET", onPersistUpdate);
+          const extensionConfigFuncs = {
+            getItem(itemId) {
+              return findInTree(out4.__cache__.config[id], (i) => i.id === itemId);
+            },
+            getItems() {
+              return findInTree(out4.__cache__.config[id], (i) => i.id, { all: true });
+            }
+          };
+          evaluated?.config?.(extensionConfigFuncs);
           const offConfigListener = events_default.on("ExtensionConfigInteraction", (data2) => {
             if (data2.extension !== id)
               return;
@@ -4415,12 +4424,7 @@
             evaluated?.config?.({
               item: data2.item,
               data: data2.data,
-              getItem(itemId) {
-                return findInTree(out4.__cache__.config[id], (i) => i.id === itemId);
-              },
-              getItems() {
-                return findInTree(out4.__cache__.config[id], (i) => i.id, { all: true });
-              },
+              ...extensionConfigFuncs,
               save
             });
           });
@@ -8261,7 +8265,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.651";
+  var CURRENT_VERSION = "0.1.652";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(

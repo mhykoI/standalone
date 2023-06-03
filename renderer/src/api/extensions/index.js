@@ -334,6 +334,8 @@ const out = {
           }
         );
 
+
+
         let evaluated = out.evaluate(data.source, api);
         await evaluated?.load?.();
 
@@ -348,6 +350,18 @@ const out = {
         api.extension.persist.on("UPDATE", onPersistUpdate);
         api.extension.persist.on("DELETE", onPersistUpdate);
         api.extension.persist.on("SET", onPersistUpdate);
+
+        const extensionConfigFuncs = {
+          getItem(itemId) {
+            return findInTree(out.__cache__.config[id], (i) => i.id === itemId);
+          },
+          getItems() {
+            return findInTree(out.__cache__.config[id], (i) => i.id, { all: true });
+          },
+        }
+
+        evaluated?.config?.(extensionConfigFuncs);
+
         const offConfigListener =
           events.on("ExtensionConfigInteraction", (data) => {
             if (data.extension !== id) return;
@@ -365,12 +379,7 @@ const out = {
             evaluated?.config?.({
               item: data.item,
               data: data.data,
-              getItem(itemId) {
-                return findInTree(out.__cache__.config[id], (i) => i.id === itemId);
-              },
-              getItems() {
-                return findInTree(out.__cache__.config[id], (i) => i.id, { all: true });
-              },
+              ...extensionConfigFuncs,
               save
             });
           });
