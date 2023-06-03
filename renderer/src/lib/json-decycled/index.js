@@ -2,7 +2,7 @@
 
 function deCycler(val, config) {
   config = typeof config === 'number' ? { deep: config } : (config || {});
-  config.deep = config.deep || 2048;
+  config.deep = config.deep || 8192;
   return decycleWalker([], [], val, config);
 }
 

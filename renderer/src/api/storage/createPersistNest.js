@@ -1,17 +1,17 @@
 import * as nests from "nests";
-import * as idbKeyval from "idb-keyval";
+import * as idbKeyVal from "idb-keyval";
 import { deCycled, revive } from "../../lib/json-decycled";
 
 export async function createPersistNest(suffix) {
-  let cached = await idbKeyval.get(`AcordStore;${suffix}`);
+  let cached = await idbKeyVal.get(`AcordStore;${suffix}`);
   if (typeof cached == "string") cached = revive(cached);
   const nest = nests.make(cached ?? {});
 
   const save = () => {
     try {
-      idbKeyval.set(`AcordStore;${suffix}`, deCycled({ ...nest.ghost }));
+      idbKeyVal.set(`AcordStore;${suffix}`, deCycled({ ...nest.ghost }));
     } catch {
-      idbKeyval.set(`AcordStore;${suffix}`, deCycled({}));
+      idbKeyVal.set(`AcordStore;${suffix}`, deCycled({}));
     }
   }
 

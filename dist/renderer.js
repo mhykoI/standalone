@@ -2435,9 +2435,6 @@
     hide
   };
 
-  // src/api/storage/createPersistNest.js
-  var nests = __toESM(require_cjs(), 1);
-
   // node_modules/idb-keyval/dist/index.js
   function promisifyRequest(request2) {
     return new Promise((resolve, reject) => {
@@ -2467,6 +2464,12 @@
       return promisifyRequest(store.transaction);
     });
   }
+  function del(key, customStore = defaultGetStore()) {
+    return customStore("readwrite", (store) => {
+      store.delete(key);
+      return promisifyRequest(store.transaction);
+    });
+  }
   function clear(customStore = defaultGetStore()) {
     return customStore("readwrite", (store) => {
       store.clear();
@@ -2477,7 +2480,7 @@
   // src/lib/json-decycled/index.js
   function deCycler(val, config) {
     config = typeof config === "number" ? { deep: config } : config || {};
-    config.deep = config.deep || 2048;
+    config.deep = config.deep || 8192;
     return decycleWalker([], [], val, config);
   }
   function deCycled(val, config) {
@@ -2574,6 +2577,7 @@
   }
 
   // src/api/storage/createPersistNest.js
+  var nests = __toESM(require_cjs(), 1);
   async function createPersistNest(suffix) {
     let cached = await get(`AcordStore;${suffix}`);
     if (typeof cached == "string")
@@ -2646,7 +2650,19 @@
   // src/api/storage/index.js
   var storage_default = {
     createPersistNest,
-    authentication: authentication_default
+    authentication: authentication_default,
+    shared: {
+      async get(key) {
+        let val = await get(`AcordStore;Shared;${key}`);
+        return val ? revive(val) : void 0;
+      },
+      async set(key, val) {
+        return set(`AcordStore;Shared;${key}`, deCycled(val));
+      },
+      async delete(key) {
+        return del(`AcordStore;Shared;${key}`);
+      }
+    }
   };
 
   // src/api/extensions/i18n.js
@@ -8215,7 +8231,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.635";
+  var CURRENT_VERSION = "0.1.639";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
