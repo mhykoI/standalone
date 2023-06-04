@@ -2513,6 +2513,9 @@
     });
   }
 
+  // src/api/storage/createPersistNest.js
+  var nests = __toESM(require_cjs(), 1);
+
   // src/lib/json-decycled/index.js
   function deCycler(val, config) {
     config = typeof config === "number" ? { deep: config } : config || {};
@@ -2613,7 +2616,6 @@
   }
 
   // src/api/storage/createPersistNest.js
-  var nests = __toESM(require_cjs(), 1);
   async function createPersistNest(suffix) {
     let cached = await get(`AcordStore;${suffix}`);
     if (typeof cached == "string")
@@ -2691,13 +2693,13 @@
       async get(key, defaultValue = void 0) {
         let val = await get(`AcordStore;Shared;${key}`);
         if (val === void 0 && defaultValue !== void 0) {
-          await set(`AcordStore;Shared;${key}`, defaultValue);
+          await set(`AcordStore;Shared;${key}`, JSON.stringify(defaultValue));
           return defaultValue;
         }
-        return typeof val !== "undefined" ? revive(val) : defaultValue;
+        return JSON.parse(val || "null");
       },
       async set(key, val) {
-        return set(`AcordStore;Shared;${key}`, deCycled(val));
+        return set(`AcordStore;Shared;${key}`, JSON.stringify(val));
       },
       async delete(key) {
         return del(`AcordStore;Shared;${key}`);

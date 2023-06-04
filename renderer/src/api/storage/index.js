@@ -1,5 +1,4 @@
 import * as idbKeyVal from "idb-keyval";
-import { deCycled, revive } from "../../lib/json-decycled";
 
 import authentication from "../authentication";
 import { createPersistNest } from "./createPersistNest.js";
@@ -12,13 +11,13 @@ export default {
     async get(key, defaultValue = undefined) {
       let val = await idbKeyVal.get(`AcordStore;Shared;${key}`);
       if (val === undefined && defaultValue !== undefined) {
-        await idbKeyVal.set(`AcordStore;Shared;${key}`, defaultValue);
+        await idbKeyVal.set(`AcordStore;Shared;${key}`, JSON.stringify(defaultValue));
         return defaultValue;
       }
-      return typeof val !== "undefined" ? revive(val) : defaultValue;
+      return JSON.parse(val || "null");
     },
     async set(key, val) {
-      return idbKeyVal.set(`AcordStore;Shared;${key}`, deCycled(val));
+      return idbKeyVal.set(`AcordStore;Shared;${key}`, JSON.stringify(val));
     },
     async delete(key) {
       return idbKeyVal.del(`AcordStore;Shared;${key}`);
