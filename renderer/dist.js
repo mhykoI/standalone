@@ -2494,6 +2494,24 @@
       return promisifyRequest(store.transaction);
     });
   }
+  function eachCursor(store, callback) {
+    store.openCursor().onsuccess = function() {
+      if (!this.result)
+        return;
+      callback(this.result);
+      this.result.continue();
+    };
+    return promisifyRequest(store.transaction);
+  }
+  function keys(customStore = defaultGetStore()) {
+    return customStore("readonly", (store) => {
+      if (store.getAllKeys) {
+        return promisifyRequest(store.getAllKeys());
+      }
+      const items = [];
+      return eachCursor(store, (cursor) => items.push(cursor.key)).then(() => items);
+    });
+  }
 
   // src/lib/json-decycled/index.js
   function deCycler(val, config) {
@@ -2683,6 +2701,9 @@
       },
       async delete(key) {
         return del(`AcordStore;Shared;${key}`);
+      },
+      async keys() {
+        return (await keys()).filter((key) => key.startsWith("AcordStore;Shared;")).map((key) => key.replace("AcordStore;Shared;", ""));
       }
     }
   };

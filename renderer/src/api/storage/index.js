@@ -22,6 +22,9 @@ export default {
     },
     async delete(key) {
       return idbKeyVal.del(`AcordStore;Shared;${key}`);
+    },
+    async keys() {
+      return (await idbKeyVal.keys()).filter((key) => key.startsWith("AcordStore;Shared;")).map((key) => key.replace("AcordStore;Shared;", ""));
     }
   }
 };

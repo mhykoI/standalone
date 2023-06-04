@@ -2494,6 +2494,24 @@
       return promisifyRequest(store.transaction);
     });
   }
+  function eachCursor(store, callback) {
+    store.openCursor().onsuccess = function() {
+      if (!this.result)
+        return;
+      callback(this.result);
+      this.result.continue();
+    };
+    return promisifyRequest(store.transaction);
+  }
+  function keys(customStore = defaultGetStore()) {
+    return customStore("readonly", (store) => {
+      if (store.getAllKeys) {
+        return promisifyRequest(store.getAllKeys());
+      }
+      const items = [];
+      return eachCursor(store, (cursor) => items.push(cursor.key)).then(() => items);
+    });
+  }
 
   // src/lib/json-decycled/index.js
   function deCycler(val, config) {
@@ -2683,6 +2701,9 @@
       },
       async delete(key) {
         return del(`AcordStore;Shared;${key}`);
+      },
+      async keys() {
+        return (await keys()).filter((key) => key.startsWith("AcordStore;Shared;")).map((key) => key.replace("AcordStore;Shared;", ""));
       }
     }
   };
@@ -8273,7 +8294,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.654";
+  var CURRENT_VERSION = "0.1.655";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
