@@ -2670,9 +2670,13 @@
     createPersistNest,
     authentication: authentication_default,
     shared: {
-      async get(key) {
+      async get(key, defaultValue = void 0) {
         let val = await get(`AcordStore;Shared;${key}`);
-        return val ? revive(val) : void 0;
+        if (val === void 0 && defaultValue !== void 0) {
+          await set(`AcordStore;Shared;${key}`, defaultValue);
+          return defaultValue;
+        }
+        return typeof val !== "undefined" ? revive(val) : defaultValue;
       },
       async set(key, val) {
         return set(`AcordStore;Shared;${key}`, deCycled(val));
@@ -8269,7 +8273,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.653";
+  var CURRENT_VERSION = "0.1.654";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
