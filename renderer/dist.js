@@ -5235,7 +5235,7 @@
             },
             async resetAcordSharedData() {
               let keys2 = await storage_default.shared.keys();
-              await Promise.all(keys2.map((key) => storage_default.shared.remove(key)));
+              await Promise.all(keys2.map((key) => storage_default.shared.delete(key)));
               modules_default.native.remoteApp.relaunch();
             },
             relaunch() {

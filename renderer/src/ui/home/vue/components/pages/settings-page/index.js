@@ -96,7 +96,7 @@ export default {
           },
           async resetAcordSharedData() {
             let keys = await storage.shared.keys();
-            await Promise.all(keys.map(key => storage.shared.remove(key)));
+            await Promise.all(keys.map(key => storage.shared.delete(key)));
             modules.native.remoteApp.relaunch();
           },
           relaunch() {
