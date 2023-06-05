@@ -5196,6 +5196,19 @@
                   </div>
                 </div>
               </div>
+              <div class="line">
+                <div class="info">
+                  <div class="title">{{i18nFormat('RESET_ACORD_SHARED_DATA')}}</div>
+                  <div class="description">{{i18nFormat('RESET_ACORD_SHARED_DATA_DESCRIPTION')}}</div>
+                </div>
+                <div class="control">
+                  <div class="icon-button" @click="resetAcordSharedData" acord--tooltip-ignore-destroy :acord--tooltip-content="i18nFormat('RESET_ACORD_SHARED_DATA')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                      <path fill="currentColor" d="M5.463 4.433A9.961 9.961 0 0 1 12 2c5.523 0 10 4.477 10 10 0 2.136-.67 4.116-1.81 5.74L17 12h3A8 8 0 0 0 6.46 6.228l-.997-1.795zm13.074 15.134A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12c0-2.136.67-4.116 1.81-5.74L7 12H4a8 8 0 0 0 13.54 5.772l.997 1.795z"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         `,
@@ -5219,6 +5232,11 @@
                 await clear();
                 modules_default.native.remoteApp.relaunch();
               }
+            },
+            async resetAcordSharedData() {
+              let keys2 = await storage_default.shared.keys();
+              await Promise.all(keys2.map((key) => storage_default.shared.remove(key)));
+              modules_default.native.remoteApp.relaunch();
             },
             relaunch() {
               modules_default.native.remoteApp.relaunch();
