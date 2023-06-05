@@ -33,7 +33,7 @@ import api from "./api";
   window.global = window;
   await utils.sleep(100);
   api.unexposedAPI.extensions._init();
-  api.unexposedAPI.actionHandlers.init();
+  api.unexposedAPI.dispatcher.init();
   loadingAnimation.hide();
 
   api.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });

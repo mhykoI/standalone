@@ -6,7 +6,10 @@ import { createPersistNest } from "./createPersistNest.js";
 
 export default {
   createPersistNest,
-  authentication,
+  get authentication() {
+    console.warn("storage.authentication is deprecated. Use acord.authentication instead.");
+    return authentication;
+  },
   shared: {
     async get(key, defaultValue = undefined) {
       let val = await idbKeyVal.get(`AcordStore;Shared;${key}`);

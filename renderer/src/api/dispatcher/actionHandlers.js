@@ -29,39 +29,41 @@ const out = {
                 actionHandler,
                 storeDidChange: nodeData.storeDidChange
               },
-              actionHandler(e) {
+              async actionHandler(e) {
                 let actionPatches = out.__cache__.patches.get(actionName)?.get(storeName);
                 if (e.__original__ || !actionPatches?.size) return actionHandler.call(this, e);
                 let eventObj = {
                   event: e,
                   canceled: false,
+                  original: patch.actionHandler.bind(this),
                   cancel() {
                     this.canceled = true;
                   }
                 }
-                actionPatches.forEach((patch) => {
-                  if (!patch.actionHandler) return;
-                  patch.actionHandler.call(this, eventObj);
-                });
+                for (const patch of actionPatches) {
+                  if (!patch.actionHandler) continue;
+                  await patch.actionHandler.call(this, eventObj);
+                }
                 if (eventObj.canceled) return;
-                actionHandler.call(this, e);
+                return actionHandler.call(this, e);
               },
-              storeDidChange(e) {
+              async storeDidChange(e) {
                 let actionPatches = out.__cache__.patches.get(actionName)?.get(storeName);
                 if (e.__original__ || !actionPatches?.size) return nodeData.storeDidChange.call(this, e);
                 let eventObj = {
                   event: e,
                   canceled: false,
+                  original: patch.storeDidChange.bind(this),
                   cancel() {
                     this.canceled = true;
                   }
                 }
-                actionPatches.forEach((patch) => {
-                  if (!patch.storeDidChange) return;
-                  patch.storeDidChange.call(this, eventObj);
-                });
+                for (const patch of actionPatches) {
+                  if (!patch.storeDidChange) continue;
+                  await patch.storeDidChange.call(this, eventObj);
+                }
                 if (eventObj.canceled) return;
-                nodeData.storeDidChange.call(this, e);
+                return nodeData.storeDidChange.call(this, e);
               }
             });
           }
