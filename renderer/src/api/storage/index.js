@@ -17,7 +17,7 @@ export default {
         await idbKeyVal.set(`AcordStore;Shared;${key}`, JSON.stringify(defaultValue));
         return defaultValue;
       }
-      return JSON.parse(val || "null");
+      return typeof val !== "undefined" ? JSON.parse(val) : undefined;
     },
     async set(key, val) {
       return idbKeyVal.set(`AcordStore;Shared;${key}`, JSON.stringify(val));

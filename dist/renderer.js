@@ -2699,7 +2699,7 @@
           await set(`AcordStore;Shared;${key}`, JSON.stringify(defaultValue));
           return defaultValue;
         }
-        return JSON.parse(val || "null");
+        return typeof val !== "undefined" ? JSON.parse(val) : void 0;
       },
       async set(key, val) {
         return set(`AcordStore;Shared;${key}`, JSON.stringify(val));
@@ -8377,7 +8377,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.661";
+  var CURRENT_VERSION = "0.1.663";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -8897,6 +8897,7 @@
   patcher_default.injectCSS(style_default34);
 
   // src/index.js
+  globalThis.__DEV__ = false;
   (async () => {
     loading_animation_default.show();
     api_default.unexposedAPI.i18n.init();

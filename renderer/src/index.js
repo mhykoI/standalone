@@ -2,6 +2,9 @@ import { waitUntilConnectionOpen } from "./other/utils.js";
 import loadingAnimation from "./other/loading-animation";
 import api from "./api";
 
+// stoopid discord bug fix
+globalThis.__DEV__ = false;
+
 (async () => {
   loadingAnimation.show();
   api.unexposedAPI.i18n.init();

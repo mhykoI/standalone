@@ -2699,7 +2699,7 @@
           await set(`AcordStore;Shared;${key}`, JSON.stringify(defaultValue));
           return defaultValue;
         }
-        return JSON.parse(val || "null");
+        return typeof val !== "undefined" ? JSON.parse(val) : void 0;
       },
       async set(key, val) {
         return set(`AcordStore;Shared;${key}`, JSON.stringify(val));
@@ -8897,6 +8897,7 @@
   patcher_default.injectCSS(style_default34);
 
   // src/index.js
+  globalThis.__DEV__ = false;
   (async () => {
     loading_animation_default.show();
     api_default.unexposedAPI.i18n.init();
