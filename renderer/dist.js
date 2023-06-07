@@ -8919,6 +8919,7 @@
     api_default.unexposedAPI.dom.init();
     api_default.unexposedAPI.authentication.init();
     api_default.unexposedAPI.hotkeys.init();
+    api_default.unexposedAPI.dispatcher.init();
     Object.defineProperty(window, "acord", {
       get() {
         return api_default.exposedAPI;
@@ -8927,7 +8928,6 @@
     window.global = window;
     await utils_default.sleep(100);
     api_default.unexposedAPI.extensions._init();
-    api_default.unexposedAPI.dispatcher.init();
     loading_animation_default.hide();
     api_default.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });
   })();

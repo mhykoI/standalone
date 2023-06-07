@@ -28,6 +28,7 @@ globalThis.__DEV__ = false;
   api.unexposedAPI.dom.init();
   api.unexposedAPI.authentication.init();
   api.unexposedAPI.hotkeys.init();
+  api.unexposedAPI.dispatcher.init();
   Object.defineProperty(window, "acord", {
     get() {
       return api.exposedAPI;
@@ -36,7 +37,6 @@ globalThis.__DEV__ = false;
   window.global = window;
   await utils.sleep(100);
   api.unexposedAPI.extensions._init();
-  api.unexposedAPI.dispatcher.init();
   loadingAnimation.hide();
 
   api.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });

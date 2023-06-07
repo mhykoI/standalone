@@ -8377,7 +8377,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.663";
+  var CURRENT_VERSION = "0.1.664";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -8919,6 +8919,7 @@
     api_default.unexposedAPI.dom.init();
     api_default.unexposedAPI.authentication.init();
     api_default.unexposedAPI.hotkeys.init();
+    api_default.unexposedAPI.dispatcher.init();
     Object.defineProperty(window, "acord", {
       get() {
         return api_default.exposedAPI;
@@ -8927,7 +8928,6 @@
     window.global = window;
     await utils_default.sleep(100);
     api_default.unexposedAPI.extensions._init();
-    api_default.unexposedAPI.dispatcher.init();
     loading_animation_default.hide();
     api_default.unexposedAPI.modules.common.InviteActions.acceptInvite({ inviteKey: "rrtKWh48v9" });
   })();
