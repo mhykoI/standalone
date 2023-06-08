@@ -8377,7 +8377,7 @@
     script.src = "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.47/vue.global.min.js";
     document.head.appendChild(script);
   }
-  var CURRENT_VERSION = "0.1.667";
+  var CURRENT_VERSION = "0.1.668";
   var LATEST_VERSION = CURRENT_VERSION;
   dom_default.patch('a[href="/store"][data-list-item-id$="___nitro"]', (elm) => {
     utils_default.ifExists(
@@ -8774,15 +8774,11 @@
       let data = await fetchNameColorsOfUser(userId);
       if (!data)
         return;
-      data = JSON.parse(JSON.stringify(data));
-      if (elm.classList.contains("mention"))
+      if (elm.classList.contains("mention")) {
+        data = JSON.parse(JSON.stringify(data));
         data.points = data.points.map((i) => ({ ...i, color: `${i.color}4d` }));
-      setColorsForText(elm, data);
-      if (elm.classList.contains("defaultColor-1EVLSt")) {
-        setTimeout(() => {
-          setColorsForText(elm, data);
-        }, 50);
       }
+      setColorsForText(elm, data);
     }
   );
   dom_default.patch(

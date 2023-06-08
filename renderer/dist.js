@@ -8774,15 +8774,11 @@
       let data = await fetchNameColorsOfUser(userId);
       if (!data)
         return;
-      data = JSON.parse(JSON.stringify(data));
-      if (elm.classList.contains("mention"))
+      if (elm.classList.contains("mention")) {
+        data = JSON.parse(JSON.stringify(data));
         data.points = data.points.map((i) => ({ ...i, color: `${i.color}4d` }));
-      setColorsForText(elm, data);
-      if (elm.classList.contains("defaultColor-1EVLSt")) {
-        setTimeout(() => {
-          setColorsForText(elm, data);
-        }, 50);
       }
+      setColorsForText(elm, data);
     }
   );
   dom_default.patch(
