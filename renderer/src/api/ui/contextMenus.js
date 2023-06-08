@@ -13,14 +13,18 @@ let Components = null;
 
 let Actions = null;
 
+let actionsOgModule = null;
+
 (async () => {
   Actions = await (async () => {
-    let ogModule;
+    let moduleId;
     while (true) {
-      ogModule = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window)?.exports;
-      if (ogModule) break;
+      moduleId = Object.entries(webpack.require.m).find(i => i[1]?.toString().includes(`type:"CONTEXT_MENU_OPEN"`))[0];
+      if (moduleId) break;
       await new Promise(r => setTimeout(r, 100));
     }
+    let ogModule = webpack.find((_, idx) => idx == moduleId).exports;
+    actionsOgModule = ogModule;
     const out = finderMap(ogModule, {
       close: ["CONTEXT_MENU_CLOSE"],
       open: ["renderLazy"]
@@ -94,12 +98,11 @@ class MenuPatcher {
   static initialize() {
     if (!isReady) return logger.warn("Unable to load context menu.");
 
-    const moduleToPatch = webpack.filter(m => Object.values(m).some(v => typeof v === "function" && v.toString().includes("CONTEXT_MENU_CLOSE"))).find(m => m.exports !== window).exports;
-    const keyToPatch = Object.keys(moduleToPatch).find(k => moduleToPatch[k]?.length === 3);
+    const keyToPatch = Object.keys(actionsOgModule).find(k => actionsOgModule[k]?.length === 3);
 
     patcher.before(
       keyToPatch,
-      moduleToPatch,
+      actionsOgModule,
       function (methodArgs) {
         const promise = methodArgs[1];
         methodArgs[1] = async function (...args) {
