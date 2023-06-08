@@ -8754,8 +8754,16 @@
   async function fetchNameColorsOfUser(userId) {
     return (await fetchFeatures(userId))?.find((i) => i.type === "colored_name")?.data;
   }
+  function setColorsForText(elm, data) {
+    if (data.points.length === 1) {
+      elm.style.backgroundColor = data.points[0].color;
+    } else {
+      elm.style.backgroundImage = `${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")})`;
+    }
+    elm.classList.add(`acord--gradient-${elm.classList.contains("mention") ? "mention" : "name"}`);
+  }
   dom_default.patch(
-    ".username-3JLfHz, .username-h_Y3Us, .name-2m3Cms > .overflow-1wOqNV, .username-3_PJ5r, .nickname-3P1RuO, .overlayTitleText-3xOA3Q, .mention",
+    ".container-3g15px .defaultColor-1EVLSt, .info-3ddo6z, .name-2m3Cms > .overflow-1wOqNV, .username-h_Y3Us, .mention, .userText-1_v2Cq h1, .username-3JLfHz",
     /** @param {HTMLDivElement} elm */
     async (elm) => {
       if (elm.getAttribute("style"))
@@ -8769,12 +8777,12 @@
       data = JSON.parse(JSON.stringify(data));
       if (elm.classList.contains("mention"))
         data.points = data.points.map((i) => ({ ...i, color: `${i.color}4d` }));
-      if (data.points.length === 1) {
-        elm.style.backgroundColor = data.points[0].color;
-      } else {
-        elm.style.backgroundImage = `${data.type}-gradient(${data.angle}, ${data.points.map((i) => `${i.color}${i.percentage ? ` ${i.percentage}%` : ""}`).join(", ")})`;
+      setColorsForText(elm, data);
+      if (elm.classList.contains("defaultColor-1EVLSt")) {
+        setTimeout(() => {
+          setColorsForText(elm, data);
+        }, 50);
       }
-      elm.classList.add(`acord--gradient-${elm.classList.contains("mention") ? "mention" : "name"}`);
     }
   );
   dom_default.patch(
