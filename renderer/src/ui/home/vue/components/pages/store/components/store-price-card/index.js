@@ -12,8 +12,8 @@ export default {
         template: `
         <div class="acord--store-price-card" :class="{small}">
           <div class="text">
-            <div class="usd">{{item.prices.usd.toFixed(2)}}$</div>
-            <div class="try">{{item.prices.try.toFixed(2)}}₺</div>
+            <div class="big">{{item.prices.try.toFixed(2)}}₺</div>
+            <div class="small">{{item.prices.usd.toFixed(2)}}$</div>
           </div>
           <div class="add-to-cart" @click="addToCart(item, $event)" :class="{'disabled': disabled}">
           <svg v-if="reactive.cartItems.findIndex(i=> i.id === item.id) === -1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

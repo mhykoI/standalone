@@ -7348,7 +7348,7 @@
 
   // src/ui/home/vue/components/pages/store/components/store-price-card/style.scss
   var style_default26 = `
-.acord--store-price-card{display:flex;align-items:center;gap:4px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px}.acord--store-price-card .text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.acord--store-price-card .text .usd{font-size:24px;font-weight:600;color:#f5f5f5}.acord--store-price-card .text .try{font-size:16px;font-weight:500;color:rgba(245,245,245,.75)}.acord--store-price-card .add-to-cart{cursor:pointer;display:flex}.acord--store-price-card .add-to-cart svg{width:24px;height:24px;color:#f5f5f5}.acord--store-price-card .add-to-cart.disabled{opacity:.5;pointer-events:none}.acord--store-price-card.small{padding:2px 4px}.acord--store-price-card.small .text .usd{font-size:16px}.acord--store-price-card.small .text .try{font-size:12px}.acord--store-price-card.small .add-to-cart svg{width:18px;height:18px}`;
+.acord--store-price-card{display:flex;align-items:center;gap:4px;border-radius:4px;background-color:rgba(0,0,0,.5);padding:4px 8px}.acord--store-price-card .text{display:flex;flex-direction:column;align-items:flex-start;gap:2px}.acord--store-price-card .text .big{font-size:24px;font-weight:600;color:#f5f5f5}.acord--store-price-card .text .small{font-size:16px;font-weight:500;color:rgba(245,245,245,.75)}.acord--store-price-card .add-to-cart{cursor:pointer;display:flex}.acord--store-price-card .add-to-cart svg{width:24px;height:24px;color:#f5f5f5}.acord--store-price-card .add-to-cart.disabled{opacity:.5;pointer-events:none}.acord--store-price-card.small{padding:2px 4px}.acord--store-price-card.small .text .usd{font-size:16px}.acord--store-price-card.small .text .try{font-size:12px}.acord--store-price-card.small .add-to-cart svg{width:18px;height:18px}`;
 
   // src/ui/home/vue/components/pages/store/components/store-price-card/index.js
   patcher_default.injectCSS(style_default26);
@@ -7361,8 +7361,8 @@
           template: `
         <div class="acord--store-price-card" :class="{small}">
           <div class="text">
-            <div class="usd">{{item.prices.usd.toFixed(2)}}$</div>
-            <div class="try">{{item.prices.try.toFixed(2)}}\u20BA</div>
+            <div class="big">{{item.prices.try.toFixed(2)}}\u20BA</div>
+            <div class="small">{{item.prices.usd.toFixed(2)}}$</div>
           </div>
           <div class="add-to-cart" @click="addToCart(item, $event)" :class="{'disabled': disabled}">
           <svg v-if="reactive.cartItems.findIndex(i=> i.id === item.id) === -1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
