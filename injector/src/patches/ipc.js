@@ -144,7 +144,7 @@ export function patchIPC() {
     if (!show) return { error: `Invalid mode.`, ok: false };
 
     return {
-      ok: false,
+      ok: true,
       data: await show.apply(dialog, [
         modal && BrowserWindow.fromWebContents(event.sender),
         {
