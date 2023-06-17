@@ -32,7 +32,7 @@ sudo pacman -S nodejs
 ```
 git clone https://github.com/acord-standalone/standalone.git
 ```
-3. Run the `conky-widgets.sh` script to start the widget (forks to background):
+3. Run the `linux-install.sh` script to start the widget (forks to background):
 ```
 cd standalone
 bash linux-install.sh
