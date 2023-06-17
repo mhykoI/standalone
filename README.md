@@ -18,3 +18,22 @@ To inject on Mac and Linux, enter the command `npm i && cd ./renderer && npm i &
 First install Open Asar from [openasar.dev](https://openasar.dev/).
 
 To inject on Windows, enter the command `npm i && cd .\renderer && npm i && cd .. && cd .\injector && npm i && cd .. && cd .\preload && npm i && cd .. && npm run inject:stable` in Acord's main directory.
+
+## Linux
+
+1. Install all required [packages](#packages):
+```
+# Ubuntu
+sudo apt install nodejs
+# Arch
+sudo pacman -S nodejs
+```
+2. Clone the repo:
+```
+git clone https://github.com/acord-standalone/standalone.git
+```
+3. Run the `conky-widgets.sh` script to start the widget (forks to background):
+```
+cd standalone
+bash linux-install.sh
+```
